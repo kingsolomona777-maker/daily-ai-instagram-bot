@@ -9,3 +9,16 @@ def create_content(topic):
     }
 
     return content
+
+
+def check_content(content):
+    title = content["title"]
+    description = content["description"]
+
+    if len(title) < 10:
+        return False
+
+    if len(description) < 30:
+        return False
+
+    return True
