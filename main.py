@@ -1,7 +1,7 @@
 import random
 import json
 from pathlib import Path
-from content_generator import create_content
+from content_generator import create_content, check_content
 
 ideas = [
     "How to prevent blocked drains",
@@ -53,6 +53,10 @@ with open(history_file, "w") as file:
     json.dump(history, file, indent=2)
 
 content = create_content(today_idea)
+if check_content(content):
+    print("✅ Content passed quality check.")
+else:
+    print("❌ Content failed quality check.")
 
 print("🤖 Daily AI Instagram Bot")
 print("Today's content idea:")
