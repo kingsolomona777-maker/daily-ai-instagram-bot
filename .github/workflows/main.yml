@@ -18,3 +18,11 @@ jobs:
 
       - name: Run Python bot
         run: python main.py
+
+      - name: Save bot memory
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content_history.json
+          git diff --cached --quiet || git commit -m "Update content history"
+          git push
