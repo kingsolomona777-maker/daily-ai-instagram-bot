@@ -1,5 +1,15 @@
+import random
 
-print("Hello! 👋")
-print("My name is Daily AI Instagram Bot.")
-print("I am being built from a phone.")
-print("One day, I will create content and manage Instagram automatically.")
+ideas = [
+    "Professional Plumbing Tip",
+    "Water-Saving Tip",
+    "Bathroom Maintenance Tip",
+    "Kitchen Plumbing Tip",
+    "Drainage Maintenance Tip"
+]
+
+today_idea = random.choice(ideas)
+
+print("🤖 Daily AI Instagram Bot")
+print("Today's content idea:")
+print(today_idea)
