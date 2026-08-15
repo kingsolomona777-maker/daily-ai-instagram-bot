@@ -3,11 +3,26 @@ import json
 from pathlib import Path
 
 ideas = [
-    "Professional Plumbing Tip",
-    "Water-Saving Tip",
-    "Bathroom Maintenance Tip",
-    "Kitchen Plumbing Tip",
-    "Drainage Maintenance Tip"
+    "How to prevent blocked drains",
+    "Signs of a hidden water leak",
+    "How to save water at home",
+    "Why low water pressure happens",
+    "How to maintain a water tank",
+    "Common causes of leaking taps",
+    "How to prevent bathroom pipe problems",
+    "Why a toilet may keep running",
+    "How to maintain kitchen drainage",
+    "When to replace old plumbing pipes",
+    "How to detect a leaking toilet",
+    "Common causes of blocked sinks",
+    "Why water pipes make unusual noises",
+    "How to maintain a home water system",
+    "Simple ways to protect plumbing during renovation",
+    "Why proper pipe sizing matters",
+    "Common plumbing mistakes homeowners make",
+    "How to prevent bad smells from drains",
+    "Why professional plumbing installation matters",
+    "Basic plumbing maintenance every homeowner should know"
 ]
 
 history_file = Path("content_history.json")
