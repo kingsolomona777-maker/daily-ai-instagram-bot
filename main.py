@@ -51,7 +51,16 @@ history.append(today_idea)
 with open(history_file, "w") as file:
     json.dump(history, file, indent=2)
 
+content = create_content(today_idea)
+
 print("🤖 Daily AI Instagram Bot")
 print("Today's content idea:")
 print(today_idea)
+print()
+print("Title:")
+print(content["title"])
+print()
+print("Description:")
+print(content["description"])
+print()
 print("Saved to history.")
