@@ -16,7 +16,12 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Install Gemini SDK
+        run: pip install google-genai
+
       - name: Run Python bot
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python main.py
 
       - name: Save bot memory
