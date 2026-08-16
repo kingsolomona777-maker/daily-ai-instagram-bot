@@ -1,4 +1,5 @@
 import os
+import json
 from google import genai
 
 
@@ -17,36 +18,69 @@ Create one original Instagram post based on this topic:
 
 {topic}
 
-Create:
-1. An interesting short title.
-2. A useful caption of about 80-120 words.
-3. A detailed prompt for a realistic Instagram image related to the post.
+Return:
+- title: a short, interesting title
+- caption: a useful Instagram caption of 80-120 words
+- image_prompt: a detailed prompt for a realistic plumbing-related image
 
-The content should be practical, professional, friendly,
+The content must be practical, professional, friendly,
 and easy for ordinary homeowners to understand.
 
 Do not make exaggerated claims.
-Do not copy the topic as the title.
+Do not copy the topic word-for-word as the title.
 Do not use emojis.
 """
 
     interaction = client.interactions.create(
         model="gemini-3.6-flash",
-        input=prompt
+        input=prompt,
+        response_format={
+            "type": "text",
+            "mime_type": "application/json",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "caption": {
+                        "type": "string"
+                    },
+                    "image_prompt": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "title",
+                    "caption",
+                    "image_prompt"
+                ]
+            }
+        }
     )
 
-    text = interaction.output_text.strip()
+    data = json.loads(interaction.output_text)
 
     return {
         "topic": topic,
-        "ai_content": text
+        "title": data["title"],
+        "description": data["caption"],
+        "image_prompt": data["image_prompt"]
     }
 
 
 def check_content(content):
-    text = content["ai_content"]
+    title = content["title"]
+    description = content["description"]
+    image_prompt = content["image_prompt"]
 
-    if len(text) < 100:
+    if len(title) < 10:
+        return False
+
+    if len(description) < 50:
+        return False
+
+    if len(image_prompt) < 30:
         return False
 
     return True
