@@ -17,24 +17,25 @@ Create one original Instagram post based on this topic:
 
 {topic}
 
-Return:
-1. A short, interesting title.
-2. A useful caption of 80-120 words.
-3. A detailed image-generation prompt describing a realistic plumbing-related image.
+Create:
+1. An interesting short title.
+2. A useful caption of about 80-120 words.
+3. A detailed prompt for a realistic Instagram image related to the post.
 
-The content should be practical, professional, friendly, and easy for ordinary homeowners to understand.
+The content should be practical, professional, friendly,
+and easy for ordinary homeowners to understand.
 
-Do not use emojis.
 Do not make exaggerated claims.
-Do not repeat the topic word-for-word as the title.
+Do not copy the topic as the title.
+Do not use emojis.
 """
 
-    response = client.models.generate_content(
-        model="gemini-2.5-flash",
-        contents=prompt
+    interaction = client.interactions.create(
+        model="gemini-3.6-flash",
+        input=prompt
     )
 
-    text = response.text.strip()
+    text = interaction.output_text.strip()
 
     return {
         "topic": topic,
