@@ -1,5 +1,4 @@
 import os
-import base64
 import requests
 
 
@@ -28,8 +27,8 @@ def generate_image(image_prompt, output_file="daily_image.png"):
     payload = {
         "prompt": image_prompt,
         "negative_prompt": (
-            "blurry, distorted plumbing equipment, unrealistic pipes, "
-            "bad anatomy, text, watermark, logo"
+            "blurry, distorted plumbing equipment, "
+            "unrealistic pipes, text, watermark, logo"
         ),
         "height": 1024,
         "width": 1024,
@@ -45,13 +44,7 @@ def generate_image(image_prompt, output_file="daily_image.png"):
 
     response.raise_for_status()
 
-    result = response.json()
-
-    image_base64 = result["result"]["image"]
-
-    image_data = base64.b64decode(image_base64)
-
     with open(output_file, "wb") as image_file:
-        image_file.write(image_data)
+        image_file.write(response.content)
 
     return output_file
