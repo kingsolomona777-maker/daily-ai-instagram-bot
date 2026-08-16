@@ -19,6 +19,22 @@ jobs:
       - name: Install Gemini SDK
         run: pip install google-genai
 
+      - name: Install image dependencies
+        run: pip install requests
+
+      - name: Test Cloudflare image generation
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          python -c "from image_generator import generate_image; generate_image('A realistic professional plumber inspecting a clean modern bathroom water pipe system, professional photography, natural lighting, no text, no logos')"
+
+      - name: Upload test image
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloudflare-test-image
+          path: daily_image.png
+
       - name: Run Python bot
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
