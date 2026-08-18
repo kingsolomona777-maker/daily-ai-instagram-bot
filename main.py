@@ -62,10 +62,27 @@ print("🤖 Daily AI Instagram Bot")
 print("Today's content idea:")
 print(today_idea)
 print()
+
 print("Title:")
 print(content["title"])
 print()
+
 print("Description:")
 print(content["description"])
+print()
+
+print("Image prompt:")
+print(content["image_prompt"])
+print()
+
+print("Generating image...")
+
+image_file = generate_image(
+    content["image_prompt"],
+    "daily_image.png"
+)
+
+print("✅ Image generated successfully.")
+print(f"Image saved as: {image_file}")
 print()
 print("Saved to history.")
