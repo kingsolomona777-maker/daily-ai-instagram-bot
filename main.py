@@ -2,6 +2,7 @@ import random
 import json
 from pathlib import Path
 from content_generator import create_content, check_content
+from image_generator import generate_image
 
 ideas = [
     "How to prevent blocked drains",
