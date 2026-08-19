@@ -14,6 +14,12 @@ def create_content(topic):
     prompt = f"""
 You are a professional plumbing content creator.
 
+Create the image prompt specifically for a vertical 9:16 Instagram composition. 
+Keep the main plumbing subject clearly visible in the center area. 
+Do not place important objects near the extreme left, right, top, or bottom edges. 
+Use realistic professional photography, natural lighting, and a clean uncluttered background. 
+Do not include text, words, logos, watermarks, or labels in the generated image.
+
 Create one original Instagram post based on this topic:
 
 {topic}
