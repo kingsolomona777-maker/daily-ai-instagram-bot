@@ -49,29 +49,37 @@ def generate_image(image_prompt, output_file="daily_image.png"):
 
     return output_file
 
-def make_vertical_image(input_file="daily_image.png",
-                        output_file="instagram_image.png"):
-
+def make_vertical_image(
+    input_file="daily_image.png",
+    output_file="instagram_image.jpg"
+):
     image = Image.open(input_file).convert("RGB")
 
     target_width = 1080
     target_height = 1920
 
-    # Create a blurred background from the original image
-    background = image.resize((target_width, target_height))
-    background = background.filter(ImageFilter.GaussianBlur(25))
+    target_ratio = target_width / target_height
+    image_ratio = image.width / image.height
 
-    # Resize the original image while keeping its proportions
-    foreground = image.copy()
-    foreground.thumbnail((target_width, target_width))
+    if image_ratio > target_ratio:
+        # Image is wider than 9:16 — crop the sides
+        new_width = int(image.height * target_ratio)
+        left = (image.width - new_width) // 2
+        right = left + new_width
+        image = image.crop((left, 0, right, image.height))
+    else:
+        # Image is taller/narrower — crop top and bottom
+        new_height = int(image.width / target_ratio)
+        top = (image.height - new_height) // 2
+        bottom = top + new_height
+        image = image.crop((0, top, image.width, bottom))
 
-    # Center the original image vertically
-    x = (target_width - foreground.width) // 2
-    y = (target_height - foreground.height) // 2
+    image = image.resize(
+        (target_width, target_height),
+        Image.Resampling.LANCZOS
+    )
 
-    background.paste(foreground, (x, y))
-
-    background.save(
+    image.save(
         output_file,
         "JPEG",
         quality=95,
