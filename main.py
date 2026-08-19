@@ -2,7 +2,7 @@ import random
 import json
 from pathlib import Path
 from content_generator import create_content, check_content
-from image_generator import generate_image
+from image_generator import generate_image, make_vertical_image
 
 ideas = [
     "How to prevent blocked drains",
@@ -85,5 +85,13 @@ image_file = generate_image(
 
 print("✅ Image generated successfully.")
 print(f"Image saved as: {image_file}")
+
+vertical_image = make_vertical_image(
+    image_file,
+    "instagram_image.jpg"
+)
+
+print("✅ Instagram image created.")
+print(f"Instagram image saved as: {vertical_image}")
 print()
 print("Saved to history.")
