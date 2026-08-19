@@ -34,7 +34,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: daily-instagram-image
-          path: daily_image.png
+          path: instagram_image.jpg
           
       - name: Save bot memory
         run: |
