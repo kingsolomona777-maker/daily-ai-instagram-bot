@@ -53,7 +53,9 @@ history.append(today_idea)
 with open(history_file, "w") as file:
     json.dump(history, file, indent=2)
 
+# Generate content
 content = create_content(today_idea)
+
 if check_content(content):
     print("✅ Content passed quality check.")
 else:
@@ -76,6 +78,20 @@ print("Image prompt:")
 print(content["image_prompt"])
 print()
 
+# Save the latest content for Instagram publishing
+latest_content = {
+    "idea": today_idea,
+    "title": content["title"],
+    "description": content["description"],
+    "image_prompt": content["image_prompt"]
+}
+
+with open("latest_content.json", "w") as file:
+    json.dump(latest_content, file, indent=2)
+
+print("✅ Latest content saved.")
+
+print()
 print("Generating image...")
 
 image_file = generate_image(
