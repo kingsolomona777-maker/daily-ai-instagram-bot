@@ -16,12 +16,8 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install Gemini SDK
-        run: pip install google-genai
-
-      - name: Install image dependencies
-        run: pip install requests Pillow
-
+      - name: Install dependencies
+        run: pip install google-genai requests Pillow
 
       - name: Run Python bot
         env:
@@ -41,7 +37,7 @@ jobs:
           token = os.environ["INSTAGRAM_ACCESS_TOKEN"]
 
           response = requests.get(
-              "https://graph.instagram.com/me",
+              "https://graph.instagram.com/v25.0/me",
               params={
                   "fields": "id,username",
                   "access_token": token
@@ -55,22 +51,243 @@ jobs:
           response.raise_for_status()
           PY
 
-      - name: Save image to public repository
+      - name: Save image and content to public repository
         run: |
+          DATE=$(date -u +%Y-%m-%d)
+
           mkdir -p daily_images
-          cp instagram_image.jpg daily_images/$(date +%Y-%m-%d).jpg
+          cp instagram_image.jpg "daily_images/${DATE}.jpg"
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add daily_images/
-          git diff --cached --quiet || git commit -m "Add daily Instagram image"
+          git add daily_images/ content_history.json latest_content.json
+
+          git diff --cached --quiet || git commit -m "Add daily Instagram content"
+
           git push
-          
+
+          echo "IMAGE_DATE=${DATE}" >> "$GITHUB_ENV"
+
+      - name: Wait for public GitHub image
+        env:
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          IMAGE_URL="https://raw.githubusercontent.com/${REPOSITORY}/main/daily_images/${IMAGE_DATE}.jpg"
+
+          echo "Checking public image:"
+          echo "$IMAGE_URL"
+
+          for attempt in {1..12}; do
+            STATUS=$(curl -L -s -o /dev/null -w "%{http_code}" "$IMAGE_URL")
+
+            if [ "$STATUS" = "200" ]; then
+              echo "✅ Public image is available."
+              exit 0
+            fi
+
+            echo "Image not available yet. Attempt $attempt/12..."
+            sleep 10
+          done
+
+          echo "❌ GitHub image could not be reached."
+          exit 1
+
+      - name: Create Instagram media container
+        env:
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          python - <<'PY'
+          import os
+          import json
+          import requests
+          from datetime import datetime, timezone
+
+          TOKEN = os.environ["INSTAGRAM_ACCESS_TOKEN"]
+          REPOSITORY = os.environ["REPOSITORY"]
+
+          BASE_URL = "https://graph.instagram.com/v25.0"
+
+          # Get Instagram account
+          me = requests.get(
+              f"{BASE_URL}/me",
+              params={
+                  "fields": "id,username",
+                  "access_token": TOKEN
+              },
+              timeout=30
+          )
+
+          me.raise_for_status()
+          account = me.json()
+
+          IG_USER_ID = account["id"]
+          USERNAME = account.get("username", "")
+
+          print(f"Instagram account: @{USERNAME}")
+          print(f"Instagram ID: {IG_USER_ID}")
+
+          # Load generated content
+          with open("latest_content.json", "r") as file:
+              content = json.load(file)
+
+          title = content["title"].strip()
+          description = content["description"].strip()
+
+          caption = f"{title}\n\n{description}"
+
+          # Instagram caption limit
+          caption = caption[:2200]
+
+          date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+          image_url = (
+              f"https://raw.githubusercontent.com/"
+              f"{REPOSITORY}/main/daily_images/{date}.jpg"
+          )
+
+          print()
+          print("Create Instagram media container")
+          print(f"Image URL: {image_url}")
+
+          response = requests.post(
+              f"{BASE_URL}/{IG_USER_ID}/media",
+              data={
+                  "image_url": image_url,
+                  "caption": caption,
+                  "access_token": TOKEN
+              },
+              timeout=60
+          )
+
+          print("Instagram response:")
+          print(response.text)
+
+          response.raise_for_status()
+
+          creation_id = response.json()["id"]
+
+          print()
+          print("✅ Instagram media container created.")
+          print(f"Container ID: {creation_id}")
+
+          # Save container ID for the next step
+          with open("instagram_container.json", "w") as file:
+              json.dump(
+                  {
+                      "creation_id": creation_id,
+                      "instagram_user_id": IG_USER_ID,
+                      "username": USERNAME
+                  },
+                  file
+              )
+          PY
+
+      - name: Wait for Instagram image processing
+        env:
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+        run: |
+          python - <<'PY'
+          import os
+          import json
+          import time
+          import requests
+
+          TOKEN = os.environ["INSTAGRAM_ACCESS_TOKEN"]
+          BASE_URL = "https://graph.instagram.com/v25.0"
+
+          with open("instagram_container.json", "r") as file:
+              data = json.load(file)
+
+          creation_id = data["creation_id"]
+
+          print("Waiting for Instagram image to finish processing...")
+
+          for attempt in range(1, 31):
+              response = requests.get(
+                  f"{BASE_URL}/{creation_id}",
+                  params={
+                      "fields": "status_code,status",
+                      "access_token": TOKEN
+                  },
+                  timeout=30
+              )
+
+              print(f"Processing check {attempt}/30:")
+              print(response.text)
+
+              response.raise_for_status()
+
+              status = response.json().get("status_code")
+
+              if status == "FINISHED":
+                  print("✅ Instagram image is ready.")
+                  break
+
+              if status in ("ERROR", "EXPIRED"):
+                  raise RuntimeError(
+                      f"Instagram processing failed: {response.text}"
+                  )
+
+              time.sleep(10)
+
+          else:
+              raise RuntimeError(
+                  "Instagram image did not finish processing in time."
+              )
+          PY
+
+      - name: Publish Instagram post
+        env:
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+        run: |
+          python - <<'PY'
+          import os
+          import json
+          import requests
+
+          TOKEN = os.environ["INSTAGRAM_ACCESS_TOKEN"]
+          BASE_URL = "https://graph.instagram.com/v25.0"
+
+          with open("instagram_container.json", "r") as file:
+              data = json.load(file)
+
+          ig_user_id = data["instagram_user_id"]
+          creation_id = data["creation_id"]
+          username = data["username"]
+
+          print("Publishing Instagram post...")
+
+          response = requests.post(
+              f"{BASE_URL}/{ig_user_id}/media_publish",
+              data={
+                  "creation_id": creation_id,
+                  "access_token": TOKEN
+              },
+              timeout=60
+          )
+
+          print("Instagram publish response:")
+          print(response.text)
+
+          response.raise_for_status()
+
+          media_id = response.json()["id"]
+
+          print()
+          print("🎉 INSTAGRAM POST PUBLISHED SUCCESSFULLY! 🎉")
+          print(f"Instagram account: @{username}")
+          print(f"Instagram media ID: {media_id}")
+          PY
+
       - name: Save bot memory
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
           git add content_history.json
+
           git diff --cached --quiet || git commit -m "Update content history"
+
           git push
