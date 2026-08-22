@@ -30,6 +30,31 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: python main.py
 
+      - name: Test Instagram connection
+        env:
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+        run: |
+          python - <<'PY'
+          import os
+          import requests
+
+          token = os.environ["INSTAGRAM_ACCESS_TOKEN"]
+
+          response = requests.get(
+              "https://graph.instagram.com/me",
+              params={
+                  "fields": "id,username",
+                  "access_token": token
+              },
+              timeout=30
+          )
+
+          print("Instagram API response:")
+          print(response.text)
+
+          response.raise_for_status()
+          PY
+
       - name: Save image to public repository
         run: |
           mkdir -p daily_images
