@@ -2,9 +2,8 @@ name: Run Daily AI Bot
 
 on:
   schedule:
-cron: '0 8 * * *'
- workflow_dispatch:
-
+    - cron: '10 3 * * *'
+  workflow_dispatch:
 jobs:
   run-bot:
     runs-on: ubuntu-latest
