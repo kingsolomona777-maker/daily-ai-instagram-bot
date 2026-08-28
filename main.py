@@ -1,8 +1,14 @@
 import random
 import json
 from pathlib import Path
+
 from content_generator import create_content, check_content
 from image_generator import generate_image, make_vertical_image
+
+
+# ============================================================
+# PLUMBING CONTENT IDEAS
+# ============================================================
 
 ideas = [
     "How to prevent blocked drains",
@@ -27,69 +33,155 @@ ideas = [
     "Basic plumbing maintenance every homeowner should know"
 ]
 
-history_file = Path("content_history.json")
 
-# Load previous history
+# ============================================================
+# FILES
+# ============================================================
+
+history_file = Path("content_history.json")
+latest_content_file = Path("latest_content.json")
+
+
+# ============================================================
+# LOAD CONTENT HISTORY
+# ============================================================
+
 if history_file.exists():
-    with open(history_file, "r") as file:
-        history = json.load(file)
+    try:
+        with open(history_file, "r", encoding="utf-8") as file:
+            history = json.load(file)
+
+        if not isinstance(history, list):
+            history = []
+
+    except (json.JSONDecodeError, OSError):
+        history = []
 else:
     history = []
 
-# Find ideas that have not been used
-unused_ideas = [idea for idea in ideas if idea not in history]
 
-# If all ideas have been used, start a new cycle
+# ============================================================
+# FIND UNUSED IDEAS
+# ============================================================
+
+unused_ideas = [
+    idea for idea in ideas
+    if idea not in history
+]
+
+
+# ============================================================
+# START NEW CYCLE WHEN ALL IDEAS ARE USED
+# ============================================================
+
 if not unused_ideas:
+    print("All topics have been used.")
+    print("Starting a new content cycle.")
+
     history = []
     unused_ideas = ideas
 
-# Choose today's idea
+
+# ============================================================
+# SELECT TODAY'S IDEA
+# ============================================================
+
 today_idea = random.choice(unused_ideas)
 
-# Remember today's idea
 history.append(today_idea)
 
-with open(history_file, "w") as file:
-    json.dump(history, file, indent=2)
 
-# Generate content
-content = create_content(today_idea)
+# ============================================================
+# SAVE HISTORY
+# ============================================================
 
-if check_content(content):
-    print("✅ Content passed quality check.")
-else:
-    print("❌ Content failed quality check.")
+with open(history_file, "w", encoding="utf-8") as file:
+    json.dump(history, file, indent=2, ensure_ascii=False)
 
-print("🤖 Daily AI Instagram Bot")
-print("Today's content idea:")
+
+# ============================================================
+# GENERATE CONTENT
+# ============================================================
+
+print()
+print("==========================================")
+print("OROM PLAN1 CONTENT GENERATION")
+print("==========================================")
+print()
+
+print("Today's idea:")
 print(today_idea)
 print()
 
+content = create_content(today_idea)
+
+
+# ============================================================
+# QUALITY CHECK
+# ============================================================
+
+if check_content(content):
+    print("Content passed quality check.")
+else:
+    raise RuntimeError(
+        "Generated content failed quality check."
+    )
+
+
+# ============================================================
+# DISPLAY GENERATED CONTENT
+# ============================================================
+
+print()
 print("Title:")
 print(content["title"])
-print()
 
+print()
 print("Description:")
 print(content["description"])
-print()
 
+print()
 print("Image prompt:")
 print(content["image_prompt"])
-print()
 
-# Save the latest content for Instagram publishing
+print()
+print("Hashtags:")
+print(" ".join(content["hashtags"]))
+
+
+# ============================================================
+# SAVE LATEST CONTENT
+# ============================================================
+
 latest_content = {
     "idea": today_idea,
     "title": content["title"],
     "description": content["description"],
-    "image_prompt": content["image_prompt"]
+    "image_prompt": content["image_prompt"],
+    "hashtags": content["hashtags"]
 }
 
-with open("latest_content.json", "w") as file:
-    json.dump(latest_content, file, indent=2)
 
-print("✅ Latest content saved.")
+with open(
+    latest_content_file,
+    "w",
+    encoding="utf-8"
+) as file:
+    json.dump(
+        latest_content,
+        file,
+        indent=2,
+        ensure_ascii=False
+    )
+
+
+print()
+print("Latest content saved.")
+
+
+# ============================================================
+# GENERATE IMAGE
+# ============================================================
 
 print()
 print("Generating image...")
@@ -99,15 +191,29 @@ image_file = generate_image(
     "daily_image.png"
 )
 
-print("✅ Image generated successfully.")
+print("Image generated successfully.")
 print(f"Image saved as: {image_file}")
+
+
+# ============================================================
+# CREATE INSTAGRAM 9:16 IMAGE
+# ============================================================
 
 vertical_image = make_vertical_image(
     image_file,
     "instagram_image.jpg"
 )
 
-print("✅ Instagram image created.")
-print(f"Instagram image saved as: {vertical_image}")
 print()
-print("Saved to history.")
+print("Instagram image created.")
+print(f"Image saved as: {vertical_image}")
+
+
+# ============================================================
+# COMPLETE
+# ============================================================
+
+print()
+print("==========================================")
+print("OROM PLAN1 CONTENT GENERATION COMPLETE")
+print("==========================================")
