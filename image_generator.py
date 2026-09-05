@@ -1,10 +1,11 @@
 import os
 import requests
-from PIL import Image
+from PIL import Image, ImageStat
 
 
 # ============================================================
 # CLOUDFLARE IMAGE GENERATION
+# TEST 4 - DREAMSHAPER 8 LCM
 # ============================================================
 
 def generate_image(
@@ -31,7 +32,7 @@ def generate_image(
         )
 
     # --------------------------------------------------------
-    # TEST 3 MODEL
+    # DREAMSHAPER 8 LCM
     # --------------------------------------------------------
 
     model = (
@@ -53,69 +54,63 @@ def generate_image(
     }
 
     # --------------------------------------------------------
-    # STRONG NEGATIVE PROMPT
+    # NEGATIVE PROMPT
+    #
+    # Keep this relatively short for the LCM test.
+    # We don't want an enormous negative prompt fighting
+    # against the model.
     # --------------------------------------------------------
 
     negative_prompt = (
-        "cartoon, illustration, anime, painting, drawing, "
-        "3d render, CGI, computer graphics, game graphics, "
-        "plastic looking, artificial looking, fake photograph, "
-        "unrealistic plumbing, impossible plumbing, "
-        "incorrect plumbing geometry, malformed plumbing, "
-        "warped plumbing, twisted pipes, bent pipes, "
-        "impossible pipe connections, disconnected pipes, "
-        "floating pipes, duplicated pipes, extra pipes, "
-        "duplicate toilet, duplicate faucet, duplicate sink, "
-        "duplicate plumbing fixtures, "
-        "deformed toilet, malformed toilet, "
-        "warped toilet bowl, duplicated toilet seat, "
-        "multiple toilet lids, multiple toilet bowls, "
-        "impossible toilet structure, "
-        "deformed faucet, malformed faucet, "
-        "duplicate faucet handles, "
-        "incorrect water outlet, "
-        "water coming from wrong location, "
-        "floating water, impossible water flow, "
-        "duplicate water streams, "
-        "deformed hands, malformed hands, "
-        "extra fingers, missing fingers, fused fingers, "
-        "extra arms, extra limbs, disconnected arms, "
-        "unnatural human anatomy, distorted face, "
-        "deformed body, unnatural pose, "
-        "bad proportions, artificial skin, "
-        "blurry, low detail, low quality, pixelated, "
-        "overprocessed, oversharpened, "
-        "text, words, letters, numbers, "
-        "labels, signs, logo, watermark, "
-        "brand name, caption, advertisement, poster, "
-        "social media graphic, UI"
+        "cartoon, anime, illustration, painting, "
+        "3d render, CGI, game graphics, "
+        "unrealistic plumbing, impossible geometry, "
+        "warped pipes, twisted pipes, floating pipes, "
+        "duplicate objects, duplicate plumbing fixtures, "
+        "deformed toilet, malformed faucet, "
+        "incorrect water flow, "
+        "deformed hands, extra fingers, extra limbs, "
+        "bad anatomy, distorted face, "
+        "text, letters, numbers, labels, signs, "
+        "logo, watermark, advertisement, poster, "
+        "blurry, pixelated, low quality"
     )
 
     # --------------------------------------------------------
-    # TRUE 9:16 GENERATION
+    # GENERATION SETTINGS
+    #
+    # DreamShaper 8 LCM model card uses:
+    # 15 inference steps
+    # guidance scale 2
+    #
+    # Both dimensions are divisible by 8.
+    # 864 x 1536 is exactly 9:16.
     # --------------------------------------------------------
 
     width = 864
     height = 1536
+
+    num_steps = 15
+    guidance = 2.0
 
     payload = {
         "prompt": image_prompt,
         "negative_prompt": negative_prompt,
         "height": height,
         "width": width,
-        "num_steps": 12,
-        "guidance": 7.0
+        "num_steps": num_steps,
+        "guidance": guidance
     }
 
     print()
     print("==========================================")
-    print("CLOUDFLARE IMAGE GENERATION - TEST 3")
+    print("CLOUDFLARE IMAGE GENERATION - TEST 4")
     print("==========================================")
     print(f"Model: {model}")
     print(f"Generation size: {width} x {height}")
     print("Aspect ratio: 9:16")
-    print("Diffusion steps: 12")
-    print("Guidance: 7.0")
+    print(f"Diffusion steps: {num_steps}")
+    print(f"Guidance: {guidance}")
     print()
     print("Requesting image from Cloudflare AI...")
     print()
@@ -146,6 +141,10 @@ def generate_image(
             "Cloudflare returned an empty image response."
         )
 
+    # --------------------------------------------------------
+    # SAVE GENERATED IMAGE
+    # --------------------------------------------------------
+
     with open(
         output_file,
         "wb"
@@ -156,7 +155,7 @@ def generate_image(
         )
 
     # --------------------------------------------------------
-    # VERIFY IMAGE
+    # VERIFY THAT CLOUDFLARE RETURNED AN IMAGE
     # --------------------------------------------------------
 
     try:
@@ -178,7 +177,106 @@ def generate_image(
         "Cloudflare image generated successfully."
     )
 
+    # --------------------------------------------------------
+    # BASIC BLANK/WHITE IMAGE PROTECTION
+    #
+    # This prevents an obviously broken image from continuing
+    # through the Instagram publishing pipeline.
+    # --------------------------------------------------------
+
+    check_generated_image(
+        output_file
+    )
+
     return output_file
+
+
+# ============================================================
+# IMAGE QUALITY SAFETY CHECK
+# ============================================================
+
+def check_generated_image(
+    image_file
+):
+
+    print()
+    print(
+        "Checking generated image quality..."
+    )
+
+    image = Image.open(
+        image_file
+    ).convert("RGB")
+
+    # Resize for a fast statistical check.
+    sample = image.resize(
+        (
+            100,
+            100
+        )
+    )
+
+    stat = ImageStat.Stat(
+        sample
+    )
+
+    mean_rgb = stat.mean
+
+    average_brightness = (
+        sum(mean_rgb) / 3
+    )
+
+    # Count pixels that are extremely close to white.
+    pixels = list(
+        sample.getdata()
+    )
+
+    near_white_pixels = 0
+
+    for pixel in pixels:
+
+        r, g, b = pixel
+
+        if (
+            r >= 245
+            and g >= 245
+            and b >= 245
+        ):
+            near_white_pixels += 1
+
+    near_white_percentage = (
+        near_white_pixels
+        / len(pixels)
+        * 100
+    )
+
+    print(
+        f"Average brightness: "
+        f"{average_brightness:.2f}"
+    )
+
+    print(
+        f"Near-white pixels: "
+        f"{near_white_percentage:.2f}%"
+    )
+
+    # --------------------------------------------------------
+    # REJECT OBVIOUSLY BLANK IMAGE
+    # --------------------------------------------------------
+
+    if (
+        average_brightness >= 248
+        and near_white_percentage >= 97
+    ):
+
+        raise RuntimeError(
+            "Generated image appears to be almost completely "
+            "white or blank. Instagram publishing stopped."
+        )
+
+    print(
+        "Image passed basic blank-image check."
+    )
 
 
 # ============================================================
@@ -216,7 +314,7 @@ def make_vertical_image(
     )
 
     # --------------------------------------------------------
-    # CROP ONLY IF NECESSARY
+    # ADJUST RATIO IF NECESSARY
     # --------------------------------------------------------
 
     if abs(
@@ -228,6 +326,9 @@ def make_vertical_image(
         )
 
         if image_ratio > target_ratio:
+
+            # Image is too wide.
+            # Crop left and right.
 
             new_width = int(
                 image.height * target_ratio
@@ -251,6 +352,9 @@ def make_vertical_image(
             )
 
         else:
+
+            # Image is too tall.
+            # Crop top and bottom.
 
             new_height = int(
                 image.width / target_ratio
@@ -286,7 +390,7 @@ def make_vertical_image(
     )
 
     # --------------------------------------------------------
-    # SAVE JPEG
+    # SAVE FINAL JPEG
     # --------------------------------------------------------
 
     image.save(
@@ -296,9 +400,14 @@ def make_vertical_image(
         optimize=True
     )
 
+    print()
     print(
         f"Instagram image saved: "
         f"{target_width} x {target_height}"
+    )
+
+    print(
+        "Final aspect ratio: 9:16"
     )
 
     print(
