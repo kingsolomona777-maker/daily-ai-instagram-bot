@@ -1,11 +1,12 @@
 import os
+import base64
 import requests
 from PIL import Image, ImageStat
 
 
 # ============================================================
 # CLOUDFLARE IMAGE GENERATION
-# TEST 4 - DREAMSHAPER 8 LCM
+# TEST 5 - FLUX.1 SCHNELL
 # ============================================================
 
 def generate_image(
@@ -32,12 +33,12 @@ def generate_image(
         )
 
     # --------------------------------------------------------
-    # DREAMSHAPER 8 LCM
+    # FLUX.1 SCHNELL
     # --------------------------------------------------------
 
     model = (
-        "@cf/lykon/"
-        "dreamshaper-8-lcm"
+        "@cf/black-forest-labs/"
+        "flux-1-schnell"
     )
 
     url = (
@@ -54,65 +55,125 @@ def generate_image(
     }
 
     # --------------------------------------------------------
-    # NEGATIVE PROMPT
+    # FLUX PROMPT
     #
-    # Keep this relatively short for the LCM test.
-    # We don't want an enormous negative prompt fighting
-    # against the model.
+    # FLUX.1 Schnell does not use the same negative_prompt
+    # parameter as our previous Stable Diffusion models.
+    #
+    # Therefore the important physical constraints are placed
+    # directly into the positive prompt.
     # --------------------------------------------------------
 
-    negative_prompt = (
-        "cartoon, anime, illustration, painting, "
-        "3d render, CGI, game graphics, "
-        "unrealistic plumbing, impossible geometry, "
-        "warped pipes, twisted pipes, floating pipes, "
-        "duplicate objects, duplicate plumbing fixtures, "
-        "deformed toilet, malformed faucet, "
-        "incorrect water flow, "
-        "deformed hands, extra fingers, extra limbs, "
-        "bad anatomy, distorted face, "
-        "text, letters, numbers, labels, signs, "
-        "logo, watermark, advertisement, poster, "
-        "blurry, pixelated, low quality"
-    )
+    flux_prompt = f"""
+Create a highly realistic professional photograph for a
+professional residential plumbing Instagram account.
+
+SUBJECT:
+{image_prompt}
+
+PHYSICAL ACCURACY IS EXTREMELY IMPORTANT.
+
+The plumbing equipment must look physically real and correctly
+assembled.
+
+Show:
+- correct plumbing geometry
+- realistic pipe proportions
+- correctly connected fittings
+- believable joints
+- realistic PVC or metal materials
+- realistic household construction
+- physically possible plumbing arrangement
+- natural perspective
+- realistic shadows
+- realistic reflections
+- realistic textures
+
+There must be ONE coherent plumbing system.
+
+Do not invent additional plumbing fixtures.
+
+Do not duplicate the main plumbing object.
+
+Do not merge separate objects together.
+
+Do not create impossible connections.
+
+If pipes are shown, each pipe must have a believable beginning
+and ending point.
+
+If a P-trap is shown, it must be ONE correctly shaped continuous
+P-trap with realistic connections.
+
+If a faucet is shown, it must be ONE correctly assembled faucet.
+
+If a toilet is shown, it must be ONE physically correct toilet
+with one bowl, one seat and one lid.
+
+Avoid people and human hands unless they are absolutely necessary
+for the subject.
+
+The image should look like a real photograph taken by a
+professional photographer, not digital art, CGI or a 3D render.
+
+Use realistic residential materials and natural lighting.
+
+COMPOSITION:
+
+Create a vertical-friendly composition.
+
+Keep the main plumbing subject large, clearly visible and near
+the center of the image.
+
+Keep important plumbing components away from the extreme edges.
+
+Do not crop the main subject.
+
+Do not leave excessive empty space.
+
+The image must remain clear and understandable on a smartphone.
+
+IMAGE STYLE:
+
+photorealistic professional plumbing photography,
+realistic materials, realistic proportions, natural lighting,
+natural shadows, realistic depth of field, sharp subject,
+believable residential environment.
+
+ABSOLUTELY NO:
+text, words, letters, numbers, labels, logos, watermarks,
+advertisements, posters, UI graphics, cartoon appearance,
+anime appearance, illustration, painting, CGI appearance,
+3D-render appearance, duplicated objects, impossible geometry,
+floating objects, melted objects, warped plumbing,
+extra plumbing fixtures.
+
+Generate ONE coherent realistic photograph.
+"""
 
     # --------------------------------------------------------
-    # GENERATION SETTINGS
-    #
-    # DreamShaper 8 LCM model card uses:
-    # 15 inference steps
-    # guidance scale 2
-    #
-    # Both dimensions are divisible by 8.
-    # 864 x 1536 is exactly 9:16.
+    # FLUX.1 SCHNELL SETTINGS
     # --------------------------------------------------------
 
-    width = 864
-    height = 1536
-
-    num_steps = 15
-    guidance = 2.0
+    steps = 8
 
     payload = {
-        "prompt": image_prompt,
-        "negative_prompt": negative_prompt,
-        "height": height,
-        "width": width,
-        "num_steps": num_steps,
-        "guidance": guidance
+        "prompt": flux_prompt,
+        "steps": steps
     }
 
     print()
     print("==========================================")
-    print("CLOUDFLARE IMAGE GENERATION - TEST 4")
+    print("CLOUDFLARE IMAGE GENERATION - TEST 5")
     print("==========================================")
     print(f"Model: {model}")
-    print(f"Generation size: {width} x {height}")
-    print("Aspect ratio: 9:16")
-    print(f"Diffusion steps: {num_steps}")
-    print(f"Guidance: {guidance}")
+    print("Generation model: FLUX.1 Schnell")
+    print(f"Steps: {steps}")
+    print("Output will be prepared as 9:16")
     print()
-    print("Requesting image from Cloudflare AI...")
+    print(
+        "Requesting image from Cloudflare AI..."
+    )
     print()
 
     response = requests.post(
@@ -121,6 +182,10 @@ def generate_image(
         json=payload,
         timeout=180
     )
+
+    # --------------------------------------------------------
+    # API ERROR
+    # --------------------------------------------------------
 
     if not response.ok:
 
@@ -135,14 +200,80 @@ def generate_image(
 
         response.raise_for_status()
 
-    if not response.content:
+    # --------------------------------------------------------
+    # READ CLOUDFLARE RESPONSE
+    # --------------------------------------------------------
+
+    try:
+
+        data = response.json()
+
+    except Exception as error:
 
         raise RuntimeError(
-            "Cloudflare returned an empty image response."
+            "Cloudflare returned an invalid JSON response."
+        ) from error
+
+    # --------------------------------------------------------
+    # CHECK API SUCCESS
+    # --------------------------------------------------------
+
+    if data.get("success") is False:
+
+        raise RuntimeError(
+            "Cloudflare AI reported a failed generation:\n"
+            + str(data)
+        )
+
+    result = data.get(
+        "result"
+    )
+
+    if not isinstance(
+        result,
+        dict
+    ):
+
+        raise RuntimeError(
+            "Cloudflare response did not contain "
+            "a valid result object."
         )
 
     # --------------------------------------------------------
-    # SAVE GENERATED IMAGE
+    # FLUX IMAGE IS BASE64
+    # --------------------------------------------------------
+
+    image_base64 = result.get(
+        "image"
+    )
+
+    if not image_base64:
+
+        raise RuntimeError(
+            "Cloudflare FLUX response did not contain "
+            "the generated image."
+        )
+
+    try:
+
+        image_bytes = base64.b64decode(
+            image_base64
+        )
+
+    except Exception as error:
+
+        raise RuntimeError(
+            "Could not decode the FLUX image."
+        ) from error
+
+    if not image_bytes:
+
+        raise RuntimeError(
+            "Cloudflare returned an empty decoded image."
+        )
+
+    # --------------------------------------------------------
+    # SAVE IMAGE
     # --------------------------------------------------------
 
     with open(
@@ -151,11 +282,15 @@ def generate_image(
     ) as image_file:
 
         image_file.write(
-            response.content
+            image_bytes
         )
 
+    print(
+        "FLUX image decoded and saved successfully."
+    )
+
     # --------------------------------------------------------
-    # VERIFY THAT CLOUDFLARE RETURNED AN IMAGE
+    # VERIFY IMAGE
     # --------------------------------------------------------
 
     try:
@@ -169,19 +304,15 @@ def generate_image(
     except Exception as error:
 
         raise RuntimeError(
-            "Cloudflare returned data that is not a valid image."
+            "FLUX returned data that is not a valid image."
         ) from error
 
-    print()
     print(
-        "Cloudflare image generated successfully."
+        "Generated file passed image validation."
     )
 
     # --------------------------------------------------------
-    # BASIC BLANK/WHITE IMAGE PROTECTION
-    #
-    # This prevents an obviously broken image from continuing
-    # through the Instagram publishing pipeline.
+    # BLANK IMAGE PROTECTION
     # --------------------------------------------------------
 
     check_generated_image(
@@ -192,7 +323,7 @@ def generate_image(
 
 
 # ============================================================
-# IMAGE QUALITY SAFETY CHECK
+# BASIC IMAGE QUALITY CHECK
 # ============================================================
 
 def check_generated_image(
@@ -201,14 +332,13 @@ def check_generated_image(
 
     print()
     print(
-        "Checking generated image quality..."
+        "Checking generated image..."
     )
 
     image = Image.open(
         image_file
     ).convert("RGB")
 
-    # Resize for a fast statistical check.
     sample = image.resize(
         (
             100,
@@ -226,7 +356,6 @@ def check_generated_image(
         sum(mean_rgb) / 3
     )
 
-    # Count pixels that are extremely close to white.
     pixels = list(
         sample.getdata()
     )
@@ -242,6 +371,7 @@ def check_generated_image(
             and g >= 245
             and b >= 245
         ):
+
             near_white_pixels += 1
 
     near_white_percentage = (
@@ -261,7 +391,7 @@ def check_generated_image(
     )
 
     # --------------------------------------------------------
-    # REJECT OBVIOUSLY BLANK IMAGE
+    # REJECT EXTREMELY BLANK IMAGE
     # --------------------------------------------------------
 
     if (
@@ -275,7 +405,7 @@ def check_generated_image(
         )
 
     print(
-        "Image passed basic blank-image check."
+        "Image passed blank-image protection."
     )
 
 
@@ -314,7 +444,7 @@ def make_vertical_image(
     )
 
     # --------------------------------------------------------
-    # ADJUST RATIO IF NECESSARY
+    # CROP TO 9:16 IF REQUIRED
     # --------------------------------------------------------
 
     if abs(
@@ -327,8 +457,8 @@ def make_vertical_image(
 
         if image_ratio > target_ratio:
 
-            # Image is too wide.
-            # Crop left and right.
+            # Image is wider than 9:16.
+            # Crop the sides.
 
             new_width = int(
                 image.height * target_ratio
@@ -353,7 +483,7 @@ def make_vertical_image(
 
         else:
 
-            # Image is too tall.
+            # Image is taller than 9:16.
             # Crop top and bottom.
 
             new_height = int(
