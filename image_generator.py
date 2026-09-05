@@ -65,92 +65,26 @@ def generate_image(
     # --------------------------------------------------------
 
     flux_prompt = f"""
-Create a highly realistic professional photograph for a
-professional residential plumbing Instagram account.
+Photorealistic professional residential plumbing photograph.
 
-SUBJECT:
+Scene:
 {image_prompt}
 
-PHYSICAL ACCURACY IS EXTREMELY IMPORTANT.
+Physical accuracy is critical:
+one coherent plumbing system, realistic pipe geometry,
+correctly assembled fittings, believable joints, realistic
+materials and proportions, physically possible connections.
 
-The plumbing equipment must look physically real and correctly
-assembled.
+Create a natural real-world photograph, not CGI, illustration,
+cartoon or 3D render.
 
-Show:
-- correct plumbing geometry
-- realistic pipe proportions
-- correctly connected fittings
-- believable joints
-- realistic PVC or metal materials
-- realistic household construction
-- physically possible plumbing arrangement
-- natural perspective
-- realistic shadows
-- realistic reflections
-- realistic textures
+Keep the main plumbing subject clearly visible and centered.
+Avoid unnecessary people, hands or complicated anatomy.
 
-There must be ONE coherent plumbing system.
-
-Do not invent additional plumbing fixtures.
-
-Do not duplicate the main plumbing object.
-
-Do not merge separate objects together.
-
-Do not create impossible connections.
-
-If pipes are shown, each pipe must have a believable beginning
-and ending point.
-
-If a P-trap is shown, it must be ONE correctly shaped continuous
-P-trap with realistic connections.
-
-If a faucet is shown, it must be ONE correctly assembled faucet.
-
-If a toilet is shown, it must be ONE physically correct toilet
-with one bowl, one seat and one lid.
-
-Avoid people and human hands unless they are absolutely necessary
-for the subject.
-
-The image should look like a real photograph taken by a
-professional photographer, not digital art, CGI or a 3D render.
-
-Use realistic residential materials and natural lighting.
-
-COMPOSITION:
-
-Create a vertical-friendly composition.
-
-Keep the main plumbing subject large, clearly visible and near
-the center of the image.
-
-Keep important plumbing components away from the extreme edges.
-
-Do not crop the main subject.
-
-Do not leave excessive empty space.
-
-The image must remain clear and understandable on a smartphone.
-
-IMAGE STYLE:
-
-photorealistic professional plumbing photography,
-realistic materials, realistic proportions, natural lighting,
-natural shadows, realistic depth of field, sharp subject,
-believable residential environment.
-
-ABSOLUTELY NO:
-text, words, letters, numbers, labels, logos, watermarks,
-advertisements, posters, UI graphics, cartoon appearance,
-anime appearance, illustration, painting, CGI appearance,
-3D-render appearance, duplicated objects, impossible geometry,
-floating objects, melted objects, warped plumbing,
-extra plumbing fixtures.
-
-Generate ONE coherent realistic photograph.
+No text, words, letters, numbers, labels, logos, watermarks,
+advertisements, duplicated objects, warped plumbing, impossible
+geometry, floating objects or deformed equipment.
 """
-
     # --------------------------------------------------------
     # FLUX.1 SCHNELL SETTINGS
     # --------------------------------------------------------
