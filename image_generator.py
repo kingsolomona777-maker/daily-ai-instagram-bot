@@ -85,6 +85,15 @@ No text, words, letters, numbers, labels, logos, watermarks,
 advertisements, duplicated objects, warped plumbing, impossible
 geometry, floating objects or deformed equipment.
 """
+
+    flux_prompt = flux_prompt.strip()
+
+if len(flux_prompt) > 2048:
+    flux_prompt = flux_prompt[:2048].rstrip()
+
+    print(
+    f"FLUX prompt length: {len(flux_prompt)} / 2048"
+    )
     # --------------------------------------------------------
     # FLUX.1 SCHNELL SETTINGS
     # --------------------------------------------------------
