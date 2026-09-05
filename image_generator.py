@@ -55,45 +55,97 @@ def generate_image(
     }
 
     # --------------------------------------------------------
-    # FLUX PROMPT
+    # BUILD COMPACT FLUX PROMPT
     #
-    # FLUX.1 Schnell does not use the same negative_prompt
-    # parameter as our previous Stable Diffusion models.
+    # FLUX.1 Schnell has a maximum prompt length of 2048
+    # characters.
     #
-    # Therefore the important physical constraints are placed
-    # directly into the positive prompt.
+    # We keep the important physical-accuracy instructions
+    # in the prompt while allowing Gemini's topic-specific
+    # scene description to remain the main focus.
     # --------------------------------------------------------
 
-    flux_prompt = f"""
+    prompt_prefix = """
 Photorealistic professional residential plumbing photograph.
-
-Scene:
-{image_prompt}
 
 Physical accuracy is critical:
 one coherent plumbing system, realistic pipe geometry,
-correctly assembled fittings, believable joints, realistic
-materials and proportions, physically possible connections.
+correct fittings and joints, realistic materials and
+proportions, physically possible connections.
 
-Create a natural real-world photograph, not CGI, illustration,
+Natural real-world photography, not CGI, illustration,
 cartoon or 3D render.
 
-Keep the main plumbing subject clearly visible and centered.
+Keep the main plumbing subject clear and centered.
 Avoid unnecessary people, hands or complicated anatomy.
 
 No text, words, letters, numbers, labels, logos, watermarks,
-advertisements, duplicated objects, warped plumbing, impossible
-geometry, floating objects or deformed equipment.
-"""
+advertisements, duplicated objects, warped plumbing,
+impossible geometry, floating objects or deformed equipment.
 
-    flux_prompt = flux_prompt.strip()
+Scene:
+""".strip()
 
-if len(flux_prompt) > 2048:
-    flux_prompt = flux_prompt[:2048].rstrip()
+    scene_prompt = str(
+        image_prompt
+    ).strip()
+
+    # --------------------------------------------------------
+    # KEEP THE COMPLETE REQUEST BELOW CLOUDFLARE'S
+    # 2048 CHARACTER PROMPT LIMIT.
+    #
+    # If Gemini's scene description is too long, remove words
+    # from the END without cutting through a word.
+    # --------------------------------------------------------
+
+    maximum_scene_length = (
+        2048
+        - len(prompt_prefix)
+    )
+
+    if maximum_scene_length <= 0:
+        raise RuntimeError(
+            "FLUX prompt configuration is longer than "
+            "the allowed 2048 characters."
+        )
+
+    if len(scene_prompt) > maximum_scene_length:
+
+        scene_prompt = (
+            scene_prompt[
+                :maximum_scene_length
+            ]
+            .rsplit(" ", 1)[0]
+            .rstrip()
+        )
+
+        print(
+            "Gemini image prompt was shortened "
+            "to fit FLUX.1 Schnell's 2048-character limit."
+        )
+
+    flux_prompt = (
+        prompt_prefix
+        + "\n"
+        + scene_prompt
+    ).strip()
+
+    # Final safety check.
+    if len(flux_prompt) > 2048:
+
+        flux_prompt = (
+            flux_prompt[
+                :2048
+            ]
+            .rsplit(" ", 1)[0]
+            .rstrip()
+        )
 
     print(
-    f"FLUX prompt length: {len(flux_prompt)} / 2048"
+        f"FLUX prompt length: "
+        f"{len(flux_prompt)} / 2048"
     )
+
     # --------------------------------------------------------
     # FLUX.1 SCHNELL SETTINGS
     # --------------------------------------------------------
@@ -106,18 +158,37 @@ if len(flux_prompt) > 2048:
     }
 
     print()
-    print("==========================================")
-    print("CLOUDFLARE IMAGE GENERATION - TEST 5")
-    print("==========================================")
-    print(f"Model: {model}")
-    print("Generation model: FLUX.1 Schnell")
-    print(f"Steps: {steps}")
-    print("Output will be prepared as 9:16")
+    print(
+        "=========================================="
+    )
+    print(
+        "CLOUDFLARE IMAGE GENERATION - TEST 5"
+    )
+    print(
+        "=========================================="
+    )
+    print(
+        f"Model: {model}"
+    )
+    print(
+        "Generation model: FLUX.1 Schnell"
+    )
+    print(
+        f"Steps: {steps}"
+    )
+    print(
+        "Output will be prepared as 9:16"
+    )
     print()
+
     print(
         "Requesting image from Cloudflare AI..."
     )
     print()
+
+    # --------------------------------------------------------
+    # SEND IMAGE GENERATION REQUEST
+    # --------------------------------------------------------
 
     response = requests.post(
         url,
@@ -216,7 +287,7 @@ if len(flux_prompt) > 2048:
         )
 
     # --------------------------------------------------------
-    # SAVE IMAGE
+    # SAVE GENERATED IMAGE
     # --------------------------------------------------------
 
     with open(
