@@ -95,8 +95,8 @@ def generate_image(
     # TRUE 9:16 GENERATION
     # --------------------------------------------------------
 
-    width = 768
-    height = 1365
+    width = 864
+    height = 1536
 
     payload = {
         "prompt": image_prompt,
