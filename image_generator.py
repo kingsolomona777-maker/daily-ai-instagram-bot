@@ -31,12 +31,12 @@ def generate_image(
         )
 
     # --------------------------------------------------------
-    # CURRENT MODEL
+    # TEST 3 MODEL
     # --------------------------------------------------------
 
     model = (
-        "@cf/bytedance/"
-        "stable-diffusion-xl-lightning"
+        "@cf/lykon/"
+        "dreamshaper-8-lcm"
     )
 
     url = (
@@ -53,83 +53,72 @@ def generate_image(
     }
 
     # --------------------------------------------------------
-    # NEGATIVE PROMPT
+    # STRONG NEGATIVE PROMPT
     # --------------------------------------------------------
-    #
-    # These specifically target the types of problems visible
-    # in the previous Instagram image.
-    #
 
     negative_prompt = (
         "cartoon, illustration, anime, painting, drawing, "
-        "3d render, CGI, computer generated, game graphics, "
-        "plastic appearance, artificial appearance, "
-        "fake looking photograph, oversaturated, "
-        "unrealistic lighting, unrealistic reflections, "
-        "distorted objects, warped objects, melted objects, "
-        "floating objects, duplicate objects, "
-        "extra objects, impossible geometry, "
-        "deformed plumbing, twisted pipes, broken pipes, "
-        "incorrect pipe connections, impossible plumbing layout, "
-        "duplicate faucet, malformed faucet, "
-        "deformed hands, malformed hands, extra fingers, "
-        "missing fingers, fused fingers, extra arms, "
-        "extra limbs, disconnected arms, "
+        "3d render, CGI, computer graphics, game graphics, "
+        "plastic looking, artificial looking, fake photograph, "
+        "unrealistic plumbing, impossible plumbing, "
+        "incorrect plumbing geometry, malformed plumbing, "
+        "warped plumbing, twisted pipes, bent pipes, "
+        "impossible pipe connections, disconnected pipes, "
+        "floating pipes, duplicated pipes, extra pipes, "
+        "duplicate toilet, duplicate faucet, duplicate sink, "
+        "duplicate plumbing fixtures, "
+        "deformed toilet, malformed toilet, "
+        "warped toilet bowl, duplicated toilet seat, "
+        "multiple toilet lids, multiple toilet bowls, "
+        "impossible toilet structure, "
+        "deformed faucet, malformed faucet, "
+        "duplicate faucet handles, "
+        "incorrect water outlet, "
+        "water coming from wrong location, "
+        "floating water, impossible water flow, "
+        "duplicate water streams, "
+        "deformed hands, malformed hands, "
+        "extra fingers, missing fingers, fused fingers, "
+        "extra arms, extra limbs, disconnected arms, "
         "unnatural human anatomy, distorted face, "
         "deformed body, unnatural pose, "
         "bad proportions, artificial skin, "
-        "fake water, impossible water flow, "
-        "water coming from wrong location, "
-        "floating water, duplicated water streams, "
         "blurry, low detail, low quality, pixelated, "
-        "text, words, letters, numbers, labels, "
-        "logo, watermark, brand name, caption, "
-        "social media graphic, advertisement, poster"
+        "overprocessed, oversharpened, "
+        "text, words, letters, numbers, "
+        "labels, signs, logo, watermark, "
+        "brand name, caption, advertisement, poster, "
+        "social media graphic, UI"
     )
 
     # --------------------------------------------------------
-    # VERTICAL GENERATION
+    # TRUE 9:16 GENERATION
     # --------------------------------------------------------
-    #
-    # Generate 9:16 from the beginning instead of generating
-    # square and cropping afterward.
-    #
 
-    width = 864
-    height = 1536
+    width = 768
+    height = 1365
 
     payload = {
-
         "prompt": image_prompt,
-
         "negative_prompt": negative_prompt,
-
         "height": height,
-
         "width": width,
-
-        # More steps than the old 4-step generation.
-        "num_steps": 8,
-
-        # Helps the model follow the detailed prompt.
-        "guidance": 6.5
+        "num_steps": 12,
+        "guidance": 7.0
     }
 
     print()
     print("==========================================")
-    print("CLOUDFLARE IMAGE GENERATION")
+    print("CLOUDFLARE IMAGE GENERATION - TEST 3")
     print("==========================================")
     print(f"Model: {model}")
     print(f"Generation size: {width} x {height}")
     print("Aspect ratio: 9:16")
-    print("Diffusion steps: 8")
-    print("Guidance: 6.5")
+    print("Diffusion steps: 12")
+    print("Guidance: 7.0")
     print()
     print("Requesting image from Cloudflare AI...")
-
-    # --------------------------------------------------------
-    # SEND REQUEST
-    # --------------------------------------------------------
+    print()
 
     response = requests.post(
         url,
@@ -156,10 +145,6 @@ def generate_image(
         raise RuntimeError(
             "Cloudflare returned an empty image response."
         )
-
-    # --------------------------------------------------------
-    # SAVE ORIGINAL GENERATED IMAGE
-    # --------------------------------------------------------
 
     with open(
         output_file,
@@ -197,7 +182,7 @@ def generate_image(
 
 
 # ============================================================
-# CREATE INSTAGRAM 9:16 IMAGE
+# PREPARE INSTAGRAM 9:16 IMAGE
 # ============================================================
 
 def make_vertical_image(
@@ -219,10 +204,6 @@ def make_vertical_image(
         f"{image.width} x {image.height}"
     )
 
-    # --------------------------------------------------------
-    # TARGET INSTAGRAM SIZE
-    # --------------------------------------------------------
-
     target_width = 1080
     target_height = 1920
 
@@ -235,24 +216,19 @@ def make_vertical_image(
     )
 
     # --------------------------------------------------------
-    # ONLY CROP IF NECESSARY
+    # CROP ONLY IF NECESSARY
     # --------------------------------------------------------
-    #
-    # The generator already creates 9:16.
-    # This is simply a safety check.
-    #
 
     if abs(
         image_ratio - target_ratio
     ) > 0.01:
 
         print(
-            "Image ratio differs from 9:16."
+            "Adjusting image to exact 9:16 ratio..."
         )
 
         if image_ratio > target_ratio:
 
-            # Image is too wide.
             new_width = int(
                 image.height * target_ratio
             )
@@ -276,7 +252,6 @@ def make_vertical_image(
 
         else:
 
-            # Image is too tall.
             new_height = int(
                 image.width / target_ratio
             )
@@ -299,7 +274,7 @@ def make_vertical_image(
             )
 
     # --------------------------------------------------------
-    # RESIZE TO INSTAGRAM SIZE
+    # FINAL INSTAGRAM SIZE
     # --------------------------------------------------------
 
     image = image.resize(
@@ -311,7 +286,7 @@ def make_vertical_image(
     )
 
     # --------------------------------------------------------
-    # SAVE HIGH-QUALITY JPEG
+    # SAVE JPEG
     # --------------------------------------------------------
 
     image.save(
