@@ -18,30 +18,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # ==========================================
-      # GET PROJECT CODE
-      # ==========================================
       - name: Get the code
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
-      # ==========================================
-      # SET UP PYTHON
-      # ==========================================
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
           python-version: '3.x'
 
-      # ==========================================
-      # INSTALL DEPENDENCIES
-      # ==========================================
       - name: Install dependencies
         run: |
           pip install google-genai requests Pillow
 
-      # ==========================================
-      # RUN AI CONTENT + IMAGE GENERATION
-      # ==========================================
       - name: Run Python bot
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -50,9 +40,6 @@ jobs:
         run: |
           python main.py
 
-      # ==========================================
-      # TEST INSTAGRAM CONNECTION
-      # ==========================================
       - name: Test Instagram connection
         env:
           INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
@@ -80,9 +67,6 @@ jobs:
           print("✅ Instagram connection successful.")
           PY
 
-      # ==========================================
-      # SAVE IMAGE + CONTENT TO GITHUB
-      # ==========================================
       - name: Save image and content to public repository
         run: |
           DATE=$(date -u +%Y-%m-%d)
@@ -103,14 +87,16 @@ jobs:
 
           git diff --cached --quiet || git commit -m "Add daily Instagram content"
 
-          git push
+          echo "Synchronizing with latest main branch..."
 
-          echo "✅ Image saved:"
-          echo "$IMAGE_FILE"
+          git fetch origin main
 
-      # ==========================================
-      # WAIT FOR PUBLIC GITHUB IMAGE
-      # ==========================================
+          git rebase origin/main
+
+          git push origin main
+
+          echo "✅ Image and content pushed successfully."
+
       - name: Wait for public GitHub image
         env:
           REPOSITORY: ${{ github.repository }}
@@ -121,7 +107,6 @@ jobs:
           echo "$IMAGE_URL"
 
           for attempt in {1..12}; do
-
             STATUS=$(curl -L -s -o /dev/null -w "%{http_code}" "$IMAGE_URL")
 
             if [ "$STATUS" = "200" ]; then
@@ -139,13 +124,9 @@ jobs:
           echo "❌ GitHub image could not be reached."
           exit 1
 
-      # ==========================================
-      # CREATE INSTAGRAM MEDIA CONTAINER
-      # ==========================================
       - name: Create Instagram media container
         env:
           INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
-          REPOSITORY: ${{ github.repository }}
         run: |
           python - <<'PY'
           import os
@@ -156,10 +137,6 @@ jobs:
           IMAGE_URL = os.environ["IMAGE_URL"]
 
           BASE_URL = "https://graph.instagram.com/v26.0"
-
-          # ------------------------------------------
-          # GET INSTAGRAM ACCOUNT
-          # ------------------------------------------
 
           me = requests.get(
               f"{BASE_URL}/me",
@@ -183,42 +160,33 @@ jobs:
           print(f"Instagram account: @{USERNAME}")
           print(f"Instagram ID: {IG_USER_ID}")
 
-          # ------------------------------------------
-          # LOAD GENERATED CONTENT
-          # ------------------------------------------
-
           with open("latest_content.json", "r") as file:
               content = json.load(file)
 
-          title = content["title"].strip()
-          description = content["description"].strip()
+          title = content.get("title", "").strip()
+          description = content.get("description", "").strip()
 
-          # ------------------------------------------
-          # HASHTAGS
-          # ------------------------------------------
+          hashtags = content.get("hashtags", [])
 
-          hashtags = (
-              "#PlumbingTips "
-              "#Plumbing "
-              "#Plumber "
-              "#HomeMaintenance "
-              "#Homeowners "
-              "#BathroomTips "
-              "#Drainage "
-              "#WaterLeaks "
-              "#PlumbingMaintenance "
-              "#DIYHome "
-              "#HomeImprovement "
-              "#PlumbingLife"
+          if isinstance(hashtags, list):
+              hashtags_text = " ".join(
+                  str(tag).strip()
+                  for tag in hashtags
+                  if str(tag).strip()
+              )
+          else:
+              hashtags_text = str(hashtags).strip()
+
+          caption_parts = [
+              title,
+              description,
+              hashtags_text
+          ]
+
+          caption = "\n\n".join(
+              part for part in caption_parts if part
           )
 
-          caption = (
-              f"{title}\n\n"
-              f"{description}\n\n"
-              f"{hashtags}"
-          )
-
-          # Instagram caption safety limit
           caption = caption[:2200]
 
           print()
@@ -227,10 +195,7 @@ jobs:
           print()
           print("Caption:")
           print(caption)
-
-          # ------------------------------------------
-          # CREATE MEDIA CONTAINER
-          # ------------------------------------------
+          print()
 
           response = requests.post(
               f"{BASE_URL}/{IG_USER_ID}/media",
@@ -242,7 +207,6 @@ jobs:
               timeout=60
           )
 
-          print()
           print("Instagram response:")
           print(response.text)
 
@@ -254,10 +218,6 @@ jobs:
           print("✅ Instagram media container created.")
           print(f"Container ID: {creation_id}")
 
-          # ------------------------------------------
-          # SAVE CONTAINER INFORMATION
-          # ------------------------------------------
-
           with open("instagram_container.json", "w") as file:
               json.dump(
                   {
@@ -268,12 +228,8 @@ jobs:
                   file,
                   indent=2
               )
-
           PY
 
-      # ==========================================
-      # WAIT FOR INSTAGRAM IMAGE PROCESSING
-      # ==========================================
       - name: Wait for Instagram image processing
         env:
           INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
@@ -329,12 +285,8 @@ jobs:
               raise RuntimeError(
                   "Instagram image did not finish processing in time."
               )
-
           PY
 
-      # ==========================================
-      # PUBLISH INSTAGRAM POST
-      # ==========================================
       - name: Publish Instagram post
         env:
           INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
@@ -381,12 +333,8 @@ jobs:
           print(f"Instagram account: @{username}")
           print(f"Instagram media ID: {media_id}")
           print("==========================================")
-
           PY
 
-      # ==========================================
-      # SAVE BOT MEMORY
-      # ==========================================
       - name: Save bot memory
         run: |
           git config user.name "github-actions[bot]"
@@ -396,6 +344,10 @@ jobs:
 
           git diff --cached --quiet || git commit -m "Update content history"
 
-          git push
+          git fetch origin main
+
+          git rebase origin/main
+
+          git push origin main
 
           echo "✅ Bot memory saved."
