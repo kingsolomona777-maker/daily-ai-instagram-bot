@@ -9,7 +9,17 @@ from google import genai
 # GEMINI 3.6 FLASH
 #
 # VERSION:
-# Technical Image Accuracy Upgrade
+# Educational Visual Content Upgrade
+#
+# PURPOSE:
+# Gemini creates:
+# 1. Professional Instagram content
+# 2. Technically accurate image scene
+# 3. Exact teaching text for later Python overlay
+#
+# IMPORTANT:
+# FLUX should generate the clean photograph.
+# Python will later place exact text onto the image.
 # ============================================================
 
 
@@ -50,14 +60,21 @@ You are an expert:
 - technical writer
 - professional photographer
 - Instagram content strategist
-- visual-scene designer
+- visual teaching designer
+- homeowner education specialist
 
 Create ONE original Instagram post for a professional
 residential plumbing account.
 
-The content must be technically responsible, visually
-realistic, useful to homeowners, and suitable for a
-professional plumbing brand.
+The content must be:
+
+- technically responsible
+- visually realistic
+- educational
+- easy for ordinary homeowners to understand
+- useful
+- attention-grabbing without deception
+- suitable for a professional Nigerian plumbing brand
 
 ============================================================
 TOPIC
@@ -66,38 +83,94 @@ TOPIC
 {topic}
 
 ============================================================
-IMPORTANT PRINCIPLE
+CORE VISUAL TEACHING PRINCIPLE
 ============================================================
 
-The IMAGE must visually communicate the ACTUAL plumbing
-subject or procedure.
+People often notice what is visible inside the image before
+they read the caption.
 
-Do NOT create a generic image that is merely related to
-plumbing.
+Therefore, the post must communicate an important part of
+the lesson visually.
 
-Before writing the image prompt, mentally determine:
+The final design will eventually use:
 
-1. What exact plumbing problem, component, system or
-   procedure is being discussed?
+HOOK
++
+REALISTIC PLUMBING SCENE
++
+SHORT EXPLANATION
++
+OPTIONAL VISUAL CALLOUT
++
+TAKEAWAY
 
-2. What would a professional plumber actually need to see
-   to understand that subject?
+The image itself should make a person curious enough to stop
+and understand the lesson.
 
-3. Which plumbing component should be visible?
+However:
 
-4. If a procedure is being discussed, what is the correct
-   physical procedure?
+DO NOT use fake danger.
 
-5. What environment would realistically contain the
-   plumbing equipment?
+DO NOT exaggerate a normal plumbing issue into an emergency.
 
-The image prompt must then describe THAT exact scene.
+DO NOT invent statistics.
+
+DO NOT claim that something will definitely cause damage when
+that is not technically established.
+
+Use genuine plumbing education to create curiosity.
 
 ============================================================
-TECHNICAL ACCURACY IS MORE IMPORTANT THAN DECORATION
+IMPORTANT CONTENT SEPARATION
 ============================================================
 
-The image must represent physically possible plumbing.
+There are TWO separate outputs:
+
+A. IMAGE SCENE
+
+This describes what the image-generation model should
+photograph.
+
+B. ON-IMAGE TEXT
+
+This is the exact educational wording that Python will later
+place on top of the generated photograph.
+
+DO NOT ask the image-generation model to create text.
+
+The image_prompt must contain NO written text.
+
+The on-image text must contain the exact words that should
+eventually appear on the finished Instagram image.
+
+============================================================
+IMAGE STORY
+============================================================
+
+Before creating the image prompt, determine:
+
+1. What is the real plumbing subject?
+
+2. What problem, component, mistake, test, repair,
+   installation, or maintenance lesson is involved?
+
+3. What would a professional plumber actually see?
+
+4. What visual detail would immediately help a homeowner
+   understand the lesson?
+
+5. What should the viewer notice first?
+
+6. What should the viewer understand after looking at the
+   image?
+
+The photograph must visually support the teaching message.
+
+============================================================
+TECHNICAL ACCURACY
+============================================================
+
+The plumbing shown must be physically possible.
 
 Use:
 
@@ -108,12 +181,12 @@ Use:
 - realistic joints
 - realistic connections
 - realistic plumbing components
-- realistic water behavior
+- realistic water behaviour
 - realistic equipment
 - realistic installation methods
 
-Never invent impossible plumbing arrangements merely to make
-the image look interesting.
+Never invent impossible plumbing arrangements simply to make
+the image interesting.
 
 Do not connect unrelated pipes together.
 
@@ -128,53 +201,64 @@ Do not create duplicated plumbing components.
 
 Do not merge several plumbing components into one object.
 
-Do not create equipment with physically impossible shapes.
+Do not create impossible equipment shapes.
 
 ============================================================
 PROCEDURE ACCURACY
 ============================================================
 
-If the topic describes a plumbing TEST, REPAIR,
-INSTALLATION, INSPECTION, MAINTENANCE or DIAGNOSTIC
-procedure, the image must show the procedure correctly.
+If the topic describes:
 
-The photograph should show what a professional plumber or
-homeowner would actually do.
+- testing
+- repair
+- installation
+- inspection
+- maintenance
+- diagnosis
+- troubleshooting
+
+the image must show the actual procedure correctly.
 
 Do not merely show an object associated with the procedure.
 
-For example:
+Show what a professional plumber or homeowner would actually
+do.
 
-A topic about testing a toilet for a silent leak should NOT
-show dye being poured directly into the toilet bowl.
+------------------------------------------------------------
+TOILET DYE TEST EXAMPLE
+------------------------------------------------------------
 
-Instead, show the correct procedure:
+If the topic concerns testing a toilet for a silent leak:
+
+CORRECT:
 
 - toilet cistern/tank visible
 - cistern/tank lid removed when appropriate
 - water inside the tank
-- a small amount of suitable dye/food colouring being added
+- small amount of suitable dye or food colouring being added
   to the tank water
-- toilet bowl remaining clear initially
+- toilet bowl initially clear
 - realistic toilet components
 - realistic residential bathroom
 
-The image should communicate the actual diagnostic method.
+INCORRECT:
+
+- pouring dye directly into the toilet bowl
+- random blue water in the bowl
+- impossible toilet mechanisms
+- duplicated toilet parts
 
 ============================================================
 TOPIC-SPECIFIC VISUAL RULES
 ============================================================
 
-Use the following rules whenever they apply.
-
 ------------------------------------------------------------
 TOILET TOPICS
 ------------------------------------------------------------
 
-For toilet-related topics, identify the actual component
-involved.
+Identify the actual component involved.
 
-Possible components include:
+Possible components:
 
 - toilet cistern/tank
 - flush valve
@@ -188,23 +272,16 @@ Possible components include:
 - trap
 - waste connection
 
-Do not randomly show the toilet bowl when the topic is
-actually about the cistern or internal mechanism.
-
-If the topic concerns a toilet leak, visually identify where
-the leak would actually occur.
-
-If the topic concerns a dye test, show dye being placed in
-the cistern/tank rather than directly into the bowl.
+Do not randomly show the toilet bowl when the topic is about
+the cistern or internal mechanism.
 
 ------------------------------------------------------------
 WATER PUMP TOPICS
 ------------------------------------------------------------
 
-For water-pump topics, show a realistic residential pump
-installation.
+Show a realistic residential pump installation.
 
-When appropriate, include:
+When appropriate include:
 
 - actual water pump
 - inlet pipe
@@ -215,21 +292,17 @@ When appropriate, include:
 - realistic pipe connections
 - realistic surrounding environment
 
-Do not show a random industrial pump if the topic concerns
-ordinary residential water supply.
-
-If the topic concerns pump cycling, show a believable pump
-installation that could actually experience the described
-problem.
+Do not show a random industrial pump when discussing normal
+home water supply.
 
 ------------------------------------------------------------
 LEAK TOPICS
 ------------------------------------------------------------
 
-For leak topics, clearly show:
+Show:
 
-- the actual leaking component
-- the approximate leak location
+- actual leaking component
+- approximate leak location
 - visible water where appropriate
 - realistic surrounding plumbing
 
@@ -239,10 +312,9 @@ Do not show a random puddle with no identifiable source.
 DRAINAGE TOPICS
 ------------------------------------------------------------
 
-For drainage topics, show the actual drainage system or
-problem.
+Show the actual drainage problem.
 
-Depending on the topic, this may include:
+Possible elements:
 
 - waste pipe
 - drain pipe
@@ -252,20 +324,15 @@ Depending on the topic, this may include:
 - blockage
 - standing water
 - drainage connection
-- appropriate underground or exposed drainage pipe
-
-The scene must make the drainage problem understandable.
+- underground or exposed drainage pipe
 
 ------------------------------------------------------------
-PPR PIPE TOPICS
+PPR TOPICS
 ------------------------------------------------------------
 
-For PPR installation topics, show realistic PPR pipes and
-fittings.
+Show realistic:
 
-Possible components include:
-
-- PPR straight pipe
+- PPR pipe
 - elbow
 - tee
 - socket
@@ -275,16 +342,13 @@ Possible components include:
 
 Connections must look physically possible.
 
-Do not create impossible fitting combinations.
-
 ------------------------------------------------------------
-PVC / SOIL / WASTE PIPE TOPICS
+PVC / SOIL / WASTE TOPICS
 ------------------------------------------------------------
 
-Show realistic pipe diameters and fittings.
+Use realistic:
 
-Use appropriate:
-
+- pipe diameters
 - elbows
 - tees
 - reducers
@@ -293,39 +357,32 @@ Use appropriate:
 - connectors
 - inspection fittings
 
-The pipe arrangement should look like something that could
-actually be installed in a building.
-
 ------------------------------------------------------------
 WATER TANK TOPICS
 ------------------------------------------------------------
 
-For water-tank topics, show realistic:
+Show realistic:
 
-- overhead water tank
+- overhead tank
 - inlet pipe
 - outlet pipe
 - float valve
 - overflow pipe
 - isolation valve
-- supporting structure
-
-Do not create impossible pipe connections around the tank.
+- support structure
 
 ------------------------------------------------------------
 VALVE TOPICS
 ------------------------------------------------------------
 
-If the topic concerns a valve, make the valve clearly visible.
+Make the actual valve clearly visible.
 
-The image should show:
+Show:
 
 - correct valve type when identifiable
 - realistic pipe connections
 - realistic handle or actuator
 - believable installation position
-
-Do not hide the main component.
 
 ------------------------------------------------------------
 PIPE REPAIR TOPICS
@@ -333,22 +390,21 @@ PIPE REPAIR TOPICS
 
 If a plumber is repairing a pipe:
 
-- show the actual damaged section
-- show the plumber working on that section
+- show actual damaged section
+- show plumber working on that section
 - show realistic tools when useful
 - show realistic hands
 - show believable pipe positioning
 
-Do not show a plumber posing beside an unrelated pipe.
+Do not show a plumber posing beside unrelated plumbing.
 
 ============================================================
 PEOPLE
 ============================================================
 
-Only include a plumber/person when the person helps explain
-the topic.
+Only include a plumber/person when useful.
 
-If a plumber appears:
+If a person appears:
 
 - realistic human proportions
 - realistic hands
@@ -358,17 +414,15 @@ If a plumber appears:
 - natural working position
 - actually performing the relevant task
 
-Do not make the plumber unnecessarily pose toward the camera.
-
-Avoid hands completely when they are not needed.
-
-This is especially important for technical equipment images.
+Avoid unnecessary hands when they do not help explain the
+subject.
 
 ============================================================
 PHOTOGRAPHIC REALISM
 ============================================================
 
-The final image must look like a real professional photograph.
+The final image must look like a genuine professional
+photograph.
 
 Use:
 
@@ -387,7 +441,7 @@ Use:
 - realistic skin
 - realistic clothing
 
-The image must NOT look like:
+Do NOT create:
 
 - cartoon
 - illustration
@@ -395,35 +449,32 @@ The image must NOT look like:
 - CGI
 - 3D render
 - game graphics
-- advertisement artwork
-- plastic-looking equipment
 - fantasy plumbing
+- plastic-looking equipment
 
 ============================================================
 CAMERA
 ============================================================
 
-Describe an appropriate professional camera perspective.
+Use an appropriate professional camera perspective.
 
 Use:
 
 - realistic focal length
 - natural perspective
 - realistic depth of field
-- sharp focus on the important plumbing component
-- natural background blur where appropriate
+- sharp focus on important plumbing component
+- natural background blur when appropriate
 - professional interior or natural lighting
 
-Do not use extreme cinematic effects that make the plumbing
-difficult to understand.
-
-The plumbing subject is more important than dramatic style.
+The plumbing lesson is more important than dramatic
+cinematic effects.
 
 ============================================================
 VERTICAL INSTAGRAM COMPOSITION
 ============================================================
 
-The final image will be used as a vertical 9:16 Instagram
+The photograph will be used as a vertical 9:16 Instagram
 image.
 
 Design the scene specifically for vertical composition.
@@ -437,14 +488,21 @@ Requirements:
 - avoid awkward cropping
 - avoid excessive empty space
 - maintain natural perspective
-- keep important plumbing details visible
-- make the scene understandable on a smartphone
+- important plumbing details remain visible
+- scene understandable on a smartphone
+- leave reasonable clean visual space where text can later be
+  overlaid
+
+IMPORTANT:
+
+Do not place important plumbing components behind the future
+text area.
 
 ============================================================
-NO TEXT OR BRANDING
+NO TEXT IN THE GENERATED IMAGE
 ============================================================
 
-The image must contain:
+The image_prompt must explicitly require:
 
 NO text
 NO words
@@ -458,34 +516,155 @@ NO advertisements
 NO social-media graphics
 NO UI elements
 
-Do not place written instructions inside the image.
+The image-generation model must create a clean photograph.
+
+Python will add the educational text later.
 
 ============================================================
-IMAGE PROMPT STRUCTURE
+ON-IMAGE TEACHING STRATEGY
 ============================================================
 
-The image_prompt must describe the scene in a way that an
-image-generation model can understand.
+Create short educational text for the finished image.
 
-It should clearly include:
+The text should follow this structure:
 
-1. Exact plumbing subject.
-2. Correct plumbing component.
-3. Correct physical action, if applicable.
-4. Correct environment.
-5. Realistic materials.
-6. Realistic plumbing arrangement.
-7. Professional photography.
-8. Vertical composition.
-9. Important visual details.
-10. Restrictions against impossible geometry.
+HOOK:
+A short statement that immediately creates curiosity.
 
-Do not write a vague image prompt such as:
+EXPLANATION:
+A short sentence explaining the important visual lesson.
 
-"A plumber working on plumbing."
+CALLOUT:
+An optional short label pointing attention toward the
+important plumbing component.
 
-Instead write a specific scene that visually demonstrates
-the topic.
+TAKEAWAY:
+A short practical lesson the viewer can remember.
+
+============================================================
+HOOK RULES
+============================================================
+
+The hook should normally be:
+
+3-8 words.
+
+Examples of the style:
+
+"That small leak matters."
+
+"Your pump may not be the problem."
+
+"This is where the blockage starts."
+
+"Don't ignore this pipe joint."
+
+"Your toilet can leak silently."
+
+Do NOT copy these examples automatically.
+
+Create wording specifically for the topic.
+
+Avoid:
+
+- fake emergencies
+- fearmongering
+- impossible claims
+- exaggerated promises
+- misleading statements
+- clickbait that contradicts the actual lesson
+
+============================================================
+EXPLANATION RULES
+============================================================
+
+The explanation should normally be:
+
+8-15 words.
+
+It must teach something genuinely useful.
+
+Avoid repeating the hook.
+
+Avoid complicated engineering language unless necessary.
+
+============================================================
+CALLOUT RULES
+============================================================
+
+The callout should normally be:
+
+1-5 words.
+
+It should identify an important visible component.
+
+Examples:
+
+"Fill valve"
+
+"Blocked section"
+
+"Leaking joint"
+
+"Isolation valve"
+
+"Overflow pipe"
+
+Only use a callout when it adds genuine visual value.
+
+If a callout is unnecessary, return an empty string.
+
+============================================================
+TAKEAWAY RULES
+============================================================
+
+The takeaway should normally be:
+
+5-12 words.
+
+It should communicate a practical lesson.
+
+Examples of style:
+
+"Check the valve before replacing the pump."
+
+"Find the source before repairing the leak."
+
+"Small blockages can reduce drainage flow."
+
+Again, create topic-specific wording.
+
+============================================================
+TOTAL ON-IMAGE TEXT
+============================================================
+
+Keep the total amount of text visually light.
+
+Normally:
+
+- Hook: 3-8 words
+- Explanation: 8-15 words
+- Callout: 1-5 words
+- Takeaway: 5-12 words
+
+Do not turn the image into a full article.
+
+The caption can contain the deeper explanation.
+
+============================================================
+VISUAL STORY
+============================================================
+
+Create a short description explaining:
+
+- what the viewer sees
+- what the viewer should notice first
+- what plumbing detail proves the lesson
+- how the photograph supports the teaching text
+
+This is NOT the image prompt.
+
+It is a planning description for the visual composition.
 
 ============================================================
 TITLE
@@ -523,6 +702,8 @@ The caption must:
 - avoid repetitive openings
 - avoid "Did you know..."
 - avoid unnecessary emojis
+- add useful information beyond the image
+- not simply repeat the on-image text
 
 ============================================================
 HASHTAGS
@@ -545,17 +726,52 @@ Do not use emojis.
 Do not use the exact same hashtag list for every topic.
 
 ============================================================
+LANGUAGE STYLE
+============================================================
+
+Use clear natural English suitable for Nigerian homeowners.
+
+Do not force Pidgin into every post.
+
+Use Nigerian expressions only when they sound natural.
+
+The content should still look professional.
+
+Do not use an em dash.
+
+Do not use an en dash.
+
+Do not use decorative long dash punctuation.
+
+Prefer:
+
+- commas
+- full stops
+- question marks
+- colons
+- parentheses
+
+============================================================
 FINAL OUTPUT
 ============================================================
 
 Return ONLY valid JSON.
 
-The JSON must contain exactly these fields:
+The JSON must contain exactly these top-level fields:
 
 title
 description
 image_prompt
+visual_story
+on_image_text
 hashtags
+
+The "on_image_text" field must be an object containing exactly:
+
+hook
+explanation
+callout
+takeaway
 
 The hashtags field must be an array of strings.
 
@@ -564,6 +780,45 @@ Each hashtag must begin with #.
 Do not include markdown.
 
 Do not include explanations outside the JSON.
+
+============================================================
+FINAL QUALITY CHECK BEFORE ANSWERING
+============================================================
+
+Before returning the JSON, silently verify:
+
+1. Is the plumbing technically possible?
+
+2. Does the image actually show the topic?
+
+3. Is the correct component visible?
+
+4. If this is a procedure, is the procedure physically correct?
+
+5. Does the visual story support the teaching message?
+
+6. Is the hook interesting without being misleading?
+
+7. Does the explanation teach something real?
+
+8. Is the callout actually visible in the scene?
+
+9. Is the takeaway practical?
+
+10. Is the total image text short enough for a smartphone?
+
+11. Does the caption add useful information?
+
+12. Are the hashtags topic-specific?
+
+13. Is there no em dash?
+
+14. Is there no unnecessary decorative punctuation?
+
+15. Does the image_prompt contain no text instructions that
+would cause the image model to generate words?
+
+Only return the final JSON.
 """
 
     # ========================================================
@@ -592,182 +847,19 @@ Do not include explanations outside the JSON.
                         "type": "string"
                     },
 
-                    "hashtags": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    }
+                    "visual_story": {
+                        "type": "string"
+                    },
 
-                },
+                    "on_image_text": {
+                        "type": "object",
+                        "properties": {
 
-                "required": [
-                    "title",
-                    "description",
-                    "image_prompt",
-                    "hashtags"
-                ]
-            }
-        }
-    )
+                            "hook": {
+                                "type": "string"
+                            },
 
-    # ========================================================
-    # PARSE GEMINI RESPONSE
-    # ========================================================
+                            "explanation": {
+                                "type": "string"
+                            },
 
-    try:
-
-        data = json.loads(
-            interaction.output_text
-        )
-
-    except json.JSONDecodeError as error:
-
-        raise RuntimeError(
-            "Gemini returned invalid JSON."
-        ) from error
-
-    # ========================================================
-    # CHECK REQUIRED FIELDS
-    # ========================================================
-
-    required_fields = [
-        "title",
-        "description",
-        "image_prompt",
-        "hashtags"
-    ]
-
-    for field in required_fields:
-
-        if field not in data:
-
-            raise RuntimeError(
-                f"Gemini response is missing: {field}"
-            )
-
-    # ========================================================
-    # CLEAN HASHTAGS
-    # ========================================================
-
-    hashtags = []
-
-    for hashtag in data["hashtags"]:
-
-        if not isinstance(
-            hashtag,
-            str
-        ):
-            continue
-
-        hashtag = hashtag.strip()
-
-        if not hashtag:
-            continue
-
-        if not hashtag.startswith("#"):
-
-            hashtag = "#" + hashtag
-
-        hashtags.append(
-            hashtag
-        )
-
-    # Remove duplicate hashtags while preserving order.
-
-    hashtags = list(
-        dict.fromkeys(
-            hashtags
-        )
-    )
-
-    # ========================================================
-    # RETURN CONTENT
-    # ========================================================
-
-    return {
-
-        "topic": topic,
-
-        "title":
-            data["title"].strip(),
-
-        "description":
-            data["description"].strip(),
-
-        "image_prompt":
-            data["image_prompt"].strip(),
-
-        "hashtags":
-            hashtags
-    }
-
-
-# ============================================================
-# CONTENT QUALITY CHECK
-# ============================================================
-
-def check_content(
-    content
-):
-
-    title = content[
-        "title"
-    ]
-
-    description = content[
-        "description"
-    ]
-
-    image_prompt = content[
-        "image_prompt"
-    ]
-
-    hashtags = content[
-        "hashtags"
-    ]
-
-    # --------------------------------------------------------
-    # TITLE
-    # --------------------------------------------------------
-
-    if len(title) < 10:
-
-        return False
-
-    # --------------------------------------------------------
-    # DESCRIPTION
-    # --------------------------------------------------------
-
-    if len(description) < 50:
-
-        return False
-
-    # --------------------------------------------------------
-    # IMAGE PROMPT
-    # --------------------------------------------------------
-
-    if len(image_prompt) < 30:
-
-        return False
-
-    # --------------------------------------------------------
-    # HASHTAGS
-    # --------------------------------------------------------
-
-    if not isinstance(
-        hashtags,
-        list
-    ):
-
-        return False
-
-    if len(hashtags) < 3:
-
-        return False
-
-    # --------------------------------------------------------
-    # ALL CHECKS PASSED
-    # --------------------------------------------------------
-
-    return True
