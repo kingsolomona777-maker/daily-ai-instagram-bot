@@ -863,3 +863,463 @@ Only return the final JSON.
                                 "type": "string"
                             },
 
+                            "callout": {
+                                "type": "string"
+                            },
+
+                            "takeaway": {
+                                "type": "string"
+                            }
+
+                        },
+                        "required": [
+                            "hook",
+                            "explanation",
+                            "callout",
+                            "takeaway"
+                        ]
+                    },
+
+                    "hashtags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+
+                },
+
+                "required": [
+                    "title",
+                    "description",
+                    "image_prompt",
+                    "visual_story",
+                    "on_image_text",
+                    "hashtags"
+                ]
+            }
+        }
+    )
+
+    # ========================================================
+    # PARSE GEMINI RESPONSE
+    # ========================================================
+
+    try:
+
+        data = json.loads(
+            interaction.output_text
+        )
+
+    except json.JSONDecodeError as error:
+
+        raise RuntimeError(
+            "Gemini returned invalid JSON."
+        ) from error
+
+    # ========================================================
+    # CHECK REQUIRED FIELDS
+    # ========================================================
+
+    required_fields = [
+        "title",
+        "description",
+        "image_prompt",
+        "visual_story",
+        "on_image_text",
+        "hashtags"
+    ]
+
+    for field in required_fields:
+
+        if field not in data:
+
+            raise RuntimeError(
+                f"Gemini response is missing: {field}"
+            )
+
+    # ========================================================
+    # CHECK ON-IMAGE TEXT
+    # ========================================================
+
+    if not isinstance(
+        data["on_image_text"],
+        dict
+    ):
+
+        raise RuntimeError(
+            "Gemini returned invalid on_image_text."
+        )
+
+    required_text_fields = [
+        "hook",
+        "explanation",
+        "callout",
+        "takeaway"
+    ]
+
+    for field in required_text_fields:
+
+        if field not in data["on_image_text"]:
+
+            raise RuntimeError(
+                f"Gemini on_image_text is missing: {field}"
+            )
+
+        if not isinstance(
+            data["on_image_text"][field],
+            str
+        ):
+
+            raise RuntimeError(
+                f"Gemini on_image_text field is invalid: {field}"
+            )
+
+    # ========================================================
+    # CLEAN LONG DASHES
+    # ========================================================
+
+    def clean_text(value):
+
+        if not isinstance(
+            value,
+            str
+        ):
+            return value
+
+        return (
+            value
+            .replace("—", ", ")
+            .replace("–", ", ")
+            .replace("−", ", ")
+            .replace("  ", " ")
+            .strip()
+        )
+
+    data["title"] = clean_text(
+        data["title"]
+    )
+
+    data["description"] = clean_text(
+        data["description"]
+    )
+
+    data["image_prompt"] = clean_text(
+        data["image_prompt"]
+    )
+
+    data["visual_story"] = clean_text(
+        data["visual_story"]
+    )
+
+    for field in required_text_fields:
+
+        data["on_image_text"][field] = clean_text(
+            data["on_image_text"][field]
+        )
+
+    # ========================================================
+    # CLEAN HASHTAGS
+    # ========================================================
+
+    hashtags = []
+
+    for hashtag in data["hashtags"]:
+
+        if not isinstance(
+            hashtag,
+            str
+        ):
+            continue
+
+        hashtag = hashtag.strip()
+
+        if not hashtag:
+            continue
+
+        if not hashtag.startswith("#"):
+
+            hashtag = "#" + hashtag
+
+        hashtags.append(
+            hashtag
+        )
+
+    # Remove duplicate hashtags while
+    # preserving their original order.
+
+    hashtags = list(
+        dict.fromkeys(
+            hashtags
+        )
+    )
+
+    # ========================================================
+    # VALIDATE ON-IMAGE TEXT LENGTH
+    # ========================================================
+
+    on_image_text = data[
+        "on_image_text"
+    ]
+
+    if not (
+        3 <= len(
+            on_image_text["hook"].split()
+        ) <= 12
+    ):
+
+        raise RuntimeError(
+            "Generated hook is outside the acceptable length."
+        )
+
+    if not (
+        5 <= len(
+            on_image_text["explanation"].split()
+        ) <= 20
+    ):
+
+        raise RuntimeError(
+            "Generated explanation is outside the acceptable length."
+        )
+
+    if not (
+        len(
+            on_image_text["callout"].split()
+        ) <= 8
+    ):
+
+        raise RuntimeError(
+            "Generated callout is too long."
+        )
+
+    if not (
+        3 <= len(
+            on_image_text["takeaway"].split()
+        ) <= 16
+    ):
+
+        raise RuntimeError(
+            "Generated takeaway is outside the acceptable length."
+        )
+
+    # ========================================================
+    # RETURN CONTENT
+    # ========================================================
+
+    return {
+
+        "topic":
+            topic,
+
+        "title":
+            data["title"].strip(),
+
+        "description":
+            data["description"].strip(),
+
+        "image_prompt":
+            data["image_prompt"].strip(),
+
+        "visual_story":
+            data["visual_story"].strip(),
+
+        "on_image_text": {
+
+            "hook":
+                on_image_text["hook"].strip(),
+
+            "explanation":
+                on_image_text["explanation"].strip(),
+
+            "callout":
+                on_image_text["callout"].strip(),
+
+            "takeaway":
+                on_image_text["takeaway"].strip()
+        },
+
+        "hashtags":
+            hashtags
+    }
+
+
+# ============================================================
+# CONTENT QUALITY CHECK
+# ============================================================
+
+def check_content(
+    content
+):
+
+    # --------------------------------------------------------
+    # REQUIRED TOP-LEVEL FIELDS
+    # --------------------------------------------------------
+
+    required_fields = [
+        "title",
+        "description",
+        "image_prompt",
+        "visual_story",
+        "on_image_text",
+        "hashtags"
+    ]
+
+    for field in required_fields:
+
+        if field not in content:
+
+            return False
+
+    # --------------------------------------------------------
+    # TITLE
+    # --------------------------------------------------------
+
+    title = content[
+        "title"
+    ]
+
+    if not isinstance(
+        title,
+        str
+    ):
+
+        return False
+
+    if len(title) < 10:
+
+        return False
+
+    # --------------------------------------------------------
+    # DESCRIPTION
+    # --------------------------------------------------------
+
+    description = content[
+        "description"
+    ]
+
+    if not isinstance(
+        description,
+        str
+    ):
+
+        return False
+
+    if len(description) < 50:
+
+        return False
+
+    # --------------------------------------------------------
+    # IMAGE PROMPT
+    # --------------------------------------------------------
+
+    image_prompt = content[
+        "image_prompt"
+    ]
+
+    if not isinstance(
+        image_prompt,
+        str
+    ):
+
+        return False
+
+    if len(image_prompt) < 30:
+
+        return False
+
+    # --------------------------------------------------------
+    # VISUAL STORY
+    # --------------------------------------------------------
+
+    visual_story = content[
+        "visual_story"
+    ]
+
+    if not isinstance(
+        visual_story,
+        str
+    ):
+
+        return False
+
+    if len(visual_story) < 20:
+
+        return False
+
+    # --------------------------------------------------------
+    # ON-IMAGE TEXT
+    # --------------------------------------------------------
+
+    on_image_text = content[
+        "on_image_text"
+    ]
+
+    if not isinstance(
+        on_image_text,
+        dict
+    ):
+
+        return False
+
+    text_fields = [
+        "hook",
+        "explanation",
+        "callout",
+        "takeaway"
+    ]
+
+    for field in text_fields:
+
+        if field not in on_image_text:
+
+            return False
+
+        if not isinstance(
+            on_image_text[field],
+            str
+        ):
+
+            return False
+
+    if len(
+        on_image_text["hook"].strip()
+    ) < 3:
+
+        return False
+
+    if len(
+        on_image_text["explanation"].strip()
+    ) < 5:
+
+        return False
+
+    if len(
+        on_image_text["takeaway"].strip()
+    ) < 3:
+
+        return False
+
+    # --------------------------------------------------------
+    # HASHTAGS
+    # --------------------------------------------------------
+
+    hashtags = content[
+        "hashtags"
+    ]
+
+    if not isinstance(
+        hashtags,
+        list
+    ):
+
+        return False
+
+    if len(hashtags) < 3:
+
+        return False
+
+    # --------------------------------------------------------
+    # ALL CHECKS PASSED
+    # --------------------------------------------------------
+
+    return True
