@@ -1,22 +1,21 @@
 {
-  "idea": "Common plumbing mistakes homeowners make",
-  "title": "The Kitchen Sink Mistake Ruining Your Pipes",
-  "description": "Pouring used cooking oil or palm oil down your kitchen sink is one of the most common causes of stubborn drainage blockages. While oil looks completely liquid when warm in your frying pan, it cools down rapidly once it meets the standing water inside your under-sink P-trap. As the oil cools, it congeals onto the inner walls of the PVC waste pipe, trapping fine food debris and gradually narrowing the drainage passage. Over time, this forms a hard grease plug that completely stops water flow. Always allow cooking fat to cool, collect it in a waste container, and wipe greasy pans with paper towels before washing.",
-  "image_prompt": "A professional vertical interior photograph taken inside a clean under-sink kitchen cabinet. A disassembled white PVC P-trap pipe sits on a blue plumber towel, angled toward the camera. The interior of the curved pipe is clearly visible, revealing a thick, realistic layer of solidified pale yellow grease and congealed cooking oil coating the inner pipe walls. The surrounding stainless steel sink underside and grey drain hoses are softly blurred in the background. Natural bright studio lighting highlights the texture of the plastic fittings and the hardened fat deposit. Clean, crisp focal detail on the pipe interior, 9:16 vertical orientation, shot on 50mm lens, photorealistic, no text, no words, no logos, no graphics, no watermarks.",
-  "visual_story": "The viewer sees the inside of a kitchen sink cabinet where a white plastic P-trap has been opened for maintenance. The first detail the viewer notices is the thick, hardened layer of congealed oil sitting inside the pipe curve. This visual detail proves that liquid oil poured down a sink does not stay fluid, but solidifies inside cool drainage components, choking water flow.",
+  "idea": "Why water pipes make unusual noises",
+  "title": "What That Loud Pipe Banging Really Means",
+  "description": "Hearing a thumping or banging sound when you quickly turn off a tap? That noise is commonly known as water hammer. When a valve closes rapidly, the moving water stops suddenly and sends a pressure shockwave through the line. If your water pipes are not firmly anchored to the wall with proper pipe brackets, that shockwave causes the pipe to vibrate and knock against the building structure. Over time, these violent vibrations can weaken fused joints and lead to hidden leaks. Securing loose brackets or installing a simple water hammer arrestor usually solves the issue. Have a professional plumber check your pipe supports.",
+  "image_prompt": "A crisp, professional vertical close-up photograph of an exposed white PPR residential water pipe running along a modern light grey tiled wall inside a utility space. A single white plastic pipe saddle bracket is mounted on the wall, but the pipe is slightly sitting out of the clamp, creating a noticeable gap between the pipe and the wall. Natural indoor daylight highlighting the clean texture of the PPR plastic, realistic tile grout lines, and crisp shadow detail. Shallow depth of field with sharp focus on the unfastened pipe bracket area. Photograph taken on a professional digital camera with standard perspective. No text, no letters, no labels, no graphics, no logos, no watermarks.",
+  "visual_story": "The viewer first notices a neat PPR water line running along a tiled wall. Upon closer look, the viewer sees that the pipe has popped out of its mounting clip, leaving a small gap where the pipe can freely swing and vibrate. This visual immediately illustrates why a pipe would physically knock against a hard wall surface whenever water flow suddenly stops.",
   "on_image_text": {
-    "hook": "Liquid oil hardens in pipes.",
-    "explanation": "Pouring warm cooking fat down your sink creates solid blockages inside the P-trap.",
-    "callout": "Congealed fat buildup",
-    "takeaway": "Wipe oily pans with paper towels before washing."
+    "hook": "Why are your pipes banging?",
+    "explanation": "Loose wall clips allow pipes to vibrate when water suddenly stops flowing.",
+    "callout": "Unsecured pipe clip",
+    "takeaway": "Secure loose pipe brackets before water hammer causes bigger leaks."
   },
   "hashtags": [
+    "#PlumbingTips",
+    "#HomeMaintenance",
+    "#WaterHammer",
     "#PlumbingAdvice",
-    "#HomeMaintenanceTips",
-    "#KitchenPlumbing",
-    "#DrainCleaning",
-    "#PlumbingMistakes",
-    "#NigerianHomes",
-    "#HomeCareTips"
+    "#ResidentialPlumbing",
+    "#NigerianPlumber"
   ]
 }
