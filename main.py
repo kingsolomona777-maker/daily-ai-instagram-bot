@@ -7,6 +7,31 @@ from image_generator import generate_image, make_vertical_image
 
 
 # ============================================================
+# OROM PLAN1
+# MAIN CONTENT PIPELINE
+#
+# VERSION:
+# Premium Educational Visual Content System
+#
+# PIPELINE:
+#
+# Topic
+#   ↓
+# Gemini content generation
+#   ↓
+# Technical content validation
+#   ↓
+# FLUX clean plumbing photograph
+#   ↓
+# Python educational text overlay
+#   ↓
+# 1080 x 1920 Instagram image
+#   ↓
+# latest_content.json
+# ============================================================
+
+
+# ============================================================
 # PLUMBING CONTENT IDEAS
 # ============================================================
 
@@ -38,8 +63,13 @@ ideas = [
 # FILES
 # ============================================================
 
-history_file = Path("content_history.json")
-latest_content_file = Path("latest_content.json")
+history_file = Path(
+    "content_history.json"
+)
+
+latest_content_file = Path(
+    "latest_content.json"
+)
 
 
 # ============================================================
@@ -47,16 +77,35 @@ latest_content_file = Path("latest_content.json")
 # ============================================================
 
 if history_file.exists():
-    try:
-        with open(history_file, "r", encoding="utf-8") as file:
-            history = json.load(file)
 
-        if not isinstance(history, list):
+    try:
+
+        with open(
+            history_file,
+            "r",
+            encoding="utf-8"
+        ) as file:
+
+            history = json.load(
+                file
+            )
+
+        if not isinstance(
+            history,
+            list
+        ):
+
             history = []
 
-    except (json.JSONDecodeError, OSError):
+    except (
+        json.JSONDecodeError,
+        OSError
+    ):
+
         history = []
+
 else:
+
     history = []
 
 
@@ -65,7 +114,8 @@ else:
 # ============================================================
 
 unused_ideas = [
-    idea for idea in ideas
+    idea
+    for idea in ideas
     if idea not in history
 ]
 
@@ -75,10 +125,17 @@ unused_ideas = [
 # ============================================================
 
 if not unused_ideas:
-    print("All topics have been used.")
-    print("Starting a new content cycle.")
+
+    print(
+        "All topics have been used."
+    )
+
+    print(
+        "Starting a new content cycle."
+    )
 
     history = []
+
     unused_ideas = ideas
 
 
@@ -86,43 +143,87 @@ if not unused_ideas:
 # SELECT TODAY'S IDEA
 # ============================================================
 
-today_idea = random.choice(unused_ideas)
+today_idea = random.choice(
+    unused_ideas
+)
 
-history.append(today_idea)
+history.append(
+    today_idea
+)
 
 
 # ============================================================
 # SAVE HISTORY
 # ============================================================
 
-with open(history_file, "w", encoding="utf-8") as file:
-    json.dump(history, file, indent=2, ensure_ascii=False)
+with open(
+    history_file,
+    "w",
+    encoding="utf-8"
+) as file:
+
+    json.dump(
+        history,
+        file,
+        indent=2,
+        ensure_ascii=False
+    )
 
 
 # ============================================================
-# GENERATE CONTENT
+# START CONTENT GENERATION
 # ============================================================
 
 print()
-print("==========================================")
-print("OROM PLAN1 CONTENT GENERATION")
-print("==========================================")
+
+print(
+    "=========================================="
+)
+
+print(
+    "OROM PLAN1 CONTENT GENERATION"
+)
+
+print(
+    "=========================================="
+)
+
 print()
 
-print("Today's idea:")
-print(today_idea)
+print(
+    "Today's idea:"
+)
+
+print(
+    today_idea
+)
+
 print()
 
-content = create_content(today_idea)
+
+# ============================================================
+# GEMINI CONTENT GENERATION
+# ============================================================
+
+content = create_content(
+    today_idea
+)
 
 
 # ============================================================
 # QUALITY CHECK
 # ============================================================
 
-if check_content(content):
-    print("Content passed quality check.")
+if check_content(
+    content
+):
+
+    print(
+        "Content passed quality check."
+    )
+
 else:
+
     raise RuntimeError(
         "Generated content failed quality check."
     )
@@ -133,20 +234,98 @@ else:
 # ============================================================
 
 print()
-print("Title:")
-print(content["title"])
+
+print(
+    "Title:"
+)
+
+print(
+    content["title"]
+)
 
 print()
-print("Description:")
-print(content["description"])
+
+print(
+    "Description:"
+)
+
+print(
+    content["description"]
+)
 
 print()
-print("Image prompt:")
-print(content["image_prompt"])
+
+print(
+    "Image prompt:"
+)
+
+print(
+    content["image_prompt"]
+)
+
+
+# ============================================================
+# DISPLAY VISUAL STORY
+# ============================================================
 
 print()
-print("Hashtags:")
-print(" ".join(content["hashtags"]))
+
+print(
+    "Visual story:"
+)
+
+print(
+    content["visual_story"]
+)
+
+
+# ============================================================
+# DISPLAY ON-IMAGE TEACHING TEXT
+# ============================================================
+
+on_image_text = content[
+    "on_image_text"
+]
+
+
+print()
+
+print(
+    "On-image teaching text:"
+)
+
+print(
+    f"Hook: {on_image_text['hook']}"
+)
+
+print(
+    f"Explanation: {on_image_text['explanation']}"
+)
+
+print(
+    f"Callout: {on_image_text['callout']}"
+)
+
+print(
+    f"Takeaway: {on_image_text['takeaway']}"
+)
+
+
+# ============================================================
+# DISPLAY HASHTAGS
+# ============================================================
+
+print()
+
+print(
+    "Hashtags:"
+)
+
+print(
+    " ".join(
+        content["hashtags"]
+    )
+)
 
 
 # ============================================================
@@ -154,11 +333,27 @@ print(" ".join(content["hashtags"]))
 # ============================================================
 
 latest_content = {
-    "idea": today_idea,
-    "title": content["title"],
-    "description": content["description"],
-    "image_prompt": content["image_prompt"],
-    "hashtags": content["hashtags"]
+
+    "idea":
+        today_idea,
+
+    "title":
+        content["title"],
+
+    "description":
+        content["description"],
+
+    "image_prompt":
+        content["image_prompt"],
+
+    "visual_story":
+        content["visual_story"],
+
+    "on_image_text":
+        content["on_image_text"],
+
+    "hashtags":
+        content["hashtags"]
 }
 
 
@@ -167,6 +362,7 @@ with open(
     "w",
     encoding="utf-8"
 ) as file:
+
     json.dump(
         latest_content,
         file,
@@ -176,37 +372,71 @@ with open(
 
 
 print()
-print("Latest content saved.")
+
+print(
+    "Latest content saved."
+)
 
 
 # ============================================================
-# GENERATE IMAGE
+# GENERATE CLEAN FLUX IMAGE
 # ============================================================
 
 print()
-print("Generating image...")
+
+print(
+    "Generating clean plumbing photograph..."
+)
+
 
 image_file = generate_image(
     content["image_prompt"],
     "daily_image.png"
 )
 
-print("Image generated successfully.")
-print(f"Image saved as: {image_file}")
+
+print(
+    "Clean plumbing image generated successfully."
+)
+
+print(
+    f"Image saved as: {image_file}"
+)
 
 
 # ============================================================
 # CREATE INSTAGRAM 9:16 IMAGE
+#
+# IMPORTANT:
+# The on-image teaching text is passed here.
+#
+# Python adds the exact words to the photograph.
+# FLUX does NOT generate the words.
 # ============================================================
+
+print()
+
+print(
+    "Creating premium educational Instagram image..."
+)
+
 
 vertical_image = make_vertical_image(
     image_file,
-    "instagram_image.jpg"
+    "instagram_image.jpg",
+    content["on_image_text"]
 )
 
+
 print()
-print("Instagram image created.")
-print(f"Image saved as: {vertical_image}")
+
+print(
+    "Instagram educational image created."
+)
+
+print(
+    f"Image saved as: {vertical_image}"
+)
 
 
 # ============================================================
@@ -214,6 +444,55 @@ print(f"Image saved as: {vertical_image}")
 # ============================================================
 
 print()
-print("==========================================")
-print("OROM PLAN1 CONTENT GENERATION COMPLETE")
-print("==========================================")
+
+print(
+    "=========================================="
+)
+
+print(
+    "OROM PLAN1 CONTENT GENERATION COMPLETE"
+)
+
+print(
+    "=========================================="
+)
+
+print()
+
+print(
+    "Pipeline completed:"
+)
+
+print(
+    "1. Topic selected"
+)
+
+print(
+    "2. Gemini created educational content"
+)
+
+print(
+    "3. Content quality checked"
+)
+
+print(
+    "4. FLUX generated clean plumbing photograph"
+)
+
+print(
+    "5. Python added educational text"
+)
+
+print(
+    "6. Final image prepared at 1080 x 1920"
+)
+
+print(
+    "7. latest_content.json updated"
+)
+
+print()
+
+print(
+    "Ready for Instagram publishing."
+)
