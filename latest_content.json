@@ -1,21 +1,22 @@
 {
-  "idea": "Why water pipes make unusual noises",
-  "title": "What That Loud Pipe Banging Really Means",
-  "description": "Hearing a thumping or banging sound when you quickly turn off a tap? That noise is commonly known as water hammer. When a valve closes rapidly, the moving water stops suddenly and sends a pressure shockwave through the line. If your water pipes are not firmly anchored to the wall with proper pipe brackets, that shockwave causes the pipe to vibrate and knock against the building structure. Over time, these violent vibrations can weaken fused joints and lead to hidden leaks. Securing loose brackets or installing a simple water hammer arrestor usually solves the issue. Have a professional plumber check your pipe supports.",
-  "image_prompt": "A crisp, professional vertical close-up photograph of an exposed white PPR residential water pipe running along a modern light grey tiled wall inside a utility space. A single white plastic pipe saddle bracket is mounted on the wall, but the pipe is slightly sitting out of the clamp, creating a noticeable gap between the pipe and the wall. Natural indoor daylight highlighting the clean texture of the PPR plastic, realistic tile grout lines, and crisp shadow detail. Shallow depth of field with sharp focus on the unfastened pipe bracket area. Photograph taken on a professional digital camera with standard perspective. No text, no letters, no labels, no graphics, no logos, no watermarks.",
-  "visual_story": "The viewer first notices a neat PPR water line running along a tiled wall. Upon closer look, the viewer sees that the pipe has popped out of its mounting clip, leaving a small gap where the pipe can freely swing and vibrate. This visual immediately illustrates why a pipe would physically knock against a hard wall surface whenever water flow suddenly stops.",
+  "idea": "Why a toilet may keep running",
+  "title": "Why Your Toilet Keeps Running Non-Stop",
+  "description": "A continuously running toilet is one of the most common causes of wasted water in Nigerian homes. In many cases, the problem starts inside the cistern rather than the bowl. When the fill valve fails or the float is set too high, the water level rises past the top of the vertical overflow tube. Water then flows constantly down into the toilet bowl to prevent your tank from overflowing onto the bathroom floor. Lowering the float adjustment screw can quickly fix the issue. If the water keeps rising after adjustment, the fill valve seal is likely worn and needs replacement by a professional plumber.",
+  "image_prompt": "Crisp realistic vertical photograph looking down into the open inside of a white ceramic toilet cistern in a brightly lit modern bathroom. The ceramic tank lid is removed and resting beside the tank. Inside the water-filled cistern, a realistic modern plastic fill valve mechanism and a central vertical flush valve overflow tube are clearly visible. The water level inside the tank is slightly higher than the top rim of the vertical overflow tube, showing clear water gently spilling over the rim down into the pipe. High detail on water reflections, wet plastic components, smooth glazed porcelain, and natural indoor ambient lighting. Professional commercial photography, sharp focus, neutral visual space near the top and bottom. No text, no letters, no labels, no logos, no watermarks.",
+  "visual_story": "The photograph offers an angled overhead look into an open, functioning toilet tank. The viewer immediately spots water spilling over the open top of the vertical overflow tube. This visual clearly explains how an incorrect water level or faulty valve creates a silent, continuous leak straight down into the bowl.",
   "on_image_text": {
-    "hook": "Why are your pipes banging?",
-    "explanation": "Loose wall clips allow pipes to vibrate when water suddenly stops flowing.",
-    "callout": "Unsecured pipe clip",
-    "takeaway": "Secure loose pipe brackets before water hammer causes bigger leaks."
+    "hook": "Why your toilet keeps running",
+    "explanation": "Water is overflowing directly into the vertical overflow tube inside the tank.",
+    "callout": "Overflow tube",
+    "takeaway": "Adjust your float level or replace a worn fill valve to save water."
   },
   "hashtags": [
     "#PlumbingTips",
     "#HomeMaintenance",
-    "#WaterHammer",
-    "#PlumbingAdvice",
-    "#ResidentialPlumbing",
-    "#NigerianPlumber"
+    "#ToiletRepair",
+    "#PlumbingEducation",
+    "#NigerianPlumber",
+    "#WaterConservation",
+    "#FacilityManagement"
   ]
 }
