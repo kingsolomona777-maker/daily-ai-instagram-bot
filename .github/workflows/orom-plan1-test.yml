@@ -47,6 +47,7 @@ jobs:
             content_generator.py \
             image_generator.py \
             reel_generator.py
+
           echo "Python syntax check passed."
 
       - name: Check JSON files
@@ -76,119 +77,239 @@ jobs:
           print("Project source files passed structural checks.")
           PY
 
-      - name: Create temporary test image
+      - name: Create temporary test environment
         run: |
           python - <<'PY'
-          from PIL import Image, ImageDraw, ImageFont
+          from pathlib import Path
+          import shutil
 
-          width = 1080
-          height = 1920
+          test_dir = Path("integration_test")
+          test_dir.mkdir()
 
-          image = Image.new("RGB", (width, height), "white")
-          draw = ImageDraw.Draw(image)
+          shutil.copy2("main.py", test_dir / "main.py")
+          shutil.copy2("reel_generator.py", test_dir / "reel_generator.py")
+
+          print("Temporary integration test environment created.")
+          PY
+
+      - name: Test main.py Reel integration safely
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import runpy
+          import shutil
+          import sys
+          import tempfile
+          import types
+          from pathlib import Path
+
+          ROOT = Path.cwd()
+          TEST_DIR = ROOT / "integration_test"
+
+          fake_content_generator = types.ModuleType("content_generator")
+          fake_image_generator = types.ModuleType("image_generator")
+
+          def fake_create_content(topic):
+              return {
+                  "title": "Test Plumbing Lesson",
+                  "description": (
+                      "This is a safe automated test of the Orom Plan1 "
+                      "educational content pipeline."
+                  ),
+                  "image_prompt": (
+                      "A realistic professional plumbing scene showing "
+                      "a clean sink drainage connection."
+                  ),
+                  "hashtags": [
+                      "#Plumbing",
+                      "#PlumbingTips",
+                      "#OromPlan1"
+                  ],
+                  "visual_story": (
+                      "A plumber inspecting a realistic sink drainage "
+                      "connection."
+                  ),
+                  "on_image_text": {
+                      "hook": "Small plumbing problems can become expensive.",
+                      "explanation": (
+                          "Learning the warning signs early can help "
+                          "prevent bigger plumbing damage."
+                      ),
+                      "callout": "Check the warning signs",
+                      "takeaway": (
+                          "Fix the cause early, not only the symptom."
+                      )
+                  }
+              }
+
+          def fake_check_content(content):
+              return True
+
+          def fake_generate_image(prompt, output_file):
+              from PIL import Image, ImageDraw, ImageFont
+
+              width = 1080
+              height = 1920
+
+              image = Image.new("RGB", (width, height), "white")
+              draw = ImageDraw.Draw(image)
+
+              try:
+                  font_large = ImageFont.truetype(
+                      "/usr/share/fonts/truetype/dejavu/"
+                      "DejaVuSans-Bold.ttf",
+                      64
+                  )
+                  font_small = ImageFont.truetype(
+                      "/usr/share/fonts/truetype/dejavu/"
+                      "DejaVuSans.ttf",
+                      42
+                  )
+              except OSError:
+                  font_large = ImageFont.load_default()
+                  font_small = ImageFont.load_default()
+
+              draw.text(
+                  (width // 2, 650),
+                  "OROM PLAN1",
+                  font=font_large,
+                  anchor="mm",
+                  fill="black"
+              )
+
+              draw.text(
+                  (width // 2, 800),
+                  "MAIN.PY REEL TEST",
+                  font=font_large,
+                  anchor="mm",
+                  fill="black"
+              )
+
+              draw.text(
+                  (width // 2, 930),
+                  "Safe integration test",
+                  font=font_small,
+                  anchor="mm",
+                  fill="black"
+              )
+
+              image.save(output_file, quality=95)
+
+              return output_file
+
+          def fake_make_vertical_image(
+              input_file,
+              output_file,
+              on_image_text=None
+          ):
+              shutil.copy2(input_file, output_file)
+              return output_file
+
+          fake_content_generator.create_content = fake_create_content
+          fake_content_generator.check_content = fake_check_content
+
+          fake_image_generator.generate_image = fake_generate_image
+          fake_image_generator.make_vertical_image = fake_make_vertical_image
+
+          sys.modules["content_generator"] = fake_content_generator
+          sys.modules["image_generator"] = fake_image_generator
+
+          os.environ["OROM_PLAN1_GENERATE_REEL"] = "true"
+
+          original_directory = Path.cwd()
 
           try:
-              font_large = ImageFont.truetype(
-                  "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
-                  64
+              os.chdir(TEST_DIR)
+
+              print("Running the real main.py with safe fake API functions...")
+              runpy.run_path("main.py", run_name="__main__")
+
+          finally:
+              os.chdir(original_directory)
+
+          latest_file = TEST_DIR / "latest_content.json"
+          reel_file = TEST_DIR / "orom_plan1_reel.mp4"
+
+          if not latest_file.exists():
+              raise RuntimeError(
+                  "latest_content.json was not created by main.py"
               )
-              font_small = ImageFont.truetype(
-                  "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
-                  42
+
+          if not reel_file.exists():
+              raise RuntimeError(
+                  "main.py did not create the expected Reel file"
               )
-          except OSError:
-              font_large = ImageFont.load_default()
-              font_small = ImageFont.load_default()
 
-          draw.text(
-              (width // 2, 600),
-              "OROM PLAN1",
-              font=font_large,
-              anchor="mm",
-              fill="black"
-          )
+          with latest_file.open("r", encoding="utf-8") as file:
+              latest = json.load(file)
 
-          draw.text(
-              (width // 2, 760),
-              "REEL ENGINE TEST",
-              font=font_large,
-              anchor="mm",
-              fill="black"
-          )
+          if latest.get("reel_enabled") is not True:
+              raise RuntimeError(
+                  "main.py did not enable Reel generation"
+              )
 
-          draw.text(
-              (width // 2, 900),
-              "Educational plumbing content",
-              font=font_small,
-              anchor="mm",
-              fill="black"
-          )
+          if latest.get("reel_file") != "orom_plan1_reel.mp4":
+              raise RuntimeError(
+                  "main.py did not save the expected Reel filename"
+              )
 
-          image.save("reel_test_image.jpg", quality=95)
+          reel_size = reel_file.stat().st_size
 
-          print("Temporary test image created.")
+          if reel_size < 10000:
+              raise RuntimeError(
+                  f"Generated Reel is unexpectedly small: {reel_size} bytes"
+              )
+
+          print()
+          print("==========================================")
+          print("MAIN.PY REEL INTEGRATION TEST PASSED")
+          print("==========================================")
+          print(f"Reel file: {reel_file}")
+          print(f"Reel size: {reel_size} bytes")
+          print(f"Reel enabled: {latest.get('reel_enabled')}")
+          print(f"Reel filename: {latest.get('reel_file')}")
+          print("==========================================")
           PY
 
-      - name: Generate test Reel
+      - name: Verify integrated Reel
         run: |
-          python - <<'PY'
-          from reel_generator import generate_reel
-
-          output = generate_reel(
-              input_file="reel_test_image.jpg",
-              output_file="orom_plan1_test_reel.mp4",
-              duration=8
-          )
-
-          print(f"Generated Reel: {output}")
-          PY
-
-      - name: Verify Reel
-        run: |
-          test -f orom_plan1_test_reel.mp4
-
-          FILE_SIZE=$(stat -c%s orom_plan1_test_reel.mp4)
-
-          echo "Reel file size: ${FILE_SIZE} bytes"
-
-          if [ "$FILE_SIZE" -lt 10000 ]; then
-            echo "Reel file is unexpectedly small."
-            exit 1
-          fi
+          test -f integration_test/orom_plan1_reel.mp4
 
           ffprobe \
             -v error \
             -show_entries format=duration,size \
             -show_entries stream=codec_name,width,height,r_frame_rate \
             -of default=noprint_wrappers=1 \
-            orom_plan1_test_reel.mp4
+            integration_test/orom_plan1_reel.mp4
 
-          echo "Reel verification passed."
+          echo "Integrated Reel verification passed."
 
-      - name: Upload test Reel artifact
+      - name: Upload integrated Reel artifact
         uses: actions/upload-artifact@v4
         with:
-          name: orom-plan1-test-reel
+          name: orom-plan1-main-reel-integration
           path: |
-            orom_plan1_test_reel.mp4
-            reel_test_image.jpg
+            integration_test/orom_plan1_reel.mp4
+            integration_test/instagram_image.jpg
           retention-days: 7
 
       - name: Final result
         run: |
           echo "=========================================="
-          echo "OROM PLAN1 TEST PASSED"
+          echo "OROM PLAN1 FULL REEL INTEGRATION TEST PASSED"
           echo "=========================================="
-          echo "Python checks: PASSED"
-          echo "JSON checks: PASSED"
+          echo "Python syntax: PASSED"
+          echo "JSON validation: PASSED"
           echo "FFmpeg: PASSED"
+          echo "main.py execution: PASSED"
           echo "Reel generation: PASSED"
+          echo "Reel integration: PASSED"
           echo "Reel verification: PASSED"
-          echo "Test Reel uploaded as artifact."
           echo
           echo "No Gemini API calls were made."
           echo "No Cloudflare API calls were made."
           echo "No Instagram API calls were made."
           echo "No production content was published."
-          echo "No project files were modified."
+          echo "No production files were modified."
           echo "=========================================="
