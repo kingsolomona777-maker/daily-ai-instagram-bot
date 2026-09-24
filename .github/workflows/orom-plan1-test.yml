@@ -1,7 +1,6 @@
 name: Orom Plan1 Test
 
-on:
-  workflow_dispatch:
+on: workflow_dispatch
 
 permissions:
   contents: read
@@ -31,18 +30,18 @@ jobs:
           test -f image_generator.py
           test -f content_history.json
           test -f latest_content.json
-          echo "✅ Required Orom Plan1 files are present."
+          echo "Required Orom Plan1 files are present."
 
       - name: Check Python syntax
         run: |
           python -m py_compile main.py content_generator.py image_generator.py
-          echo "✅ Python syntax check passed."
+          echo "Python syntax check passed."
 
       - name: Check JSON files
         run: |
           python -m json.tool content_history.json > /dev/null
           python -m json.tool latest_content.json > /dev/null
-          echo "✅ JSON validation passed."
+          echo "JSON validation passed."
 
       - name: Check project source files
         run: |
@@ -59,9 +58,9 @@ jobs:
           for filename in files:
               source = Path(filename).read_text(encoding="utf-8")
               ast.parse(source, filename=filename)
-              print(f"✅ Parsed successfully: {filename}")
+              print(f"Parsed successfully: {filename}")
 
-          print("✅ Project source files passed structural checks.")
+          print("Project source files passed structural checks.")
           PY
 
       - name: Final result
