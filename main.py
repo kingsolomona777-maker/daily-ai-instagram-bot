@@ -1,9 +1,11 @@
+import os
 import random
 import json
 from pathlib import Path
 
 from content_generator import create_content, check_content
 from image_generator import generate_image, make_vertical_image
+from reel_generator import generate_reel
 
 
 # ============================================================
@@ -11,7 +13,7 @@ from image_generator import generate_image, make_vertical_image
 # MAIN CONTENT PIPELINE
 #
 # VERSION:
-# Premium Educational Visual Content System
+# Premium Educational Visual + Teaching Reel System
 #
 # PIPELINE:
 #
@@ -27,7 +29,18 @@ from image_generator import generate_image, make_vertical_image
 #   ↓
 # 1080 x 1920 Instagram image
 #   ↓
+# Optional Teaching Reel
+#   ↓
 # latest_content.json
+#
+# IMPORTANT:
+# Reel generation is controlled by:
+#
+# OROM_PLAN1_GENERATE_REEL=true
+#
+# The default is false so the existing production
+# Instagram pipeline remains protected until Reel
+# generation has been fully tested.
 # ============================================================
 
 
@@ -353,7 +366,13 @@ latest_content = {
         content["on_image_text"],
 
     "hashtags":
-        content["hashtags"]
+        content["hashtags"],
+
+    "reel_enabled":
+        False,
+
+    "reel_file":
+        None
 }
 
 
@@ -440,6 +459,118 @@ print(
 
 
 # ============================================================
+# OPTIONAL TEACHING REEL
+#
+# The Reel uses the SAME Gemini teaching content:
+#
+# Hook
+#   ↓
+# Explanation
+#   ↓
+# Takeaway
+#
+# This means one content-generation call can eventually
+# power both the educational image and the Reel.
+#
+# The feature is OFF by default.
+# ============================================================
+
+generate_reel_enabled = (
+    os.getenv(
+        "OROM_PLAN1_GENERATE_REEL",
+        "false"
+    ).strip().lower()
+    == "true"
+)
+
+
+if generate_reel_enabled:
+
+    print()
+
+    print(
+        "=========================================="
+    )
+
+    print(
+        "CREATING TEACHING REEL"
+    )
+
+    print(
+        "=========================================="
+    )
+
+    reel_teaching_text = {
+
+        "hook":
+            on_image_text["hook"],
+
+        "explanation":
+            on_image_text["explanation"],
+
+        "takeaway":
+            on_image_text["takeaway"]
+    }
+
+
+    reel_file = generate_reel(
+        input_file=vertical_image,
+        output_file="orom_plan1_reel.mp4",
+        duration=8,
+        teaching_text=reel_teaching_text
+    )
+
+
+    print()
+
+    print(
+        "Teaching Reel created successfully."
+    )
+
+    print(
+        f"Reel saved as: {reel_file}"
+    )
+
+
+    # ========================================================
+    # UPDATE LATEST CONTENT WITH REEL INFORMATION
+    # ========================================================
+
+    latest_content["reel_enabled"] = True
+
+    latest_content["reel_file"] = str(
+        reel_file
+    )
+
+
+    with open(
+        latest_content_file,
+        "w",
+        encoding="utf-8"
+    ) as file:
+
+        json.dump(
+            latest_content,
+            file,
+            indent=2,
+            ensure_ascii=False
+        )
+
+
+else:
+
+    print()
+
+    print(
+        "Teaching Reel generation is currently OFF."
+    )
+
+    print(
+        "Set OROM_PLAN1_GENERATE_REEL=true to enable it."
+    )
+
+
+# ============================================================
 # COMPLETE
 # ============================================================
 
@@ -487,9 +618,25 @@ print(
     "6. Final image prepared at 1080 x 1920"
 )
 
-print(
-    "7. latest_content.json updated"
-)
+if generate_reel_enabled:
+
+    print(
+        "7. Teaching Reel generated from the same lesson"
+    )
+
+    print(
+        "8. latest_content.json updated"
+    )
+
+else:
+
+    print(
+        "7. Teaching Reel generation remains safely disabled"
+    )
+
+    print(
+        "8. latest_content.json updated"
+    )
 
 print()
 
