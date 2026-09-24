@@ -1,1 +1,77 @@
+name: Orom Plan1 Test
 
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install google-genai requests Pillow
+
+      - name: Check required files
+        run: |
+          test -f main.py
+          test -f content_generator.py
+          test -f image_generator.py
+          test -f content_history.json
+          test -f latest_content.json
+          echo "✅ Required Orom Plan1 files are present."
+
+      - name: Check Python syntax
+        run: |
+          python -m py_compile main.py content_generator.py image_generator.py
+          echo "✅ Python syntax check passed."
+
+      - name: Check JSON files
+        run: |
+          python -m json.tool content_history.json > /dev/null
+          python -m json.tool latest_content.json > /dev/null
+          echo "✅ JSON validation passed."
+
+      - name: Check project source files
+        run: |
+          python - <<'PY'
+          import ast
+          from pathlib import Path
+
+          files = [
+              "main.py",
+              "content_generator.py",
+              "image_generator.py"
+          ]
+
+          for filename in files:
+              source = Path(filename).read_text(encoding="utf-8")
+              ast.parse(source, filename=filename)
+              print(f"✅ Parsed successfully: {filename}")
+
+          print("✅ Project source files passed structural checks.")
+          PY
+
+      - name: Final result
+        run: |
+          echo "======================================"
+          echo "OROM PLAN1 TEST PASSED"
+          echo "======================================"
+          echo "No Gemini API calls were made."
+          echo "No Cloudflare API calls were made."
+          echo "No Instagram API calls were made."
+          echo "No production content was published."
+          echo "No project files were modified."
+          echo "======================================"
