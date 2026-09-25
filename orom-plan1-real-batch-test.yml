@@ -101,12 +101,13 @@ jobs:
           print("==========================================")
           PY
 
-      - name: Upload real batch result
-        uses: actions/upload-artifact@v4
-        with:
-          name: orom-plan1-real-batch-result
-          path: real_batch_result.json
-          if-no-files-found: error
+      - name: Show generated lessons
+        run: |
+          echo "=========================================="
+          echo "GENERATED LESSONS"
+          echo "=========================================="
+          cat real_batch_result.json
+          echo "=========================================="
 
       - name: Final result
         run: |
