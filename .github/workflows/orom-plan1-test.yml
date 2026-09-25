@@ -455,8 +455,8 @@ jobs:
               )
 
           if (
-              "Lesson 1" not in prompt
-              or "Lesson 2" not in prompt
+              "LESSON 1 PLAN:" not in prompt
+              or "LESSON 2 PLAN:" not in prompt
           ):
               raise RuntimeError(
                   "Pair prompt is missing lesson sections."
