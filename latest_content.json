@@ -1,22 +1,24 @@
 {
-  "idea": "Why a toilet may keep running",
-  "title": "Why Your Toilet Keeps Running Non-Stop",
-  "description": "A continuously running toilet is one of the most common causes of wasted water in Nigerian homes. In many cases, the problem starts inside the cistern rather than the bowl. When the fill valve fails or the float is set too high, the water level rises past the top of the vertical overflow tube. Water then flows constantly down into the toilet bowl to prevent your tank from overflowing onto the bathroom floor. Lowering the float adjustment screw can quickly fix the issue. If the water keeps rising after adjustment, the fill valve seal is likely worn and needs replacement by a professional plumber.",
-  "image_prompt": "Crisp realistic vertical photograph looking down into the open inside of a white ceramic toilet cistern in a brightly lit modern bathroom. The ceramic tank lid is removed and resting beside the tank. Inside the water-filled cistern, a realistic modern plastic fill valve mechanism and a central vertical flush valve overflow tube are clearly visible. The water level inside the tank is slightly higher than the top rim of the vertical overflow tube, showing clear water gently spilling over the rim down into the pipe. High detail on water reflections, wet plastic components, smooth glazed porcelain, and natural indoor ambient lighting. Professional commercial photography, sharp focus, neutral visual space near the top and bottom. No text, no letters, no labels, no logos, no watermarks.",
-  "visual_story": "The photograph offers an angled overhead look into an open, functioning toilet tank. The viewer immediately spots water spilling over the open top of the vertical overflow tube. This visual clearly explains how an incorrect water level or faulty valve creates a silent, continuous leak straight down into the bowl.",
+  "idea": "Simple ways to protect plumbing during renovation",
+  "title": "How to Keep Renovation Debris Out of Your Pipes",
+  "description": "During bathroom or kitchen remodeling, cement slurry, tile chips, and plaster dust frequently fall into uncovered waste pipes. Once inside, this heavy debris settles in drain traps, hardens like rock, and causes severe blockages that are expensive to clear later. A simple plastic pipe cap, expanding plug, or tightly taped cover costs very little, but saves you from breaking fresh tiles to fix blocked lines after work is complete. Always instruct your tiling and masonry workers to cap every open pipe before work begins.",
+  "image_prompt": "A vertical 9:16 eye-level professional photograph of a residential bathroom under renovation. In the center foreground, a clean white 2-inch PVC waste pipe extends vertically 4 inches above a rough concrete subfloor. The open top of the pipe is capped tightly with a high-visibility yellow plastic pipe plug. Around the base of the pipe, the floor is covered in light cement dust, small ceramic tile chips, and sand grit. In the softly blurred background, a wall with light grey tiles and fresh grout lines is visible under natural daylight. Realistic textures of PVC plastic, rough cement floor, dry masonry dust, and smooth tile. Natural realistic interior lighting, sharp focus on the capped pipe, shallow depth of field, photorealistic shot on 35mm lens, no text, no words, no watermarks, no logos.",
+  "visual_story": "The viewer sees a modern residential bathroom undergoing floor and wall tiling. On the concrete floor near a partially tiled wall, an open PVC drain pipe protrudes upward. The pipe top is sealed securely with a bright yellow protective cap. Gray tile dust, small stone chips, and dried mortar splatters rest on the floor around the pipe base, demonstrating how easily debris falls near open drains. The contrast between the dirty floor and the clean, capped pipe immediately highlights the protective measure.",
   "on_image_text": {
-    "hook": "Why your toilet keeps running",
-    "explanation": "Water is overflowing directly into the vertical overflow tube inside the tank.",
-    "callout": "Overflow tube",
-    "takeaway": "Adjust your float level or replace a worn fill valve to save water."
+    "hook": "Renovation dust ruins drains.",
+    "explanation": "Cover open pipe stubs to block cement and tile debris.",
+    "callout": "Protective pipe cap",
+    "takeaway": "Cap open pipes before demolition or tiling starts."
   },
   "hashtags": [
     "#PlumbingTips",
-    "#HomeMaintenance",
-    "#ToiletRepair",
-    "#PlumbingEducation",
-    "#NigerianPlumber",
-    "#WaterConservation",
-    "#FacilityManagement"
-  ]
+    "#HomeRenovationNG",
+    "#PlumbingNigeria",
+    "#BuildingInNigeria",
+    "#DrainProtection",
+    "#HomeMaintenanceNG",
+    "#PlumbingDesign"
+  ],
+  "reel_enabled": false,
+  "reel_file": null
 }
