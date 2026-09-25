@@ -874,184 +874,123 @@ jobs:
           )
           PY
 
-      - name: Test daily content engine safely
+          name: Orom Plan1 Test
+
+on: workflow_dispatch
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.x'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install google-genai requests Pillow
+
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          ffmpeg -version
+
+      - name: Check required project files
+        run: |
+          test -f main.py
+          test -f content_generator.py
+          test -f content_planner.py
+          test -f daily_content_engine.py
+          test -f content_batch_generator.py
+          test -f image_generator.py
+          test -f reel_generator.py
+          test -f content_history.json
+          test -f latest_content.json
+
+          echo "Required Orom Plan1 files are present."
+
+      - name: Check Python syntax
+        run: |
+          python -m py_compile \
+            main.py \
+            content_generator.py \
+            content_planner.py \
+            daily_content_engine.py \
+            content_batch_generator.py \
+            image_generator.py \
+            reel_generator.py
+
+          echo "Python syntax check passed."
+
+      - name: Check JSON files
+        run: |
+          python -m json.tool content_history.json > /dev/null
+          python -m json.tool latest_content.json > /dev/null
+
+          echo "JSON validation passed."
+
+      - name: Check project source files
         run: |
           python - <<'PY'
-          import json
-          import shutil
-          import sys
-          import tempfile
-          import types
+          import ast
           from pathlib import Path
 
-          from PIL import Image
+          files = [
+              "main.py",
+              "content_generator.py",
+              "content_planner.py",
+              "daily_content_engine.py",
+              "content_batch_generator.py",
+              "image_generator.py",
+              "reel_generator.py",
+          ]
 
-          fake_content_generator = types.ModuleType(
-              "content_generator"
-          )
-
-          fake_image_generator = types.ModuleType(
-              "image_generator"
-          )
-
-          generated_counter = {
-              "content": 0,
-              "images": 0,
-          }
-
-          def fake_create_content(
-              topic,
-              content_type="educational_visual",
-              lesson_type=None,
-              lesson_number=None,
-              previous_lesson=None,
-          ):
-              generated_counter["content"] += 1
-
-              number = generated_counter[
-                  "content"
-              ]
-
-              return {
-                  "title": (
-                      f"Safe Plumbing Lesson {number}"
-                  ),
-                  "description": (
-                      f"Educational test lesson "
-                      f"about {topic}."
-                  ),
-                  "image_prompt": (
-                      f"Realistic plumbing scene "
-                      f"showing {topic}, vertical "
-                      "9:16, no text, no logo."
-                  ),
-                  "hashtags": [
-                      "#Plumbing",
-                      "#PlumbingTips",
-                  ],
-                  "visual_story": (
-                      f"Teaching {topic}."
-                  ),
-                  "on_image_text": {
-                      "hook": (
-                          f"Understand {topic}"
-                      ),
-                      "explanation": (
-                          "Learn the principle "
-                          "before fixing the problem."
-                      ),
-                      "callout": topic,
-                      "takeaway": (
-                          "Understand the cause."
-                      ),
-                  },
-              }
-
-          def fake_check_content(content):
-              return True
-
-          def fake_generate_image(
-              prompt,
-              output_file,
-          ):
-              generated_counter[
-                  "images"
-              ] += 1
-
-              image = Image.new(
-                  "RGB",
-                  (1080, 1920),
-                  "white",
+          for filename in files:
+              source = Path(filename).read_text(
+                  encoding="utf-8"
               )
 
-              image.save(
-                  output_file,
-                  quality=95,
+              ast.parse(
+                  source,
+                  filename=filename,
               )
 
-              return output_file
-
-          def fake_make_vertical_image(
-              input_file,
-              output_file,
-              on_image_text=None,
-          ):
-              shutil.copy2(
-                  input_file,
-                  output_file,
+              print(
+                  f"Parsed successfully: {filename}"
               )
 
-              return output_file
-
-          fake_content_generator.create_content = (
-              fake_create_content
+          print(
+              "All project source files passed "
+              "structural checks."
           )
+          PY
 
-          fake_content_generator.check_content = (
-              fake_check_content
-          )
-
-          fake_image_generator.generate_image = (
-              fake_generate_image
-          )
-
-          fake_image_generator.make_vertical_image = (
-              fake_make_vertical_image
-          )
-
-          sys.modules[
-              "content_generator"
-          ] = fake_content_generator
-
-          sys.modules[
-              "image_generator"
-          ] = fake_image_generator
-
-          fake_reel_generator = types.ModuleType(
-              "reel_generator"
-          )
-
-          def fake_generate_reel(
-              input_file,
-              output_file,
-              duration=8,
-              teaching_text=None,
-          ):
-              Path(output_file).write_bytes(
-                  b"SAFE_TEST_REEL"
-              )
-
-              return output_file
-
-          fake_reel_generator.generate_reel = (
-              fake_generate_reel
-          )
-
-          sys.modules[
-              "reel_generator"
-          ] = fake_reel_generator
+      - name: Test 10-post content planner
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import tempfile
 
           from content_planner import (
               create_daily_plan,
+              validate_daily_plan,
+              print_daily_plan,
           )
 
-          from daily_content_engine import (
-              generate_daily_content,
-              save_daily_package,
-              summarize_daily_content,
-          )
-
-          with tempfile.TemporaryDirectory() as temp:
-              temp_path = Path(temp)
-
+          with tempfile.TemporaryDirectory() as temp_dir:
               history_file = (
-                  temp_path
+                  Path(temp_dir)
                   / "content_history.json"
-              )
-
-              output_directory = (
-                  temp_path
-                  / "daily_generated_content"
               )
 
               plan = create_daily_plan(
@@ -1059,125 +998,1059 @@ jobs:
                   history_file=history_file,
               )
 
-              generated = (
-                  generate_daily_content(
-                      daily_plan=plan,
-                      output_directory=(
-                          output_directory
-                      ),
-                  )
-              )
+              print_daily_plan(plan)
 
-              if len(generated) != 10:
+              if not validate_daily_plan(plan):
                   raise RuntimeError(
-                      "Engine did not produce 10 posts."
+                      "10-post daily plan validation failed."
                   )
 
               reels = [
                   item
-                  for item in generated
-                  if item["content_type"]
-                  == "reel"
+                  for item in plan
+                  if item["content_type"] == "reel"
               ]
 
               visuals = [
                   item
-                  for item in generated
+                  for item in plan
                   if item["content_type"]
                   == "educational_visual"
               ]
 
+              if len(plan) != 10:
+                  raise RuntimeError(
+                      f"Expected 10 posts, got {len(plan)}."
+                  )
+
               if len(reels) != 5:
                   raise RuntimeError(
-                      "Engine did not produce 5 Reels."
+                      f"Expected 5 Reels, got {len(reels)}."
                   )
 
               if len(visuals) != 5:
                   raise RuntimeError(
-                      "Engine did not produce 5 visuals."
+                      f"Expected 5 visuals, got {len(visuals)}."
                   )
-
-              for item in generated:
-                  image_file = Path(
-                      item["image_file"]
-                  )
-
-                  if not image_file.exists():
-                      raise RuntimeError(
-                          f"Missing image: {image_file}"
-                      )
-
-                  if item["content_type"] == "reel":
-                      reel_file = Path(
-                          item["reel_file"]
-                      )
-
-                      if not reel_file.exists():
-                          raise RuntimeError(
-                              f"Missing Reel: {reel_file}"
-                          )
-
-              package_file = (
-                  temp_path
-                  / "daily_generated_content.json"
-              )
-
-              save_daily_package(
-                  generated,
-                  package_file,
-              )
-
-              with package_file.open(
-                  "r",
-                  encoding="utf-8",
-              ) as file:
-                  package = json.load(file)
-
-              if package["total_posts"] != 10:
-                  raise RuntimeError(
-                      "Package total is not 10."
-                  )
-
-              summary = (
-                  summarize_daily_content(
-                      generated
-                  )
-              )
 
               print()
               print(
                   "=========================================="
               )
               print(
-                  "DAILY ENGINE REGRESSION TEST PASSED"
+                  "10-POST PLANNER TEST PASSED"
               )
               print(
                   "=========================================="
               )
-              print(
-                  f"Posts: "
-                  f"{summary['total_posts']}"
-              )
-              print(
-                  f"Reels: "
-                  f"{summary['reels']}"
-              )
-              print(
-                  f"Visuals: "
-                  f"{summary['educational_visuals']}"
-              )
-              print(
-                  f"Images: "
-                  f"{summary['successful_images']}"
-              )
-              print(
-                  f"Reels generated: "
-                  f"{summary['successful_reels']}"
-              )
+              print("Total posts: 10")
+              print("Reels: 5")
+              print("Educational visuals: 5")
               print(
                   "=========================================="
               )
           PY
+
+      - name: Test planner rotation
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import tempfile
+
+          from content_planner import (
+              create_daily_plan,
+          )
+
+          with tempfile.TemporaryDirectory() as temp_dir:
+              history_file = (
+                  Path(temp_dir)
+                  / "content_history.json"
+              )
+
+              plan_day_1 = create_daily_plan(
+                  day_number=1,
+                  history_file=history_file,
+              )
+
+              plan_day_2 = create_daily_plan(
+                  day_number=2,
+                  history_file=history_file,
+              )
+
+              path_1 = plan_day_1[0][
+                  "knowledge_path"
+              ]
+
+              path_2 = plan_day_2[0][
+                  "knowledge_path"
+              ]
+
+              print(
+                  f"Day 1 knowledge path: {path_1}"
+              )
+
+              print(
+                  f"Day 2 knowledge path: {path_2}"
+              )
+
+              if path_1 == path_2:
+                  raise RuntimeError(
+                      "Knowledge path did not rotate."
+                  )
+
+              print(
+                  "Planner rotation passed."
+              )
+          PY
+
+      - name: Test batch generator safely
+        run: |
+          python - <<'PY'
+          import json
+          import sys
+          import types
+
+          from pathlib import Path
+          import tempfile
+
+          # ------------------------------------------------
+          # Replace content_generator with a fake module.
+          #
+          # This prevents ANY Gemini request.
+          # ------------------------------------------------
+
+          fake_content_generator = types.ModuleType(
+              "content_generator"
+          )
+
+          class FakeClient:
+              class Models:
+                  def generate_content(
+                      self,
+                      model,
+                      contents,
+                  ):
+                      raise RuntimeError(
+                          "REAL GEMINI API WAS CALLED "
+                          "DURING SAFE TEST."
+                      )
+
+              def __init__(self):
+                  self.models = self.Models()
+
+          fake_content_generator.MODEL_NAME = (
+              "SAFE_TEST_MODEL"
+          )
+
+          fake_content_generator.client = (
+              FakeClient()
+          )
+
+          sys.modules[
+              "content_generator"
+          ] = fake_content_generator
+
+          from content_batch_generator import (
+              validate_batch_content,
+              attach_plan_metadata,
+              build_pair_prompt,
+          )
+
+          # ------------------------------------------------
+          # Create two realistic fake generated lessons.
+          # ------------------------------------------------
+
+          lesson_1 = {
+              "title": (
+                  "Why Drain Pipes Need Proper Slope"
+              ),
+              "description": (
+                  "Learn why correct drainage slope "
+                  "helps wastewater flow properly."
+              ),
+              "image_prompt": (
+                  "Realistic plumbing drainage pipe "
+                  "installation showing proper slope, "
+                  "vertical 9:16 composition, no text."
+              ),
+              "hashtags": [
+                  "#Plumbing",
+                  "#Drainage",
+                  "#PlumbingTips",
+              ],
+              "visual_story": (
+                  "Show a drainage pipe installation "
+                  "and clearly demonstrate the principle."
+              ),
+              "on_image_text": {
+                  "hook": (
+                      "Drainage needs more than a pipe."
+                  ),
+                  "explanation": (
+                      "The pipe must allow wastewater "
+                      "to move correctly."
+                  ),
+                  "callout": (
+                      "Correct drainage slope"
+                  ),
+                  "takeaway": (
+                      "Good drainage starts with good "
+                      "installation principles."
+                  ),
+              },
+          }
+
+          lesson_2 = {
+              "title": (
+                  "How a Trap Helps Protect Your Home"
+              ),
+              "description": (
+                  "Learn the purpose of a plumbing trap "
+                  "and why it matters."
+              ),
+              "image_prompt": (
+                  "Realistic plumbing trap beneath a "
+                  "sink showing correct installation, "
+                  "vertical 9:16 composition, no text."
+              ),
+              "hashtags": [
+                  "#Plumbing",
+                  "#BathroomPlumbing",
+                  "#PlumbingEducation",
+              ],
+              "visual_story": (
+                  "Show the trap beneath a sink and "
+                  "explain its purpose."
+              ),
+              "on_image_text": {
+                  "hook": (
+                      "That bend under your sink matters."
+                  ),
+                  "explanation": (
+                      "A properly installed trap plays "
+                      "an important role in drainage."
+                  ),
+                  "callout": (
+                      "Plumbing trap"
+                  ),
+                  "takeaway": (
+                      "Know what each fitting is designed "
+                      "to do."
+                  ),
+              },
+          }
+
+          batch = [
+              lesson_1,
+              lesson_2,
+          ]
+
+          if not validate_batch_content(
+              batch,
+              expected_count=2,
+          ):
+              raise RuntimeError(
+                  "Two-lesson batch validation failed."
+              )
+
+          # ------------------------------------------------
+          # Verify planner metadata attachment.
+          # ------------------------------------------------
+
+          plan_items = [
+              {
+                  "slot": 1,
+                  "content_type": "reel",
+                  "lesson_type": "problem_and_cause",
+                  "knowledge_path": (
+                      "Drainage Fundamentals"
+                  ),
+                  "knowledge_area": (
+                      "Drainage pipe slope"
+                  ),
+                  "lesson_number": 1,
+              },
+              {
+                  "slot": 2,
+                  "content_type": (
+                      "educational_visual"
+                  ),
+                  "lesson_type": "how_it_works",
+                  "knowledge_path": (
+                      "Drainage Fundamentals"
+                  ),
+                  "knowledge_area": (
+                      "Plumbing traps"
+                  ),
+                  "lesson_number": 2,
+              },
+          ]
+
+          attached = attach_plan_metadata(
+              batch,
+              plan_items,
+          )
+
+          if len(attached) != 2:
+              raise RuntimeError(
+                  "Metadata attachment failed."
+              )
+
+          if attached[0]["slot"] != 1:
+              raise RuntimeError(
+                  "First lesson slot is incorrect."
+              )
+
+          if attached[1]["slot"] != 2:
+              raise RuntimeError(
+                  "Second lesson slot is incorrect."
+              )
+
+          if attached[0]["lesson_number"] != 1:
+              raise RuntimeError(
+                  "First lesson number is incorrect."
+              )
+
+          if attached[1]["lesson_number"] != 2:
+              raise RuntimeError(
+                  "Second lesson number is incorrect."
+              )
+
+          # ------------------------------------------------
+          # Verify the actual pair prompt.
+          # ------------------------------------------------
+
+          prompt = build_pair_prompt(
+              plan_items[0],
+              plan_items[1],
+          )
+
+          if "EXACTLY TWO" not in prompt:
+              raise RuntimeError(
+                  "Pair prompt is missing two-lesson rule."
+              )
+
+          if (
+              "LESSON 1 PLAN:" not in prompt
+              or "LESSON 2 PLAN:" not in prompt
+          ):
+              raise RuntimeError(
+                  "Pair prompt is missing lesson sections."
+              )
+
+          # ------------------------------------------------
+          # Verify the expected daily batching math.
+          # ------------------------------------------------
+
+          fake_daily_plan = []
+
+          for number in range(1, 11):
+              fake_daily_plan.append(
+                  {
+                      "slot": number,
+                      "content_type": (
+                          "reel"
+                          if number % 2 == 1
+                          else "educational_visual"
+                      ),
+                      "lesson_type": (
+                          "professional_tip"
+                      ),
+                      "knowledge_path": (
+                          "Plumbing Education"
+                      ),
+                      "knowledge_area": (
+                          f"Test plumbing topic {number}"
+                      ),
+                      "lesson_number": number,
+                  }
+              )
+
+          pair_count = len(fake_daily_plan) // 2
+
+          if pair_count != 5:
+              raise RuntimeError(
+                  f"Expected 5 pairs, got {pair_count}."
+              )
+
+          expected_posts = pair_count * 2
+
+          if expected_posts != 10:
+              raise RuntimeError(
+                  "Five pairs do not produce ten posts."
+              )
+
+          # ------------------------------------------------
+          # Verify JSON serialization.
+          # ------------------------------------------------
+
+          serialized = json.dumps(
+              attached,
+              ensure_ascii=False,
+              indent=2,
+          )
+
+          restored = json.loads(
+              serialized
+          )
+
+          if len(restored) != 2:
+              raise RuntimeError(
+                  "Batch JSON serialization failed."
+              )
+
+          print()
+          print(
+              "=========================================="
+          )
+          print(
+              "BATCH GENERATOR SAFE TEST PASSED"
+          )
+          print(
+              "=========================================="
+          )
+          print(
+              "Two-lesson batch validation: PASSED"
+          )
+          print(
+              "Metadata attachment: PASSED"
+          )
+          print(
+              "Pair prompt structure: PASSED"
+          )
+          print(
+              "10 lessons -> 5 pairs: PASSED"
+          )
+          print(
+              "JSON serialization: PASSED"
+          )
+          print()
+          print(
+              "REAL GEMINI API: NOT CALLED"
+          )
+          print(
+              "CLOUDFLARE API: NOT CALLED"
+          )
+          print(
+              "INSTAGRAM API: NOT CALLED"
+          )
+          print(
+              "=========================================="
+          )
+          PY
+          
+      - name: Test complete batch generation safely
+        run: |
+          python - <<'PY'
+          import json
+          import sys
+          import types
+
+          # ------------------------------------------------
+          # Create a completely fake Gemini client.
+          #
+          # generate_content_pair() will believe it is
+          # talking to Gemini, but NO real API request
+          # can happen.
+          # ------------------------------------------------
+
+          fake_content_generator = types.ModuleType(
+              "content_generator"
+          )
+
+          class FakeResponse:
+              text = """
+              [
+                {
+                  "title": "Why Drain Pipes Need Proper Slope",
+                  "description": "Correct drainage slope helps wastewater move through the drainage system properly.",
+                  "image_prompt": "A realistic professional plumbing drainage installation showing correct pipe slope, vertical 9:16 composition, no text, no logo, no watermark.",
+                  "hashtags": [
+                    "#Plumbing",
+                    "#Drainage",
+                    "#PlumbingTips"
+                  ],
+                  "visual_story": "Show a realistic drainage pipe installation and clearly demonstrate how the pipe slope supports proper wastewater flow.",
+                  "on_image_text": {
+                    "hook": "Drainage needs more than a pipe.",
+                    "explanation": "The pipe must allow wastewater to move correctly.",
+                    "callout": "Correct drainage slope",
+                    "takeaway": "Good drainage starts with good installation principles."
+                  }
+                },
+                {
+                  "title": "How a Trap Helps Protect Your Home",
+                  "description": "A properly installed plumbing trap is an important part of many drainage systems.",
+                  "image_prompt": "A realistic professional plumbing trap beneath a sink showing correct installation, vertical 9:16 composition, no text, no logo, no watermark.",
+                  "hashtags": [
+                    "#Plumbing",
+                    "#BathroomPlumbing",
+                    "#PlumbingEducation"
+                  ],
+                  "visual_story": "Show the trap beneath a sink and explain its purpose in the drainage system.",
+                  "on_image_text": {
+                    "hook": "That bend under your sink matters.",
+                    "explanation": "A properly installed trap plays an important role in drainage.",
+                    "callout": "Plumbing trap",
+                    "takeaway": "Know what each plumbing fitting is designed to do."
+                  }
+                }
+              ]
+              """
+
+          class FakeModels:
+              def __init__(self):
+                  self.calls = 0
+
+              def generate_content(
+                  self,
+                  model,
+                  contents,
+              ):
+                  self.calls += 1
+
+                  print()
+                  print(
+                      "FAKE GEMINI REQUEST RECEIVED"
+                  )
+                  print(
+                      f"Model requested: {model}"
+                  )
+                  print(
+                      "No real Gemini API request was made."
+                  )
+
+                  return FakeResponse()
+
+          class FakeClient:
+              def __init__(self):
+                  self.models = FakeModels()
+
+          fake_client = FakeClient()
+
+          fake_content_generator.MODEL_NAME = (
+              "SAFE_TEST_MODEL"
+          )
+
+          fake_content_generator.client = (
+              fake_client
+          )
+
+          sys.modules[
+              "content_generator"
+          ] = fake_content_generator
+
+          # ------------------------------------------------
+          # Import the REAL batch generator.
+          #
+          # Its generate_content_pair() function will now
+          # use our fake client instead of real Gemini.
+          # ------------------------------------------------
+
+          from content_batch_generator import (
+              generate_content_pair,
+              validate_batch_content,
+          )
+
+          # ------------------------------------------------
+          # Create two realistic planner items.
+          # ------------------------------------------------
+
+          first_item = {
+              "slot": 1,
+              "content_type": "reel",
+              "role": "Problem Detective",
+              "lesson_type": "problem_and_cause",
+              "knowledge_path": (
+                  "Drainage Fundamentals"
+              ),
+              "knowledge_area": (
+                  "Drainage pipe slope"
+              ),
+              "lesson_number": 1,
+          }
+
+          second_item = {
+              "slot": 2,
+              "content_type": (
+                  "educational_visual"
+              ),
+              "role": "Plumbing Teacher",
+              "lesson_type": "how_it_works",
+              "knowledge_path": (
+                  "Drainage Fundamentals"
+              ),
+              "knowledge_area": (
+                  "Plumbing traps"
+              ),
+              "lesson_number": 2,
+          }
+
+          # ------------------------------------------------
+          # Run the ACTUAL batch-generation function.
+          # ------------------------------------------------
+
+          generated = generate_content_pair(
+              first_item,
+              second_item,
+          )
+
+          # ------------------------------------------------
+          # Verify that exactly two lessons came back.
+          # ------------------------------------------------
+
+          if len(generated) != 2:
+              raise RuntimeError(
+                  "Batch generator did not return "
+                  "exactly two lessons."
+              )
+
+          if not validate_batch_content(
+              generated,
+              expected_count=2,
+          ):
+              raise RuntimeError(
+                  "Generated batch failed validation."
+              )
+
+          # ------------------------------------------------
+          # Verify important fields.
+          # ------------------------------------------------
+
+          for index, lesson in enumerate(
+              generated,
+              start=1,
+          ):
+              required_fields = [
+                  "title",
+                  "description",
+                  "image_prompt",
+                  "hashtags",
+                  "visual_story",
+                  "on_image_text",
+              ]
+
+              for field in required_fields:
+                  if field not in lesson:
+                      raise RuntimeError(
+                          f"Lesson {index} is missing "
+                          f"field: {field}"
+                      )
+
+              text_fields = [
+                  "hook",
+                  "explanation",
+                  "callout",
+                  "takeaway",
+              ]
+
+              for field in text_fields:
+                  if field not in lesson[
+                      "on_image_text"
+                  ]:
+                      raise RuntimeError(
+                          f"Lesson {index} is missing "
+                          f"on-image field: {field}"
+                      )
+
+          # ------------------------------------------------
+          # Confirm only ONE fake Gemini request happened.
+          # ------------------------------------------------
+
+          if fake_client.models.calls != 1:
+              raise RuntimeError(
+                  "Expected exactly one Gemini request "
+                  "for the two-lesson batch."
+              )
+
+          # ------------------------------------------------
+          # Confirm the two lessons are distinct.
+          # ------------------------------------------------
+
+          if (
+              generated[0]["title"]
+              == generated[1]["title"]
+          ):
+              raise RuntimeError(
+                  "The two generated lessons have "
+                  "the same title."
+              )
+
+          if (
+              generated[0]["description"]
+              == generated[1]["description"]
+          ):
+              raise RuntimeError(
+                  "The two generated lessons have "
+                  "the same description."
+              )
+
+          # ------------------------------------------------
+          # Verify JSON serialization.
+          # ------------------------------------------------
+
+          encoded = json.dumps(
+              generated,
+              ensure_ascii=False,
+              indent=2,
+          )
+
+          decoded = json.loads(
+              encoded
+          )
+
+          if len(decoded) != 2:
+              raise RuntimeError(
+                  "Batch JSON round-trip failed."
+              )
+
+          print()
+          print(
+              "=========================================="
+          )
+          print(
+              "COMPLETE BATCH GENERATION TEST PASSED"
+          )
+          print(
+              "=========================================="
+          )
+          print(
+              "Real batch function: PASSED"
+          )
+          print(
+              "Fake Gemini response: PASSED"
+          )
+          print(
+              "JSON extraction: PASSED"
+          )
+          print(
+              "Content validation: PASSED"
+          )
+          print(
+              "Two distinct lessons: PASSED"
+          )
+          print(
+              "One request -> two lessons: PASSED"
+          )
+          print(
+              "JSON round-trip: PASSED"
+          )
+          print()
+          print(
+              "REAL GEMINI API: NOT CALLED"
+          )
+          print(
+              "CLOUDFLARE API: NOT CALLED"
+          )
+          print(
+              "INSTAGRAM API: NOT CALLED"
+          )
+          print(
+              "=========================================="
+          )
+          PY
+
+      - name: Test daily content engine safely
+        run: |
+          python - <<'PY'
+          import json
+          import sys
+          import types
+          from pathlib import Path
+          from tempfile import TemporaryDirectory
+
+          # ------------------------------------------------------------
+          # Fake content generator
+          # ------------------------------------------------------------
+          fake_content_generator = types.ModuleType("content_generator")
+
+          def fake_check_content(content):
+              required = [
+                  "title",
+                  "description",
+                  "image_prompt",
+                  "hashtags",
+                  "visual_story",
+                  "on_image_text",
+                  "lesson_type",
+                  "content_type",
+                  "knowledge_area",
+                  "lesson_number",
+              ]
+
+              for field in required:
+                  if field not in content:
+                      raise RuntimeError(
+                          f"Missing required field: {field}"
+                      )
+
+              return True
+
+          fake_content_generator.check_content = fake_check_content
+          fake_content_generator.MODEL_NAME = "fake-model"
+          fake_content_generator.client = object()
+
+          sys.modules["content_generator"] = fake_content_generator
+
+          # ------------------------------------------------------------
+          # Fake batch generator
+          #
+          # This keeps the engine test completely offline.
+          # The real batch generator is tested separately above.
+          # ------------------------------------------------------------
+          fake_batch_generator = types.ModuleType(
+              "content_batch_generator"
+          )
+
+          def fake_generate_content_pair(first_item, second_item):
+              def make_content(plan_item, number):
+                  content_type = plan_item["content_type"]
+
+                  return {
+                      "title": f"Test plumbing lesson {number}",
+                      "description": (
+                          f"Safe test description for lesson {number}."
+                      ),
+                      "image_prompt": (
+                          "Professional realistic plumbing installation, "
+                          "vertical 9:16 educational composition, "
+                          "no text, no logo, no watermark."
+                      ),
+                      "hashtags": [
+                          "#plumbing",
+                          "#plumber",
+                          "#plumbingtips",
+                          "#homeimprovement",
+                          "#plumbingeducation",
+                      ],
+                      "visual_story": (
+                          f"Educational visual story for lesson {number}."
+                      ),
+                      "on_image_text": {
+                          "hook": f"Plumbing lesson {number}",
+                          "explanation": (
+                              f"Important plumbing principle {number}."
+                          ),
+                          "callout": f"Professional tip {number}",
+                          "takeaway": f"Remember lesson {number}.",
+                      },
+                      "lesson_type": plan_item["lesson_type"],
+                      "content_type": content_type,
+                      "knowledge_area": plan_item["knowledge_area"],
+                      "lesson_number": plan_item["lesson_number"],
+                  }
+
+              return [
+                  make_content(first_item, first_item["lesson_number"]),
+                  make_content(second_item, second_item["lesson_number"]),
+              ]
+
+          def fake_attach_plan_metadata(
+              generated_content,
+              plan_items,
+          ):
+              for content, plan_item in zip(
+                  generated_content,
+                  plan_items,
+              ):
+                  content["lesson_type"] = plan_item["lesson_type"]
+                  content["content_type"] = plan_item["content_type"]
+                  content["knowledge_area"] = (
+                      plan_item["knowledge_area"]
+                  )
+                  content["knowledge_path"] = (
+                      plan_item["knowledge_path"]
+                  )
+                  content["lesson_number"] = (
+                      plan_item["lesson_number"]
+                  )
+                  content["slot"] = plan_item["slot"]
+
+              return generated_content
+
+          fake_batch_generator.generate_content_pair = (
+              fake_generate_content_pair
+          )
+          fake_batch_generator.attach_plan_metadata = (
+              fake_attach_plan_metadata
+          )
+
+          sys.modules["content_batch_generator"] = fake_batch_generator
+
+          # ------------------------------------------------------------
+          # Fake image generator
+          # ------------------------------------------------------------
+          fake_image_generator = types.ModuleType("image_generator")
+
+          def fake_generate_image(prompt, output_file):
+              Path(output_file).write_bytes(b"fake-image")
+              return output_file
+
+          def fake_make_vertical_image(
+              input_file,
+              output_file,
+              on_image_text=None,
+          ):
+              Path(output_file).write_bytes(b"fake-vertical-image")
+              return output_file
+
+          fake_image_generator.generate_image = fake_generate_image
+          fake_image_generator.make_vertical_image = (
+              fake_make_vertical_image
+          )
+
+          sys.modules["image_generator"] = fake_image_generator
+
+          # ------------------------------------------------------------
+          # Fake Reel generator
+          # ------------------------------------------------------------
+          fake_reel_generator = types.ModuleType("reel_generator")
+
+          def fake_generate_reel(
+              input_file,
+              output_file,
+              duration=8,
+              teaching_text=None,
+          ):
+              Path(output_file).write_bytes(b"fake-reel")
+              return output_file
+
+          fake_reel_generator.generate_reel = fake_generate_reel
+
+          sys.modules["reel_generator"] = fake_reel_generator
+
+          # ------------------------------------------------------------
+          # Import the REAL daily content engine.
+          # ------------------------------------------------------------
+          from daily_content_engine import (
+              generate_daily_content,
+              summarize_daily_content,
+          )
+
+          # ------------------------------------------------------------
+          # Build a complete 10-post plan.
+          # ------------------------------------------------------------
+          daily_plan = []
+
+          for slot in range(1, 11):
+              if slot % 2 == 1:
+                  content_type = "reel"
+              else:
+                  content_type = "educational_visual"
+
+              daily_plan.append(
+                  {
+                      "slot": slot,
+                      "content_type": content_type,
+                      "role": "safe_test",
+                      "lesson_type": "professional_tip",
+                      "knowledge_path": "Professional Plumbing",
+                      "knowledge_area": "General Plumbing",
+                      "lesson_number": slot,
+                      "previous_lesson": None,
+                  }
+              )
+
+          # ------------------------------------------------------------
+          # Run the REAL engine.
+          # ------------------------------------------------------------
+          with TemporaryDirectory() as temp_dir:
+              output_directory = Path(temp_dir)
+
+              package = generate_daily_content(
+                  daily_plan=daily_plan,
+                  output_directory=output_directory,
+              )
+
+              if len(package) != 10:
+                  raise RuntimeError(
+                      f"Expected 10 posts, got {len(package)}"
+                  )
+
+              reel_count = sum(
+                  1
+                  for item in package
+                  if item["content"]["content_type"] == "reel"
+              )
+
+              visual_count = sum(
+                  1
+                  for item in package
+                  if item["content"]["content_type"]
+                  == "educational_visual"
+              )
+
+              if reel_count != 5:
+                  raise RuntimeError(
+                      f"Expected 5 reels, got {reel_count}"
+                  )
+
+              if visual_count != 5:
+                  raise RuntimeError(
+                      f"Expected 5 educational visuals, got {visual_count}"
+                  )
+
+              for item in package:
+                  image_file = Path(item["image_file"])
+
+                  if not image_file.exists():
+                      raise RuntimeError(
+                          f"Missing image file: {image_file}"
+                      )
+
+                  if item["content"]["content_type"] == "reel":
+                      reel_file = Path(item["reel_file"])
+
+                      if not reel_file.exists():
+                          raise RuntimeError(
+                              f"Missing reel file: {reel_file}"
+                          )
+
+              summary = summarize_daily_content(package)
+
+              if summary["total_posts"] != 10:
+                  raise RuntimeError(
+                      "Summary total_posts is not 10."
+                  )
+
+              if summary["reels"] != 5:
+                  raise RuntimeError(
+                      "Summary reels is not 5."
+                  )
+
+              if summary["educational_visuals"] != 5:
+                  raise RuntimeError(
+                      "Summary educational_visuals is not 5."
+                  )
+
+          print("Daily content engine safe test passed.")
+          print("10 posts generated.")
+          print("5 Reels verified.")
+          print("5 educational visuals verified.")
+          print("10 image files verified.")
+          print("5 Reel files verified.")
+          print("No real Gemini, image API, or Instagram publishing calls used.")
+          PY
+        
+      - name: Final result
+        run: |
+          echo "=========================================="
+          echo "OROM PLAN1 SAFE TEST SUITE PASSED"
+          echo "=========================================="
+          echo "Planner: PASSED"
+          echo "Planner rotation: PASSED"
+          echo "Batch generator: PASSED"
+          echo "10 lessons -> 5 pairs: PASSED"
+          echo "Daily content engine: PASSED"
+          echo "5 Reels + 5 visuals: PASSED"
+          echo
+          echo "Gemini API: NOT CALLED"
+          echo "Cloudflare API: NOT CALLED"
+          echo "Instagram API: NOT CALLED"
+          echo
+          echo "Production publishing: NOT RUN"
+          echo "=========================================="
+
 
       - name: Final result
         run: |
