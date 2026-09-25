@@ -34,6 +34,7 @@ jobs:
         run: |
           test -f main.py
           test -f content_generator.py
+          test -f content_planner.py
           test -f image_generator.py
           test -f reel_generator.py
           test -f content_history.json
@@ -45,6 +46,7 @@ jobs:
           python -m py_compile \
             main.py \
             content_generator.py \
+            content_planner.py \
             image_generator.py \
             reel_generator.py
 
@@ -65,6 +67,7 @@ jobs:
           files = [
               "main.py",
               "content_generator.py",
+              "content_planner.py",
               "image_generator.py",
               "reel_generator.py"
           ]
@@ -77,7 +80,135 @@ jobs:
           print("Project source files passed structural checks.")
           PY
 
-      - name: Create temporary test environment
+      - name: Test 10-post content planner
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import tempfile
+
+          from content_planner import (
+              create_daily_plan,
+              validate_daily_plan,
+              print_daily_plan,
+          )
+
+          with tempfile.TemporaryDirectory() as temp_dir:
+              history_file = Path(temp_dir) / "content_history.json"
+
+              plan = create_daily_plan(
+                  day_number=1,
+                  history_file=history_file,
+              )
+
+              print_daily_plan(plan)
+
+              if not validate_daily_plan(plan):
+                  raise RuntimeError(
+                      "10-post daily plan validation failed."
+                  )
+
+              if len(plan) != 10:
+                  raise RuntimeError(
+                      f"Expected 10 posts, got {len(plan)}."
+                  )
+
+              reels = [
+                  item
+                  for item in plan
+                  if item["content_type"] == "reel"
+              ]
+
+              visuals = [
+                  item
+                  for item in plan
+                  if item["content_type"] == "educational_visual"
+              ]
+
+              if len(reels) != 5:
+                  raise RuntimeError(
+                      f"Expected 5 Reels, got {len(reels)}."
+                  )
+
+              if len(visuals) != 5:
+                  raise RuntimeError(
+                      f"Expected 5 educational visuals, got {len(visuals)}."
+                  )
+
+              slots = [item["slot"] for item in plan]
+
+              if slots != list(range(1, 11)):
+                  raise RuntimeError(
+                      f"Invalid slot sequence: {slots}"
+                  )
+
+              print()
+              print("==========================================")
+              print("10-POST PLANNER TEST PASSED")
+              print("==========================================")
+              print("Total posts: 10")
+              print("Reels: 5")
+              print("Educational visuals: 5")
+              print("Slots: 1-10")
+              print("==========================================")
+          PY
+
+      - name: Test planner rotation
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import tempfile
+
+          from content_planner import create_daily_plan
+
+          with tempfile.TemporaryDirectory() as temp_dir:
+              history_file = Path(temp_dir) / "content_history.json"
+
+              plan_day_1 = create_daily_plan(
+                  day_number=1,
+                  history_file=history_file,
+              )
+
+              plan_day_2 = create_daily_plan(
+                  day_number=2,
+                  history_file=history_file,
+              )
+
+              path_1 = plan_day_1[0]["knowledge_path"]
+              path_2 = plan_day_2[0]["knowledge_path"]
+
+              print(f"Day 1 knowledge path: {path_1}")
+              print(f"Day 2 knowledge path: {path_2}")
+
+              if path_1 == path_2:
+                  raise RuntimeError(
+                      "Knowledge path did not rotate between days."
+                  )
+
+              lesson_numbers_day_1 = [
+                  item["lesson_number"]
+                  for item in plan_day_1
+              ]
+
+              lesson_numbers_day_2 = [
+                  item["lesson_number"]
+                  for item in plan_day_2
+              ]
+
+              if lesson_numbers_day_1[-1] >= lesson_numbers_day_2[0]:
+                  raise RuntimeError(
+                      "Lesson numbering did not progress correctly."
+                  )
+
+              print()
+              print("==========================================")
+              print("PLANNER ROTATION TEST PASSED")
+              print("==========================================")
+              print("Knowledge path rotation: PASSED")
+              print("Lesson progression: PASSED")
+              print("==========================================")
+          PY
+
+      - name: Create temporary integration test environment
         run: |
           python - <<'PY'
           from pathlib import Path
@@ -100,15 +231,19 @@ jobs:
           import runpy
           import shutil
           import sys
-          import tempfile
           import types
           from pathlib import Path
 
           ROOT = Path.cwd()
           TEST_DIR = ROOT / "integration_test"
 
-          fake_content_generator = types.ModuleType("content_generator")
-          fake_image_generator = types.ModuleType("image_generator")
+          fake_content_generator = types.ModuleType(
+              "content_generator"
+          )
+
+          fake_image_generator = types.ModuleType(
+              "image_generator"
+          )
 
           def fake_create_content(topic):
               return {
@@ -131,7 +266,9 @@ jobs:
                       "connection."
                   ),
                   "on_image_text": {
-                      "hook": "Small plumbing problems can become expensive.",
+                      "hook": (
+                          "Small plumbing problems can become expensive."
+                      ),
                       "explanation": (
                           "Learning the warning signs early can help "
                           "prevent bigger plumbing damage."
@@ -152,7 +289,12 @@ jobs:
               width = 1080
               height = 1920
 
-              image = Image.new("RGB", (width, height), "white")
+              image = Image.new(
+                  "RGB",
+                  (width, height),
+                  "white"
+              )
+
               draw = ImageDraw.Draw(image)
 
               try:
@@ -161,6 +303,7 @@ jobs:
                       "DejaVuSans-Bold.ttf",
                       64
                   )
+
                   font_small = ImageFont.truetype(
                       "/usr/share/fonts/truetype/dejavu/"
                       "DejaVuSans.ttf",
@@ -194,7 +337,10 @@ jobs:
                   fill="black"
               )
 
-              image.save(output_file, quality=95)
+              image.save(
+                  output_file,
+                  quality=95
+              )
 
               return output_file
 
@@ -203,72 +349,115 @@ jobs:
               output_file,
               on_image_text=None
           ):
-              shutil.copy2(input_file, output_file)
+              shutil.copy2(
+                  input_file,
+                  output_file
+              )
+
               return output_file
 
-          fake_content_generator.create_content = fake_create_content
-          fake_content_generator.check_content = fake_check_content
+          fake_content_generator.create_content = (
+              fake_create_content
+          )
 
-          fake_image_generator.generate_image = fake_generate_image
-          fake_image_generator.make_vertical_image = fake_make_vertical_image
+          fake_content_generator.check_content = (
+              fake_check_content
+          )
 
-          sys.modules["content_generator"] = fake_content_generator
-          sys.modules["image_generator"] = fake_image_generator
+          fake_image_generator.generate_image = (
+              fake_generate_image
+          )
 
-          os.environ["OROM_PLAN1_GENERATE_REEL"] = "true"
+          fake_image_generator.make_vertical_image = (
+              fake_make_vertical_image
+          )
+
+          sys.modules["content_generator"] = (
+              fake_content_generator
+          )
+
+          sys.modules["image_generator"] = (
+              fake_image_generator
+          )
+
+          os.environ[
+              "OROM_PLAN1_GENERATE_REEL"
+          ] = "true"
 
           original_directory = Path.cwd()
 
           try:
               os.chdir(TEST_DIR)
 
-              print("Running the real main.py with safe fake API functions...")
-              runpy.run_path("main.py", run_name="__main__")
+              print(
+                  "Running the real main.py with safe "
+                  "fake API functions..."
+              )
+
+              runpy.run_path(
+                  "main.py",
+                  run_name="__main__"
+              )
 
           finally:
               os.chdir(original_directory)
 
-          latest_file = TEST_DIR / "latest_content.json"
-          reel_file = TEST_DIR / "orom_plan1_reel.mp4"
+          latest_file = (
+              TEST_DIR / "latest_content.json"
+          )
+
+          reel_file = (
+              TEST_DIR / "orom_plan1_reel.mp4"
+          )
 
           if not latest_file.exists():
               raise RuntimeError(
-                  "latest_content.json was not created by main.py"
+                  "latest_content.json was not created."
               )
 
           if not reel_file.exists():
               raise RuntimeError(
-                  "main.py did not create the expected Reel file"
+                  "main.py did not create the Reel."
               )
 
-          with latest_file.open("r", encoding="utf-8") as file:
+          with latest_file.open(
+              "r",
+              encoding="utf-8"
+          ) as file:
               latest = json.load(file)
 
           if latest.get("reel_enabled") is not True:
               raise RuntimeError(
-                  "main.py did not enable Reel generation"
+                  "main.py did not enable Reel generation."
               )
 
-          if latest.get("reel_file") != "orom_plan1_reel.mp4":
+          if latest.get("reel_file") != (
+              "orom_plan1_reel.mp4"
+          ):
               raise RuntimeError(
-                  "main.py did not save the expected Reel filename"
+                  "Unexpected Reel filename."
               )
 
           reel_size = reel_file.stat().st_size
 
           if reel_size < 10000:
               raise RuntimeError(
-                  f"Generated Reel is unexpectedly small: {reel_size} bytes"
+                  "Generated Reel is unexpectedly small."
               )
 
           print()
           print("==========================================")
           print("MAIN.PY REEL INTEGRATION TEST PASSED")
           print("==========================================")
-          print(f"Reel file: {reel_file}")
           print(f"Reel size: {reel_size} bytes")
-          print(f"Reel enabled: {latest.get('reel_enabled')}")
-          print(f"Reel filename: {latest.get('reel_file')}")
+          print(
+              f"Reel enabled: "
+              f"{latest.get('reel_enabled')}"
+          )
+          print(
+              f"Reel filename: "
+              f"{latest.get('reel_file')}"
+          )
           print("==========================================")
           PY
 
@@ -297,10 +486,12 @@ jobs:
       - name: Final result
         run: |
           echo "=========================================="
-          echo "OROM PLAN1 FULL REEL INTEGRATION TEST PASSED"
+          echo "OROM PLAN1 SAFE TEST SUITE PASSED"
           echo "=========================================="
           echo "Python syntax: PASSED"
           echo "JSON validation: PASSED"
+          echo "10-post planner: PASSED"
+          echo "Planner rotation: PASSED"
           echo "FFmpeg: PASSED"
           echo "main.py execution: PASSED"
           echo "Reel generation: PASSED"
