@@ -562,6 +562,317 @@ jobs:
               "=========================================="
           )
           PY
+          
+      - name: Test complete batch generation safely
+        run: |
+          python - <<'PY'
+          import json
+          import sys
+          import types
+
+          # ------------------------------------------------
+          # Create a completely fake Gemini client.
+          #
+          # generate_content_pair() will believe it is
+          # talking to Gemini, but NO real API request
+          # can happen.
+          # ------------------------------------------------
+
+          fake_content_generator = types.ModuleType(
+              "content_generator"
+          )
+
+          class FakeResponse:
+              text = """
+              [
+                {
+                  "title": "Why Drain Pipes Need Proper Slope",
+                  "description": "Correct drainage slope helps wastewater move through the drainage system properly.",
+                  "image_prompt": "A realistic professional plumbing drainage installation showing correct pipe slope, vertical 9:16 composition, no text, no logo, no watermark.",
+                  "hashtags": [
+                    "#Plumbing",
+                    "#Drainage",
+                    "#PlumbingTips"
+                  ],
+                  "visual_story": "Show a realistic drainage pipe installation and clearly demonstrate how the pipe slope supports proper wastewater flow.",
+                  "on_image_text": {
+                    "hook": "Drainage needs more than a pipe.",
+                    "explanation": "The pipe must allow wastewater to move correctly.",
+                    "callout": "Correct drainage slope",
+                    "takeaway": "Good drainage starts with good installation principles."
+                  }
+                },
+                {
+                  "title": "How a Trap Helps Protect Your Home",
+                  "description": "A properly installed plumbing trap is an important part of many drainage systems.",
+                  "image_prompt": "A realistic professional plumbing trap beneath a sink showing correct installation, vertical 9:16 composition, no text, no logo, no watermark.",
+                  "hashtags": [
+                    "#Plumbing",
+                    "#BathroomPlumbing",
+                    "#PlumbingEducation"
+                  ],
+                  "visual_story": "Show the trap beneath a sink and explain its purpose in the drainage system.",
+                  "on_image_text": {
+                    "hook": "That bend under your sink matters.",
+                    "explanation": "A properly installed trap plays an important role in drainage.",
+                    "callout": "Plumbing trap",
+                    "takeaway": "Know what each plumbing fitting is designed to do."
+                  }
+                }
+              ]
+              """
+
+          class FakeModels:
+              def __init__(self):
+                  self.calls = 0
+
+              def generate_content(
+                  self,
+                  model,
+                  contents,
+              ):
+                  self.calls += 1
+
+                  print()
+                  print(
+                      "FAKE GEMINI REQUEST RECEIVED"
+                  )
+                  print(
+                      f"Model requested: {model}"
+                  )
+                  print(
+                      "No real Gemini API request was made."
+                  )
+
+                  return FakeResponse()
+
+          class FakeClient:
+              def __init__(self):
+                  self.models = FakeModels()
+
+          fake_client = FakeClient()
+
+          fake_content_generator.MODEL_NAME = (
+              "SAFE_TEST_MODEL"
+          )
+
+          fake_content_generator.client = (
+              fake_client
+          )
+
+          sys.modules[
+              "content_generator"
+          ] = fake_content_generator
+
+          # ------------------------------------------------
+          # Import the REAL batch generator.
+          #
+          # Its generate_content_pair() function will now
+          # use our fake client instead of real Gemini.
+          # ------------------------------------------------
+
+          from content_batch_generator import (
+              generate_content_pair,
+              validate_batch_content,
+          )
+
+          # ------------------------------------------------
+          # Create two realistic planner items.
+          # ------------------------------------------------
+
+          first_item = {
+              "slot": 1,
+              "content_type": "reel",
+              "role": "Problem Detective",
+              "lesson_type": "problem_and_cause",
+              "knowledge_path": (
+                  "Drainage Fundamentals"
+              ),
+              "knowledge_area": (
+                  "Drainage pipe slope"
+              ),
+              "lesson_number": 1,
+          }
+
+          second_item = {
+              "slot": 2,
+              "content_type": (
+                  "educational_visual"
+              ),
+              "role": "Plumbing Teacher",
+              "lesson_type": "how_it_works",
+              "knowledge_path": (
+                  "Drainage Fundamentals"
+              ),
+              "knowledge_area": (
+                  "Plumbing traps"
+              ),
+              "lesson_number": 2,
+          }
+
+          # ------------------------------------------------
+          # Run the ACTUAL batch-generation function.
+          # ------------------------------------------------
+
+          generated = generate_content_pair(
+              first_item,
+              second_item,
+          )
+
+          # ------------------------------------------------
+          # Verify that exactly two lessons came back.
+          # ------------------------------------------------
+
+          if len(generated) != 2:
+              raise RuntimeError(
+                  "Batch generator did not return "
+                  "exactly two lessons."
+              )
+
+          if not validate_batch_content(
+              generated,
+              expected_count=2,
+          ):
+              raise RuntimeError(
+                  "Generated batch failed validation."
+              )
+
+          # ------------------------------------------------
+          # Verify important fields.
+          # ------------------------------------------------
+
+          for index, lesson in enumerate(
+              generated,
+              start=1,
+          ):
+              required_fields = [
+                  "title",
+                  "description",
+                  "image_prompt",
+                  "hashtags",
+                  "visual_story",
+                  "on_image_text",
+              ]
+
+              for field in required_fields:
+                  if field not in lesson:
+                      raise RuntimeError(
+                          f"Lesson {index} is missing "
+                          f"field: {field}"
+                      )
+
+              text_fields = [
+                  "hook",
+                  "explanation",
+                  "callout",
+                  "takeaway",
+              ]
+
+              for field in text_fields:
+                  if field not in lesson[
+                      "on_image_text"
+                  ]:
+                      raise RuntimeError(
+                          f"Lesson {index} is missing "
+                          f"on-image field: {field}"
+                      )
+
+          # ------------------------------------------------
+          # Confirm only ONE fake Gemini request happened.
+          # ------------------------------------------------
+
+          if fake_client.models.calls != 1:
+              raise RuntimeError(
+                  "Expected exactly one Gemini request "
+                  "for the two-lesson batch."
+              )
+
+          # ------------------------------------------------
+          # Confirm the two lessons are distinct.
+          # ------------------------------------------------
+
+          if (
+              generated[0]["title"]
+              == generated[1]["title"]
+          ):
+              raise RuntimeError(
+                  "The two generated lessons have "
+                  "the same title."
+              )
+
+          if (
+              generated[0]["description"]
+              == generated[1]["description"]
+          ):
+              raise RuntimeError(
+                  "The two generated lessons have "
+                  "the same description."
+              )
+
+          # ------------------------------------------------
+          # Verify JSON serialization.
+          # ------------------------------------------------
+
+          encoded = json.dumps(
+              generated,
+              ensure_ascii=False,
+              indent=2,
+          )
+
+          decoded = json.loads(
+              encoded
+          )
+
+          if len(decoded) != 2:
+              raise RuntimeError(
+                  "Batch JSON round-trip failed."
+              )
+
+          print()
+          print(
+              "=========================================="
+          )
+          print(
+              "COMPLETE BATCH GENERATION TEST PASSED"
+          )
+          print(
+              "=========================================="
+          )
+          print(
+              "Real batch function: PASSED"
+          )
+          print(
+              "Fake Gemini response: PASSED"
+          )
+          print(
+              "JSON extraction: PASSED"
+          )
+          print(
+              "Content validation: PASSED"
+          )
+          print(
+              "Two distinct lessons: PASSED"
+          )
+          print(
+              "One request -> two lessons: PASSED"
+          )
+          print(
+              "JSON round-trip: PASSED"
+          )
+          print()
+          print(
+              "REAL GEMINI API: NOT CALLED"
+          )
+          print(
+              "CLOUDFLARE API: NOT CALLED"
+          )
+          print(
+              "INSTAGRAM API: NOT CALLED"
+          )
+          print(
+              "=========================================="
+          )
+          PY
 
       - name: Test daily content engine safely
         run: |
