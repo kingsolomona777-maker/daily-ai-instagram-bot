@@ -1,1325 +1,482 @@
-import os
 import json
+import os
+import re
+from typing import Any, Dict, Optional
+
 from google import genai
 
 
 # ============================================================
-# CONTENT GENERATOR
-# OROM PLAN1
-# GEMINI 3.6 FLASH
-#
-# VERSION:
-# Educational Visual Content Upgrade
-#
-# PURPOSE:
-# Gemini creates:
-# 1. Professional Instagram content
-# 2. Technically accurate image scene
-# 3. Exact teaching text for later Python overlay
-#
-# IMPORTANT:
-# FLUX should generate the clean photograph.
-# Python will later place exact text onto the image.
+# OROM PLAN1 - EDUCATIONAL CONTENT ENGINE
 # ============================================================
 
+MODEL_NAME = "gemini-3.6-flash"
 
-def create_content(topic):
+client = genai.Client(
+    api_key=os.environ.get("GEMINI_API_KEY")
+)
 
-    # --------------------------------------------------------
-    # GET GEMINI API KEY
-    # --------------------------------------------------------
 
-    api_key = os.environ.get(
-        "GEMINI_API_KEY"
+# ============================================================
+# PLUMBING KNOWLEDGE SYSTEM
+# ============================================================
+
+PLUMBING_KNOWLEDGE_AREAS = [
+    "water supply systems",
+    "cold water plumbing",
+    "hot water plumbing",
+    "PPR pipe installation",
+    "pipe fittings and connections",
+    "drainage systems",
+    "WC discharge systems",
+    "bathroom plumbing",
+    "showers and mixers",
+    "kitchen plumbing",
+    "sink drainage",
+    "waste pipes",
+    "drain traps",
+    "drain ventilation",
+    "soakaway systems",
+    "pipe sizing and flow",
+    "pipe slope and drainage",
+    "leak detection and repair",
+    "plumbing tools and materials",
+    "common plumbing mistakes",
+    "preventive plumbing maintenance",
+    "professional installation practices",
+    "building plumbing design",
+    "plumbing troubleshooting",
+    "plumbing safety",
+]
+
+
+CONTENT_TYPES = [
+    "reel",
+    "educational_visual",
+]
+
+
+LESSON_TYPES = [
+    "problem_and_cause",
+    "how_it_works",
+    "common_mistake",
+    "professional_tip",
+    "maintenance",
+    "troubleshooting",
+    "installation_principle",
+    "material_knowledge",
+    "tool_knowledge",
+    "myth_vs_fact",
+]
+
+
+# ============================================================
+# JSON EXTRACTION
+# ============================================================
+
+def extract_json(text: str) -> Dict[str, Any]:
+    """
+    Extract the first valid JSON object from Gemini output.
+    Handles occasional markdown code fences.
+    """
+
+    if not text:
+        raise ValueError("Gemini returned an empty response.")
+
+    cleaned = text.strip()
+
+    cleaned = re.sub(
+        r"^```(?:json)?\s*",
+        "",
+        cleaned,
+        flags=re.IGNORECASE
     )
 
-    if not api_key:
+    cleaned = re.sub(
+        r"\s*```$",
+        "",
+        cleaned
+    )
 
-        raise RuntimeError(
-            "GEMINI_API_KEY is not available."
+    try:
+        return json.loads(cleaned)
+    except json.JSONDecodeError:
+        pass
+
+    match = re.search(r"\{.*\}", cleaned, re.DOTALL)
+
+    if not match:
+        raise ValueError(
+            "Could not find a valid JSON object in Gemini response."
         )
 
-    # --------------------------------------------------------
-    # CREATE GEMINI CLIENT
-    # --------------------------------------------------------
+    try:
+        return json.loads(match.group(0))
+    except json.JSONDecodeError as exc:
+        raise ValueError(
+            f"Gemini returned invalid JSON: {exc}"
+        ) from exc
 
-    client = genai.Client(
-        api_key=api_key
+
+# ============================================================
+# NORMALIZATION
+# ============================================================
+
+def normalize_content(content: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Makes Gemini output safe and predictable for the rest
+    of the Orom Plan1 pipeline.
+    """
+
+    content.setdefault("title", "")
+    content.setdefault("description", "")
+    content.setdefault("image_prompt", "")
+    content.setdefault("hashtags", [])
+    content.setdefault("visual_story", "")
+
+    on_image_text = content.get("on_image_text")
+
+    if not isinstance(on_image_text, dict):
+        on_image_text = {}
+
+    on_image_text.setdefault("hook", "")
+    on_image_text.setdefault("explanation", "")
+    on_image_text.setdefault("callout", "")
+    on_image_text.setdefault("takeaway", "")
+
+    content["on_image_text"] = on_image_text
+
+    if not isinstance(content["hashtags"], list):
+        content["hashtags"] = [str(content["hashtags"])]
+
+    content["hashtags"] = [
+        str(tag).strip()
+        for tag in content["hashtags"]
+        if str(tag).strip()
+    ]
+
+    content["title"] = str(content["title"]).strip()
+    content["description"] = str(content["description"]).strip()
+    content["image_prompt"] = str(content["image_prompt"]).strip()
+    content["visual_story"] = str(content["visual_story"]).strip()
+
+    return content
+
+
+# ============================================================
+# CONTENT GENERATOR
+# ============================================================
+
+def create_content(
+    topic: str,
+    content_type: str = "educational_visual",
+    lesson_type: Optional[str] = None,
+    lesson_number: Optional[int] = None,
+    previous_lesson: Optional[str] = None,
+) -> Dict[str, Any]:
+
+    if content_type not in CONTENT_TYPES:
+        content_type = "educational_visual"
+
+    if lesson_type not in LESSON_TYPES:
+        lesson_type = "professional_tip"
+
+    if not lesson_number:
+        lesson_number = 1
+
+    previous_context = (
+        previous_lesson
+        if previous_lesson
+        else "No previous lesson supplied."
     )
 
-    # ========================================================
-    # MAIN PROMPT
-    # ========================================================
+    if content_type == "reel":
+        format_instruction = """
+Create this as a short educational Instagram Reel.
+
+The Reel must teach ONE clear plumbing lesson.
+
+The lesson should work as:
+1. Strong opening hook
+2. Problem or question
+3. Clear explanation
+4. Practical takeaway
+
+Keep the lesson understandable when watched without sound.
+
+The on-image text should be concise because it will be displayed
+inside a vertical video.
+"""
+    else:
+        format_instruction = """
+Create this as a standalone educational Instagram visual.
+
+The image must teach something useful even if the viewer never reads
+the caption.
+
+Use a strong hook, realistic plumbing visual, clear callout,
+short explanation and practical takeaway.
+
+The image should feel like a professional plumbing teaching card,
+not an advertisement.
+"""
 
     prompt = f"""
-You are an expert:
+You are the educational content intelligence system for Orom Plan1,
+a professional plumbing education Instagram account.
 
-- residential plumber
-- plumbing engineer
-- plumbing educator
-- technical writer
-- professional photographer
-- Instagram content strategist
-- visual teaching designer
-- homeowner education specialist
+The goal is NOT simply to generate attractive social media posts.
 
-Create ONE original Instagram post for a professional
-residential plumbing account.
+The goal is to TEACH the audience.
 
-The content must be:
-
+Every lesson must be:
 - technically responsible
-- visually realistic
-- educational
-- easy for ordinary homeowners to understand
-- useful
-- attention-grabbing without deception
-- suitable for a professional Nigerian plumbing brand
+- physically realistic
+- practical
+- easy to understand
+- useful to homeowners, apprentices and plumbing workers
+- visually teachable
+- specific rather than vague
+- free from invented plumbing facts
+- free from dangerous installation advice
+- free from exaggerated claims
 
-============================================================
-TOPIC
-============================================================
-
+CURRENT KNOWLEDGE AREA:
 {topic}
 
-============================================================
-CORE VISUAL TEACHING PRINCIPLE
-============================================================
-
-People often notice what is visible inside the image before
-they read the caption.
-
-Therefore, the post must communicate an important part of
-the lesson visually.
-
-The final design will eventually use:
-
-HOOK
-+
-REALISTIC PLUMBING SCENE
-+
-SHORT EXPLANATION
-+
-OPTIONAL VISUAL CALLOUT
-+
-TAKEAWAY
-
-The image itself should make a person curious enough to stop
-and understand the lesson.
-
-However:
-
-DO NOT use fake danger.
-
-DO NOT exaggerate a normal plumbing issue into an emergency.
-
-DO NOT invent statistics.
-
-DO NOT claim that something will definitely cause damage when
-that is not technically established.
-
-Use genuine plumbing education to create curiosity.
-
-============================================================
-IMPORTANT CONTENT SEPARATION
-============================================================
-
-There are TWO separate outputs:
-
-A. IMAGE SCENE
-
-This describes what the image-generation model should
-photograph.
-
-B. ON-IMAGE TEXT
-
-This is the exact educational wording that Python will later
-place on top of the generated photograph.
-
-DO NOT ask the image-generation model to create text.
-
-The image_prompt must contain NO written text.
-
-The on-image text must contain the exact words that should
-eventually appear on the finished Instagram image.
-
-============================================================
-IMAGE STORY
-============================================================
-
-Before creating the image prompt, determine:
-
-1. What is the real plumbing subject?
-
-2. What problem, component, mistake, test, repair,
-   installation, or maintenance lesson is involved?
-
-3. What would a professional plumber actually see?
-
-4. What visual detail would immediately help a homeowner
-   understand the lesson?
-
-5. What should the viewer notice first?
-
-6. What should the viewer understand after looking at the
-   image?
-
-The photograph must visually support the teaching message.
-
-============================================================
-TECHNICAL ACCURACY
-============================================================
-
-The plumbing shown must be physically possible.
-
-Use:
-
-- realistic pipe sizes
-- realistic pipe positions
-- realistic fittings
-- realistic valves
-- realistic joints
-- realistic connections
-- realistic plumbing components
-- realistic water behaviour
-- realistic equipment
-- realistic installation methods
-
-Never invent impossible plumbing arrangements simply to make
-the image interesting.
-
-Do not connect unrelated pipes together.
-
-Do not place fittings where they would not realistically be
-installed.
-
-Do not create floating pipes.
-
-Do not create impossible pipe bends.
-
-Do not create duplicated plumbing components.
-
-Do not merge several plumbing components into one object.
-
-Do not create impossible equipment shapes.
-
-============================================================
-PROCEDURE ACCURACY
-============================================================
-
-If the topic describes:
-
-- testing
-- repair
-- installation
-- inspection
-- maintenance
-- diagnosis
-- troubleshooting
-
-the image must show the actual procedure correctly.
-
-Do not merely show an object associated with the procedure.
-
-Show what a professional plumber or homeowner would actually
-do.
-
-------------------------------------------------------------
-TOILET DYE TEST EXAMPLE
-------------------------------------------------------------
-
-If the topic concerns testing a toilet for a silent leak:
-
-CORRECT:
-
-- toilet cistern/tank visible
-- cistern/tank lid removed when appropriate
-- water inside the tank
-- small amount of suitable dye or food colouring being added
-  to the tank water
-- toilet bowl initially clear
-- realistic toilet components
-- realistic residential bathroom
-
-INCORRECT:
-
-- pouring dye directly into the toilet bowl
-- random blue water in the bowl
-- impossible toilet mechanisms
-- duplicated toilet parts
-
-============================================================
-TOPIC-SPECIFIC VISUAL RULES
-============================================================
-
-------------------------------------------------------------
-TOILET TOPICS
-------------------------------------------------------------
-
-Identify the actual component involved.
-
-Possible components:
-
-- toilet cistern/tank
-- flush valve
-- fill valve
-- flapper
-- flush button
-- flush handle
-- overflow tube
-- supply connection
-- toilet bowl
-- trap
-- waste connection
-
-Do not randomly show the toilet bowl when the topic is about
-the cistern or internal mechanism.
-
-------------------------------------------------------------
-WATER PUMP TOPICS
-------------------------------------------------------------
-
-Show a realistic residential pump installation.
-
-When appropriate include:
-
-- actual water pump
-- inlet pipe
-- outlet pipe
-- isolation valves
-- unions or fittings
-- pressure-related components
-- realistic pipe connections
-- realistic surrounding environment
-
-Do not show a random industrial pump when discussing normal
-home water supply.
-
-------------------------------------------------------------
-LEAK TOPICS
-------------------------------------------------------------
-
-Show:
-
-- actual leaking component
-- approximate leak location
-- visible water where appropriate
-- realistic surrounding plumbing
-
-Do not show a random puddle with no identifiable source.
-
-------------------------------------------------------------
-DRAINAGE TOPICS
-------------------------------------------------------------
-
-Show the actual drainage problem.
-
-Possible elements:
-
-- waste pipe
-- drain pipe
-- floor drain
-- inspection chamber
-- drain fitting
-- blockage
-- standing water
-- drainage connection
-- underground or exposed drainage pipe
-
-------------------------------------------------------------
-PPR TOPICS
-------------------------------------------------------------
-
-Show realistic:
-
-- PPR pipe
-- elbow
-- tee
-- socket
-- reducer
-- valve
-- correctly fused joint
-
-Connections must look physically possible.
-
-------------------------------------------------------------
-PVC / SOIL / WASTE TOPICS
-------------------------------------------------------------
-
-Use realistic:
-
-- pipe diameters
-- elbows
-- tees
-- reducers
-- sockets
-- traps
-- connectors
-- inspection fittings
-
-------------------------------------------------------------
-WATER TANK TOPICS
-------------------------------------------------------------
-
-Show realistic:
-
-- overhead tank
-- inlet pipe
-- outlet pipe
-- float valve
-- overflow pipe
-- isolation valve
-- support structure
-
-------------------------------------------------------------
-VALVE TOPICS
-------------------------------------------------------------
-
-Make the actual valve clearly visible.
-
-Show:
-
-- correct valve type when identifiable
-- realistic pipe connections
-- realistic handle or actuator
-- believable installation position
-
-------------------------------------------------------------
-PIPE REPAIR TOPICS
-------------------------------------------------------------
-
-If a plumber is repairing a pipe:
-
-- show actual damaged section
-- show plumber working on that section
-- show realistic tools when useful
-- show realistic hands
-- show believable pipe positioning
-
-Do not show a plumber posing beside unrelated plumbing.
-
-============================================================
-PEOPLE
-============================================================
-
-Only include a plumber/person when useful.
-
-If a person appears:
-
-- realistic human proportions
-- realistic hands
-- realistic fingers
-- realistic work clothing
-- realistic protective equipment where appropriate
-- natural working position
-- actually performing the relevant task
-
-Avoid unnecessary hands when they do not help explain the
-subject.
-
-============================================================
-PHOTOGRAPHIC REALISM
-============================================================
-
-The final image must look like a genuine professional
-photograph.
-
-Use:
-
-- photorealistic appearance
-- professional commercial photography
+LESSON TYPE:
+{lesson_type}
+
+LESSON NUMBER:
+{lesson_number}
+
+PREVIOUS LESSON CONTEXT:
+{previous_context}
+
+{format_instruction}
+
+IMPORTANT EDUCATIONAL RULES:
+
+1. Teach one main idea.
+2. Explain the cause, principle or reason.
+3. Do not merely say "call a plumber".
+4. Do not invent pipe sizes or engineering requirements.
+5. If a measurement depends on local code, building design,
+   fixture type or manufacturer instructions, phrase it carefully.
+6. Do not recommend unsafe shortcuts.
+7. Do not show impossible plumbing arrangements.
+8. Keep plumbing terminology accurate.
+9. The generated image must be physically possible.
+10. Never put text, logos or watermarks inside the AI-generated
+    plumbing scene itself. Text will be added later by the system.
+11. Use realistic materials, fittings, tools and pipe geometry.
+12. The main plumbing subject must be clearly visible.
+13. Use a vertical 9:16 composition.
+14. Keep the main subject near the visual center.
+15. Avoid clutter.
+16. Do not repeat the exact wording of previous lessons.
+17. Make the lesson valuable as a standalone piece.
+18. Prefer explanation over hype.
+19. Use Nigerian/African plumbing realities where appropriate,
+    but do not make unsupported regional claims.
+20. Never pretend a common practice is automatically correct
+    if proper design or local requirements may differ.
+
+CAPTION REQUIREMENT:
+
+Create an educational caption of approximately 80-120 words.
+
+The caption should:
+- begin naturally
+- explain the plumbing lesson
+- provide useful practical context
+- include a clear takeaway
+- encourage a meaningful comment or question
+- avoid empty engagement bait
+
+HASHTAGS:
+
+Generate 5-8 relevant plumbing hashtags.
+
+Do not use generic unrelated viral hashtags.
+
+IMAGE PROMPT:
+
+Create a detailed photorealistic prompt for an image generator.
+
+The image prompt must describe:
+- the plumbing environment
+- materials
+- pipe arrangement
+- relevant fittings
+- realistic lighting
+- realistic construction details
+- camera composition
+- the exact educational subject
+
+The image prompt must explicitly require:
+- photorealistic
+- physically accurate plumbing
 - realistic materials
-- realistic textures
-- natural lighting
-- realistic shadows
-- realistic reflections
-- realistic water
-- realistic metal
-- realistic plastic
-- realistic ceramic
-- realistic concrete
-- realistic skin
-- realistic clothing
+- realistic geometry
+- vertical 9:16 composition
+- no text
+- no logo
+- no watermark
+- no arrows
+- no labels
 
-Do NOT create:
+ON-IMAGE EDUCATIONAL TEXT:
 
-- cartoon
-- illustration
-- digital painting
-- CGI
-- 3D render
-- game graphics
-- fantasy plumbing
-- plastic-looking equipment
+Create four short elements:
 
-============================================================
-CAMERA
-============================================================
+hook:
+A strong educational opening.
 
-Use an appropriate professional camera perspective.
+explanation:
+One short sentence explaining the lesson.
 
-Use:
+callout:
+The specific plumbing component or principle being taught.
 
-- realistic focal length
-- natural perspective
-- realistic depth of field
-- sharp focus on important plumbing component
-- natural background blur when appropriate
-- professional interior or natural lighting
+takeaway:
+A practical final lesson.
 
-The plumbing lesson is more important than dramatic
-cinematic effects.
-
-============================================================
-VERTICAL INSTAGRAM COMPOSITION
-============================================================
-
-The photograph will be used as a vertical 9:16 Instagram
-image.
-
-Design the scene specifically for vertical composition.
-
-Requirements:
-
-- main subject clearly visible
-- main subject reasonably large
-- important component near the central composition
-- avoid extreme edges
-- avoid awkward cropping
-- avoid excessive empty space
-- maintain natural perspective
-- important plumbing details remain visible
-- scene understandable on a smartphone
-- leave reasonable clean visual space where text can later be
-  overlaid
-
-IMPORTANT:
-
-Do not place important plumbing components behind the future
-text area.
-
-============================================================
-NO TEXT IN THE GENERATED IMAGE
-============================================================
-
-The image_prompt must explicitly require:
-
-NO text
-NO words
-NO letters
-NO numbers
-NO labels
-NO logos
-NO watermarks
-NO signs
-NO advertisements
-NO social-media graphics
-NO UI elements
-
-The image-generation model must create a clean photograph.
-
-Python will add the educational text later.
-
-============================================================
-ON-IMAGE TEACHING STRATEGY
-============================================================
-
-Create short educational text for the finished image.
-
-The text should follow this structure:
-
-HOOK:
-A short statement that immediately creates curiosity.
-
-EXPLANATION:
-A short sentence explaining the important visual lesson.
-
-CALLOUT:
-An optional short label pointing attention toward the
-important plumbing component.
-
-TAKEAWAY:
-A short practical lesson the viewer can remember.
-
-============================================================
-HOOK RULES
-============================================================
-
-The hook should normally be:
-
-3-8 words.
-
-Examples of the style:
-
-"That small leak matters."
-
-"Your pump may not be the problem."
-
-"This is where the blockage starts."
-
-"Don't ignore this pipe joint."
-
-"Your toilet can leak silently."
-
-Do NOT copy these examples automatically.
-
-Create wording specifically for the topic.
-
-Avoid:
-
-- fake emergencies
-- fearmongering
-- impossible claims
-- exaggerated promises
-- misleading statements
-- clickbait that contradicts the actual lesson
-
-============================================================
-EXPLANATION RULES
-============================================================
-
-The explanation should normally be:
-
-8-15 words.
-
-It must teach something genuinely useful.
-
-Avoid repeating the hook.
-
-Avoid complicated engineering language unless necessary.
-
-============================================================
-CALLOUT RULES
-============================================================
-
-The callout should normally be:
-
-1-5 words.
-
-It should identify an important visible component.
-
-Examples:
-
-"Fill valve"
-
-"Blocked section"
-
-"Leaking joint"
-
-"Isolation valve"
-
-"Overflow pipe"
-
-Only use a callout when it adds genuine visual value.
-
-If a callout is unnecessary, return an empty string.
-
-============================================================
-TAKEAWAY RULES
-============================================================
-
-The takeaway should normally be:
-
-5-12 words.
-
-It should communicate a practical lesson.
-
-Examples of style:
-
-"Check the valve before replacing the pump."
-
-"Find the source before repairing the leak."
-
-"Small blockages can reduce drainage flow."
-
-Again, create topic-specific wording.
-
-============================================================
-TOTAL ON-IMAGE TEXT
-============================================================
-
-Keep the total amount of text visually light.
-
-Normally:
-
-- Hook: 3-8 words
-- Explanation: 8-15 words
-- Callout: 1-5 words
-- Takeaway: 5-12 words
-
-Do not turn the image into a full article.
-
-The caption can contain the deeper explanation.
-
-============================================================
-VISUAL STORY
-============================================================
-
-Create a short description explaining:
-
-- what the viewer sees
-- what the viewer should notice first
-- what plumbing detail proves the lesson
-- how the photograph supports the teaching text
-
-This is NOT the image prompt.
-
-It is a planning description for the visual composition.
-
-============================================================
-TITLE
-============================================================
-
-Create a short, interesting title that makes a homeowner
-want to read the post.
-
-Do not simply copy the topic word-for-word.
-
-The title should sound natural and professional.
-
-Avoid exaggerated clickbait.
-
-============================================================
-DESCRIPTION
-============================================================
-
-Write a useful Instagram caption of approximately
-80-120 words.
-
-The caption must:
-
-- be practical
-- be technically responsible
-- be accurate
-- be professional but friendly
-- be easy for ordinary homeowners to understand
-- explain useful plumbing information
-- avoid exaggerated claims
-- never invent prices
-- never make unsafe recommendations
-- encourage professional inspection when appropriate
-- sound naturally written by an experienced plumber
-- avoid repetitive openings
-- avoid "Did you know..."
-- avoid unnecessary emojis
-- add useful information beyond the image
-- not simply repeat the on-image text
-
-============================================================
-HASHTAGS
-============================================================
-
-Create 5-8 relevant Instagram hashtags.
-
-Hashtags must:
-
-- directly relate to the topic
-- be relevant to plumbing
-- be useful for home-maintenance content
-- use specific topic-related hashtags when appropriate
-- avoid misleading claims
-- avoid spammy tags
-- avoid unrelated popular hashtags
-
-Do not use emojis.
-
-Do not use the exact same hashtag list for every topic.
-
-============================================================
-LANGUAGE STYLE
-============================================================
-
-Use clear natural English suitable for Nigerian homeowners.
-
-Do not force Pidgin into every post.
-
-Use Nigerian expressions only when they sound natural.
-
-The content should still look professional.
-
-Do not use an em dash.
-
-Do not use an en dash.
-
-Do not use decorative long dash punctuation.
-
-Prefer:
-
-- commas
-- full stops
-- question marks
-- colons
-- parentheses
-
-============================================================
-FINAL OUTPUT
-============================================================
+The text must be concise enough to fit naturally on a vertical
+Instagram image.
 
 Return ONLY valid JSON.
 
-The JSON must contain exactly these top-level fields:
+Use exactly this structure:
 
-title
-description
-image_prompt
-visual_story
-on_image_text
-hashtags
-
-The "on_image_text" field must be an object containing exactly:
-
-hook
-explanation
-callout
-takeaway
-
-The hashtags field must be an array of strings.
-
-Each hashtag must begin with #.
-
-Do not include markdown.
-
-Do not include explanations outside the JSON.
-
-============================================================
-FINAL QUALITY CHECK BEFORE ANSWERING
-============================================================
-
-Before returning the JSON, silently verify:
-
-1. Is the plumbing technically possible?
-
-2. Does the image actually show the topic?
-
-3. Is the correct component visible?
-
-4. If this is a procedure, is the procedure physically correct?
-
-5. Does the visual story support the teaching message?
-
-6. Is the hook interesting without being misleading?
-
-7. Does the explanation teach something real?
-
-8. Is the callout actually visible in the scene?
-
-9. Is the takeaway practical?
-
-10. Is the total image text short enough for a smartphone?
-
-11. Does the caption add useful information?
-
-12. Are the hashtags topic-specific?
-
-13. Is there no em dash?
-
-14. Is there no unnecessary decorative punctuation?
-
-15. Does the image_prompt contain no text instructions that
-would cause the image model to generate words?
-
-Only return the final JSON.
+{{
+  "title": "...",
+  "description": "...",
+  "image_prompt": "...",
+  "hashtags": ["...", "..."],
+  "visual_story": "...",
+  "on_image_text": {{
+    "hook": "...",
+    "explanation": "...",
+    "callout": "...",
+    "takeaway": "..."
+  }},
+  "lesson_type": "...",
+  "content_type": "...",
+  "knowledge_area": "...",
+  "lesson_number": {lesson_number}
+}}
 """
 
-    # ========================================================
-    # GEMINI REQUEST
-    # ========================================================
-
-    interaction = client.interactions.create(
-        model="gemini-3.6-flash",
-        input=prompt,
-        response_format={
-            "type": "text",
-            "mime_type": "application/json",
-            "schema": {
-                "type": "object",
-                "properties": {
-
-                    "title": {
-                        "type": "string"
-                    },
-
-                    "description": {
-                        "type": "string"
-                    },
-
-                    "image_prompt": {
-                        "type": "string"
-                    },
-
-                    "visual_story": {
-                        "type": "string"
-                    },
-
-                    "on_image_text": {
-                        "type": "object",
-                        "properties": {
-
-                            "hook": {
-                                "type": "string"
-                            },
-
-                            "explanation": {
-                                "type": "string"
-                            },
-
-                            "callout": {
-                                "type": "string"
-                            },
-
-                            "takeaway": {
-                                "type": "string"
-                            }
-
-                        },
-                        "required": [
-                            "hook",
-                            "explanation",
-                            "callout",
-                            "takeaway"
-                        ]
-                    },
-
-                    "hashtags": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    }
-
-                },
-
-                "required": [
-                    "title",
-                    "description",
-                    "image_prompt",
-                    "visual_story",
-                    "on_image_text",
-                    "hashtags"
-                ]
-            }
-        }
+    response = client.models.generate_content(
+        model=MODEL_NAME,
+        contents=prompt
     )
 
-    # ========================================================
-    # PARSE GEMINI RESPONSE
-    # ========================================================
+    content = extract_json(response.text)
 
-    try:
+    content = normalize_content(content)
 
-        data = json.loads(
-            interaction.output_text
-        )
+    content["lesson_type"] = lesson_type
+    content["content_type"] = content_type
+    content["knowledge_area"] = topic
+    content["lesson_number"] = lesson_number
 
-    except json.JSONDecodeError as error:
+    return content
 
-        raise RuntimeError(
-            "Gemini returned invalid JSON."
-        ) from error
 
-    # ========================================================
-    # CHECK REQUIRED FIELDS
-    # ========================================================
+# ============================================================
+# QUALITY CHECK
+# ============================================================
+
+def check_content(content: Dict[str, Any]) -> bool:
+    """
+    Basic structural quality gate.
+
+    This intentionally checks structure rather than trying to
+    replace human/technical review of every plumbing lesson.
+    """
+
+    if not isinstance(content, dict):
+        return False
 
     required_fields = [
         "title",
         "description",
         "image_prompt",
+        "hashtags",
         "visual_story",
         "on_image_text",
-        "hashtags"
     ]
 
     for field in required_fields:
-
-        if field not in data:
-
-            raise RuntimeError(
-                f"Gemini response is missing: {field}"
-            )
-
-    # ========================================================
-    # CHECK ON-IMAGE TEXT
-    # ========================================================
-
-    if not isinstance(
-        data["on_image_text"],
-        dict
-    ):
-
-        raise RuntimeError(
-            "Gemini returned invalid on_image_text."
-        )
-
-    required_text_fields = [
-        "hook",
-        "explanation",
-        "callout",
-        "takeaway"
-    ]
-
-    for field in required_text_fields:
-
-        if field not in data["on_image_text"]:
-
-            raise RuntimeError(
-                f"Gemini on_image_text is missing: {field}"
-            )
-
-        if not isinstance(
-            data["on_image_text"][field],
-            str
-        ):
-
-            raise RuntimeError(
-                f"Gemini on_image_text field is invalid: {field}"
-            )
-
-    # ========================================================
-    # CLEAN LONG DASHES
-    # ========================================================
-
-    def clean_text(value):
-
-        if not isinstance(
-            value,
-            str
-        ):
-            return value
-
-        return (
-            value
-            .replace("—", ", ")
-            .replace("–", ", ")
-            .replace("−", ", ")
-            .replace("  ", " ")
-            .strip()
-        )
-
-    data["title"] = clean_text(
-        data["title"]
-    )
-
-    data["description"] = clean_text(
-        data["description"]
-    )
-
-    data["image_prompt"] = clean_text(
-        data["image_prompt"]
-    )
-
-    data["visual_story"] = clean_text(
-        data["visual_story"]
-    )
-
-    for field in required_text_fields:
-
-        data["on_image_text"][field] = clean_text(
-            data["on_image_text"][field]
-        )
-
-    # ========================================================
-    # CLEAN HASHTAGS
-    # ========================================================
-
-    hashtags = []
-
-    for hashtag in data["hashtags"]:
-
-        if not isinstance(
-            hashtag,
-            str
-        ):
-            continue
-
-        hashtag = hashtag.strip()
-
-        if not hashtag:
-            continue
-
-        if not hashtag.startswith("#"):
-
-            hashtag = "#" + hashtag
-
-        hashtags.append(
-            hashtag
-        )
-
-    # Remove duplicate hashtags while
-    # preserving their original order.
-
-    hashtags = list(
-        dict.fromkeys(
-            hashtags
-        )
-    )
-
-    # ========================================================
-    # VALIDATE ON-IMAGE TEXT LENGTH
-    # ========================================================
-
-    on_image_text = data[
-        "on_image_text"
-    ]
-
-    if not (
-        3 <= len(
-            on_image_text["hook"].split()
-        ) <= 12
-    ):
-
-        raise RuntimeError(
-            "Generated hook is outside the acceptable length."
-        )
-
-    if not (
-        5 <= len(
-            on_image_text["explanation"].split()
-        ) <= 20
-    ):
-
-        raise RuntimeError(
-            "Generated explanation is outside the acceptable length."
-        )
-
-    if not (
-        len(
-            on_image_text["callout"].split()
-        ) <= 8
-    ):
-
-        raise RuntimeError(
-            "Generated callout is too long."
-        )
-
-    if not (
-        3 <= len(
-            on_image_text["takeaway"].split()
-        ) <= 16
-    ):
-
-        raise RuntimeError(
-            "Generated takeaway is outside the acceptable length."
-        )
-
-    # ========================================================
-    # RETURN CONTENT
-    # ========================================================
-
-    return {
-
-        "topic":
-            topic,
-
-        "title":
-            data["title"].strip(),
-
-        "description":
-            data["description"].strip(),
-
-        "image_prompt":
-            data["image_prompt"].strip(),
-
-        "visual_story":
-            data["visual_story"].strip(),
-
-        "on_image_text": {
-
-            "hook":
-                on_image_text["hook"].strip(),
-
-            "explanation":
-                on_image_text["explanation"].strip(),
-
-            "callout":
-                on_image_text["callout"].strip(),
-
-            "takeaway":
-                on_image_text["takeaway"].strip()
-        },
-
-        "hashtags":
-            hashtags
-    }
-
-
-# ============================================================
-# CONTENT QUALITY CHECK
-# ============================================================
-
-def check_content(
-    content
-):
-
-    # --------------------------------------------------------
-    # REQUIRED TOP-LEVEL FIELDS
-    # --------------------------------------------------------
-
-    required_fields = [
-        "title",
-        "description",
-        "image_prompt",
-        "visual_story",
-        "on_image_text",
-        "hashtags"
-    ]
-
-    for field in required_fields:
-
         if field not in content:
-
             return False
 
-    # --------------------------------------------------------
-    # TITLE
-    # --------------------------------------------------------
+    for field in [
+        "title",
+        "description",
+        "image_prompt",
+        "visual_story",
+    ]:
+        if not isinstance(content[field], str):
+            return False
 
-    title = content[
-        "title"
-    ]
+        if not content[field].strip():
+            return False
 
-    if not isinstance(
-        title,
-        str
-    ):
-
+    if not isinstance(content["hashtags"], list):
         return False
 
-    if len(title) < 10:
-
+    if len(content["hashtags"]) < 3:
         return False
 
-    # --------------------------------------------------------
-    # DESCRIPTION
-    # --------------------------------------------------------
+    on_image_text = content["on_image_text"]
 
-    description = content[
-        "description"
-    ]
-
-    if not isinstance(
-        description,
-        str
-    ):
-
+    if not isinstance(on_image_text, dict):
         return False
 
-    if len(description) < 50:
-
-        return False
-
-    # --------------------------------------------------------
-    # IMAGE PROMPT
-    # --------------------------------------------------------
-
-    image_prompt = content[
-        "image_prompt"
-    ]
-
-    if not isinstance(
-        image_prompt,
-        str
-    ):
-
-        return False
-
-    if len(image_prompt) < 30:
-
-        return False
-
-    # --------------------------------------------------------
-    # VISUAL STORY
-    # --------------------------------------------------------
-
-    visual_story = content[
-        "visual_story"
-    ]
-
-    if not isinstance(
-        visual_story,
-        str
-    ):
-
-        return False
-
-    if len(visual_story) < 20:
-
-        return False
-
-    # --------------------------------------------------------
-    # ON-IMAGE TEXT
-    # --------------------------------------------------------
-
-    on_image_text = content[
-        "on_image_text"
-    ]
-
-    if not isinstance(
-        on_image_text,
-        dict
-    ):
-
-        return False
-
-    text_fields = [
+    for field in [
         "hook",
         "explanation",
         "callout",
-        "takeaway"
-    ]
-
-    for field in text_fields:
-
+        "takeaway",
+    ]:
         if field not in on_image_text:
-
             return False
 
-        if not isinstance(
-            on_image_text[field],
-            str
-        ):
-
+        if not isinstance(on_image_text[field], str):
             return False
 
-    if len(
-        on_image_text["hook"].strip()
-    ) < 3:
-
-        return False
-
-    if len(
-        on_image_text["explanation"].strip()
-    ) < 5:
-
-        return False
-
-    if len(
-        on_image_text["takeaway"].strip()
-    ) < 3:
-
-        return False
-
-    # --------------------------------------------------------
-    # HASHTAGS
-    # --------------------------------------------------------
-
-    hashtags = content[
-        "hashtags"
-    ]
-
-    if not isinstance(
-        hashtags,
-        list
-    ):
-
-        return False
-
-    if len(hashtags) < 3:
-
-        return False
-
-    # --------------------------------------------------------
-    # ALL CHECKS PASSED
-    # --------------------------------------------------------
+        if not on_image_text[field].strip():
+            return False
 
     return True
+
+
+# ============================================================
+# SAFE DEFAULT TOPIC LIST
+# ============================================================
+
+def get_knowledge_areas():
+    """
+    Returns the available Orom Plan1 plumbing knowledge areas.
+    """
+
+    return list(PLUMBING_KNOWLEDGE_AREAS)
+
+
+def get_content_types():
+    """
+    Returns the content formats supported by the engine.
+    """
+
+    return list(CONTENT_TYPES)
+
+
+def get_lesson_types():
+    """
+    Returns the available educational lesson structures.
+    """
+
+    return list(LESSON_TYPES)
