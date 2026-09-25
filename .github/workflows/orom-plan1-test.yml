@@ -129,6 +129,21 @@ jobs:
       - name: Test batch generator safely
         run: |
           python - <<'PY'
+          import json
+          import sys
+          import types
+
+          fake_content_generator = types.ModuleType(
+              "content_generator"
+          )
+
+          fake_content_generator.MODEL_NAME = "fake-model"
+          fake_content_generator.client = types.SimpleNamespace()
+
+          sys.modules["content_generator"] = (
+              fake_content_generator
+          )
+
           import content_batch_generator as batch
 
           sample = [
@@ -160,7 +175,10 @@ jobs:
               }
           ]
 
-          assert batch.validate_batch_content(sample, 2)
+          assert batch.validate_batch_content(
+              sample,
+              2
+          )
 
           prompt = batch.build_pair_prompt(
               {
@@ -180,7 +198,9 @@ jobs:
           assert "LESSON 1 PLAN:" in prompt
           assert "LESSON 2 PLAN:" in prompt
 
-          print("Batch generator safe test passed.")
+          print(
+              "Batch generator safe test passed."
+          )
           PY
 
       - name: Test complete batch generation safely
