@@ -1,1 +1,121 @@
+name: Orom Plan1 Real Batch Test
 
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  real-batch-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install google-genai requests Pillow
+
+      - name: Run one real Gemini batch
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          from content_batch_generator import (
+              generate_content_pair,
+              validate_batch_content,
+          )
+
+          first_item = {
+              "slot": 1,
+              "content_type": "reel",
+              "role": "Problem Detective",
+              "lesson_type": "problem_and_cause",
+              "knowledge_path": "Drainage Fundamentals",
+              "knowledge_area": "drainage systems",
+              "lesson_number": 1,
+              "previous_lesson": None,
+          }
+
+          second_item = {
+              "slot": 2,
+              "content_type": "educational_visual",
+              "role": "Plumbing Teacher",
+              "lesson_type": "how_it_works",
+              "knowledge_path": "Drainage Fundamentals",
+              "knowledge_area": "sink drainage",
+              "lesson_number": 2,
+              "previous_lesson": None,
+          }
+
+          print("Starting ONE real Gemini batch request...")
+          print("Lessons requested: 2")
+          print("Instagram publishing: DISABLED")
+          print("Image generation: DISABLED")
+
+          result = generate_content_pair(
+              first_item=first_item,
+              second_item=second_item,
+          )
+
+          validate_batch_content(result, expected_count=2)
+
+          output = {
+              "request_count": 1,
+              "lessons": result,
+          }
+
+          Path("real_batch_result.json").write_text(
+              json.dumps(output, indent=2, ensure_ascii=False),
+              encoding="utf-8",
+          )
+
+          print("")
+          print("==========================================")
+          print("REAL GEMINI BATCH TEST PASSED")
+          print("==========================================")
+
+          for index, lesson in enumerate(result, start=1):
+              print("")
+              print(f"LESSON {index}:")
+              print("Title:", lesson["title"])
+              print("Description:", lesson["description"])
+              print("Hashtags:", ", ".join(lesson["hashtags"]))
+
+          print("")
+          print("Gemini requests used: 1")
+          print("Lessons returned: 2")
+          print("Instagram publishing: NOT USED")
+          print("Image generation: NOT USED")
+          print("==========================================")
+          PY
+
+      - name: Upload real batch result
+        uses: actions/upload-artifact@v4
+        with:
+          name: orom-plan1-real-batch-result
+          path: real_batch_result.json
+          if-no-files-found: error
+
+      - name: Final result
+        run: |
+          echo "=========================================="
+          echo "OROM PLAN1 REAL BATCH TEST PASSED"
+          echo "=========================================="
+          echo "1 real Gemini request"
+          echo "2 plumbing lessons generated"
+          echo "0 Instagram posts"
+          echo "0 images generated"
+          echo "0 Reels generated"
+          echo "=========================================="
