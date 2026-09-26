@@ -1,5 +1,4 @@
 import json
-import os
 import random
 import re
 import time
@@ -8,42 +7,48 @@ from typing import Any, Dict, List, Optional
 from google import genai
 from google.genai import types
 
-from content_generator import MODEL_NAME, client
-
 
 # ============================================================
-# RETRY SETTINGS
+# MODEL CONFIGURATION
 # ============================================================
 
-# 2 additional retries after the first request.
-# Maximum total Gemini requests for one lesson pair = 3.
+MODEL_NAME = "gemini-3.6-flash"
+FALLBACK_MODEL_NAME = "gemini-3.5-flash-lite"
+
 MAX_RETRIES = 2
 
-# Exponential backoff:
-# Retry 1 -> about 8-11 seconds
-# Retry 2 -> about 16-19 seconds
 BASE_RETRY_DELAY = 8
 MAX_RETRY_DELAY = 30
 MAX_JITTER = 3
 
 
-RETRYABLE_STATUS_CODES = {
-    408,
-    429,
-    500,
-    502,
-    503,
-    504,
-}
+# ============================================================
+# GEMINI CLIENT
+# ============================================================
+
+import os
+
+
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+
+if not GEMINI_API_KEY:
+    raise RuntimeError(
+        "GEMINI_API_KEY environment variable is missing."
+    )
+
+
+client = genai.Client(
+    api_key=GEMINI_API_KEY
+)
 
 
 # ============================================================
-# GEMINI RETRY HELPERS
+# ERROR HELPERS
 # ============================================================
 
 def get_error_status_code(error: Exception) -> Optional[int]:
     """
-    Try to extract an HTTP/status code from a Gemini exception.
+    Try to extract an HTTP/status code from a Gemini error.
     """
 
     for attribute in (
@@ -56,12 +61,12 @@ def get_error_status_code(error: Exception) -> Optional[int]:
         if isinstance(value, int):
             return value
 
-        if isinstance(value, str) and value.isdigit():
-            return int(value)
-
     message = str(error)
 
-    match = re.search(r"\b(408|429|500|502|503|504)\b", message)
+    match = re.search(
+        r"\b(429|500|502|503|504)\b",
+        message,
+    )
 
     if match:
         return int(match.group(1))
@@ -71,12 +76,18 @@ def get_error_status_code(error: Exception) -> Optional[int]:
 
 def is_retryable_gemini_error(error: Exception) -> bool:
     """
-    Return True only for errors that are reasonable to retry.
+    Return True when the error appears to be temporary.
     """
 
     status_code = get_error_status_code(error)
 
-    if status_code in RETRYABLE_STATUS_CODES:
+    if status_code in (
+        429,
+        500,
+        502,
+        503,
+        504,
+    ):
         return True
 
     message = str(error).upper()
@@ -91,49 +102,65 @@ def is_retryable_gemini_error(error: Exception) -> bool:
         "TIMED OUT",
     )
 
-    return any(marker in message for marker in transient_markers)
+    return any(
+        marker in message
+        for marker in transient_markers
+    )
 
 
 def get_retry_delay(retry_number: int) -> float:
     """
-    Calculate exponential backoff with jitter.
+    Exponential backoff with small random jitter.
 
     retry_number:
-        1 = first retry
-        2 = second retry
+        1 = approximately 8 seconds
+        2 = approximately 16 seconds
     """
 
-    exponential_delay = BASE_RETRY_DELAY * (2 ** (retry_number - 1))
-
-    base_delay = min(
-        exponential_delay,
+    delay = min(
+        BASE_RETRY_DELAY * (2 ** (retry_number - 1)),
         MAX_RETRY_DELAY,
     )
 
-    jitter = random.uniform(
+    delay += random.uniform(
         0,
         MAX_JITTER,
     )
 
-    return base_delay + jitter
+    return delay
 
 
 # ============================================================
-# JSON HELPERS
+# JSON EXTRACTION
 # ============================================================
 
 def extract_json(text: str) -> Dict[str, Any]:
     """
-    Extract a JSON object from Gemini's response.
+    Extract JSON safely from Gemini output.
     """
 
-    cleaned = text.strip()
+    text = text.strip()
 
-    # Remove markdown code fences if Gemini adds them.
+    if not text:
+        raise ValueError(
+            "Gemini returned an empty response."
+        )
+
+    # Direct JSON
+    try:
+        data = json.loads(text)
+
+        if isinstance(data, dict):
+            return data
+
+    except json.JSONDecodeError:
+        pass
+
+    # Remove markdown code fences if present
     cleaned = re.sub(
         r"^```(?:json)?\s*",
         "",
-        cleaned,
+        text,
         flags=re.IGNORECASE,
     )
 
@@ -141,43 +168,43 @@ def extract_json(text: str) -> Dict[str, Any]:
         r"\s*```$",
         "",
         cleaned,
-    )
+    ).strip()
 
     try:
-        parsed = json.loads(cleaned)
+        data = json.loads(cleaned)
 
-        if not isinstance(parsed, dict):
-            raise ValueError("Gemini response JSON is not an object.")
-
-        return parsed
+        if isinstance(data, dict):
+            return data
 
     except json.JSONDecodeError:
-        match = re.search(
-            r"\{.*\}",
-            cleaned,
-            flags=re.DOTALL,
-        )
+        pass
 
-        if not match:
-            raise ValueError(
-                "Could not find a valid JSON object in Gemini response."
-            )
+    # Find first JSON object
+    start = cleaned.find("{")
+    end = cleaned.rfind("}")
 
-        parsed = json.loads(match.group(0))
+    if start != -1 and end != -1 and end > start:
+        candidate = cleaned[start:end + 1]
 
-        if not isinstance(parsed, dict):
-            raise ValueError(
-                "Extracted Gemini JSON is not an object."
-            )
+        try:
+            data = json.loads(candidate)
 
-        return parsed
+            if isinstance(data, dict):
+                return data
+
+        except json.JSONDecodeError:
+            pass
+
+    raise ValueError(
+        "Could not extract valid JSON from Gemini response."
+    )
 
 
 # ============================================================
 # CONTENT VALIDATION
 # ============================================================
 
-REQUIRED_FIELDS = [
+REQUIRED_CONTENT_FIELDS = [
     "title",
     "description",
     "image_prompt",
@@ -187,288 +214,456 @@ REQUIRED_FIELDS = [
     "lesson_type",
     "content_type",
     "knowledge_area",
+    "lesson_number",
 ]
 
 
-def validate_content(content: Dict[str, Any]) -> bool:
+def validate_generated_content(
+    content: Dict[str, Any]
+) -> bool:
     """
-    Validate the minimum structure required by Orom Plan1.
+    Validate the structure returned by Gemini.
     """
 
     if not isinstance(content, dict):
-        raise ValueError(
-            "Generated content is not a dictionary."
-        )
+        return False
 
-    missing = [
-        field
-        for field in REQUIRED_FIELDS
-        if field not in content
+    for field in REQUIRED_CONTENT_FIELDS:
+        if field not in content:
+            return False
+
+    if not isinstance(
+        content["title"],
+        str,
+    ):
+        return False
+
+    if not isinstance(
+        content["description"],
+        str,
+    ):
+        return False
+
+    if not isinstance(
+        content["image_prompt"],
+        str,
+    ):
+        return False
+
+    if not isinstance(
+        content["hashtags"],
+        list,
+    ):
+        return False
+
+    if not isinstance(
+        content["on_image_text"],
+        dict,
+    ):
+        return False
+
+    required_text_fields = [
+        "hook",
+        "explanation",
+        "callout",
+        "takeaway",
     ]
 
-    if missing:
-        raise ValueError(
-            f"Generated content is missing fields: {missing}"
-        )
-
-    if not isinstance(content["title"], str):
-        raise ValueError(
-            "title must be a string."
-        )
-
-    if not isinstance(content["description"], str):
-        raise ValueError(
-            "description must be a string."
-        )
-
-    if not isinstance(content["image_prompt"], str):
-        raise ValueError(
-            "image_prompt must be a string."
-        )
-
-    if not isinstance(content["hashtags"], list):
-        raise ValueError(
-            "hashtags must be a list."
-        )
-
-    if not isinstance(content["visual_story"], list):
-        raise ValueError(
-            "visual_story must be a list."
-        )
-
-    if not isinstance(content["on_image_text"], dict):
-        raise ValueError(
-            "on_image_text must be an object."
-        )
+    for field in required_text_fields:
+        if field not in content["on_image_text"]:
+            return False
 
     return True
 
 
 # ============================================================
-# GEMINI CONTENT GENERATION
+# PROMPT BUILDER
 # ============================================================
 
-def generate_content_pair(
-    lesson_a: Dict[str, Any],
-    lesson_b: Dict[str, Any],
-) -> List[Dict[str, Any]]:
+def build_pair_prompt(
+    first_lesson: Dict[str, Any],
+    second_lesson: Dict[str, Any],
+) -> str:
     """
-    Generate two related but independent educational lessons
-    in one Gemini request.
+    Build the prompt for two related lessons.
 
-    The request is retried only when the Gemini error appears
-    transient.
+    The pair shares one broader teaching path while each
+    lesson remains independently useful.
     """
 
-    prompt = f"""
+    return f"""
 You are the educational content engine for Orom Plan1,
 a professional plumbing education platform.
 
-Generate EXACTLY TWO different plumbing lessons.
+Generate TWO distinct plumbing lessons.
 
-The lessons must be technically responsible, useful,
-educational, visually understandable, and suitable for
-Instagram.
+The goal is to teach the audience practical, accurate,
+professional plumbing knowledge.
 
-Do not invent technical standards.
+LESSON 1 PLAN:
+{json.dumps(first_lesson, indent=2, ensure_ascii=False)}
 
-Do not include unsafe instructions.
+LESSON 2 PLAN:
+{json.dumps(second_lesson, indent=2, ensure_ascii=False)}
 
-Do not place text, logos, watermarks, labels, arrows,
-or typography inside the AI image prompt.
+IMPORTANT TECHNICAL RULES:
 
-Each lesson must stand alone and teach the audience
-something genuinely useful.
+1. Information must be technically responsible.
+2. Do not invent pipe sizes, slopes, dimensions, standards,
+   regulations, or product specifications.
+3. If a measurement depends on local code, building design,
+   manufacturer instructions, or site conditions, do not
+   invent a universal number.
+4. Avoid unsafe instructions.
+5. Keep each lesson focused on one main teaching idea.
+6. Each lesson must be useful as a standalone piece of content.
+7. The image prompt must describe a realistic plumbing scene.
+8. AI-generated images must contain no text, logo, or watermark.
+9. Image prompts should describe a vertical 9:16 composition.
+10. The educational text will be added separately by Python.
 
-LESSON A PLAN
-{json.dumps(lesson_a, indent=2)}
+For EACH lesson return:
 
-LESSON B PLAN
-{json.dumps(lesson_b, indent=2)}
+- title
+- description
+- image_prompt
+- hashtags
+- visual_story
+- on_image_text
+- lesson_type
+- content_type
+- knowledge_area
+- lesson_number
+
+The "on_image_text" object must contain:
+
+- hook
+- explanation
+- callout
+- takeaway
+
+The description should normally be approximately 80 to 120
+words and should teach rather than merely advertise.
 
 Return ONLY valid JSON.
 
-The JSON must have exactly this structure:
+The JSON must have exactly this top-level structure:
 
 {{
   "lessons": [
     {{
-      "title": "Short educational title",
-      "description": "Educational Instagram caption of about 80-120 words.",
-      "image_prompt": "Detailed realistic vertical 9:16 plumbing image prompt with no text, no logo, and no watermark.",
-      "hashtags": [
-        "#plumbing",
-        "#plumbingtips",
-        "#plumber"
-      ],
-      "visual_story": [
-        "Visual scene instruction 1",
-        "Visual scene instruction 2",
-        "Visual scene instruction 3"
-      ],
+      "title": "...",
+      "description": "...",
+      "image_prompt": "...",
+      "hashtags": ["...", "..."],
+      "visual_story": "...",
       "on_image_text": {{
-        "hook": "Short attention-grabbing teaching hook",
-        "explanation": "Short explanation",
-        "callout": "Useful visual callout",
-        "takeaway": "Clear lesson takeaway"
+        "hook": "...",
+        "explanation": "...",
+        "callout": "...",
+        "takeaway": "..."
       }},
-      "lesson_type": "Lesson type",
-      "content_type": "reel or educational_visual",
-      "knowledge_area": "Plumbing knowledge area"
+      "lesson_type": "...",
+      "content_type": "...",
+      "knowledge_area": "...",
+      "lesson_number": 1
     }},
     {{
-      "title": "Short educational title",
-      "description": "Educational Instagram caption of about 80-120 words.",
-      "image_prompt": "Detailed realistic vertical 9:16 plumbing image prompt with no text, no logo, and no watermark.",
-      "hashtags": [
-        "#plumbing",
-        "#plumbingtips",
-        "#plumber"
-      ],
-      "visual_story": [
-        "Visual scene instruction 1",
-        "Visual scene instruction 2",
-        "Visual scene instruction 3"
-      ],
+      "title": "...",
+      "description": "...",
+      "image_prompt": "...",
+      "hashtags": ["...", "..."],
+      "visual_story": "...",
       "on_image_text": {{
-        "hook": "Short attention-grabbing teaching hook",
-        "explanation": "Short explanation",
-        "callout": "Useful visual callout",
-        "takeaway": "Clear lesson takeaway"
+        "hook": "...",
+        "explanation": "...",
+        "callout": "...",
+        "takeaway": "..."
       }},
-      "lesson_type": "Lesson type",
-      "content_type": "reel or educational_visual",
-      "knowledge_area": "Plumbing knowledge area"
+      "lesson_type": "...",
+      "content_type": "...",
+      "knowledge_area": "...",
+      "lesson_number": 2
     }}
   ]
 }}
-
-IMPORTANT:
-
-1. Return exactly two lessons.
-2. Keep the two lessons different.
-3. Respect the supplied lesson plans.
-4. Do not repeat the same teaching point.
-5. Use professional plumbing terminology.
-6. Make the lesson understandable to ordinary homeowners.
-7. Keep the visual concept realistic.
-8. Do not put written text inside image_prompt.
-9. Do not add markdown outside the JSON.
 """
 
-    total_attempts = MAX_RETRIES + 1
 
-    for attempt in range(1, total_attempts + 1):
+# ============================================================
+# MODEL REQUEST
+# ============================================================
+
+def generate_pair_with_model(
+    model_name: str,
+    first_lesson: Dict[str, Any],
+    second_lesson: Dict[str, Any],
+) -> List[Dict[str, Any]]:
+    """
+    Generate one pair using the specified Gemini model.
+
+    This function contains bounded retries.
+    """
+
+    prompt = build_pair_prompt(
+        first_lesson,
+        second_lesson,
+    )
+
+    last_error: Optional[Exception] = None
+
+    for attempt in range(
+        MAX_RETRIES + 1
+    ):
+        attempt_number = attempt + 1
+
+        print(
+            f"  Model: {model_name}"
+        )
+
+        print(
+            f"  Attempt: "
+            f"{attempt_number}/{MAX_RETRIES + 1}"
+        )
 
         try:
-            print(
-                f"Gemini pair request: attempt "
-                f"{attempt}/{total_attempts}"
-            )
-
             response = client.models.generate_content(
-                model=MODEL_NAME,
+                model=model_name,
                 contents=prompt,
                 config=types.GenerateContentConfig(
-                    temperature=0.7,
-                    response_mime_type="application/json",
+                    response_mime_type="application/json"
                 ),
             )
 
-            response_text = getattr(
-                response,
-                "text",
-                None,
-            )
+            response_text = (
+                response.text or ""
+            ).strip()
 
             if not response_text:
-                raise ValueError(
+                raise RuntimeError(
                     "Gemini returned an empty response."
                 )
 
-            parsed = extract_json(response_text)
+            parsed = extract_json(
+                response_text
+            )
 
-            lessons = parsed.get("lessons")
+            lessons = parsed.get(
+                "lessons"
+            )
 
-            if not isinstance(lessons, list):
+            if not isinstance(
+                lessons,
+                list,
+            ):
                 raise ValueError(
-                    "Gemini response does not contain a lessons list."
+                    "Gemini response does not contain "
+                    "a valid 'lessons' list."
                 )
 
             if len(lessons) != 2:
                 raise ValueError(
-                    f"Expected exactly 2 lessons, got {len(lessons)}."
+                    "Gemini response must contain exactly "
+                    "two lessons."
                 )
 
             validated_lessons = []
 
-            for index, lesson in enumerate(lessons, start=1):
-                validate_content(lesson)
+            for lesson in lessons:
+                if not validate_generated_content(
+                    lesson
+                ):
+                    raise ValueError(
+                        "Generated lesson failed "
+                        "content validation."
+                    )
 
-                validated_lessons.append(lesson)
+                lesson = dict(lesson)
 
-                print(
-                    f"  Lesson {index} validated: "
-                    f"{lesson.get('title', 'Untitled')}"
+                lesson["_model_used"] = (
+                    model_name
+                )
+
+                validated_lessons.append(
+                    lesson
                 )
 
             print(
-                "Gemini pair request succeeded."
+                f"  SUCCESS: {model_name}"
             )
 
             return validated_lessons
 
         except Exception as error:
+            last_error = error
 
-            retryable = is_retryable_gemini_error(error)
-            status_code = get_error_status_code(error)
-
-            print(
-                f"Gemini pair request failed "
-                f"(attempt {attempt}/{total_attempts})."
-            )
-
-            if status_code is not None:
-                print(
-                    f"Gemini status code: {status_code}"
-                )
-
-            print(
-                f"Gemini error: {error}"
-            )
-
-            # Never retry permanent/client-side problems.
-            if not retryable:
-                print(
-                    "Error is not considered transient. "
-                    "Stopping without retry."
-                )
-                raise
-
-            # No retry remains.
-            if attempt >= total_attempts:
-                print(
-                    "All Gemini retry attempts exhausted."
-                )
-                raise
-
-            retry_number = attempt
-
-            delay = get_retry_delay(
-                retry_number
+            status_code = (
+                get_error_status_code(error)
             )
 
             print(
-                f"Transient Gemini error detected. "
-                f"Waiting {delay:.1f} seconds before retry "
-                f"{retry_number}/{MAX_RETRIES}..."
+                f"  ERROR from {model_name}"
             )
 
-            time.sleep(delay)
+            print(
+                f"  Status: {status_code}"
+            )
 
-    raise RuntimeError(
-        "Gemini content generation failed unexpectedly."
+            print(
+                f"  Error: {error}"
+            )
+
+            retry_allowed = (
+                attempt < MAX_RETRIES
+                and is_retryable_gemini_error(
+                    error
+                )
+            )
+
+            if retry_allowed:
+                delay = get_retry_delay(
+                    attempt_number
+                )
+
+                print(
+                    f"  Temporary Gemini error."
+                )
+
+                print(
+                    f"  Waiting approximately "
+                    f"{delay:.1f}s before retry..."
+                )
+
+                time.sleep(delay)
+
+            else:
+                break
+
+    if last_error is None:
+        raise RuntimeError(
+            f"{model_name} failed without "
+            "returning an error."
+        )
+
+    raise last_error
+
+
+# ============================================================
+# PRIMARY + FALLBACK GENERATION
+# ============================================================
+
+def generate_content_pair(
+    first_lesson: Dict[str, Any],
+    second_lesson: Dict[str, Any],
+) -> List[Dict[str, Any]]:
+    """
+    Generate two lessons.
+
+    Strategy:
+
+    1. Try Gemini 3.6 Flash.
+    2. Retry transient failures with exponential backoff.
+    3. If the primary model still fails because of a
+       transient problem, switch to Gemini 3.5 Flash-Lite.
+    4. Retry the fallback model.
+    5. Stop safely if both models fail.
+
+    Non-transient errors are not unnecessarily retried
+    or sent to the fallback model.
+    """
+
+    print("")
+    print(
+        "================================================"
     )
+    print(
+        "GENERATING CONTENT PAIR"
+    )
+    print(
+        "================================================"
+    )
+
+    primary_error: Optional[Exception] = None
+
+    # --------------------------------------------------------
+    # PRIMARY MODEL
+    # --------------------------------------------------------
+
+    try:
+        print("")
+        print(
+            f"PRIMARY MODEL: {MODEL_NAME}"
+        )
+
+        return generate_pair_with_model(
+            MODEL_NAME,
+            first_lesson,
+            second_lesson,
+        )
+
+    except Exception as error:
+        primary_error = error
+
+        print("")
+        print(
+            "Primary model exhausted its "
+            "allowed attempts."
+        )
+
+        print(
+            f"Primary error: {error}"
+        )
+
+    # --------------------------------------------------------
+    # ONLY FALL BACK FOR TRANSIENT GEMINI ERRORS
+    # --------------------------------------------------------
+
+    if not is_retryable_gemini_error(
+        primary_error
+    ):
+        raise primary_error
+
+    # --------------------------------------------------------
+    # FALLBACK MODEL
+    # --------------------------------------------------------
+
+    print("")
+    print(
+        "================================================"
+    )
+    print(
+        "SWITCHING TO FALLBACK MODEL"
+    )
+    print(
+        "================================================"
+    )
+
+    print(
+        f"Fallback model: {FALLBACK_MODEL_NAME}"
+    )
+
+    try:
+        return generate_pair_with_model(
+            FALLBACK_MODEL_NAME,
+            first_lesson,
+            second_lesson,
+        )
+
+    except Exception as fallback_error:
+        print("")
+        print(
+            "Fallback model also failed."
+        )
+
+        print(
+            f"Fallback error: {fallback_error}"
+        )
+
+        raise RuntimeError(
+            "Both Gemini models failed. "
+            f"Primary: {primary_error} | "
+            f"Fallback: {fallback_error}"
+        ) from fallback_error
 
 
 # ============================================================
@@ -480,165 +675,224 @@ def attach_plan_metadata(
     plan_item: Dict[str, Any],
 ) -> Dict[str, Any]:
     """
-    Attach the planner information to generated content.
+    Attach planner metadata without destroying generated
+    content.
     """
 
     result = dict(content)
 
-    result["slot"] = plan_item.get("slot")
-    result["role"] = plan_item.get("role")
-    result["knowledge_path"] = plan_item.get(
-        "knowledge_path"
+    result["slot"] = plan_item.get(
+        "slot"
     )
-    result["lesson_number"] = plan_item.get(
-        "lesson_number"
+
+    result["role"] = plan_item.get(
+        "role"
     )
-    result["previous_lesson"] = plan_item.get(
-        "previous_lesson"
+
+    result["knowledge_path"] = (
+        plan_item.get(
+            "knowledge_path"
+        )
     )
+
+    result["previous_lesson"] = (
+        plan_item.get(
+            "previous_lesson"
+        )
+    )
+
+    if plan_item.get("lesson_type"):
+        result["lesson_type"] = (
+            plan_item["lesson_type"]
+        )
+
+    if plan_item.get("content_type"):
+        result["content_type"] = (
+            plan_item["content_type"]
+        )
+
+    if plan_item.get("knowledge_area"):
+        result["knowledge_area"] = (
+            plan_item["knowledge_area"]
+        )
+
+    if plan_item.get("lesson_number"):
+        result["lesson_number"] = (
+            plan_item["lesson_number"]
+        )
 
     return result
 
 
 # ============================================================
-# DAILY BATCH GENERATION
+# BATCH GENERATION
 # ============================================================
 
-def generate_daily_content_batches(
-    daily_plan: List[Dict[str, Any]],
+def generate_content_batches(
+    daily_plan: List[Dict[str, Any]]
 ) -> List[Dict[str, Any]]:
     """
-    Generate all 10 daily lessons in five Gemini pair requests.
+    Generate a complete 10-post content batch.
 
-    Pairing:
-        1 + 2
-        3 + 4
-        5 + 6
-        7 + 8
-        9 + 10
+    The daily plan contains 10 lessons.
+
+    Gemini is called in five pairs:
+
+        Pair 1 -> posts 1 + 2
+        Pair 2 -> posts 3 + 4
+        Pair 3 -> posts 5 + 6
+        Pair 4 -> posts 7 + 8
+        Pair 5 -> posts 9 + 10
+
+    This reduces the number of Gemini requests while
+    preserving 10 independent pieces of content.
     """
+
+    if not isinstance(
+        daily_plan,
+        list,
+    ):
+        raise TypeError(
+            "daily_plan must be a list."
+        )
 
     if len(daily_plan) != 10:
         raise ValueError(
-            f"Daily plan must contain 10 items. "
-            f"Received {len(daily_plan)}."
+            "daily_plan must contain exactly 10 items."
         )
 
-    generated_content: List[Dict[str, Any]] = []
+    all_content: List[Dict[str, Any]] = []
 
-    pair_count = 5
+    for pair_index in range(5):
+        first_index = pair_index * 2
+        second_index = first_index + 1
 
-    print(
-        f"Starting daily batch generation: "
-        f"{len(daily_plan)} lessons in {pair_count} Gemini pairs."
-    )
+        first_plan = daily_plan[
+            first_index
+        ]
 
-    for pair_index in range(0, len(daily_plan), 2):
+        second_plan = daily_plan[
+            second_index
+        ]
 
-        lesson_a = daily_plan[pair_index]
-        lesson_b = daily_plan[pair_index + 1]
-
-        pair_number = (pair_index // 2) + 1
-
-        print()
+        print("")
         print(
-            "=" * 60
+            "================================================"
         )
         print(
-            f"Generating Gemini pair "
-            f"{pair_number}/{pair_count}"
+            f"CONTENT PAIR "
+            f"{pair_index + 1}/5"
         )
         print(
-            "=" * 60
+            f"Posts {first_index + 1} "
+            f"and {second_index + 1}"
+        )
+        print(
+            "================================================"
         )
 
-        lessons = generate_content_pair(
-            lesson_a,
-            lesson_b,
+        pair_content = generate_content_pair(
+            first_plan,
+            second_plan,
         )
 
-        for lesson, plan_item in zip(
-            lessons,
-            (lesson_a, lesson_b),
+        if len(pair_content) != 2:
+            raise RuntimeError(
+                "Content pair did not return "
+                "exactly two lessons."
+            )
+
+        first_content = attach_plan_metadata(
+            pair_content[0],
+            first_plan,
+        )
+
+        second_content = attach_plan_metadata(
+            pair_content[1],
+            second_plan,
+        )
+
+        if not validate_generated_content(
+            first_content
         ):
-            enriched = attach_plan_metadata(
-                lesson,
-                plan_item,
+            raise ValueError(
+                f"Post {first_index + 1} "
+                "failed final validation."
             )
 
-            validate_content(enriched)
-
-            generated_content.append(
-                enriched
+        if not validate_generated_content(
+            second_content
+        ):
+            raise ValueError(
+                f"Post {second_index + 1} "
+                "failed final validation."
             )
 
-    if len(generated_content) != 10:
+        all_content.append(
+            first_content
+        )
+
+        all_content.append(
+            second_content
+        )
+
+        print("")
+        print(
+            f"Pair {pair_index + 1} completed."
+        )
+
+    if len(all_content) != 10:
         raise RuntimeError(
-            "Daily batch generation did not produce exactly 10 lessons."
+            "Batch generation did not produce "
+            "exactly 10 posts."
         )
 
     reel_count = sum(
         1
-        for item in generated_content
-        if item.get("content_type") == "reel"
+        for item in all_content
+        if item.get("content_type")
+        == "reel"
     )
 
     visual_count = sum(
         1
-        for item in generated_content
-        if item.get("content_type") == "educational_visual"
+        for item in all_content
+        if item.get("content_type")
+        == "educational_visual"
     )
 
     if reel_count != 5:
         raise RuntimeError(
-            f"Expected 5 reels, generated {reel_count}."
+            f"Expected 5 reels, got {reel_count}."
         )
 
     if visual_count != 5:
         raise RuntimeError(
-            f"Expected 5 educational visuals, generated {visual_count}."
+            "Expected 5 educational visuals, "
+            f"got {visual_count}."
         )
 
-    print()
+    print("")
     print(
-        "=" * 60
+        "================================================"
     )
     print(
-        "DAILY GEMINI BATCH GENERATION COMPLETE"
+        "10-POST CONTENT BATCH COMPLETE"
     )
     print(
-        f"Total lessons: {len(generated_content)}"
+        "================================================"
     )
+
+    print(
+        f"Total posts: {len(all_content)}"
+    )
+
     print(
         f"Reels: {reel_count}"
     )
+
     print(
         f"Educational visuals: {visual_count}"
     )
-    print(
-        "=" * 60
-    )
 
-    return generated_content
-
-
-# ============================================================
-# SIMPLE MODULE TEST
-# ============================================================
-
-if __name__ == "__main__":
-    print(
-        "content_batch_generator.py loaded successfully."
-    )
-    print(
-        f"Gemini model: {MODEL_NAME}"
-    )
-    print(
-        f"Maximum outer retries: {MAX_RETRIES}"
-    )
-    print(
-        f"Base retry delay: {BASE_RETRY_DELAY}s"
-    )
-    print(
-        f"Maximum retry delay: {MAX_RETRY_DELAY}s"
-    )
+    return all_content
