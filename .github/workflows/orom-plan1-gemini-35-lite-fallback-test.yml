@@ -1,0 +1,124 @@
+name: Orom Plan1 Gemini 3.5 Flash-Lite Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  gemini-35-lite-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install Gemini SDK
+        run: |
+          python -m pip install --upgrade pip
+          pip install -U google-genai
+
+      - name: Test Gemini 3.5 Flash-Lite
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+
+          from google import genai
+          from google.genai import types
+
+          MODEL = "gemini-3.5-flash-lite"
+
+          api_key = os.environ.get("GEMINI_API_KEY")
+          if not api_key:
+              raise RuntimeError("GEMINI_API_KEY is missing")
+
+          client = genai.Client(api_key=api_key)
+
+          prompt = """
+          You are a professional plumbing educator.
+
+          Create ONE short educational plumbing lesson about:
+          "How a sink P-trap helps prevent sewer gases from entering a home."
+
+          Return ONLY valid JSON using exactly these fields:
+
+          {
+            "title": "short educational title",
+            "description": "80 to 120 word educational explanation",
+            "image_prompt": "vertical 9:16 realistic plumbing educational image prompt with no text, logo or watermark",
+            "hashtags": ["#Plumbing", "#PlumbingTips", "#HomeMaintenance"],
+            "visual_story": "brief explanation of what the educational image should show",
+            "on_image_text": {
+              "hook": "short hook",
+              "explanation": "short explanation",
+              "callout": "short visual callout",
+              "takeaway": "short takeaway"
+            },
+            "lesson_type": "how_it_works",
+            "content_type": "educational_visual",
+            "knowledge_area": "drainage",
+            "lesson_number": 1
+          }
+
+          Technical information must be accurate.
+          Do not invent pipe sizes.
+          Keep the lesson focused on one main idea.
+          """
+
+          response = client.models.generate_content(
+              model=MODEL,
+              contents=prompt,
+              config=types.GenerateContentConfig(
+                  response_mime_type="application/json"
+              ),
+          )
+
+          text = response.text.strip()
+
+          if not text:
+              raise RuntimeError("Gemini returned an empty response")
+
+          data = json.loads(text)
+
+          required = [
+              "title",
+              "description",
+              "image_prompt",
+              "hashtags",
+              "visual_story",
+              "on_image_text",
+              "lesson_type",
+              "content_type",
+              "knowledge_area",
+              "lesson_number",
+          ]
+
+          missing = [key for key in required if key not in data]
+
+          if missing:
+              raise RuntimeError(
+                  f"Gemini JSON is missing required fields: {missing}"
+              )
+
+          print("")
+          print("========================================")
+          print("GEMINI 3.5 FLASH-LITE TEST PASSED")
+          print("========================================")
+          print(f"Model: {MODEL}")
+          print(f"Title: {data['title']}")
+          print(f"Lesson type: {data['lesson_type']}")
+          print(f"Content type: {data['content_type']}")
+          print("")
+          print(json.dumps(data, indent=2, ensure_ascii=False))
+          print("========================================")
+          PY
+
+      - name: Final result
+        run: |
+          echo "Gemini 3.5 Flash-Lite one-request test completed successfully."
