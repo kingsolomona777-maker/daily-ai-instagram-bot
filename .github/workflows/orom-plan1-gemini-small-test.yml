@@ -1,0 +1,76 @@
+name: Orom Plan1 Small Gemini Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  small-gemini-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install google-genai requests Pillow
+
+      - name: Run one controlled Gemini request
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python - <<'PY'
+          import os
+          from google import genai
+          from google.genai import types
+
+          model = "gemini-3.6-flash"
+
+          print("=" * 60)
+          print("OROM PLAN1 SMALL GEMINI TEST")
+          print("=" * 60)
+          print(f"Model: {model}")
+          print("Requests: 1")
+          print("Purpose: availability check only")
+          print("=" * 60)
+
+          api_key = os.environ.get("GEMINI_API_KEY")
+
+          if not api_key:
+              raise RuntimeError("GEMINI_API_KEY is missing.")
+
+          client = genai.Client(
+              api_key=api_key
+          )
+
+          response = client.models.generate_content(
+              model=model,
+              contents=(
+                  "Teach one short, accurate plumbing lesson "
+                  "for a homeowner. Explain why a sink P-trap "
+                  "is important. Keep it under 80 words."
+              ),
+              config=types.GenerateContentConfig(
+                  temperature=0.4
+              ),
+          )
+
+          if not response.text:
+              raise RuntimeError(
+                  "Gemini returned an empty response."
+              )
+
+          print()
+          print("GEMINI RESPONSE:")
+          print(response.text)
+          print()
+          print("=" * 60)
+          print("SMALL GEMINI TEST PASSED")
+          print("=" * 60)
+          PY
