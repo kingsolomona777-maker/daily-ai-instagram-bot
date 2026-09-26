@@ -1,0 +1,210 @@
+name: Orom Plan1 Real 10 Post Test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  real-10-post-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install google-genai requests Pillow
+
+      - name: Run real 10-post Gemini generation
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          from content_planner import (
+              create_daily_plan,
+              validate_daily_plan,
+          )
+
+          from content_batch_generator import (
+              generate_daily_content_batches,
+          )
+
+          print("==========================================")
+          print("OROM PLAN1 REAL 10-POST TEST")
+          print("==========================================")
+          print("")
+          print("Instagram publishing: DISABLED")
+          print("Image generation: DISABLED")
+          print("Reel generation: DISABLED")
+          print("")
+
+          print("Creating 10-post daily plan...")
+
+          daily_plan = create_daily_plan(
+              day_number=1,
+              history_file=Path(
+                  "real_10_post_test_history.json"
+              ),
+          )
+
+          validate_daily_plan(daily_plan)
+
+          print(
+              f"Daily plan created: "
+              f"{len(daily_plan)} posts"
+          )
+
+          print("")
+          print("Expected:")
+          print("- 10 total lessons")
+          print("- 5 Reels")
+          print("- 5 educational visuals")
+          print("- 5 Gemini batch requests")
+          print("")
+
+          print("Starting REAL Gemini generation...")
+          print("")
+
+          generated_posts = (
+              generate_daily_content_batches(
+                  daily_plan
+              )
+          )
+
+          print("")
+          print("Validating generated result...")
+
+          if len(generated_posts) != 10:
+              raise RuntimeError(
+                  "Expected exactly 10 generated posts."
+              )
+
+          reel_count = sum(
+              1
+              for post in generated_posts
+              if post.get("content_type") == "reel"
+          )
+
+          visual_count = sum(
+              1
+              for post in generated_posts
+              if post.get("content_type")
+              == "educational_visual"
+          )
+
+          if reel_count != 5:
+              raise RuntimeError(
+                  f"Expected 5 Reels, got {reel_count}."
+              )
+
+          if visual_count != 5:
+              raise RuntimeError(
+                  "Expected 5 educational visuals, "
+                  f"got {visual_count}."
+              )
+
+          required_fields = [
+              "title",
+              "description",
+              "image_prompt",
+              "hashtags",
+              "visual_story",
+              "on_image_text",
+              "lesson_type",
+              "content_type",
+              "knowledge_area",
+              "knowledge_path",
+              "lesson_number",
+              "slot",
+          ]
+
+          for index, post in enumerate(
+              generated_posts,
+              start=1,
+          ):
+              for field in required_fields:
+                  if field not in post:
+                      raise RuntimeError(
+                          f"Post {index} is missing "
+                          f"required field: {field}"
+                      )
+
+          output = {
+              "test": "real_10_post_generation",
+              "total_posts": len(generated_posts),
+              "reels": reel_count,
+              "educational_visuals": visual_count,
+              "gemini_batch_requests": 5,
+              "instagram_publishing": False,
+              "image_generation": False,
+              "reel_generation": False,
+              "posts": generated_posts,
+          }
+
+          Path(
+              "real_10_post_result.json"
+          ).write_text(
+              json.dumps(
+                  output,
+                  indent=2,
+                  ensure_ascii=False,
+              ),
+              encoding="utf-8",
+          )
+
+          print("")
+          print("==========================================")
+          print("REAL 10-POST GEMINI TEST PASSED")
+          print("==========================================")
+          print("")
+          print(f"Lessons generated: {len(generated_posts)}")
+          print(f"Reels planned: {reel_count}")
+          print(
+              "Educational visuals planned: "
+              f"{visual_count}"
+          )
+          print("Gemini batch requests: 5")
+          print("Instagram posts: 0")
+          print("Images generated: 0")
+          print("Reels generated: 0")
+          print("")
+          print(
+              "The new 10-post content engine "
+              "successfully generated the full daily "
+              "content package."
+          )
+          print("==========================================")
+          PY
+
+      - name: Upload real 10-post result
+        uses: actions/upload-artifact@v4
+        with:
+          name: orom-plan1-real-10-post-result
+          path: real_10_post_result.json
+          if-no-files-found: error
+
+      - name: Final result
+        run: |
+          echo "=========================================="
+          echo "OROM PLAN1 REAL 10-POST TEST PASSED"
+          echo "=========================================="
+          echo "5 Gemini batch requests"
+          echo "10 lessons generated"
+          echo "5 Reels planned"
+          echo "5 educational visuals planned"
+          echo "0 Instagram posts"
+          echo "0 images generated"
+          echo "0 Reels generated"
+          echo "=========================================="
