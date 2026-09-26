@@ -1,0 +1,91 @@
+name: Orom Plan1 Gemini 3.5 Fallback Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fallback-model-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install Gemini SDK
+        run: |
+          python -m pip install --upgrade pip
+          pip install google-genai
+
+      - name: Test Gemini 3.5 Flash
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python - <<'PY'
+          import os
+          from google import genai
+          from google.genai import types
+
+          MODEL = "gemini-3.5-flash"
+
+          print("=" * 60)
+          print("OROM PLAN1 FALLBACK MODEL TEST")
+          print("=" * 60)
+          print(f"Model: {MODEL}")
+          print("Requests: 1")
+          print("Purpose: verify fallback model availability")
+          print("Instagram: DISABLED")
+          print("=" * 60)
+
+          api_key = os.environ.get("GEMINI_API_KEY")
+
+          if not api_key:
+              raise RuntimeError(
+                  "GEMINI_API_KEY is missing."
+              )
+
+          client = genai.Client(
+              api_key=api_key
+          )
+
+          response = client.models.generate_content(
+              model=MODEL,
+              contents=(
+                  "Give one short and technically accurate "
+                  "plumbing teaching point for a homeowner. "
+                  "Explain why a P-trap is important. "
+                  "Keep the answer under 80 words."
+              ),
+              config=types.GenerateContentConfig(
+                  temperature=0.4
+              ),
+          )
+
+          if not response.text:
+              raise RuntimeError(
+                  "Gemini returned an empty response."
+              )
+
+          print()
+          print("GEMINI 3.5 FLASH RESPONSE:")
+          print(response.text)
+          print()
+          print("=" * 60)
+          print("GEMINI 3.5 FALLBACK TEST PASSED")
+          print("=" * 60)
+          PY
+
+      - name: Final result
+        if: success()
+        run: |
+          echo "=============================================="
+          echo "GEMINI 3.5 FALLBACK TEST PASSED"
+          echo "=============================================="
+          echo "The fallback model responded successfully."
+          echo "No Instagram publishing occurred."
+          echo "Production workflow was not touched."
+          echo "=============================================="
