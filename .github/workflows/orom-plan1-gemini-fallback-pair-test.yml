@@ -1,0 +1,305 @@
+name: Orom Plan1 Gemini Fallback Pair Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fallback-pair-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install Gemini SDK
+        run: |
+          python -m pip install --upgrade pip
+          pip install -U google-genai
+
+      - name: Test primary and fallback models
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import random
+          import re
+          import time
+
+          from google import genai
+          from google.genai import types
+
+          PRIMARY_MODEL = "gemini-3.6-flash"
+          FALLBACK_MODEL = "gemini-3.5-flash-lite"
+
+          MAX_RETRIES = 2
+          BASE_RETRY_DELAY = 8
+          MAX_RETRY_DELAY = 30
+          MAX_JITTER = 3
+
+          api_key = os.environ.get("GEMINI_API_KEY")
+
+          if not api_key:
+              raise RuntimeError("GEMINI_API_KEY is missing")
+
+          client = genai.Client(api_key=api_key)
+
+          def get_status_code(error):
+              for attribute in (
+                  "code",
+                  "status_code",
+                  "http_status",
+              ):
+                  value = getattr(error, attribute, None)
+
+                  if isinstance(value, int):
+                      return value
+
+              match = re.search(
+                  r"\b(429|500|502|503|504)\b",
+                  str(error),
+              )
+
+              if match:
+                  return int(match.group(1))
+
+              return None
+
+          def is_retryable(error):
+              status = get_status_code(error)
+
+              if status in (429, 500, 502, 503, 504):
+                  return True
+
+              message = str(error).upper()
+
+              transient_markers = (
+                  "UNAVAILABLE",
+                  "RESOURCE_EXHAUSTED",
+                  "SERVICE_UNAVAILABLE",
+                  "DEADLINE_EXCEEDED",
+                  "INTERNAL",
+                  "TIMEOUT",
+                  "TIMED OUT",
+              )
+
+              return any(
+                  marker in message
+                  for marker in transient_markers
+              )
+
+          def generate_with_model(model, lesson_topic):
+              prompt = f"""
+          You are a professional plumbing educator.
+
+          Create ONE accurate educational plumbing lesson about:
+
+          "{lesson_topic}"
+
+          Return ONLY valid JSON using exactly these fields:
+
+          {{
+            "title": "short educational title",
+            "description": "80 to 120 word educational explanation",
+            "image_prompt": "vertical 9:16 realistic plumbing educational image prompt with no text, logo or watermark",
+            "hashtags": ["#Plumbing", "#PlumbingTips", "#HomeMaintenance"],
+            "visual_story": "brief explanation of what the educational image should show",
+            "on_image_text": {{
+              "hook": "short hook",
+              "explanation": "short explanation",
+              "callout": "short visual callout",
+              "takeaway": "short takeaway"
+            }},
+            "lesson_type": "how_it_works",
+            "content_type": "educational_visual",
+            "knowledge_area": "drainage",
+            "lesson_number": 1
+          }}
+
+          Technical information must be accurate.
+          Do not invent pipe sizes.
+          Keep the lesson focused on one main idea.
+          """
+
+              last_error = None
+
+              for attempt in range(MAX_RETRIES + 1):
+                  try:
+                      print(
+                          f"  {model} attempt "
+                          f"{attempt + 1}/{MAX_RETRIES + 1}"
+                      )
+
+                      response = client.models.generate_content(
+                          model=model,
+                          contents=prompt,
+                          config=types.GenerateContentConfig(
+                              response_mime_type="application/json"
+                          ),
+                      )
+
+                      text = response.text.strip()
+
+                      if not text:
+                          raise RuntimeError(
+                              "Gemini returned an empty response"
+                          )
+
+                      data = json.loads(text)
+
+                      required = [
+                          "title",
+                          "description",
+                          "image_prompt",
+                          "hashtags",
+                          "visual_story",
+                          "on_image_text",
+                          "lesson_type",
+                          "content_type",
+                          "knowledge_area",
+                          "lesson_number",
+                      ]
+
+                      missing = [
+                          key for key in required
+                          if key not in data
+                      ]
+
+                      if missing:
+                          raise RuntimeError(
+                              f"Missing fields: {missing}"
+                          )
+
+                      data["_model_used"] = model
+
+                      return data
+
+                  except Exception as error:
+                      last_error = error
+                      status = get_status_code(error)
+
+                      print(
+                          f"  {model} failed. "
+                          f"Status: {status}. "
+                          f"Error: {error}"
+                      )
+
+                      if (
+                          attempt < MAX_RETRIES
+                          and is_retryable(error)
+                      ):
+                          delay = min(
+                              BASE_RETRY_DELAY * (2 ** attempt),
+                              MAX_RETRY_DELAY,
+                          )
+
+                          delay += random.uniform(
+                              0,
+                              MAX_JITTER,
+                          )
+
+                          print(
+                              f"  Waiting approximately "
+                              f"{delay:.1f}s before retry..."
+                          )
+
+                          time.sleep(delay)
+
+                      else:
+                          break
+
+              raise last_error
+
+          def generate_with_fallback(topic):
+              print("")
+              print(f"TOPIC: {topic}")
+
+              try:
+                  print("")
+                  print("Trying PRIMARY model...")
+                  return generate_with_model(
+                      PRIMARY_MODEL,
+                      topic,
+                  )
+
+              except Exception as primary_error:
+                  print("")
+                  print(
+                      "Primary model exhausted retries."
+                  )
+                  print(
+                      "Switching to FALLBACK model..."
+                  )
+                  print(
+                      f"Primary error: {primary_error}"
+                  )
+
+              result = generate_with_model(
+                  FALLBACK_MODEL,
+                  topic,
+              )
+
+              return result
+
+          topics = [
+              "Why a sink P-trap helps prevent sewer gases from entering a home",
+              "Why proper drainage pipe slope matters for wastewater flow",
+          ]
+
+          results = []
+
+          for number, topic in enumerate(topics, start=1):
+              print("")
+              print("========================================")
+              print(f"LESSON {number}")
+              print("========================================")
+
+              result = generate_with_fallback(topic)
+
+              results.append(result)
+
+              print("")
+              print(f"SUCCESS using: {result['_model_used']}")
+              print(f"Title: {result['title']}")
+
+          print("")
+          print("========================================")
+          print("FALLBACK PAIR TEST PASSED")
+          print("========================================")
+          print(f"Lessons generated: {len(results)}")
+
+          for index, result in enumerate(results, start=1):
+              print(
+                  f"Lesson {index}: "
+                  f"{result['title']} "
+                  f"[{result['_model_used']}]"
+              )
+
+          with open(
+              "gemini_fallback_pair_result.json",
+              "w",
+              encoding="utf-8",
+          ) as file:
+              json.dump(
+                  results,
+                  file,
+                  indent=2,
+                  ensure_ascii=False,
+              )
+          PY
+
+      - name: Upload test result
+        uses: actions/upload-artifact@v4
+        with:
+          name: orom-plan1-gemini-fallback-pair-result
+          path: gemini_fallback_pair_result.json
+
+      - name: Final result
+        run: |
+          echo "Gemini primary/fallback pair test completed successfully."
