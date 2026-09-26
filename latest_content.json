@@ -1,23 +1,23 @@
 {
-  "idea": "Common causes of leaking taps",
-  "title": "Why Compression Taps Leak: The Worn Washer",
-  "description": "When a compression tap drips, forcing the handle tighter feels like an instant fix, but it actually causes more damage. Inside the tap spindle, a rubber washer presses against a smooth brass valve seat to seal off water flow. Over time, friction, heat, and mineral buildup cause the rubber to harden, split, or deform. Forcing a leaking tap tightly closed grinds the compromised rubber directly into the metal seat, which can permanently score the brass body. If your tap drips continuously from the spout, isolate the water supply, disassemble the stem, and inspect the washer. Replacing a cheap rubber seal early preserves the tap body.",
-  "image_prompt": "A crisp, photorealistic macro close-up photograph of a disassembled brass tap spindle resting on a clean plumber's work surface. The brass stem shows realistic metallic texture and slight water scaling. At the base of the spindle, an old, cracked, and deformed black rubber washer is clearly visible, showing obvious wear and tear. Positioned right beside it is a brand-new, perfectly smooth, round black rubber washer for clear physical comparison. An adjustable spanner rests neatly in the soft-focus background. Clean, bright directional workshop lighting creates realistic reflections on the brass and highlights the rough texture of the damaged rubber. Vertical 9:16 composition, shallow depth of field with main subject centered. No text, no logos, no watermarks, no arrows, no graphics.",
-  "visual_story": "A macro visual showing a dismantled brass tap spindle with a degraded, split washer placed beside a fresh replacement washer. This visual clearly reveals the mechanical cause of persistent drips to viewers without requiring reading.",
+  "idea": "Common causes of blocked sinks",
+  "title": "Understanding Grease Blockages in Kitchen Drain Pipes",
+  "description": "A practical lesson on how liquid cooking fats solidify inside cold drain pipes, narrowing the flow diameter and causing deep sink clogs.",
+  "image_prompt": "A photorealistic vertical 9:16 close-up photograph of a kitchen sink plumbing setup inside an under-sink cabinet. A clean, white PVC drain pipe extending from a standard P-trap is shown with a clear side cutaway view. Inside the cutaway pipe section, a thick, realistic layer of solidified yellowish grease and fine food debris coats the interior walls of the pipe, severely restricting the internal flow diameter. The surrounding plumbing includes a stainless steel sink basin underside, realistic threaded slip-nuts, and clean PVC solvent-weld fittings. Bright, realistic task lighting highlights the contrast between the clean pipe exterior and the greasy buildup inside. No text, no logos, no watermarks, no arrows, no labels.",
+  "visual_story": "A detailed cutaway view under a kitchen sink demonstrating how liquid fat coats the internal wall of a PVC waste line, restricting water flow.",
   "on_image_text": {
-    "hook": "STILL DRIPPING AFTER TIGHTENING?",
-    "explanation": "Overtightening grinds down the rubber washer and damages the internal brass seat.",
-    "callout": "DEGRADED RUBBER WASHER",
-    "takeaway": "Replace worn washers early to prevent permanent damage to the tap body."
+    "hook": "Hot Grease Doesn't Stay Liquid",
+    "explanation": "Liquid fats rapidly cool inside cold drain pipes, clinging to pipe walls and catching passing food scraps.",
+    "callout": "F.O.G. (Fats, Oils & Grease) Accumulation",
+    "takeaway": "Scrape pans into the trash and wipe with paper towels before washing."
   },
   "hashtags": [
-    "#PlumbingTips",
     "#PlumbingEducation",
-    "#TapRepair",
-    "#PlumbingMaintenance",
+    "#PlumbingTips",
+    "#SinkClog",
+    "#HomeMaintenance",
     "#ApprenticePlumber",
     "#PlumbingAdvice",
-    "#HomePlumbing"
+    "#DrainCleaning"
   ],
   "reel_enabled": false,
   "reel_file": null
