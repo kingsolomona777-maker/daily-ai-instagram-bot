@@ -1,0 +1,184 @@
+name: Orom Plan1 Gemini 2-Pair Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  two-pair-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install google-genai requests Pillow
+
+      - name: Run 2 controlled Gemini pairs
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          from content_planner import (
+              create_daily_plan,
+              validate_daily_plan,
+          )
+
+          from content_batch_generator import (
+              generate_content_pair,
+          )
+
+          print("=" * 70)
+          print("OROM PLAN1 CONTROLLED 2-PAIR GEMINI TEST")
+          print("=" * 70)
+          print("Purpose: test two real Gemini pair requests")
+          print("Expected Gemini requests: 2")
+          print("Expected lessons: 4")
+          print("Instagram publishing: DISABLED")
+          print("Image generation: DISABLED")
+          print("Reel generation: DISABLED")
+          print("=" * 70)
+
+          if not os.environ.get("GEMINI_API_KEY"):
+              raise RuntimeError(
+                  "GEMINI_API_KEY is missing."
+              )
+
+          # Create the normal Orom Plan1 daily plan.
+          daily_plan = create_daily_plan(
+              day_number=1,
+              history_file=Path(
+                  "controlled_2_pair_test_history.json"
+              ),
+          )
+
+          validate_daily_plan(daily_plan)
+
+          # Use only the first four planned lessons.
+          test_plan = daily_plan[:4]
+
+          if len(test_plan) != 4:
+              raise RuntimeError(
+                  "Could not obtain four test lessons."
+              )
+
+          generated = []
+
+          # Two Gemini pair requests:
+          # Pair 1 = lessons 1 + 2
+          # Pair 2 = lessons 3 + 4
+          for pair_number in range(2):
+
+              start = pair_number * 2
+
+              lesson_a = test_plan[start]
+              lesson_b = test_plan[start + 1]
+
+              print()
+              print("=" * 70)
+              print(
+                  f"STARTING GEMINI PAIR "
+                  f"{pair_number + 1}/2"
+              )
+              print("=" * 70)
+
+              pair = generate_content_pair(
+                  lesson_a,
+                  lesson_b,
+              )
+
+              if len(pair) != 2:
+                  raise RuntimeError(
+                      f"Pair {pair_number + 1} returned "
+                      f"{len(pair)} lessons instead of 2."
+                  )
+
+              generated.extend(pair)
+
+              print(
+                  f"PAIR {pair_number + 1}/2 PASSED"
+              )
+
+          if len(generated) != 4:
+              raise RuntimeError(
+                  f"Expected 4 lessons, got {len(generated)}."
+              )
+
+          # Save a small result artifact.
+          result = {
+              "test": "controlled_2_pair_gemini_test",
+              "model": "gemini-3.6-flash",
+              "pairs_requested": 2,
+              "lessons_generated": len(generated),
+              "instagram_publishing": False,
+              "image_generation": False,
+              "reel_generation": False,
+              "lessons": [
+                  {
+                      "title": item.get("title"),
+                      "content_type": item.get(
+                          "content_type"
+                      ),
+                      "lesson_type": item.get(
+                          "lesson_type"
+                      ),
+                      "knowledge_area": item.get(
+                          "knowledge_area"
+                      ),
+                  }
+                  for item in generated
+              ],
+          }
+
+          Path(
+              "controlled_2_pair_test_result.json"
+          ).write_text(
+              json.dumps(
+                  result,
+                  indent=2,
+                  ensure_ascii=False,
+              ),
+              encoding="utf-8",
+          )
+
+          print()
+          print("=" * 70)
+          print("CONTROLLED 2-PAIR TEST PASSED")
+          print("=" * 70)
+          print("Gemini pairs completed: 2/2")
+          print("Lessons generated: 4/4")
+          print("No Instagram publishing occurred.")
+          print("No image generation occurred.")
+          print("No Reel generation occurred.")
+          print("=" * 70)
+          PY
+
+      - name: Upload test result
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: orom-plan1-gemini-2-pair-result
+          path: controlled_2_pair_test_result.json
+
+      - name: Final result
+        if: success()
+        run: |
+          echo "=============================================="
+          echo "OROM PLAN1 2-PAIR GEMINI TEST COMPLETE"
+          echo "=============================================="
+          echo "2 Gemini pairs completed successfully."
+          echo "4 educational lessons generated."
+          echo "Production workflow was not touched."
+          echo "Instagram was not contacted."
+          echo "=============================================="
