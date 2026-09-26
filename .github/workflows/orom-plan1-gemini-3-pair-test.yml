@@ -1,17 +1,17 @@
-name: Orom Plan1 Gemini 3-Pair Test
+name: Orom Plan1 Gemini 3 Pair Fallback Test
 
 on:
   workflow_dispatch:
 
 jobs:
-  three-pair-test:
+  gemini-three-pair-test:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Set up Python
+      - name: Setup Python
         uses: actions/setup-python@v6
         with:
           python-version: "3.11"
@@ -19,124 +19,176 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install google-genai requests Pillow
+          pip install -U google-genai
 
-      - name: Run 3 controlled Gemini pairs
+      - name: Test 3 real content pairs
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           python - <<'PY'
           import json
-          import os
           from pathlib import Path
 
-          from content_planner import (
-              create_daily_plan,
-              validate_daily_plan,
-          )
+          from content_batch_generator import generate_content_pair
 
-          from content_batch_generator import (
-              generate_content_pair,
-          )
-
-          print("=" * 70)
-          print("OROM PLAN1 CONTROLLED 3-PAIR GEMINI TEST")
-          print("=" * 70)
-          print("Purpose: test three real Gemini pair requests")
-          print("Expected Gemini requests: 3")
-          print("Expected lessons: 6")
-          print("Instagram publishing: DISABLED")
-          print("Image generation: DISABLED")
-          print("Reel generation: DISABLED")
-          print("=" * 70)
-
-          if not os.environ.get("GEMINI_API_KEY"):
-              raise RuntimeError(
-                  "GEMINI_API_KEY is missing."
-              )
-
-          daily_plan = create_daily_plan(
-              day_number=1,
-              history_file=Path(
-                  "controlled_3_pair_test_history.json"
+          plans = [
+              (
+                  {
+                      "slot": 1,
+                      "role": "Problem Detective",
+                      "lesson_type": "problem_and_cause",
+                      "knowledge_path": "Drainage Fundamentals",
+                      "knowledge_area": "drainage",
+                      "lesson_number": 1,
+                      "content_type": "reel",
+                  },
+                  {
+                      "slot": 2,
+                      "role": "Plumbing Teacher",
+                      "lesson_type": "how_it_works",
+                      "knowledge_path": "Drainage Fundamentals",
+                      "knowledge_area": "drainage",
+                      "lesson_number": 2,
+                      "content_type": "educational_visual",
+                  },
               ),
-          )
+              (
+                  {
+                      "slot": 3,
+                      "role": "Plumbing Mistakes",
+                      "lesson_type": "common_mistake",
+                      "knowledge_path": "Bathroom Plumbing",
+                      "knowledge_area": "bathroom",
+                      "lesson_number": 3,
+                      "content_type": "reel",
+                  },
+                  {
+                      "slot": 4,
+                      "role": "Professional Knowledge",
+                      "lesson_type": "professional_tip",
+                      "knowledge_path": "Bathroom Plumbing",
+                      "knowledge_area": "bathroom",
+                      "lesson_number": 4,
+                      "content_type": "educational_visual",
+                  },
+              ),
+              (
+                  {
+                      "slot": 5,
+                      "role": "Troubleshooting Teacher",
+                      "lesson_type": "troubleshooting",
+                      "knowledge_path": "Water Supply Fundamentals",
+                      "knowledge_area": "water_supply",
+                      "lesson_number": 5,
+                      "content_type": "reel",
+                  },
+                  {
+                      "slot": 6,
+                      "role": "Maintenance Teacher",
+                      "lesson_type": "maintenance",
+                      "knowledge_path": "Water Supply Fundamentals",
+                      "knowledge_area": "water_supply",
+                      "lesson_number": 6,
+                      "content_type": "educational_visual",
+                  },
+              ),
+          ]
 
-          validate_daily_plan(daily_plan)
+          all_lessons = []
 
-          test_plan = daily_plan[:6]
+          for pair_number, (first, second) in enumerate(
+              plans,
+              start=1,
+          ):
+              print("")
+              print("========================================")
+              print(f"TESTING PAIR {pair_number}/3")
+              print("========================================")
 
-          if len(test_plan) != 6:
-              raise RuntimeError(
-                  "Could not obtain six test lessons."
+              results = generate_content_pair(
+                  first,
+                  second,
               )
 
-          generated = []
-
-          for pair_number in range(3):
-
-              start = pair_number * 2
-
-              lesson_a = test_plan[start]
-              lesson_b = test_plan[start + 1]
-
-              print()
-              print("=" * 70)
-              print(
-                  f"STARTING GEMINI PAIR "
-                  f"{pair_number + 1}/3"
-              )
-              print("=" * 70)
-
-              pair = generate_content_pair(
-                  lesson_a,
-                  lesson_b,
-              )
-
-              if len(pair) != 2:
+              if len(results) != 2:
                   raise RuntimeError(
-                      f"Pair {pair_number + 1} returned "
-                      f"{len(pair)} lessons instead of 2."
+                      f"Pair {pair_number} returned "
+                      f"{len(results)} lessons instead of 2."
                   )
 
-              generated.extend(pair)
+              for lesson_number, lesson in enumerate(
+                  results,
+                  start=1,
+              ):
+                  required = [
+                      "title",
+                      "description",
+                      "image_prompt",
+                      "hashtags",
+                      "visual_story",
+                      "on_image_text",
+                      "lesson_type",
+                      "content_type",
+                      "knowledge_area",
+                      "lesson_number",
+                  ]
+
+                  missing = [
+                      field
+                      for field in required
+                      if field not in lesson
+                  ]
+
+                  if missing:
+                      raise RuntimeError(
+                          f"Pair {pair_number}, lesson "
+                          f"{lesson_number} is missing: "
+                          f"{missing}"
+                      )
+
+                  print(
+                      f"Lesson {lesson_number}: "
+                      f"{lesson['title']}"
+                  )
+
+                  print(
+                      f"Model used: "
+                      f"{lesson.get('_model_used', 'unknown')}"
+                  )
+
+                  all_lessons.append(lesson)
 
               print(
-                  f"PAIR {pair_number + 1}/3 PASSED"
+                  f"PAIR {pair_number} PASSED"
               )
 
-          if len(generated) != 6:
+          if len(all_lessons) != 6:
               raise RuntimeError(
-                  f"Expected 6 lessons, got {len(generated)}."
+                  f"Expected 6 lessons, "
+                  f"got {len(all_lessons)}."
+              )
+
+          model_counts = {}
+
+          for lesson in all_lessons:
+              model = lesson.get(
+                  "_model_used",
+                  "unknown",
+              )
+
+              model_counts[model] = (
+                  model_counts.get(model, 0) + 1
               )
 
           result = {
-              "test": "controlled_3_pair_gemini_test",
-              "model": "gemini-3.6-flash",
-              "pairs_requested": 3,
-              "lessons_generated": len(generated),
-              "instagram_publishing": False,
-              "image_generation": False,
-              "reel_generation": False,
-              "lessons": [
-                  {
-                      "title": item.get("title"),
-                      "content_type": item.get(
-                          "content_type"
-                      ),
-                      "lesson_type": item.get(
-                          "lesson_type"
-                      ),
-                      "knowledge_area": item.get(
-                          "knowledge_area"
-                      ),
-                  }
-                  for item in generated
-              ],
+              "total_lessons": len(all_lessons),
+              "pairs": 3,
+              "model_counts": model_counts,
+              "lessons": all_lessons,
           }
 
           Path(
-              "controlled_3_pair_test_result.json"
+              "gemini_three_pair_result.json"
           ).write_text(
               json.dumps(
                   result,
@@ -146,33 +198,25 @@ jobs:
               encoding="utf-8",
           )
 
-          print()
-          print("=" * 70)
-          print("CONTROLLED 3-PAIR TEST PASSED")
-          print("=" * 70)
-          print("Gemini pairs completed: 3/3")
-          print("Lessons generated: 6/6")
-          print("No Instagram publishing occurred.")
-          print("No image generation occurred.")
-          print("No Reel generation occurred.")
-          print("=" * 70)
+          print("")
+          print("========================================")
+          print("3-PAIR / 6-LESSON TEST PASSED")
+          print("========================================")
+          print(
+              f"Total lessons: {len(all_lessons)}"
+          )
+
+          print(
+              f"Model usage: {model_counts}"
+          )
           PY
 
       - name: Upload test result
-        if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: orom-plan1-gemini-3-pair-result
-          path: controlled_3_pair_test_result.json
+          name: orom-plan1-gemini-three-pair-result
+          path: gemini_three_pair_result.json
 
       - name: Final result
-        if: success()
         run: |
-          echo "=============================================="
-          echo "OROM PLAN1 3-PAIR GEMINI TEST COMPLETE"
-          echo "=============================================="
-          echo "3 Gemini pairs completed successfully."
-          echo "6 educational lessons generated."
-          echo "Production workflow was not touched."
-          echo "Instagram was not contacted."
-          echo "=============================================="
+          echo "Orom Plan1 3-pair / 6-lesson test completed successfully."
