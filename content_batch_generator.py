@@ -1,5 +1,6 @@
 import json
 import re
+import time
 from typing import Any, Dict, List
 
 from content_generator import MODEL_NAME, client
@@ -13,6 +14,24 @@ REQUIRED_FIELDS = [
     "visual_story",
     "on_image_text",
 ]
+
+
+# Maximum number of additional attempts after the first request.
+# Total possible Gemini calls for one pair = 3.
+MAX_RETRIES = 2
+
+# Exponential backoff delays between attempts.
+RETRY_DELAYS = [4, 10]
+
+# Only transient errors should be retried.
+RETRYABLE_STATUS_CODES = {
+    408,
+    429,
+    500,
+    502,
+    503,
+    504,
+}
 
 
 def extract_json_array(text: str) -> List[Dict[str, Any]]:
@@ -202,6 +221,71 @@ Return exactly this structure:
 """
 
 
+def get_error_status_code(error: Exception) -> int | None:
+    """
+    Try to extract an HTTP status code from a Gemini SDK error.
+
+    Different SDK error versions may expose the status code
+    through different attributes, so we check several safely.
+    """
+
+    for attribute in (
+        "code",
+        "status_code",
+        "http_status",
+    ):
+        value = getattr(error, attribute, None)
+
+        if isinstance(value, int):
+            return value
+
+        if isinstance(value, str):
+            match = re.search(r"\b([1-5][0-9]{2})\b", value)
+
+            if match:
+                return int(match.group(1))
+
+    error_text = str(error)
+
+    match = re.search(
+        r"\b(408|429|500|502|503|504)\b",
+        error_text,
+    )
+
+    if match:
+        return int(match.group(1))
+
+    return None
+
+
+def is_retryable_gemini_error(error: Exception) -> bool:
+    """
+    Return True only for transient Gemini/API failures.
+    """
+
+    status_code = get_error_status_code(error)
+
+    if status_code in RETRYABLE_STATUS_CODES:
+        return True
+
+    error_text = str(error).upper()
+
+    transient_markers = [
+        "UNAVAILABLE",
+        "RESOURCE_EXHAUSTED",
+        "SERVICE_UNAVAILABLE",
+        "DEADLINE_EXCEEDED",
+        "INTERNAL",
+        "TIMEOUT",
+        "TIMED OUT",
+    ]
+
+    return any(
+        marker in error_text
+        for marker in transient_markers
+    )
+
+
 def generate_content_pair(
     first_item: Dict[str, Any],
     second_item: Dict[str, Any],
@@ -209,6 +293,11 @@ def generate_content_pair(
     """
     Generate two related but independent lessons with
     one Gemini request.
+
+    Temporary Gemini/API failures are retried with
+    exponential backoff.
+
+    Permanent errors are raised immediately.
     """
 
     prompt = build_pair_prompt(
@@ -227,30 +316,95 @@ def generate_content_pair(
         f"{second_item.get('knowledge_area', '')}"
     )
 
-    response = client.models.generate_content(
-        model=MODEL_NAME,
-        contents=prompt,
+    total_attempts = MAX_RETRIES + 1
+
+    for attempt in range(1, total_attempts + 1):
+
+        try:
+            print(
+                f"Gemini attempt "
+                f"{attempt}/{total_attempts}"
+            )
+
+            response = client.models.generate_content(
+                model=MODEL_NAME,
+                contents=prompt,
+            )
+
+            response_text = getattr(
+                response,
+                "text",
+                "",
+            )
+
+            generated = extract_json_array(
+                response_text
+            )
+
+            if not validate_batch_content(
+                generated,
+                expected_count=2,
+            ):
+                raise ValueError(
+                    "Gemini batch content failed validation."
+                )
+
+            print(
+                "Gemini batch returned two valid lessons."
+            )
+
+            return generated
+
+        except Exception as error:
+
+            status_code = get_error_status_code(error)
+
+            print()
+            print(
+                "Gemini request failed."
+            )
+
+            if status_code is not None:
+                print(
+                    f"Detected status code: "
+                    f"{status_code}"
+                )
+
+            print(
+                f"Error: {error}"
+            )
+
+            retryable = is_retryable_gemini_error(
+                error
+            )
+
+            if not retryable:
+                print(
+                    "This error is not considered "
+                    "transient. Stopping without retry."
+                )
+                raise
+
+            if attempt >= total_attempts:
+                print(
+                    "Maximum Gemini retry attempts reached."
+                )
+                raise
+
+            delay = RETRY_DELAYS[attempt - 1]
+
+            print(
+                f"Transient Gemini error detected."
+            )
+            print(
+                f"Waiting {delay} seconds before retry..."
+            )
+
+            time.sleep(delay)
+
+    raise RuntimeError(
+        "Gemini batch generation ended unexpectedly."
     )
-
-    response_text = getattr(response, "text", "")
-
-    generated = extract_json_array(
-        response_text
-    )
-
-    if not validate_batch_content(
-        generated,
-        expected_count=2,
-    ):
-        raise ValueError(
-            "Gemini batch content failed validation."
-        )
-
-    print(
-        "Gemini batch returned two valid lessons."
-    )
-
-    return generated
 
 
 def attach_plan_metadata(
@@ -320,7 +474,12 @@ def generate_daily_content_batches(
     """
     Generate a full 10-post content plan using pairs.
 
-    Five Gemini requests are used for ten planned posts.
+    Five normal Gemini batch requests are used for ten
+    planned posts.
+
+    A transient failure may cause an individual pair to
+    retry, but the successful pair still produces only
+    two lessons.
     """
 
     if len(daily_plan) != 10:
@@ -367,4 +526,7 @@ if __name__ == "__main__":
     )
     print(
         "Target: 10 lessons using 5 Gemini requests."
+    )
+    print(
+        "Transient-error protection: enabled."
     )
