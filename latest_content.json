@@ -1,23 +1,23 @@
 {
-  "idea": "Simple ways to protect plumbing during renovation",
-  "title": "How to Keep Renovation Debris Out of Your Pipes",
-  "description": "During bathroom or kitchen remodeling, cement slurry, tile chips, and plaster dust frequently fall into uncovered waste pipes. Once inside, this heavy debris settles in drain traps, hardens like rock, and causes severe blockages that are expensive to clear later. A simple plastic pipe cap, expanding plug, or tightly taped cover costs very little, but saves you from breaking fresh tiles to fix blocked lines after work is complete. Always instruct your tiling and masonry workers to cap every open pipe before work begins.",
-  "image_prompt": "A vertical 9:16 eye-level professional photograph of a residential bathroom under renovation. In the center foreground, a clean white 2-inch PVC waste pipe extends vertically 4 inches above a rough concrete subfloor. The open top of the pipe is capped tightly with a high-visibility yellow plastic pipe plug. Around the base of the pipe, the floor is covered in light cement dust, small ceramic tile chips, and sand grit. In the softly blurred background, a wall with light grey tiles and fresh grout lines is visible under natural daylight. Realistic textures of PVC plastic, rough cement floor, dry masonry dust, and smooth tile. Natural realistic interior lighting, sharp focus on the capped pipe, shallow depth of field, photorealistic shot on 35mm lens, no text, no words, no watermarks, no logos.",
-  "visual_story": "The viewer sees a modern residential bathroom undergoing floor and wall tiling. On the concrete floor near a partially tiled wall, an open PVC drain pipe protrudes upward. The pipe top is sealed securely with a bright yellow protective cap. Gray tile dust, small stone chips, and dried mortar splatters rest on the floor around the pipe base, demonstrating how easily debris falls near open drains. The contrast between the dirty floor and the clean, capped pipe immediately highlights the protective measure.",
+  "idea": "Common causes of leaking taps",
+  "title": "Why Compression Taps Leak: The Worn Washer",
+  "description": "When a compression tap drips, forcing the handle tighter feels like an instant fix, but it actually causes more damage. Inside the tap spindle, a rubber washer presses against a smooth brass valve seat to seal off water flow. Over time, friction, heat, and mineral buildup cause the rubber to harden, split, or deform. Forcing a leaking tap tightly closed grinds the compromised rubber directly into the metal seat, which can permanently score the brass body. If your tap drips continuously from the spout, isolate the water supply, disassemble the stem, and inspect the washer. Replacing a cheap rubber seal early preserves the tap body.",
+  "image_prompt": "A crisp, photorealistic macro close-up photograph of a disassembled brass tap spindle resting on a clean plumber's work surface. The brass stem shows realistic metallic texture and slight water scaling. At the base of the spindle, an old, cracked, and deformed black rubber washer is clearly visible, showing obvious wear and tear. Positioned right beside it is a brand-new, perfectly smooth, round black rubber washer for clear physical comparison. An adjustable spanner rests neatly in the soft-focus background. Clean, bright directional workshop lighting creates realistic reflections on the brass and highlights the rough texture of the damaged rubber. Vertical 9:16 composition, shallow depth of field with main subject centered. No text, no logos, no watermarks, no arrows, no graphics.",
+  "visual_story": "A macro visual showing a dismantled brass tap spindle with a degraded, split washer placed beside a fresh replacement washer. This visual clearly reveals the mechanical cause of persistent drips to viewers without requiring reading.",
   "on_image_text": {
-    "hook": "Renovation dust ruins drains.",
-    "explanation": "Cover open pipe stubs to block cement and tile debris.",
-    "callout": "Protective pipe cap",
-    "takeaway": "Cap open pipes before demolition or tiling starts."
+    "hook": "STILL DRIPPING AFTER TIGHTENING?",
+    "explanation": "Overtightening grinds down the rubber washer and damages the internal brass seat.",
+    "callout": "DEGRADED RUBBER WASHER",
+    "takeaway": "Replace worn washers early to prevent permanent damage to the tap body."
   },
   "hashtags": [
     "#PlumbingTips",
-    "#HomeRenovationNG",
-    "#PlumbingNigeria",
-    "#BuildingInNigeria",
-    "#DrainProtection",
-    "#HomeMaintenanceNG",
-    "#PlumbingDesign"
+    "#PlumbingEducation",
+    "#TapRepair",
+    "#PlumbingMaintenance",
+    "#ApprenticePlumber",
+    "#PlumbingAdvice",
+    "#HomePlumbing"
   ],
   "reel_enabled": false,
   "reel_file": null
