@@ -90,12 +90,14 @@ jobs:
           assert validate_daily_plan(plan)
 
           reels = [
-              item for item in plan
+              item
+              for item in plan
               if item["content_type"] == "reel"
           ]
 
           visuals = [
-              item for item in plan
+              item
+              for item in plan
               if item["content_type"]
               == "educational_visual"
           ]
@@ -103,7 +105,10 @@ jobs:
           assert len(reels) == 5
           assert len(visuals) == 5
 
-          slots = [item["slot"] for item in plan]
+          slots = [
+              item["slot"]
+              for item in plan
+          ]
 
           assert slots == list(range(1, 11))
 
@@ -235,38 +240,73 @@ jobs:
               "safe-test-placeholder"
           )
 
-          def lesson(title, number):
+          def lesson(title, number, content_type):
               return {
                   "title": title,
                   "description": (
-                      "A safe plumbing lesson."
+                      "A safe plumbing lesson "
+                      "for offline testing."
                   ),
                   "image_prompt": (
-                      "Professional realistic plumbing scene."
+                      "Professional realistic plumbing "
+                      "scene showing the plumbing concept "
+                      "clearly."
                   ),
                   "hashtags": [
                       "#plumbing",
-                      "#education"
+                      "#plumber",
+                      "#plumbingeducation"
                   ],
                   "visual_story": (
-                      "Show the plumbing principle clearly."
+                      "Show the plumbing principle clearly "
+                      "with a professional installation."
                   ),
                   "on_image_text": {
-                      "hook": f"Hook {number}",
-                      "explanation": (
-                          f"Explanation {number}"
+                      "hook": (
+                          f"Learn this plumbing "
+                          f"principle {number}"
                       ),
-                      "callout": f"Callout {number}",
-                      "takeaway": f"Takeaway {number}"
-                  }
+                      "explanation": (
+                          f"This explains an important "
+                          f"plumbing principle in "
+                          f"lesson {number}."
+                      ),
+                      "callout": (
+                          "Professional plumbing knowledge"
+                      ),
+                      "takeaway": (
+                          "Good plumbing installation "
+                          "prevents problems."
+                      )
+                  },
+                  "lesson_type": (
+                      "problem_and_cause"
+                      if number == 1
+                      else "how_it_works"
+                  ),
+                  "content_type": content_type,
+                  "knowledge_area": (
+                      "Drainage Systems"
+                      if number == 1
+                      else "Sink Drainage"
+                  ),
+                  "lesson_number": number
               }
 
           class FakeResponse:
               text = json.dumps({
                   "lessons": [
-                      lesson("Lesson One", 1),
-                      lesson("Lesson Two", 2)
-                  ]                            
+                      lesson(
+                          "Lesson One",
+                          1,
+                          "reel"
+                      ),
+                      lesson(
+                          "Lesson Two",
+                          2,
+                          "educational_visual"
+                      )
+                  ]
               })
 
           class FakeModels:
@@ -612,12 +652,14 @@ jobs:
               assert len(posts) == 10
 
               reels = [
-                  post for post in posts
+                  post
+                  for post in posts
                   if post["content_type"] == "reel"
               ]
 
               visuals = [
-                  post for post in posts
+                  post
+                  for post in posts
                   if post["content_type"]
                   == "educational_visual"
               ]
@@ -626,14 +668,16 @@ jobs:
               assert len(visuals) == 5
 
               images = [
-                  post for post in posts
+                  post
+                  for post in posts
                   if Path(
                       post["image_file"]
                   ).exists()
               ]
 
               reel_files = [
-                  post for post in posts
+                  post
+                  for post in posts
                   if post["reel_enabled"]
                   and post["reel_file"]
                   and Path(
