@@ -1,10 +1,10 @@
-name: Orom Plan1 - Reel Generator Test
+name: Orom Plan1 - Reel Audio Test
 
 on:
   workflow_dispatch:
 
 jobs:
-  reel-test:
+  reel-audio-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -53,10 +53,6 @@ jobs:
               44
           )
 
-          title = "PLUMBING LESSON"
-          teaching = "A P-TRAP HELPS\nBLOCK SEWER GASES"
-          takeaway = "KEEP THE TRAP FILLED\nWITH WATER"
-
           def centered_text(text, font, y):
               box = draw.multiline_textbbox(
                   (0, 0),
@@ -77,16 +73,38 @@ jobs:
                   spacing=12
               )
 
-          centered_text(title, font_large, 500)
-          centered_text(teaching, font_medium, 800)
-          centered_text(takeaway, font_medium, 1200)
+          centered_text("PLUMBING LESSON", font_large, 500)
+          centered_text(
+              "A P-TRAP HELPS\nBLOCK SEWER GASES",
+              font_medium,
+              800
+          )
+          centered_text(
+              "KEEP THE TRAP FILLED\nWITH WATER",
+              font_medium,
+              1200
+          )
 
           image.save("reel_test_image.jpg", quality=95)
 
           print("Test image created:", image.size)
           PY
 
-      - name: Generate 8-second Reel
+      - name: Create local test audio
+        run: |
+          ffmpeg -y \
+            -f lavfi \
+            -i "sine=frequency=440:duration=8" \
+            -c:a pcm_s16le \
+            -ar 44100 \
+            -ac 2 \
+            test_audio.wav
+
+          test -f test_audio.wav
+
+          echo "Local test audio created"
+
+      - name: Generate silent Reel
         run: |
           python - <<'PY'
           from reel_generator import generate_reel
@@ -105,57 +123,85 @@ jobs:
 
           generate_reel(
               input_file="reel_test_image.jpg",
-              output_file="orom_plan1_reel_test.mp4",
+              output_file="silent_reel.mp4",
               duration=8,
               teaching_text=teaching_text
           )
 
-          print("Reel generation completed")
+          print("Silent Reel generated")
           PY
 
-      - name: Validate Reel
+      - name: Add audio to Reel
         run: |
-          test -f orom_plan1_reel_test.mp4
+          python - <<'PY'
+          from reel_generator import add_audio
 
-          SIZE=$(stat -c%s orom_plan1_reel_test.mp4)
+          add_audio(
+              video_file="silent_reel.mp4",
+              audio_file="test_audio.wav",
+              output_file="orom_plan1_reel_audio_test.mp4"
+          )
+
+          print("Audio successfully added")
+          PY
+
+      - name: Validate final Reel
+        run: |
+          test -f orom_plan1_reel_audio_test.mp4
+
+          SIZE=$(stat -c%s orom_plan1_reel_audio_test.mp4)
 
           if [ "$SIZE" -lt 10000 ]; then
-            echo "ERROR: Reel file is unexpectedly small: $SIZE bytes"
+            echo "ERROR: Final Reel is unexpectedly small: $SIZE bytes"
             exit 1
           fi
 
-          echo "Reel file size: $SIZE bytes"
+          echo "Final Reel size: $SIZE bytes"
 
-          echo "Video information:"
+          echo ""
+          echo "VIDEO STREAM:"
           ffprobe -v error \
             -select_streams v:0 \
             -show_entries stream=width,height,r_frame_rate \
             -of default=noprint_wrappers=1 \
-            orom_plan1_reel_test.mp4
+            orom_plan1_reel_audio_test.mp4
 
-          echo "Duration:"
+          echo ""
+          echo "AUDIO STREAM:"
+          ffprobe -v error \
+            -select_streams a:0 \
+            -show_entries stream=codec_name,sample_rate,channels \
+            -of default=noprint_wrappers=1 \
+            orom_plan1_reel_audio_test.mp4
+
+          echo ""
+          echo "DURATION:"
           ffprobe -v error \
             -show_entries format=duration \
             -of default=noprint_wrappers=1 \
-            orom_plan1_reel_test.mp4
+            orom_plan1_reel_audio_test.mp4
 
-          echo "Reel validation passed"
+          echo ""
+          echo "Audio Reel validation passed"
 
-      - name: Upload Reel artifact
+      - name: Upload audio Reel artifact
         uses: actions/upload-artifact@v4
         with:
-          name: orom-plan1-reel-test
+          name: orom-plan1-reel-audio-test
           path: |
             reel_test_image.jpg
-            orom_plan1_reel_test.mp4
+            silent_reel.mp4
+            test_audio.wav
+            orom_plan1_reel_audio_test.mp4
 
       - name: Final result
         run: |
           echo "======================================"
-          echo "OROM PLAN1 REEL GENERATOR TEST PASSED"
+          echo "OROM PLAN1 REEL AUDIO TEST PASSED"
           echo "======================================"
           echo "Gemini: NOT USED"
           echo "Cloudflare: NOT USED"
           echo "Instagram: NOT USED"
-          echo "Audio: NOT USED"
-          echo "Reel: GENERATED SUCCESSFULLY"
+          echo "External audio download: NOT USED"
+          echo "Local audio mixing: PASSED"
+          echo "Final Reel: GENERATED SUCCESSFULLY"
