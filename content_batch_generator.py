@@ -16,7 +16,6 @@ from google.genai import types
 MODEL_NAME = "gemini-3.6-flash"
 FALLBACK_MODEL_NAME = "gemini-3.5-flash-lite"
 
-# Number of additional retries after the first attempt.
 MAX_RETRIES = 2
 
 BASE_RETRY_DELAY = 8
@@ -34,7 +33,6 @@ if not GEMINI_API_KEY:
     raise RuntimeError(
         "GEMINI_API_KEY environment variable is missing."
     )
-
 
 client = genai.Client(
     api_key=GEMINI_API_KEY
@@ -85,15 +83,10 @@ def is_daily_quota_exhausted(
     error: Exception,
 ) -> bool:
     """
-    Detect when Gemini reports that the daily/free-tier
-    request quota has been exhausted.
+    Detect daily/free-tier Gemini quota exhaustion.
 
-    A daily quota exhaustion should NOT be retried with
-    exponential backoff because waiting a few seconds
-    does not restore the daily quota.
-
-    Instead, the caller should move directly to the
-    fallback model.
+    Daily quota exhaustion is not retried with backoff.
+    The caller immediately moves to the fallback model.
     """
 
     message = str(error).upper()
@@ -118,7 +111,7 @@ def is_retryable_gemini_error(
     error: Exception,
 ) -> bool:
     """
-    Return True when the error appears temporary.
+    Detect temporary Gemini errors.
 
     Daily quota exhaustion is deliberately excluded.
     """
@@ -164,10 +157,6 @@ def get_retry_delay(
 ) -> float:
     """
     Exponential backoff with small random jitter.
-
-    retry_number:
-        1 = approximately 8 seconds
-        2 = approximately 16 seconds
     """
 
     delay = min(
@@ -293,6 +282,355 @@ def extract_json(
 
 
 # ============================================================
+# NORMALIZATION HELPERS
+# ============================================================
+
+def _clean_string(
+    value: Any,
+) -> str:
+    """
+    Convert a value to a clean string when possible.
+    """
+
+    if value is None:
+        return ""
+
+    if isinstance(
+        value,
+        str,
+    ):
+        return value.strip()
+
+    return str(
+        value
+    ).strip()
+
+
+def _first_nonempty(
+    source: Dict[str, Any],
+    keys: List[str],
+) -> str:
+    """
+    Return the first useful string from a list of
+    possible field names.
+    """
+
+    for key in keys:
+
+        if key not in source:
+            continue
+
+        value = _clean_string(
+            source.get(key)
+        )
+
+        if value:
+            return value
+
+    return ""
+
+
+def normalize_hashtags(
+    value: Any,
+) -> List[str]:
+    """
+    Normalize hashtags without inventing new ones.
+
+    Accepts:
+        ["#plumbing", "#drainage"]
+
+    or:
+
+        "#plumbing #drainage"
+
+    or:
+
+        "#plumbing, #drainage"
+    """
+
+    if isinstance(
+        value,
+        list,
+    ):
+        result = []
+
+        for item in value:
+
+            cleaned = _clean_string(
+                item
+            )
+
+            if cleaned:
+                result.append(
+                    cleaned
+                )
+
+        return result
+
+    if isinstance(
+        value,
+        str,
+    ):
+        parts = re.split(
+            r"[,;\n]+|\s+(?=#)",
+            value,
+        )
+
+        result = []
+
+        for item in parts:
+
+            cleaned = item.strip()
+
+            if cleaned:
+                result.append(
+                    cleaned
+                )
+
+        return result
+
+    return []
+
+
+def normalize_on_image_text(
+    value: Any,
+    description: str,
+    visual_story: str,
+) -> Dict[str, str]:
+    """
+    Normalize the educational text object.
+
+    The function accepts a few harmless naming variations
+    that smaller/fallback models may produce.
+
+    It does not create plumbing facts or measurements.
+    """
+
+    source = (
+        value
+        if isinstance(
+            value,
+            dict,
+        )
+        else {}
+    )
+
+    hook = _first_nonempty(
+        source,
+        [
+            "hook",
+            "headline",
+            "opening",
+            "title",
+        ],
+    )
+
+    explanation = _first_nonempty(
+        source,
+        [
+            "explanation",
+            "teaching",
+            "teaching_point",
+            "lesson",
+            "body",
+        ],
+    )
+
+    callout = _first_nonempty(
+        source,
+        [
+            "callout",
+            "tip",
+            "key_point",
+            "keypoint",
+            "important",
+        ],
+    )
+
+    takeaway = _first_nonempty(
+        source,
+        [
+            "takeaway",
+            "conclusion",
+            "summary",
+            "key_takeaway",
+        ],
+    )
+
+    # --------------------------------------------------------
+    # Conservative fallback normalization
+    # --------------------------------------------------------
+    #
+    # These values come from the same generated lesson.
+    # We do not invent technical information.
+    #
+
+    if not explanation:
+        explanation = _clean_string(
+            description
+        )
+
+    if not callout:
+        callout = _clean_string(
+            visual_story
+        )
+
+    if not takeaway:
+        takeaway = (
+            callout
+            or explanation
+        )
+
+    return {
+        "hook": hook,
+        "explanation": explanation,
+        "callout": callout,
+        "takeaway": takeaway,
+    }
+
+
+def normalize_generated_lesson(
+    lesson: Any,
+) -> Dict[str, Any]:
+    """
+    Normalize one Gemini-generated lesson.
+
+    This handles harmless output-shape differences while
+    preserving the actual generated educational content.
+    """
+
+    if not isinstance(
+        lesson,
+        dict,
+    ):
+        raise ValueError(
+            "Generated lesson is not a JSON object."
+        )
+
+    source = dict(
+        lesson
+    )
+
+    title = _first_nonempty(
+        source,
+        [
+            "title",
+            "lesson_title",
+            "headline",
+        ],
+    )
+
+    description = _first_nonempty(
+        source,
+        [
+            "description",
+            "caption",
+            "lesson_description",
+            "teaching",
+        ],
+    )
+
+    image_prompt = _first_nonempty(
+        source,
+        [
+            "image_prompt",
+            "imagePrompt",
+            "visual_prompt",
+            "prompt",
+        ],
+    )
+
+    visual_story = _first_nonempty(
+        source,
+        [
+            "visual_story",
+            "visualStory",
+            "visual_description",
+            "scene",
+        ],
+    )
+
+    lesson_type = _first_nonempty(
+        source,
+        [
+            "lesson_type",
+            "lessonType",
+            "type",
+        ],
+    )
+
+    content_type = _first_nonempty(
+        source,
+        [
+            "content_type",
+            "contentType",
+            "format",
+        ],
+    )
+
+    knowledge_area = _first_nonempty(
+        source,
+        [
+            "knowledge_area",
+            "knowledgeArea",
+            "topic",
+            "subject",
+        ],
+    )
+
+    lesson_number = source.get(
+        "lesson_number"
+    )
+
+    if isinstance(
+        lesson_number,
+        str,
+    ):
+        number_match = re.search(
+            r"\d+",
+            lesson_number,
+        )
+
+        if number_match:
+            lesson_number = int(
+                number_match.group(0)
+            )
+
+    hashtags = normalize_hashtags(
+        source.get(
+            "hashtags"
+        )
+    )
+
+    on_image_text = normalize_on_image_text(
+        source.get(
+            "on_image_text"
+        ),
+        description=description,
+        visual_story=visual_story,
+    )
+
+    normalized = dict(
+        source
+    )
+
+    normalized["title"] = title
+    normalized["description"] = description
+    normalized["image_prompt"] = image_prompt
+    normalized["hashtags"] = hashtags
+    normalized["visual_story"] = visual_story
+    normalized["on_image_text"] = on_image_text
+    normalized["lesson_type"] = lesson_type
+    normalized["content_type"] = content_type
+    normalized["knowledge_area"] = knowledge_area
+
+    if lesson_number is not None:
+        normalized["lesson_number"] = lesson_number
+
+    return normalized
+
+
+# ============================================================
 # CONTENT VALIDATION
 # ============================================================
 
@@ -314,7 +652,11 @@ def validate_generated_content(
     content: Dict[str, Any],
 ) -> bool:
     """
-    Validate the structure returned by Gemini.
+    Validate normalized Gemini content.
+
+    The validator checks that meaningful educational content
+    exists without requiring Gemini to use one perfectly rigid
+    formatting style.
     """
 
     if not isinstance(
@@ -323,27 +665,47 @@ def validate_generated_content(
     ):
         return False
 
+    # --------------------------------------------------------
+    # Required top-level fields
+    # --------------------------------------------------------
+
     for field in REQUIRED_CONTENT_FIELDS:
+
         if field not in content:
             return False
 
-    if not isinstance(
-        content["title"],
-        str,
-    ):
-        return False
+    # --------------------------------------------------------
+    # Required string fields
+    # --------------------------------------------------------
 
-    if not isinstance(
-        content["description"],
-        str,
-    ):
-        return False
+    string_fields = [
+        "title",
+        "description",
+        "image_prompt",
+        "visual_story",
+        "lesson_type",
+        "content_type",
+        "knowledge_area",
+    ]
 
-    if not isinstance(
-        content["image_prompt"],
-        str,
-    ):
-        return False
+    for field in string_fields:
+
+        value = content.get(
+            field
+        )
+
+        if not isinstance(
+            value,
+            str,
+        ):
+            return False
+
+        if not value.strip():
+            return False
+
+    # --------------------------------------------------------
+    # Hashtags
+    # --------------------------------------------------------
 
     if not isinstance(
         content["hashtags"],
@@ -351,8 +713,53 @@ def validate_generated_content(
     ):
         return False
 
+    # Hashtags may be empty in an unusual model response,
+    # but every supplied hashtag must be a string.
+    for hashtag in content["hashtags"]:
+
+        if not isinstance(
+            hashtag,
+            str,
+        ):
+            return False
+
+        if not hashtag.strip():
+            return False
+
+    # --------------------------------------------------------
+    # Lesson number
+    # --------------------------------------------------------
+
+    lesson_number = content.get(
+        "lesson_number"
+    )
+
     if not isinstance(
-        content["on_image_text"],
+        lesson_number,
+        int,
+    ):
+        return False
+
+    # --------------------------------------------------------
+    # Content type
+    # --------------------------------------------------------
+
+    if content["content_type"] not in (
+        "reel",
+        "educational_visual",
+    ):
+        return False
+
+    # --------------------------------------------------------
+    # On-image text
+    # --------------------------------------------------------
+
+    on_image_text = content[
+        "on_image_text"
+    ]
+
+    if not isinstance(
+        on_image_text,
         dict,
     ):
         return False
@@ -365,7 +772,21 @@ def validate_generated_content(
     ]
 
     for field in required_text_fields:
-        if field not in content["on_image_text"]:
+
+        if field not in on_image_text:
+            return False
+
+        value = on_image_text[
+            field
+        ]
+
+        if not isinstance(
+            value,
+            str,
+        ):
+            return False
+
+        if not value.strip():
             return False
 
     return True
@@ -375,18 +796,23 @@ def check_content(
     content: Dict[str, Any],
 ) -> bool:
     """
-    Compatibility wrapper for the newer daily content engine.
+    Compatibility wrapper.
 
-    The project previously used the name check_content,
-    while this generator uses validate_generated_content.
-
-    Keeping both names prevents unnecessary breakage
-    between the content-generation layers.
+    Normalize first, then validate.
     """
 
-    return validate_generated_content(
-        content
-    )
+    try:
+
+        normalized = normalize_generated_lesson(
+            content
+        )
+
+        return validate_generated_content(
+            normalized
+        )
+
+    except Exception:
+        return False
 
 
 # ============================================================
@@ -399,9 +825,6 @@ def build_pair_prompt(
 ) -> str:
     """
     Build the prompt for two related lessons.
-
-    The pair shares one broader teaching path while each
-    lesson remains independently useful.
     """
 
     return f"""
@@ -474,6 +897,14 @@ The "on_image_text" object must contain:
 The description should normally be approximately 80 to 120
 words and should teach rather than merely advertise.
 
+The "content_type" MUST be exactly one of:
+
+"reel"
+
+or
+
+"educational_visual"
+
 Return ONLY valid JSON.
 
 The JSON must have exactly this top-level structure:
@@ -530,11 +961,6 @@ def generate_pair_with_model(
 ) -> List[Dict[str, Any]]:
     """
     Generate one pair using the specified Gemini model.
-
-    Temporary errors receive bounded retries.
-
-    Daily quota exhaustion is NOT retried because the caller
-    should move directly to the fallback model.
     """
 
     prompt = build_pair_prompt(
@@ -547,7 +973,10 @@ def generate_pair_with_model(
     for attempt in range(
         MAX_RETRIES + 1
     ):
-        attempt_number = attempt + 1
+
+        attempt_number = (
+            attempt + 1
+        )
 
         print(
             f"  Model: {model_name}"
@@ -559,6 +988,7 @@ def generate_pair_with_model(
         )
 
         try:
+
             response = client.models.generate_content(
                 model=model_name,
                 contents=prompt,
@@ -602,24 +1032,34 @@ def generate_pair_with_model(
             validated_lessons = []
 
             for lesson in lessons:
-                if not validate_generated_content(
+
+                # ------------------------------------------------
+                # NEW:
+                # Normalize first.
+                # ------------------------------------------------
+
+                normalized = normalize_generated_lesson(
                     lesson
+                )
+
+                # ------------------------------------------------
+                # Then validate.
+                # ------------------------------------------------
+
+                if not validate_generated_content(
+                    normalized
                 ):
                     raise ValueError(
                         "Generated lesson failed "
-                        "content validation."
+                        "content validation after normalization."
                     )
 
-                lesson = dict(
-                    lesson
-                )
-
-                lesson["_model_used"] = (
-                    model_name
-                )
+                normalized[
+                    "_model_used"
+                ] = model_name
 
                 validated_lessons.append(
-                    lesson
+                    normalized
                 )
 
             print(
@@ -629,6 +1069,7 @@ def generate_pair_with_model(
             return validated_lessons
 
         except Exception as error:
+
             last_error = error
 
             status_code = (
@@ -656,6 +1097,7 @@ def generate_pair_with_model(
             if is_daily_quota_exhausted(
                 error
             ):
+
                 print(
                     "  DAILY QUOTA EXHAUSTED."
                 )
@@ -678,6 +1120,7 @@ def generate_pair_with_model(
             )
 
             if retry_allowed:
+
                 delay = get_retry_delay(
                     attempt_number
                 )
@@ -699,6 +1142,7 @@ def generate_pair_with_model(
                 break
 
     if last_error is None:
+
         raise RuntimeError(
             f"{model_name} failed without "
             "returning an error."
@@ -716,27 +1160,18 @@ def generate_content_pair(
     second_lesson: Dict[str, Any],
 ) -> List[Dict[str, Any]]:
     """
-    Generate two lessons.
-
-    Strategy:
-
-    1. Try Gemini 3.6 Flash.
-    2. Retry temporary failures with exponential backoff.
-    3. If the daily quota is exhausted, immediately switch
-       to Gemini 3.5 Flash-Lite.
-    4. If temporary primary failures remain after retries,
-       switch to Gemini 3.5 Flash-Lite.
-    5. Retry temporary fallback failures.
-    6. Stop safely if both models fail.
+    Generate two lessons using primary + fallback models.
     """
 
     print("")
     print(
         "================================================"
     )
+
     print(
         "GENERATING CONTENT PAIR"
     )
+
     print(
         "================================================"
     )
@@ -748,6 +1183,7 @@ def generate_content_pair(
     # --------------------------------------------------------
 
     try:
+
         print("")
         print(
             f"PRIMARY MODEL: {MODEL_NAME}"
@@ -760,6 +1196,7 @@ def generate_content_pair(
         )
 
     except Exception as error:
+
         primary_error = error
 
         print("")
@@ -772,7 +1209,7 @@ def generate_content_pair(
         )
 
     # --------------------------------------------------------
-    # DETERMINE WHETHER FALLBACK IS ALLOWED
+    # DETERMINE FALLBACK
     # --------------------------------------------------------
 
     quota_exhausted = (
@@ -787,7 +1224,11 @@ def generate_content_pair(
         )
     )
 
-    if not quota_exhausted and not temporary_failure:
+    if (
+        not quota_exhausted
+        and not temporary_failure
+    ):
+
         print("")
         print(
             "Primary error is not retryable "
@@ -804,18 +1245,23 @@ def generate_content_pair(
     print(
         "================================================"
     )
+
     print(
         "SWITCHING TO FALLBACK MODEL"
     )
+
     print(
         "================================================"
     )
 
     if quota_exhausted:
+
         print(
             "Reason: primary model daily quota exhausted."
         )
+
     else:
+
         print(
             "Reason: primary model temporary failure "
             "after allowed retries."
@@ -826,6 +1272,7 @@ def generate_content_pair(
     )
 
     try:
+
         return generate_pair_with_model(
             FALLBACK_MODEL_NAME,
             first_lesson,
@@ -833,6 +1280,7 @@ def generate_content_pair(
         )
 
     except Exception as fallback_error:
+
         print("")
         print(
             "Fallback model also failed."
@@ -858,8 +1306,7 @@ def attach_plan_metadata(
     plan_item: Dict[str, Any],
 ) -> Dict[str, Any]:
     """
-    Attach planner metadata without destroying generated
-    content.
+    Attach planner metadata without destroying generated content.
     """
 
     result = dict(
@@ -890,28 +1337,36 @@ def attach_plan_metadata(
         "lesson_type"
     ):
         result["lesson_type"] = (
-            plan_item["lesson_type"]
+            plan_item[
+                "lesson_type"
+            ]
         )
 
     if plan_item.get(
         "content_type"
     ):
         result["content_type"] = (
-            plan_item["content_type"]
+            plan_item[
+                "content_type"
+            ]
         )
 
     if plan_item.get(
         "knowledge_area"
     ):
         result["knowledge_area"] = (
-            plan_item["knowledge_area"]
+            plan_item[
+                "knowledge_area"
+            ]
         )
 
     if plan_item.get(
         "lesson_number"
     ):
         result["lesson_number"] = (
-            plan_item["lesson_number"]
+            plan_item[
+                "lesson_number"
+            ]
         )
 
     return result
@@ -925,11 +1380,9 @@ def generate_content_batches(
     daily_plan: List[Dict[str, Any]],
 ) -> List[Dict[str, Any]]:
     """
-    Generate a complete 10-post content batch.
+    Generate the complete 10-post content batch.
 
-    The daily plan contains 10 lessons.
-
-    Gemini is called in five pairs:
+    Five Gemini requests are attempted in normal conditions:
 
         Pair 1 -> posts 1 + 2
         Pair 2 -> posts 3 + 4
@@ -937,8 +1390,8 @@ def generate_content_batches(
         Pair 4 -> posts 7 + 8
         Pair 5 -> posts 9 + 10
 
-    This reduces the number of Gemini requests while
-    preserving 10 independent pieces of content.
+    If the primary model reaches its daily quota,
+    the fallback model is used for the affected pairs.
     """
 
     if not isinstance(
@@ -954,9 +1407,12 @@ def generate_content_batches(
             "daily_plan must contain exactly 10 items."
         )
 
-    all_content: List[Dict[str, Any]] = []
+    all_content: List[
+        Dict[str, Any]
+    ] = []
 
     for pair_index in range(5):
+
         first_index = (
             pair_index * 2
         )
@@ -1013,9 +1469,26 @@ def generate_content_batches(
             second_plan,
         )
 
+        # ----------------------------------------------------
+        # Final normalization after metadata attachment
+        # ----------------------------------------------------
+
+        first_content = normalize_generated_lesson(
+            first_content
+        )
+
+        second_content = normalize_generated_lesson(
+            second_content
+        )
+
+        # ----------------------------------------------------
+        # Final validation
+        # ----------------------------------------------------
+
         if not validate_generated_content(
             first_content
         ):
+
             raise ValueError(
                 f"Post {first_index + 1} "
                 "failed final validation."
@@ -1024,6 +1497,7 @@ def generate_content_batches(
         if not validate_generated_content(
             second_content
         ):
+
             raise ValueError(
                 f"Post {second_index + 1} "
                 "failed final validation."
@@ -1043,10 +1517,11 @@ def generate_content_batches(
         )
 
     # --------------------------------------------------------
-    # FINAL BATCH COUNT
+    # FINAL COUNT
     # --------------------------------------------------------
 
     if len(all_content) != 10:
+
         raise RuntimeError(
             "Batch generation did not produce "
             "exactly 10 posts."
@@ -1073,19 +1548,21 @@ def generate_content_batches(
     )
 
     if reel_count != 5:
+
         raise RuntimeError(
             f"Expected 5 reels, "
             f"got {reel_count}."
         )
 
     if visual_count != 5:
+
         raise RuntimeError(
             "Expected 5 educational visuals, "
             f"got {visual_count}."
         )
 
     # --------------------------------------------------------
-    # FINAL SUCCESS
+    # SUCCESS
     # --------------------------------------------------------
 
     print("")
