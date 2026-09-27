@@ -50,6 +50,7 @@ jobs:
             daily_content_engine.py \
             image_generator.py \
             reel_generator.py
+
           echo "Python syntax check passed."
 
       - name: JSON validation
@@ -63,7 +64,9 @@ jobs:
                   continue
 
               try:
-                  json.loads(path.read_text(encoding="utf-8"))
+                  json.loads(
+                      path.read_text(encoding="utf-8")
+                  )
                   print(f"VALID JSON: {path}")
               except Exception as exc:
                   raise SystemExit(
@@ -93,13 +96,15 @@ jobs:
 
           visuals = [
               item for item in plan
-              if item["content_type"] == "educational_visual"
+              if item["content_type"]
+              == "educational_visual"
           ]
 
           assert len(reels) == 5
           assert len(visuals) == 5
 
           slots = [item["slot"] for item in plan]
+
           assert slots == list(range(1, 11))
 
           print("Daily planner test passed.")
@@ -129,10 +134,21 @@ jobs:
       - name: Test batch generator safely
         run: |
           python - <<'PY'
+          import os
           import sys
           import types
 
-          fake_generator = types.ModuleType("content_generator")
+          # The module checks for GEMINI_API_KEY during import.
+          # This placeholder exists only inside this offline test.
+          # No Gemini request is made.
+
+          os.environ["GEMINI_API_KEY"] = (
+              "safe-test-placeholder"
+          )
+
+          fake_generator = types.ModuleType(
+              "content_generator"
+          )
 
           fake_generator.MODEL_NAME = "fake-model"
 
@@ -143,8 +159,12 @@ jobs:
           def fake_create_content(*args, **kwargs):
               return {
                   "title": "Safe Test Plumbing Lesson",
-                  "description": "A safe offline test lesson.",
-                  "image_prompt": "Professional realistic plumbing scene.",
+                  "description": (
+                      "A safe offline test lesson."
+                  ),
+                  "image_prompt": (
+                      "Professional realistic plumbing scene."
+                  ),
                   "hashtags": [
                       "#plumbing",
                       "#plumber"
@@ -153,19 +173,27 @@ jobs:
                       "Show the plumbing concept clearly."
                   ),
                   "on_image_text": {
-                      "hook": "Learn this plumbing principle",
+                      "hook": (
+                          "Learn this plumbing principle"
+                      ),
                       "explanation": (
                           "This is a safe offline test."
                       ),
-                      "callout": "Professional plumbing",
-                      "takeaway": "Good installation matters."
+                      "callout": (
+                          "Professional plumbing"
+                      ),
+                      "takeaway": (
+                          "Good installation matters."
+                      )
                   },
                   "lesson_type": "professional_tip",
                   "content_type": kwargs.get(
                       "content_type",
                       "educational_visual"
                   ),
-                  "knowledge_area": "Professional Plumbing",
+                  "knowledge_area": (
+                      "Professional Plumbing"
+                  ),
                   "lesson_number": kwargs.get(
                       "lesson_number",
                       1
@@ -175,10 +203,17 @@ jobs:
           def fake_check_content(content):
               return True
 
-          fake_generator.create_content = fake_create_content
-          fake_generator.check_content = fake_check_content
+          fake_generator.create_content = (
+              fake_create_content
+          )
 
-          sys.modules["content_generator"] = fake_generator
+          fake_generator.check_content = (
+              fake_check_content
+          )
+
+          sys.modules["content_generator"] = (
+              fake_generator
+          )
 
           import content_batch_generator
 
@@ -196,13 +231,22 @@ jobs:
           python - <<'PY'
           import importlib
           import json
+          import os
           import sys
           import types
+
+          # Required only because the real module checks
+          # this variable when it is imported.
+          os.environ["GEMINI_API_KEY"] = (
+              "safe-test-placeholder"
+          )
 
           def lesson(title, number):
               return {
                   "title": title,
-                  "description": "A safe plumbing lesson.",
+                  "description": (
+                      "A safe plumbing lesson."
+                  ),
                   "image_prompt": (
                       "Professional realistic plumbing scene."
                   ),
@@ -236,8 +280,16 @@ jobs:
                   contents
               ):
                   assert model
-                  assert "LESSON 1 PLAN:" in contents
-                  assert "LESSON 2 PLAN:" in contents
+
+                  assert (
+                      "LESSON 1 PLAN:"
+                      in contents
+                  )
+
+                  assert (
+                      "LESSON 2 PLAN:"
+                      in contents
+                  )
 
                   print(
                       "Fake Gemini request intercepted."
@@ -255,30 +307,22 @@ jobs:
               models=FakeModels()
           )
 
-          import os
-
-          os.environ["GEMINI_API_KEY"] = "safe-test-placeholder"
-
           sys.modules["content_generator"] = (
-          fake_generator
+              fake_generator
           )
 
           sys.modules.pop(
-          "content_batch_generator",
-          None
+              "content_batch_generator",
+              None
           )
 
           batch = importlib.import_module(
-          "content_batch_generator"
+              "content_batch_generator"
           )
 
-          batch.client = types.SimpleNamespace(
-          models=FakeModels()
-          )
-
-          # Critical:
-          # Replace the real Gemini client inside the
-          # imported batch-generator module itself.
+          # Replace the REAL Gemini client after import.
+          # The placeholder key can therefore never be
+          # sent to Google's API.
           batch.client = types.SimpleNamespace(
               models=FakeModels()
           )
@@ -303,14 +347,30 @@ jobs:
           )
 
           assert len(result) == 2
-          assert result[0]["title"] == "Lesson One"
-          assert result[1]["title"] == "Lesson Two"
+
+          assert (
+              result[0]["title"]
+              == "Lesson One"
+          )
+
+          assert (
+              result[1]["title"]
+              == "Lesson Two"
+          )
 
           print(
-              "Complete batch generation safe test passed."
+              "Complete batch generation "
+              "safe test passed."
           )
-          print("Gemini requests used: 1 fake request")
-          print("Lessons returned: 2")
+
+          print(
+              "Gemini requests used: "
+              "1 fake request"
+          )
+
+          print(
+              "Lessons returned: 2"
+          )
           PY
 
       - name: Test complete daily content engine safely
@@ -318,8 +378,9 @@ jobs:
           python - <<'PY'
           import sys
           import types
-          from pathlib import Path
           import tempfile
+
+          from pathlib import Path
 
           def raw_lesson(number):
               content_type = (
@@ -329,7 +390,9 @@ jobs:
               )
 
               return {
-                  "title": f"Test Lesson {number}",
+                  "title": (
+                      f"Test Lesson {number}"
+                  ),
                   "description": (
                       "Safe offline test lesson."
                   ),
@@ -344,12 +407,18 @@ jobs:
                       "Show the plumbing lesson."
                   ),
                   "on_image_text": {
-                      "hook": f"Hook {number}",
+                      "hook": (
+                          f"Hook {number}"
+                      ),
                       "explanation": (
                           f"Explanation {number}"
                       ),
-                      "callout": f"Callout {number}",
-                      "takeaway": f"Takeaway {number}"
+                      "callout": (
+                          f"Callout {number}"
+                      ),
+                      "takeaway": (
+                          f"Takeaway {number}"
+                      )
                   },
                   "content_type": content_type
               }
@@ -363,8 +432,12 @@ jobs:
               second_item
           ):
               return [
-                  raw_lesson(first_item["slot"]),
-                  raw_lesson(second_item["slot"])
+                  raw_lesson(
+                      first_item["slot"]
+                  ),
+                  raw_lesson(
+                      second_item["slot"]
+                  )
               ]
 
           def fake_attach_plan_metadata(
@@ -442,7 +515,9 @@ jobs:
                   exist_ok=True
               )
 
-              path.write_bytes(b"fake image")
+              path.write_bytes(
+                  b"fake image"
+              )
 
               return str(path)
 
@@ -490,7 +565,9 @@ jobs:
                   exist_ok=True
               )
 
-              path.write_bytes(b"fake reel")
+              path.write_bytes(
+                  b"fake reel"
+              )
 
               return str(path)
 
@@ -524,7 +601,9 @@ jobs:
                   "role": "test_role",
                   "lesson_type": "test_lesson",
                   "knowledge_path": "Test Path",
-                  "knowledge_area": "test plumbing",
+                  "knowledge_area": (
+                      "test plumbing"
+                  ),
                   "lesson_number": slot,
                   "previous_lesson": None
               })
@@ -571,17 +650,27 @@ jobs:
               assert len(reel_files) == 5
 
           print(
-              "Daily content engine safe test passed."
+              "Daily content engine "
+              "safe test passed."
           )
+
           print("Posts: 10")
           print("Reels: 5")
           print("Educational visuals: 5")
           print("Images: 10")
           print("Reel files: 5")
-          print("Real daily_content_engine executed.")
-          print("No real Gemini request used.")
-          print("No real image generation used.")
-          print("No real Reel generation used.")
+          print(
+              "Real daily_content_engine executed."
+          )
+          print(
+              "No real Gemini request used."
+          )
+          print(
+              "No real image generation used."
+          )
+          print(
+              "No real Reel generation used."
+          )
           PY
 
       - name: Final result
