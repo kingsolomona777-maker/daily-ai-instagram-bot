@@ -262,10 +262,12 @@ jobs:
               }
 
           class FakeResponse:
-              text = json.dumps([
-                  lesson("Lesson One", 1),
-                  lesson("Lesson Two", 2)
-              ])
+              text = json.dumps({
+                  "lessons": [
+                      lesson("Lesson One", 1),
+                      lesson("Lesson Two", 2)
+                  ]                            
+              })
 
           class FakeModels:
               def generate_content(
