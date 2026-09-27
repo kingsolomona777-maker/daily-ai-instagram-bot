@@ -42,7 +42,7 @@ jobs:
 
       - name: Python syntax check
         run: |
-          python -m py_compile \
+            python -m py_compile \
             main.py \
             content_generator.py \
             content_planner.py \
@@ -51,7 +51,7 @@ jobs:
             image_generator.py \
             reel_generator.py
 
-          echo "Python syntax check passed."
+            echo "Python syntax check passed."
 
       - name: JSON validation
         run: |
