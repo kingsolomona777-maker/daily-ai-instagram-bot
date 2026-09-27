@@ -241,8 +241,8 @@ jobs:
           }
 
           result = batch.generate_content_pair(
-              first_item=first,
-              second_item=second
+              first,
+              second
           )
 
           assert len(result) == 2
