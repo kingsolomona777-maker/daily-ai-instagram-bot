@@ -9,6 +9,8 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      GEMINI_API_KEY: safe-test-placeholder
 
     steps:
       - name: Checkout repository
@@ -135,8 +137,6 @@ jobs:
 
           # Safe offline test only.
           # The real Gemini API is NOT called.
-
-          os.environ["GEMINI_API_KEY"] = "safe-test-placeholder"
 
           fake_generator = types.ModuleType("content_generator")
 
