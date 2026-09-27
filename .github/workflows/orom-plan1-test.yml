@@ -9,8 +9,6 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
-    env:
-      GEMINI_API_KEY: safe-test-placeholder
 
     steps:
       - name: Checkout repository
@@ -63,6 +61,7 @@ jobs:
           for path in Path(".").rglob("*.json"):
               if ".git" in path.parts:
                   continue
+
               try:
                   json.loads(path.read_text(encoding="utf-8"))
                   print(f"VALID JSON: {path}")
@@ -70,6 +69,7 @@ jobs:
                   raise SystemExit(
                       f"Invalid JSON file: {path}: {exc}"
                   )
+
           print("JSON validation passed.")
           PY
 
@@ -111,9 +111,7 @@ jobs:
       - name: Test planner rotation
         run: |
           python - <<'PY'
-          from content_planner import (
-              choose_knowledge_path,
-          )
+          from content_planner import choose_knowledge_path
 
           day1 = choose_knowledge_path(1)
           day2 = choose_knowledge_path(2)
@@ -131,25 +129,34 @@ jobs:
       - name: Test batch generator safely
         run: |
           python - <<'PY'
-          import os
           import sys
           import types
 
-          # Safe offline test only.
-          # The real Gemini API is NOT called.
-
           fake_generator = types.ModuleType("content_generator")
+
+          fake_generator.MODEL_NAME = "fake-model"
+
+          fake_generator.client = types.SimpleNamespace(
+              models=types.SimpleNamespace()
+          )
 
           def fake_create_content(*args, **kwargs):
               return {
                   "title": "Safe Test Plumbing Lesson",
                   "description": "A safe offline test lesson.",
-                  "image_prompt": "Professional plumbing educational image",
-                  "hashtags": ["#plumbing", "#plumber"],
-                  "visual_story": "Show the plumbing concept clearly.",
+                  "image_prompt": "Professional realistic plumbing scene.",
+                  "hashtags": [
+                      "#plumbing",
+                      "#plumber"
+                  ],
+                  "visual_story": (
+                      "Show the plumbing concept clearly."
+                  ),
                   "on_image_text": {
                       "hook": "Learn this plumbing principle",
-                      "explanation": "This is a safe offline test.",
+                      "explanation": (
+                          "This is a safe offline test."
+                      ),
                       "callout": "Professional plumbing",
                       "takeaway": "Good installation matters."
                   },
@@ -159,7 +166,10 @@ jobs:
                       "educational_visual"
                   ),
                   "knowledge_area": "Professional Plumbing",
-                  "lesson_number": kwargs.get("lesson_number", 1)
+                  "lesson_number": kwargs.get(
+                      "lesson_number",
+                      1
+                  )
               }
 
           def fake_check_content(content):
@@ -172,9 +182,13 @@ jobs:
 
           import content_batch_generator
 
-          print("Batch generator imported successfully.")
+          print(
+              "Batch generator imported successfully."
+          )
           print("Gemini was NOT called.")
-          print("Safe offline batch-generator test passed.")
+          print(
+              "Safe offline batch-generator test passed."
+          )
           PY
 
       - name: Test complete batch generation safely
@@ -189,12 +203,21 @@ jobs:
               return {
                   "title": title,
                   "description": "A safe plumbing lesson.",
-                  "image_prompt": "Professional realistic plumbing scene.",
-                  "hashtags": ["#plumbing", "#education"],
-                  "visual_story": "Show the plumbing principle clearly.",
+                  "image_prompt": (
+                      "Professional realistic plumbing scene."
+                  ),
+                  "hashtags": [
+                      "#plumbing",
+                      "#education"
+                  ],
+                  "visual_story": (
+                      "Show the plumbing principle clearly."
+                  ),
                   "on_image_text": {
                       "hook": f"Hook {number}",
-                      "explanation": f"Explanation {number}",
+                      "explanation": (
+                          f"Explanation {number}"
+                      ),
                       "callout": f"Callout {number}",
                       "takeaway": f"Takeaway {number}"
                   }
@@ -207,28 +230,49 @@ jobs:
               ])
 
           class FakeModels:
-              def generate_content(self, model, contents):
+              def generate_content(
+                  self,
+                  model,
+                  contents
+              ):
                   assert model
                   assert "LESSON 1 PLAN:" in contents
                   assert "LESSON 2 PLAN:" in contents
+
+                  print(
+                      "Fake Gemini request intercepted."
+                  )
+
                   return FakeResponse()
 
-          fake_generator = types.ModuleType("content_generator")
+          fake_generator = types.ModuleType(
+              "content_generator"
+          )
+
           fake_generator.MODEL_NAME = "fake-model"
+
           fake_generator.client = types.SimpleNamespace(
               models=FakeModels()
           )
-          sys.modules["content_generator"] = fake_generator
 
-          sys.modules.pop("content_batch_generator", None)
-                    batch = importlib.import_module(
-                    "content_batch_generator"
+          sys.modules["content_generator"] = (
+              fake_generator
           )
 
+          sys.modules.pop(
+              "content_batch_generator",
+              None
+          )
+
+          batch = importlib.import_module(
+              "content_batch_generator"
+          )
+
+          # Critical:
+          # Replace the real Gemini client inside the
+          # imported batch-generator module itself.
           batch.client = types.SimpleNamespace(
-                models=FakeModels()
-          )
-          
+              models=FakeModels()
           )
 
           first = {
@@ -254,7 +298,9 @@ jobs:
           assert result[0]["title"] == "Lesson One"
           assert result[1]["title"] == "Lesson Two"
 
-          print("Complete batch generation safe test passed.")
+          print(
+              "Complete batch generation safe test passed."
+          )
           print("Gemini requests used: 1 fake request")
           print("Lessons returned: 2")
           PY
@@ -276,13 +322,24 @@ jobs:
 
               return {
                   "title": f"Test Lesson {number}",
-                  "description": "Safe offline test lesson.",
-                  "image_prompt": "Professional plumbing scene.",
-                  "hashtags": ["#plumbing", "#education"],
-                  "visual_story": "Show the plumbing lesson.",
+                  "description": (
+                      "Safe offline test lesson."
+                  ),
+                  "image_prompt": (
+                      "Professional plumbing scene."
+                  ),
+                  "hashtags": [
+                      "#plumbing",
+                      "#education"
+                  ],
+                  "visual_story": (
+                      "Show the plumbing lesson."
+                  ),
                   "on_image_text": {
                       "hook": f"Hook {number}",
-                      "explanation": f"Explanation {number}",
+                      "explanation": (
+                          f"Explanation {number}"
+                      ),
                       "callout": f"Callout {number}",
                       "takeaway": f"Takeaway {number}"
                   },
@@ -313,15 +370,27 @@ jobs:
                   plan_items
               ):
                   item = dict(content)
+
                   item.update({
                       "slot": plan["slot"],
                       "role": plan["role"],
-                      "lesson_type": plan["lesson_type"],
-                      "knowledge_path": plan["knowledge_path"],
-                      "knowledge_area": plan["knowledge_area"],
-                      "lesson_number": plan["lesson_number"],
-                      "content_type": plan["content_type"]
+                      "lesson_type": (
+                          plan["lesson_type"]
+                      ),
+                      "knowledge_path": (
+                          plan["knowledge_path"]
+                      ),
+                      "knowledge_area": (
+                          plan["knowledge_area"]
+                      ),
+                      "lesson_number": (
+                          plan["lesson_number"]
+                      ),
+                      "content_type": (
+                          plan["content_type"]
+                      )
                   })
+
                   output.append(item)
 
               return output
@@ -329,19 +398,26 @@ jobs:
           fake_batch.generate_content_pair = (
               fake_generate_content_pair
           )
+
           fake_batch.attach_plan_metadata = (
               fake_attach_plan_metadata
           )
 
-          sys.modules["content_batch_generator"] = fake_batch
+          sys.modules["content_batch_generator"] = (
+              fake_batch
+          )
 
           fake_content = types.ModuleType(
               "content_generator"
           )
+
           fake_content.check_content = (
               lambda content: True
           )
-          sys.modules["content_generator"] = fake_content
+
+          sys.modules["content_generator"] = (
+              fake_content
+          )
 
           fake_image = types.ModuleType(
               "image_generator"
@@ -352,11 +428,14 @@ jobs:
               output_file
           ):
               path = Path(output_file)
+
               path.parent.mkdir(
                   parents=True,
                   exist_ok=True
               )
+
               path.write_bytes(b"fake image")
+
               return str(path)
 
           def fake_make_vertical_image(
@@ -365,32 +444,60 @@ jobs:
               on_image_text
           ):
               path = Path(output_file)
-              path.write_bytes(b"fake vertical image")
+
+              path.parent.mkdir(
+                  parents=True,
+                  exist_ok=True
+              )
+
+              path.write_bytes(
+                  b"fake vertical image"
+              )
+
               return str(path)
 
           fake_image.generate_image = (
               fake_generate_image
           )
+
           fake_image.make_vertical_image = (
               fake_make_vertical_image
           )
-          sys.modules["image_generator"] = fake_image
+
+          sys.modules["image_generator"] = (
+              fake_image
+          )
 
           fake_reel = types.ModuleType(
               "reel_generator"
           )
 
           def fake_generate_reel(**kwargs):
-              path = Path(kwargs["output_file"])
+              path = Path(
+                  kwargs["output_file"]
+              )
+
+              path.parent.mkdir(
+                  parents=True,
+                  exist_ok=True
+              )
+
               path.write_bytes(b"fake reel")
+
               return str(path)
 
           fake_reel.generate_reel = (
               fake_generate_reel
           )
-          sys.modules["reel_generator"] = fake_reel
 
-          sys.modules.pop("daily_content_engine", None)
+          sys.modules["reel_generator"] = (
+              fake_reel
+          )
+
+          sys.modules.pop(
+              "daily_content_engine",
+              None
+          )
 
           engine = __import__(
               "daily_content_engine"
