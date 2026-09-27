@@ -64,7 +64,7 @@ jobs:
           )
 
           from content_batch_generator import (
-              generate_content_pair,
+              generate_content_batches,
           )
 
           from daily_content_engine import (
@@ -101,35 +101,40 @@ jobs:
 
           print("")
           print("=" * 60)
-          print("GENERATING ONLY THE FIRST CONTENT PAIR")
+          print("GENERATING CONTENT FOR MEDIA TEST")
           print("=" * 60)
 
-          first_item = daily_plan[0]
-          second_item = daily_plan[1]
+          all_content = generate_content_batches(
+              daily_plan
+          )
+
+          if len(all_content) != 10:
+              raise RuntimeError(
+                  f"Expected 10 generated lessons, "
+                  f"got {len(all_content)}"
+              )
+
+          print("")
+          print(
+              "10-post content batch generated successfully."
+          )
+
+          print("")
+          print("=" * 60)
+          print("SELECTING FIRST TWO POSTS")
+          print("=" * 60)
+
+          test_content = all_content[:2]
 
           print(
               f"Post 1 type: "
-              f"{first_item['content_type']}"
+              f"{test_content[0]['content_type']}"
           )
 
           print(
               f"Post 2 type: "
-              f"{second_item['content_type']}"
+              f"{test_content[1]['content_type']}"
           )
-
-          pair = generate_content_pair(
-              first_item=first_item,
-              second_item=second_item,
-          )
-
-          if len(pair) != 2:
-              raise RuntimeError(
-                  f"Expected 2 generated lessons, "
-                  f"got {len(pair)}"
-              )
-
-          print("")
-          print("Content pair generated successfully.")
 
           output_directory = Path(
               "real_media_test_output"
@@ -148,38 +153,9 @@ jobs:
           print("=" * 60)
 
           for index, content in enumerate(
-              pair,
+              test_content,
               start=1,
           ):
-              content["slot"] = daily_plan[
-                  index - 1
-              ]["slot"]
-
-              content["role"] = daily_plan[
-                  index - 1
-              ].get("role", "")
-
-              content["knowledge_path"] = (
-                  daily_plan[
-                      index - 1
-                  ].get(
-                      "knowledge_path",
-                      "",
-                  )
-              )
-
-              content["knowledge_area"] = (
-                  daily_plan[
-                      index - 1
-                  ].get(
-                      "knowledge_area",
-                      content.get(
-                          "knowledge_area",
-                          "",
-                      ),
-                  )
-              )
-
               print("")
               print(
                   f"PROCESSING MEDIA {index}/2"
