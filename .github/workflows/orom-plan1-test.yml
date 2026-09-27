@@ -274,11 +274,13 @@ jobs:
               ])
 
           class FakeModels:
-              def generate_content(
-                  self,
-                  model,
-                  contents
-              ):
+          def generate_content(
+            self,
+          model,
+          contents,
+          config=None,
+          **kwargs
+          ):
                   assert model
 
                   assert (
