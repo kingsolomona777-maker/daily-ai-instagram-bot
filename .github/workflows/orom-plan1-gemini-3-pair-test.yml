@@ -1,17 +1,19 @@
-name: Orom Plan1 Gemini 3 Pair Fallback Test
+name: Orom Plan1 - Gemini 5 Pair Test
 
 on:
   workflow_dispatch:
 
 jobs:
-  gemini-three-pair-test:
+  gemini-5-pair-test:
     runs-on: ubuntu-latest
+
+    timeout-minutes: 15
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v6
         with:
           python-version: "3.11"
@@ -19,9 +21,21 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -U google-genai
+          pip install google-genai
 
-      - name: Test 3 real content pairs
+      - name: Check required files
+        run: |
+          test -f content_planner.py
+          test -f content_batch_generator.py
+          echo "Required files found."
+
+      - name: Check Python syntax
+        run: |
+          python -m py_compile content_planner.py
+          python -m py_compile content_batch_generator.py
+          echo "Python syntax check passed."
+
+      - name: Run 5-pair / 10-lesson Gemini test
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
@@ -29,167 +43,171 @@ jobs:
           import json
           from pathlib import Path
 
-          from content_batch_generator import generate_content_pair
+          from content_planner import (
+              create_daily_plan,
+              validate_daily_plan,
+          )
 
-          plans = [
-              (
-                  {
-                      "slot": 1,
-                      "role": "Problem Detective",
-                      "lesson_type": "problem_and_cause",
-                      "knowledge_path": "Drainage Fundamentals",
-                      "knowledge_area": "drainage",
-                      "lesson_number": 1,
-                      "content_type": "reel",
-                  },
-                  {
-                      "slot": 2,
-                      "role": "Plumbing Teacher",
-                      "lesson_type": "how_it_works",
-                      "knowledge_path": "Drainage Fundamentals",
-                      "knowledge_area": "drainage",
-                      "lesson_number": 2,
-                      "content_type": "educational_visual",
-                  },
-              ),
-              (
-                  {
-                      "slot": 3,
-                      "role": "Plumbing Mistakes",
-                      "lesson_type": "common_mistake",
-                      "knowledge_path": "Bathroom Plumbing",
-                      "knowledge_area": "bathroom",
-                      "lesson_number": 3,
-                      "content_type": "reel",
-                  },
-                  {
-                      "slot": 4,
-                      "role": "Professional Knowledge",
-                      "lesson_type": "professional_tip",
-                      "knowledge_path": "Bathroom Plumbing",
-                      "knowledge_area": "bathroom",
-                      "lesson_number": 4,
-                      "content_type": "educational_visual",
-                  },
-              ),
-              (
-                  {
-                      "slot": 5,
-                      "role": "Troubleshooting Teacher",
-                      "lesson_type": "troubleshooting",
-                      "knowledge_path": "Water Supply Fundamentals",
-                      "knowledge_area": "water_supply",
-                      "lesson_number": 5,
-                      "content_type": "reel",
-                  },
-                  {
-                      "slot": 6,
-                      "role": "Maintenance Teacher",
-                      "lesson_type": "maintenance",
-                      "knowledge_path": "Water Supply Fundamentals",
-                      "knowledge_area": "water_supply",
-                      "lesson_number": 6,
-                      "content_type": "educational_visual",
-                  },
-              ),
+          from content_batch_generator import (
+              generate_content_batches,
+              MODEL_NAME,
+              FALLBACK_MODEL_NAME,
+          )
+
+          print("")
+          print("=" * 56)
+          print("OROM PLAN1")
+          print("GEMINI 5-PAIR / 10-LESSON TEST")
+          print("=" * 56)
+
+          # --------------------------------------------------
+          # CREATE DAILY PLAN
+          # --------------------------------------------------
+
+          history_file = Path(
+              "gemini_5_pair_test_history.json"
+          )
+
+          plan = create_daily_plan(
+              day_number=1,
+              history_file=history_file,
+          )
+
+          print("")
+          print(
+              f"Daily plan created: {len(plan)} items"
+          )
+
+          if not validate_daily_plan(plan):
+              raise RuntimeError(
+                  "Daily plan validation failed."
+              )
+
+          print(
+              "Daily plan validation: PASSED"
+          )
+
+          # --------------------------------------------------
+          # GENERATE 10 LESSONS
+          # --------------------------------------------------
+
+          print("")
+          print("=" * 56)
+          print("STARTING 5 GEMINI PAIR REQUESTS")
+          print("=" * 56)
+
+          content = generate_content_batches(
+              plan
+          )
+
+          # --------------------------------------------------
+          # FINAL VALIDATION
+          # --------------------------------------------------
+
+          print("")
+          print("=" * 56)
+          print("FINAL VALIDATION")
+          print("=" * 56)
+
+          if len(content) != 10:
+              raise RuntimeError(
+                  f"Expected 10 lessons, got {len(content)}"
+              )
+
+          reels = [
+              item
+              for item in content
+              if item.get("content_type") == "reel"
           ]
 
-          all_lessons = []
+          visuals = [
+              item
+              for item in content
+              if item.get("content_type")
+              == "educational_visual"
+          ]
 
-          for pair_number, (first, second) in enumerate(
-              plans,
+          if len(reels) != 5:
+              raise RuntimeError(
+                  f"Expected 5 reels, got {len(reels)}"
+              )
+
+          if len(visuals) != 5:
+              raise RuntimeError(
+                  "Expected 5 educational visuals, "
+                  f"got {len(visuals)}"
+              )
+
+          required_fields = [
+              "title",
+              "description",
+              "image_prompt",
+              "hashtags",
+              "visual_story",
+              "on_image_text",
+              "lesson_type",
+              "content_type",
+              "knowledge_area",
+              "lesson_number",
+          ]
+
+          for index, item in enumerate(
+              content,
               start=1,
           ):
-              print("")
-              print("========================================")
-              print(f"TESTING PAIR {pair_number}/3")
-              print("========================================")
-
-              results = generate_content_pair(
-                  first,
-                  second,
-              )
-
-              if len(results) != 2:
-                  raise RuntimeError(
-                      f"Pair {pair_number} returned "
-                      f"{len(results)} lessons instead of 2."
-                  )
-
-              for lesson_number, lesson in enumerate(
-                  results,
-                  start=1,
-              ):
-                  required = [
-                      "title",
-                      "description",
-                      "image_prompt",
-                      "hashtags",
-                      "visual_story",
-                      "on_image_text",
-                      "lesson_type",
-                      "content_type",
-                      "knowledge_area",
-                      "lesson_number",
-                  ]
-
-                  missing = [
-                      field
-                      for field in required
-                      if field not in lesson
-                  ]
-
-                  if missing:
+              for field in required_fields:
+                  if field not in item:
                       raise RuntimeError(
-                          f"Pair {pair_number}, lesson "
-                          f"{lesson_number} is missing: "
-                          f"{missing}"
+                          f"Post {index} is missing "
+                          f"required field: {field}"
                       )
 
-                  print(
-                      f"Lesson {lesson_number}: "
-                      f"{lesson['title']}"
-                  )
+          # --------------------------------------------------
+          # MODEL USAGE REPORT
+          # --------------------------------------------------
 
-                  print(
-                      f"Model used: "
-                      f"{lesson.get('_model_used', 'unknown')}"
-                  )
+          model_usage = {}
 
-                  all_lessons.append(lesson)
-
-              print(
-                  f"PAIR {pair_number} PASSED"
-              )
-
-          if len(all_lessons) != 6:
-              raise RuntimeError(
-                  f"Expected 6 lessons, "
-                  f"got {len(all_lessons)}."
-              )
-
-          model_counts = {}
-
-          for lesson in all_lessons:
-              model = lesson.get(
+          for item in content:
+              model = item.get(
                   "_model_used",
                   "unknown",
               )
 
-              model_counts[model] = (
-                  model_counts.get(model, 0) + 1
+              model_usage[model] = (
+                  model_usage.get(model, 0) + 1
               )
 
+          print("")
+          print("=" * 56)
+          print("MODEL USAGE")
+          print("=" * 56)
+
+          for model, count in model_usage.items():
+              print(
+                  f"{model}: {count} lessons"
+              )
+
+          # --------------------------------------------------
+          # SAVE TEST RESULT
+          # --------------------------------------------------
+
           result = {
-              "total_lessons": len(all_lessons),
-              "pairs": 3,
-              "model_counts": model_counts,
-              "lessons": all_lessons,
+              "status": "PASSED",
+              "total_lessons": len(content),
+              "reels": len(reels),
+              "educational_visuals": len(visuals),
+              "primary_model": MODEL_NAME,
+              "fallback_model": FALLBACK_MODEL_NAME,
+              "model_usage": model_usage,
+              "lessons": content,
           }
 
-          Path(
-              "gemini_three_pair_result.json"
-          ).write_text(
+          output_file = Path(
+              "gemini_5_pair_test_result.json"
+          )
+
+          output_file.write_text(
               json.dumps(
                   result,
                   indent=2,
@@ -199,24 +217,31 @@ jobs:
           )
 
           print("")
-          print("========================================")
-          print("3-PAIR / 6-LESSON TEST PASSED")
-          print("========================================")
+          print("=" * 56)
+          print("5-PAIR / 10-LESSON TEST PASSED")
+          print("=" * 56)
           print(
-              f"Total lessons: {len(all_lessons)}"
+              f"Total lessons: {len(content)}"
           )
-
           print(
-              f"Model usage: {model_counts}"
+              f"Reels: {len(reels)}"
           )
+          print(
+              f"Educational visuals: {len(visuals)}"
+          )
+          print(
+              f"Primary model: {MODEL_NAME}"
+          )
+          print(
+              f"Fallback model: {FALLBACK_MODEL_NAME}"
+          )
+          print("=" * 56)
           PY
 
       - name: Upload test result
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: orom-plan1-gemini-three-pair-result
-          path: gemini_three_pair_result.json
-
-      - name: Final result
-        run: |
-          echo "Orom Plan1 3-pair / 6-lesson test completed successfully."
+          name: gemini-5-pair-test-result
+          path: gemini_5_pair_test_result.json
+          if-no-files-found: ignore
