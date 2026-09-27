@@ -255,17 +255,25 @@ jobs:
               models=FakeModels()
           )
 
+          import os
+
+          os.environ["GEMINI_API_KEY"] = "safe-test-placeholder"
+
           sys.modules["content_generator"] = (
-              fake_generator
+          fake_generator
           )
 
           sys.modules.pop(
-              "content_batch_generator",
-              None
+          "content_batch_generator",
+          None
           )
 
           batch = importlib.import_module(
-              "content_batch_generator"
+          "content_batch_generator"
+          )
+
+          batch.client = types.SimpleNamespace(
+          models=FakeModels()
           )
 
           # Critical:
