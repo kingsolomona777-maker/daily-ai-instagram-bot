@@ -1,0 +1,331 @@
+name: Orom Plan1 - Real Media Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  real-media-test:
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install google-genai requests Pillow
+
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Check required files
+        run: |
+          test -f content_planner.py
+          test -f content_batch_generator.py
+          test -f daily_content_engine.py
+          test -f image_generator.py
+          test -f reel_generator.py
+          echo "All required files found."
+
+      - name: Check Python syntax
+        run: |
+          python -m py_compile content_planner.py
+          python -m py_compile content_batch_generator.py
+          python -m py_compile daily_content_engine.py
+          python -m py_compile image_generator.py
+          python -m py_compile reel_generator.py
+          echo "Python syntax check passed."
+
+      - name: Run 2-post real media test
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          from PIL import Image
+
+          from content_planner import (
+              create_daily_plan,
+              validate_daily_plan,
+          )
+
+          from content_batch_generator import (
+              generate_content_pair,
+          )
+
+          from daily_content_engine import (
+              generate_one_post,
+          )
+
+          print("")
+          print("=" * 60)
+          print("OROM PLAN1")
+          print("REAL MEDIA TEST")
+          print("=" * 60)
+
+          print("")
+          print("Creating the normal 10-post daily plan...")
+
+          history_file = Path(
+              "media_test_history.json"
+          )
+
+          daily_plan = create_daily_plan(
+              day_number=1,
+              history_file=history_file,
+          )
+
+          if not validate_daily_plan(daily_plan):
+              raise RuntimeError(
+                  "Daily plan validation failed."
+              )
+
+          print(
+              f"Daily plan created successfully: "
+              f"{len(daily_plan)} posts"
+          )
+
+          print("")
+          print("=" * 60)
+          print("GENERATING ONLY THE FIRST CONTENT PAIR")
+          print("=" * 60)
+
+          first_item = daily_plan[0]
+          second_item = daily_plan[1]
+
+          print(
+              f"Post 1 type: "
+              f"{first_item['content_type']}"
+          )
+
+          print(
+              f"Post 2 type: "
+              f"{second_item['content_type']}"
+          )
+
+          pair = generate_content_pair(
+              first_item=first_item,
+              second_item=second_item,
+          )
+
+          if len(pair) != 2:
+              raise RuntimeError(
+                  f"Expected 2 generated lessons, "
+                  f"got {len(pair)}"
+              )
+
+          print("")
+          print("Content pair generated successfully.")
+
+          output_directory = Path(
+              "real_media_test_output"
+          )
+
+          output_directory.mkdir(
+              parents=True,
+              exist_ok=True,
+          )
+
+          packages = []
+
+          print("")
+          print("=" * 60)
+          print("GENERATING REAL MEDIA")
+          print("=" * 60)
+
+          for index, content in enumerate(
+              pair,
+              start=1,
+          ):
+              content["slot"] = daily_plan[
+                  index - 1
+              ]["slot"]
+
+              content["role"] = daily_plan[
+                  index - 1
+              ].get("role", "")
+
+              content["knowledge_path"] = (
+                  daily_plan[
+                      index - 1
+                  ].get(
+                      "knowledge_path",
+                      "",
+                  )
+              )
+
+              content["knowledge_area"] = (
+                  daily_plan[
+                      index - 1
+                  ].get(
+                      "knowledge_area",
+                      content.get(
+                          "knowledge_area",
+                          "",
+                      ),
+                  )
+              )
+
+              print("")
+              print(
+                  f"PROCESSING MEDIA {index}/2"
+              )
+              print(
+                  f"Title: {content['title']}"
+              )
+              print(
+                  f"Type: "
+                  f"{content['content_type']}"
+              )
+
+              package = generate_one_post(
+                  content=content,
+                  output_directory=output_directory,
+              )
+
+              packages.append(package)
+
+          print("")
+          print("=" * 60)
+          print("VALIDATING GENERATED MEDIA")
+          print("=" * 60)
+
+          if len(packages) != 2:
+              raise RuntimeError(
+                  "Expected exactly 2 media packages."
+              )
+
+          reel_count = 0
+          visual_count = 0
+
+          for index, package in enumerate(
+              packages,
+              start=1,
+          ):
+              image_file = Path(
+                  package["image_file"]
+              )
+
+              if not image_file.exists():
+                  raise RuntimeError(
+                      f"Post {index} image was not created: "
+                      f"{image_file}"
+                  )
+
+              print("")
+              print(
+                  f"Post {index} image: "
+                  f"{image_file}"
+              )
+
+              with Image.open(image_file) as image:
+                  width, height = image.size
+
+              print(
+                  f"Image dimensions: "
+                  f"{width} x {height}"
+              )
+
+              if width != 1080 or height != 1920:
+                  raise RuntimeError(
+                      f"Post {index} image has unexpected "
+                      f"dimensions: {width}x{height}. "
+                      f"Expected 1080x1920."
+                  )
+
+              if package["content_type"] == "reel":
+                  reel_count += 1
+
+                  reel_file = Path(
+                      package["reel_file"]
+                  )
+
+                  if not reel_file.exists():
+                      raise RuntimeError(
+                          f"Reel was not created: "
+                          f"{reel_file}"
+                      )
+
+                  if reel_file.stat().st_size <= 0:
+                      raise RuntimeError(
+                          f"Reel file is empty: "
+                          f"{reel_file}"
+                      )
+
+                  print(
+                      f"Reel created: "
+                      f"{reel_file}"
+                  )
+
+              elif (
+                  package["content_type"]
+                  == "educational_visual"
+              ):
+                  visual_count += 1
+
+          if reel_count != 1:
+              raise RuntimeError(
+                  f"Expected 1 Reel, got {reel_count}"
+              )
+
+          if visual_count != 1:
+              raise RuntimeError(
+                  "Expected 1 educational visual, "
+                  f"got {visual_count}"
+              )
+
+          result = {
+              "status": "PASSED",
+              "posts_tested": 2,
+              "reels": reel_count,
+              "educational_visuals": visual_count,
+              "packages": packages,
+          }
+
+          result_file = Path(
+              "real_media_test_result.json"
+          )
+
+          result_file.write_text(
+              json.dumps(
+                  result,
+                  indent=2,
+                  ensure_ascii=False,
+              ),
+              encoding="utf-8",
+          )
+
+          print("")
+          print("=" * 60)
+          print("2-POST REAL MEDIA TEST PASSED")
+          print("=" * 60)
+          print("Posts tested: 2")
+          print("Reels: 1")
+          print("Educational visuals: 1")
+          print("Images: 2")
+          print("=" * 60)
+          PY
+
+      - name: Upload generated media
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: orom-plan1-real-media-test
+          path: |
+            real_media_test_output/
+            real_media_test_result.json
+          if-no-files-found: ignore
