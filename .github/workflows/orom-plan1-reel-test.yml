@@ -43,18 +43,15 @@ jobs:
           image = Image.new("RGB", (width, height), "white")
           draw = ImageDraw.Draw(image)
 
-          try:
-              font_large = ImageFont.truetype(
-                  "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
-                  72
-              )
-              font_medium = ImageFont.truetype(
-                  "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
-                  44
-              )
-          except Exception:
-              font_large = ImageFont.load_default()
-              font_medium = ImageFont.load_default()
+          font_large = ImageFont.truetype(
+              "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+              72
+          )
+
+          font_medium = ImageFont.truetype(
+              "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+              44
+          )
 
           title = "PLUMBING LESSON"
           teaching = "A P-TRAP HELPS\nBLOCK SEWER GASES"
@@ -68,7 +65,9 @@ jobs:
                   align="center",
                   spacing=12
               )
+
               text_width = box[2] - box[0]
+
               draw.multiline_text(
                   ((width - text_width) / 2, y),
                   text,
@@ -92,14 +91,23 @@ jobs:
           python - <<'PY'
           from reel_generator import generate_reel
 
+          teaching_text = {
+              "hook": "Why does a P-trap matter?",
+              "teaching": (
+                  "A P-trap holds water that helps prevent "
+                  "sewer gases from entering the room."
+              ),
+              "takeaway": (
+                  "Keep the trap filled with water "
+                  "to maintain the protective seal."
+              )
+          }
+
           generate_reel(
               input_file="reel_test_image.jpg",
               output_file="orom_plan1_reel_test.mp4",
               duration=8,
-              teaching_text=(
-                  "A P-trap holds water that helps prevent "
-                  "sewer gases from entering the room."
-              )
+              teaching_text=teaching_text
           )
 
           print("Reel generation completed")
@@ -118,12 +126,14 @@ jobs:
 
           echo "Reel file size: $SIZE bytes"
 
+          echo "Video information:"
           ffprobe -v error \
             -select_streams v:0 \
             -show_entries stream=width,height,r_frame_rate \
             -of default=noprint_wrappers=1 \
             orom_plan1_reel_test.mp4
 
+          echo "Duration:"
           ffprobe -v error \
             -show_entries format=duration \
             -of default=noprint_wrappers=1 \
