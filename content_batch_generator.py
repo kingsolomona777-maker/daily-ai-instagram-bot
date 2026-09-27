@@ -1,4 +1,5 @@
 import json
+import os
 import random
 import re
 import time
@@ -15,6 +16,7 @@ from google.genai import types
 MODEL_NAME = "gemini-3.6-flash"
 FALLBACK_MODEL_NAME = "gemini-3.5-flash-lite"
 
+# Number of additional retries after the first attempt.
 MAX_RETRIES = 2
 
 BASE_RETRY_DELAY = 8
@@ -25,9 +27,6 @@ MAX_JITTER = 3
 # ============================================================
 # GEMINI CLIENT
 # ============================================================
-
-import os
-
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
@@ -46,7 +45,9 @@ client = genai.Client(
 # ERROR HELPERS
 # ============================================================
 
-def get_error_status_code(error: Exception) -> Optional[int]:
+def get_error_status_code(
+    error: Exception,
+) -> Optional[int]:
     """
     Try to extract an HTTP/status code from a Gemini error.
     """
@@ -56,7 +57,11 @@ def get_error_status_code(error: Exception) -> Optional[int]:
         "status_code",
         "http_status",
     ):
-        value = getattr(error, attribute, None)
+        value = getattr(
+            error,
+            attribute,
+            None,
+        )
 
         if isinstance(value, int):
             return value
@@ -69,17 +74,63 @@ def get_error_status_code(error: Exception) -> Optional[int]:
     )
 
     if match:
-        return int(match.group(1))
+        return int(
+            match.group(1)
+        )
 
     return None
 
 
-def is_retryable_gemini_error(error: Exception) -> bool:
+def is_daily_quota_exhausted(
+    error: Exception,
+) -> bool:
     """
-    Return True when the error appears to be temporary.
+    Detect when Gemini reports that the daily/free-tier
+    request quota has been exhausted.
+
+    A daily quota exhaustion should NOT be retried with
+    exponential backoff because waiting a few seconds
+    does not restore the daily quota.
+
+    Instead, the caller should move directly to the
+    fallback model.
     """
 
-    status_code = get_error_status_code(error)
+    message = str(error).upper()
+
+    quota_markers = (
+        "GENERATE_CONTENT_FREE_TIER_REQUESTS",
+        "EXCEEDED YOUR CURRENT QUOTA",
+        "FREE_TIER_REQUESTS",
+        "DAILY QUOTA",
+        "QUOTA EXCEEDED",
+        "REQUESTS PER DAY",
+        "LIMIT: 20",
+    )
+
+    return any(
+        marker in message
+        for marker in quota_markers
+    )
+
+
+def is_retryable_gemini_error(
+    error: Exception,
+) -> bool:
+    """
+    Return True when the error appears temporary.
+
+    Daily quota exhaustion is deliberately excluded.
+    """
+
+    if is_daily_quota_exhausted(
+        error
+    ):
+        return False
+
+    status_code = get_error_status_code(
+        error
+    )
 
     if status_code in (
         429,
@@ -108,7 +159,9 @@ def is_retryable_gemini_error(error: Exception) -> bool:
     )
 
 
-def get_retry_delay(retry_number: int) -> float:
+def get_retry_delay(
+    retry_number: int,
+) -> float:
     """
     Exponential backoff with small random jitter.
 
@@ -118,7 +171,8 @@ def get_retry_delay(retry_number: int) -> float:
     """
 
     delay = min(
-        BASE_RETRY_DELAY * (2 ** (retry_number - 1)),
+        BASE_RETRY_DELAY
+        * (2 ** (retry_number - 1)),
         MAX_RETRY_DELAY,
     )
 
@@ -134,7 +188,9 @@ def get_retry_delay(retry_number: int) -> float:
 # JSON EXTRACTION
 # ============================================================
 
-def extract_json(text: str) -> Dict[str, Any]:
+def extract_json(
+    text: str,
+) -> Dict[str, Any]:
     """
     Extract JSON safely from Gemini output.
     """
@@ -146,17 +202,28 @@ def extract_json(text: str) -> Dict[str, Any]:
             "Gemini returned an empty response."
         )
 
-    # Direct JSON
-    try:
-        data = json.loads(text)
+    # --------------------------------------------------------
+    # DIRECT JSON
+    # --------------------------------------------------------
 
-        if isinstance(data, dict):
+    try:
+        data = json.loads(
+            text
+        )
+
+        if isinstance(
+            data,
+            dict,
+        ):
             return data
 
     except json.JSONDecodeError:
         pass
 
-    # Remove markdown code fences if present
+    # --------------------------------------------------------
+    # REMOVE MARKDOWN CODE FENCES
+    # --------------------------------------------------------
+
     cleaned = re.sub(
         r"^```(?:json)?\s*",
         "",
@@ -171,32 +238,57 @@ def extract_json(text: str) -> Dict[str, Any]:
     ).strip()
 
     try:
-        data = json.loads(cleaned)
+        data = json.loads(
+            cleaned
+        )
 
-        if isinstance(data, dict):
+        if isinstance(
+            data,
+            dict,
+        ):
             return data
 
     except json.JSONDecodeError:
         pass
 
-    # Find first JSON object
-    start = cleaned.find("{")
-    end = cleaned.rfind("}")
+    # --------------------------------------------------------
+    # FIND FIRST JSON OBJECT
+    # --------------------------------------------------------
 
-    if start != -1 and end != -1 and end > start:
-        candidate = cleaned[start:end + 1]
+    start = cleaned.find(
+        "{"
+    )
+
+    end = cleaned.rfind(
+        "}"
+    )
+
+    if (
+        start != -1
+        and end != -1
+        and end > start
+    ):
+        candidate = cleaned[
+            start:end + 1
+        ]
 
         try:
-            data = json.loads(candidate)
+            data = json.loads(
+                candidate
+            )
 
-            if isinstance(data, dict):
+            if isinstance(
+                data,
+                dict,
+            ):
                 return data
 
         except json.JSONDecodeError:
             pass
 
     raise ValueError(
-        "Could not extract valid JSON from Gemini response."
+        "Could not extract valid JSON "
+        "from Gemini response."
     )
 
 
@@ -219,13 +311,16 @@ REQUIRED_CONTENT_FIELDS = [
 
 
 def validate_generated_content(
-    content: Dict[str, Any]
+    content: Dict[str, Any],
 ) -> bool:
     """
     Validate the structure returned by Gemini.
     """
 
-    if not isinstance(content, dict):
+    if not isinstance(
+        content,
+        dict,
+    ):
         return False
 
     for field in REQUIRED_CONTENT_FIELDS:
@@ -276,6 +371,24 @@ def validate_generated_content(
     return True
 
 
+def check_content(
+    content: Dict[str, Any],
+) -> bool:
+    """
+    Compatibility wrapper for the newer daily content engine.
+
+    The project previously used the name check_content,
+    while this generator uses validate_generated_content.
+
+    Keeping both names prevents unnecessary breakage
+    between the content-generation layers.
+    """
+
+    return validate_generated_content(
+        content
+    )
+
+
 # ============================================================
 # PROMPT BUILDER
 # ============================================================
@@ -301,10 +414,18 @@ The goal is to teach the audience practical, accurate,
 professional plumbing knowledge.
 
 LESSON 1 PLAN:
-{json.dumps(first_lesson, indent=2, ensure_ascii=False)}
+{json.dumps(
+    first_lesson,
+    indent=2,
+    ensure_ascii=False,
+)}
 
 LESSON 2 PLAN:
-{json.dumps(second_lesson, indent=2, ensure_ascii=False)}
+{json.dumps(
+    second_lesson,
+    indent=2,
+    ensure_ascii=False,
+)}
 
 IMPORTANT TECHNICAL RULES:
 
@@ -321,6 +442,14 @@ IMPORTANT TECHNICAL RULES:
 8. AI-generated images must contain no text, logo, or watermark.
 9. Image prompts should describe a vertical 9:16 composition.
 10. The educational text will be added separately by Python.
+11. Do not make the two lessons duplicates of each other.
+12. Use clear language that a normal plumbing audience can understand.
+13. Prefer teaching causes, principles, practical observations,
+    professional mistakes, maintenance, troubleshooting,
+    materials, tools, and installation knowledge.
+14. Do not make unsupported claims merely to make the content
+    sound impressive.
+15. The content should educate first rather than advertise.
 
 For EACH lesson return:
 
@@ -402,7 +531,10 @@ def generate_pair_with_model(
     """
     Generate one pair using the specified Gemini model.
 
-    This function contains bounded retries.
+    Temporary errors receive bounded retries.
+
+    Daily quota exhaustion is NOT retried because the caller
+    should move directly to the fallback model.
     """
 
     prompt = build_pair_prompt(
@@ -478,7 +610,9 @@ def generate_pair_with_model(
                         "content validation."
                     )
 
-                lesson = dict(lesson)
+                lesson = dict(
+                    lesson
+                )
 
                 lesson["_model_used"] = (
                     model_name
@@ -498,7 +632,9 @@ def generate_pair_with_model(
             last_error = error
 
             status_code = (
-                get_error_status_code(error)
+                get_error_status_code(
+                    error
+                )
             )
 
             print(
@@ -513,6 +649,27 @@ def generate_pair_with_model(
                 f"  Error: {error}"
             )
 
+            # ------------------------------------------------
+            # DAILY QUOTA
+            # ------------------------------------------------
+
+            if is_daily_quota_exhausted(
+                error
+            ):
+                print(
+                    "  DAILY QUOTA EXHAUSTED."
+                )
+
+                print(
+                    "  Skipping retries for this model."
+                )
+
+                break
+
+            # ------------------------------------------------
+            # TEMPORARY ERROR
+            # ------------------------------------------------
+
             retry_allowed = (
                 attempt < MAX_RETRIES
                 and is_retryable_gemini_error(
@@ -526,7 +683,7 @@ def generate_pair_with_model(
                 )
 
                 print(
-                    f"  Temporary Gemini error."
+                    "  Temporary Gemini error."
                 )
 
                 print(
@@ -534,7 +691,9 @@ def generate_pair_with_model(
                     f"{delay:.1f}s before retry..."
                 )
 
-                time.sleep(delay)
+                time.sleep(
+                    delay
+                )
 
             else:
                 break
@@ -562,14 +721,13 @@ def generate_content_pair(
     Strategy:
 
     1. Try Gemini 3.6 Flash.
-    2. Retry transient failures with exponential backoff.
-    3. If the primary model still fails because of a
-       transient problem, switch to Gemini 3.5 Flash-Lite.
-    4. Retry the fallback model.
-    5. Stop safely if both models fail.
-
-    Non-transient errors are not unnecessarily retried
-    or sent to the fallback model.
+    2. Retry temporary failures with exponential backoff.
+    3. If the daily quota is exhausted, immediately switch
+       to Gemini 3.5 Flash-Lite.
+    4. If temporary primary failures remain after retries,
+       switch to Gemini 3.5 Flash-Lite.
+    5. Retry temporary fallback failures.
+    6. Stop safely if both models fail.
     """
 
     print("")
@@ -606,8 +764,7 @@ def generate_content_pair(
 
         print("")
         print(
-            "Primary model exhausted its "
-            "allowed attempts."
+            "Primary model failed."
         )
 
         print(
@@ -615,12 +772,28 @@ def generate_content_pair(
         )
 
     # --------------------------------------------------------
-    # ONLY FALL BACK FOR TRANSIENT GEMINI ERRORS
+    # DETERMINE WHETHER FALLBACK IS ALLOWED
     # --------------------------------------------------------
 
-    if not is_retryable_gemini_error(
-        primary_error
-    ):
+    quota_exhausted = (
+        is_daily_quota_exhausted(
+            primary_error
+        )
+    )
+
+    temporary_failure = (
+        is_retryable_gemini_error(
+            primary_error
+        )
+    )
+
+    if not quota_exhausted and not temporary_failure:
+        print("")
+        print(
+            "Primary error is not retryable "
+            "and does not indicate daily quota exhaustion."
+        )
+
         raise primary_error
 
     # --------------------------------------------------------
@@ -637,6 +810,16 @@ def generate_content_pair(
     print(
         "================================================"
     )
+
+    if quota_exhausted:
+        print(
+            "Reason: primary model daily quota exhausted."
+        )
+    else:
+        print(
+            "Reason: primary model temporary failure "
+            "after allowed retries."
+        )
 
     print(
         f"Fallback model: {FALLBACK_MODEL_NAME}"
@@ -679,7 +862,9 @@ def attach_plan_metadata(
     content.
     """
 
-    result = dict(content)
+    result = dict(
+        content
+    )
 
     result["slot"] = plan_item.get(
         "slot"
@@ -701,22 +886,30 @@ def attach_plan_metadata(
         )
     )
 
-    if plan_item.get("lesson_type"):
+    if plan_item.get(
+        "lesson_type"
+    ):
         result["lesson_type"] = (
             plan_item["lesson_type"]
         )
 
-    if plan_item.get("content_type"):
+    if plan_item.get(
+        "content_type"
+    ):
         result["content_type"] = (
             plan_item["content_type"]
         )
 
-    if plan_item.get("knowledge_area"):
+    if plan_item.get(
+        "knowledge_area"
+    ):
         result["knowledge_area"] = (
             plan_item["knowledge_area"]
         )
 
-    if plan_item.get("lesson_number"):
+    if plan_item.get(
+        "lesson_number"
+    ):
         result["lesson_number"] = (
             plan_item["lesson_number"]
         )
@@ -729,7 +922,7 @@ def attach_plan_metadata(
 # ============================================================
 
 def generate_content_batches(
-    daily_plan: List[Dict[str, Any]]
+    daily_plan: List[Dict[str, Any]],
 ) -> List[Dict[str, Any]]:
     """
     Generate a complete 10-post content batch.
@@ -764,8 +957,13 @@ def generate_content_batches(
     all_content: List[Dict[str, Any]] = []
 
     for pair_index in range(5):
-        first_index = pair_index * 2
-        second_index = first_index + 1
+        first_index = (
+            pair_index * 2
+        )
+
+        second_index = (
+            first_index + 1
+        )
 
         first_plan = daily_plan[
             first_index
@@ -779,14 +977,17 @@ def generate_content_batches(
         print(
             "================================================"
         )
+
         print(
             f"CONTENT PAIR "
             f"{pair_index + 1}/5"
         )
+
         print(
             f"Posts {first_index + 1} "
             f"and {second_index + 1}"
         )
+
         print(
             "================================================"
         )
@@ -841,29 +1042,40 @@ def generate_content_batches(
             f"Pair {pair_index + 1} completed."
         )
 
+    # --------------------------------------------------------
+    # FINAL BATCH COUNT
+    # --------------------------------------------------------
+
     if len(all_content) != 10:
         raise RuntimeError(
             "Batch generation did not produce "
             "exactly 10 posts."
         )
 
+    # --------------------------------------------------------
+    # CONTENT TYPE COUNTS
+    # --------------------------------------------------------
+
     reel_count = sum(
         1
         for item in all_content
-        if item.get("content_type")
-        == "reel"
+        if item.get(
+            "content_type"
+        ) == "reel"
     )
 
     visual_count = sum(
         1
         for item in all_content
-        if item.get("content_type")
-        == "educational_visual"
+        if item.get(
+            "content_type"
+        ) == "educational_visual"
     )
 
     if reel_count != 5:
         raise RuntimeError(
-            f"Expected 5 reels, got {reel_count}."
+            f"Expected 5 reels, "
+            f"got {reel_count}."
         )
 
     if visual_count != 5:
@@ -872,13 +1084,19 @@ def generate_content_batches(
             f"got {visual_count}."
         )
 
+    # --------------------------------------------------------
+    # FINAL SUCCESS
+    # --------------------------------------------------------
+
     print("")
     print(
         "================================================"
     )
+
     print(
         "10-POST CONTENT BATCH COMPLETE"
     )
+
     print(
         "================================================"
     )
