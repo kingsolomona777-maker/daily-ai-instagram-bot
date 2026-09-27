@@ -98,8 +98,7 @@ jobs:
           visuals = [
               item
               for item in plan
-              if item["content_type"]
-              == "educational_visual"
+              if item["content_type"] == "educational_visual"
           ]
 
           assert len(reels) == 5
@@ -511,12 +510,41 @@ jobs:
 
               return output
 
+          def fake_generate_content_batches(
+              daily_plan
+          ):
+              generated = []
+
+              for index in range(
+                  0,
+                  len(daily_plan),
+                  2
+              ):
+                  first_item = daily_plan[index]
+                  second_item = daily_plan[index + 1]
+
+                  pair = fake_generate_content_pair(
+                      first_item,
+                      second_item
+                  )
+
+                  generated.extend(pair)
+
+              return fake_attach_plan_metadata(
+                  generated,
+                  daily_plan
+              )
+
           fake_batch.generate_content_pair = (
               fake_generate_content_pair
           )
 
           fake_batch.attach_plan_metadata = (
               fake_attach_plan_metadata
+          )
+
+          fake_batch.generate_content_batches = (
+              fake_generate_content_batches
           )
 
           sys.modules["content_batch_generator"] = (
