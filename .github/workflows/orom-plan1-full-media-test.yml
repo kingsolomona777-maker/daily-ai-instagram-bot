@@ -1,0 +1,359 @@
+name: Orom Plan1 - Full 10 Post Media Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  full-media-test:
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install google-genai requests Pillow
+
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Check required files
+        run: |
+          test -f content_planner.py
+          test -f content_batch_generator.py
+          test -f daily_content_engine.py
+          test -f image_generator.py
+          test -f reel_generator.py
+          echo "All required files found."
+
+      - name: Check Python syntax
+        run: |
+          python -m py_compile content_planner.py
+          python -m py_compile content_batch_generator.py
+          python -m py_compile daily_content_engine.py
+          python -m py_compile image_generator.py
+          python -m py_compile reel_generator.py
+          echo "Python syntax check passed."
+
+      - name: Run full 10-post media test
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          from PIL import Image
+
+          from content_planner import (
+              create_daily_plan,
+              validate_daily_plan,
+          )
+
+          from content_batch_generator import (
+              generate_content_batches,
+          )
+
+          from daily_content_engine import (
+              generate_daily_content,
+              summarize_daily_content,
+          )
+
+          print("")
+          print("=" * 64)
+          print("OROM PLAN1")
+          print("FULL 10-POST MEDIA TEST")
+          print("=" * 64)
+
+          print("")
+          print("STEP 1: Creating daily plan...")
+
+          history_file = Path(
+              "full_media_test_history.json"
+          )
+
+          daily_plan = create_daily_plan(
+              day_number=1,
+              history_file=history_file,
+          )
+
+          if not validate_daily_plan(daily_plan):
+              raise RuntimeError(
+                  "Daily plan validation failed."
+              )
+
+          print(
+              f"Daily plan created: "
+              f"{len(daily_plan)} posts"
+          )
+
+          print("")
+          print("=" * 64)
+          print("STEP 2: Generating 10 lessons")
+          print("=" * 64)
+
+          content = generate_content_batches(
+              daily_plan
+          )
+
+          if len(content) != 10:
+              raise RuntimeError(
+                  f"Expected 10 lessons, "
+                  f"got {len(content)}"
+              )
+
+          reels = [
+              item
+              for item in content
+              if item.get("content_type") == "reel"
+          ]
+
+          visuals = [
+              item
+              for item in content
+              if item.get("content_type")
+              == "educational_visual"
+          ]
+
+          if len(reels) != 5:
+              raise RuntimeError(
+                  f"Expected 5 Reels, "
+                  f"got {len(reels)}"
+              )
+
+          if len(visuals) != 5:
+              raise RuntimeError(
+                  f"Expected 5 educational visuals, "
+                  f"got {len(visuals)}"
+              )
+
+          print(
+              "10 lessons generated successfully."
+          )
+          print(
+              "Reels: 5"
+          )
+          print(
+              "Educational visuals: 5"
+          )
+
+          print("")
+          print("=" * 64)
+          print("STEP 3: Generating ALL media")
+          print("=" * 64)
+
+          output_directory = Path(
+              "full_media_test_output"
+          )
+
+          output_directory.mkdir(
+              parents=True,
+              exist_ok=True,
+          )
+
+          packages = []
+
+          for index, item in enumerate(
+              content,
+              start=1,
+          ):
+              print("")
+              print(
+                  f"MEDIA {index}/10"
+              )
+              print(
+                  f"Type: "
+                  f"{item['content_type']}"
+              )
+              print(
+                  f"Title: "
+                  f"{item['title']}"
+              )
+
+          print("")
+          print(
+              "Calling the full daily content engine..."
+          )
+
+          packages = generate_daily_content(
+              daily_plan=daily_plan,
+              output_directory=output_directory,
+          )
+
+          print("")
+          print("=" * 64)
+          print("STEP 4: VALIDATING FULL MEDIA PACKAGE")
+          print("=" * 64)
+
+          if len(packages) != 10:
+              raise RuntimeError(
+                  f"Expected 10 media packages, "
+                  f"got {len(packages)}"
+              )
+
+          image_count = 0
+          reel_count = 0
+          visual_count = 0
+
+          for index, package in enumerate(
+              packages,
+              start=1,
+          ):
+              image_file = Path(
+                  package["image_file"]
+              )
+
+              if not image_file.exists():
+                  raise RuntimeError(
+                      f"Post {index} image missing: "
+                      f"{image_file}"
+                  )
+
+              if image_file.stat().st_size <= 0:
+                  raise RuntimeError(
+                      f"Post {index} image is empty."
+                  )
+
+              image_count += 1
+
+              with Image.open(image_file) as image:
+                  width, height = image.size
+
+              print("")
+              print(
+                  f"Post {index}: "
+                  f"{package['content_type']}"
+              )
+              print(
+                  f"Image: "
+                  f"{width}x{height}"
+              )
+
+              if width != 1080 or height != 1920:
+                  raise RuntimeError(
+                      f"Post {index} has invalid "
+                      f"dimensions: "
+                      f"{width}x{height}"
+                  )
+
+              if package["content_type"] == "reel":
+                  reel_count += 1
+
+                  reel_file = Path(
+                      package["reel_file"]
+                  )
+
+                  if not reel_file.exists():
+                      raise RuntimeError(
+                          f"Post {index} Reel missing: "
+                          f"{reel_file}"
+                      )
+
+                  if reel_file.stat().st_size <= 0:
+                      raise RuntimeError(
+                          f"Post {index} Reel is empty."
+                      )
+
+                  print(
+                      f"Reel: "
+                      f"{reel_file}"
+                  )
+
+              elif (
+                  package["content_type"]
+                  == "educational_visual"
+              ):
+                  visual_count += 1
+
+          if image_count != 10:
+              raise RuntimeError(
+                  f"Expected 10 images, "
+                  f"got {image_count}"
+              )
+
+          if reel_count != 5:
+              raise RuntimeError(
+                  f"Expected 5 Reels, "
+                  f"got {reel_count}"
+              )
+
+          if visual_count != 5:
+              raise RuntimeError(
+                  f"Expected 5 educational visuals, "
+                  f"got {visual_count}"
+              )
+
+          print("")
+          print("=" * 64)
+          print("FULL MEDIA VALIDATION PASSED")
+          print("=" * 64)
+          print(
+              f"Images: {image_count}"
+          )
+          print(
+              f"Reels: {reel_count}"
+          )
+          print(
+              f"Educational visuals: {visual_count}"
+          )
+
+          summary = summarize_daily_content(
+              packages
+          )
+
+          result = {
+              "status": "PASSED",
+              "posts": 10,
+              "images": image_count,
+              "reels": reel_count,
+              "educational_visuals": visual_count,
+              "summary": summary,
+          }
+
+          result_file = Path(
+              "full_media_test_result.json"
+          )
+
+          result_file.write_text(
+              json.dumps(
+                  result,
+                  indent=2,
+                  ensure_ascii=False,
+              ),
+              encoding="utf-8",
+          )
+
+          print("")
+          print("=" * 64)
+          print("10-POST FULL MEDIA TEST PASSED")
+          print("=" * 64)
+          print("Posts: 10")
+          print("Images: 10")
+          print("Reels: 5")
+          print("Educational visuals: 5")
+          print("Instagram publishing: NOT CONNECTED")
+          print("=" * 64)
+          PY
+
+      - name: Upload complete media package
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: orom-plan1-full-10-post-media-test
+          path: |
+            full_media_test_output/
+            full_media_test_result.json
+          if-no-files-found: ignore
