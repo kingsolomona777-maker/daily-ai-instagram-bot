@@ -9,11 +9,15 @@ The Reel has three teaching stages:
 2. Teaching point
 3. Takeaway
 
-Safety:
+Audio:
+    - Optional local audio file
     - No Gemini API calls
     - No Cloudflare API calls
     - No Instagram API calls
     - No publishing
+
+The audio system is intentionally local so Orom Plan1 can remain
+free-first and avoid introducing another paid API.
 """
 
 from __future__ import annotations
@@ -37,10 +41,20 @@ DURATION = 8
 
 DEFAULT_TEACHING_TEXT = {
     "hook": "Most plumbing problems start with a small warning.",
-    "explanation": "Understanding the cause early can prevent bigger damage and expensive repairs.",
-    "takeaway": "Learn the warning signs and fix the real problem, not just the symptom.",
+    "explanation": (
+        "Understanding the cause early can prevent bigger damage "
+        "and expensive repairs."
+    ),
+    "takeaway": (
+        "Learn the warning signs and fix the real problem, "
+        "not just the symptom."
+    ),
 }
 
+
+# ============================================================
+# SYSTEM CHECKS
+# ============================================================
 
 def check_ffmpeg() -> None:
     """Confirm that FFmpeg is available."""
@@ -77,7 +91,42 @@ def check_input_image(input_file: str | Path) -> Path:
     return path
 
 
-def get_font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
+def check_audio_file(audio_file: str | Path) -> Path:
+    """
+    Confirm that an optional audio file exists.
+
+    Audio is supplied locally. This function does not download
+    anything and does not contact an external API.
+    """
+
+    path = Path(audio_file)
+
+    if not path.exists():
+        raise FileNotFoundError(
+            f"Audio file was not found: {path}"
+        )
+
+    if not path.is_file():
+        raise RuntimeError(
+            f"Audio path is not a file: {path}"
+        )
+
+    if path.stat().st_size < 1_000:
+        raise RuntimeError(
+            f"Audio file is unexpectedly small: {path}"
+        )
+
+    return path
+
+
+# ============================================================
+# FONT SYSTEM
+# ============================================================
+
+def get_font(
+    size: int,
+    bold: bool = False,
+) -> ImageFont.FreeTypeFont:
     """Load a reliable Linux font."""
 
     if bold:
@@ -95,10 +144,17 @@ def get_font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
         path = Path(font_path)
 
         if path.exists():
-            return ImageFont.truetype(str(path), size)
+            return ImageFont.truetype(
+                str(path),
+                size,
+            )
 
     return ImageFont.load_default()
 
+
+# ============================================================
+# TEXT HELPERS
+# ============================================================
 
 def wrap_text(
     draw: ImageDraw.ImageDraw,
@@ -190,6 +246,10 @@ def draw_centered_text(
     return y
 
 
+# ============================================================
+# SCENE CREATION
+# ============================================================
+
 def create_scene(
     source_image: Path,
     output_file: Path,
@@ -205,18 +265,29 @@ def create_scene(
 
         if source_ratio > target_ratio:
             new_height = HEIGHT
-            new_width = int(new_height * source_ratio)
+            new_width = int(
+                new_height * source_ratio
+            )
         else:
             new_width = WIDTH
-            new_height = int(new_width / source_ratio)
+            new_height = int(
+                new_width / source_ratio
+            )
 
         image = source.resize(
             (new_width, new_height),
             Image.Resampling.LANCZOS,
         )
 
-        left = max(0, (new_width - WIDTH) // 2)
-        top = max(0, (new_height - HEIGHT) // 2)
+        left = max(
+            0,
+            (new_width - WIDTH) // 2,
+        )
+
+        top = max(
+            0,
+            (new_height - HEIGHT) // 2,
+        )
 
         image = image.crop(
             (
@@ -251,8 +322,15 @@ def create_scene(
             fill=(0, 0, 0, 190),
         )
 
-        label_font = get_font(42, bold=True)
-        text_font = get_font(50, bold=True)
+        label_font = get_font(
+            42,
+            bold=True,
+        )
+
+        text_font = get_font(
+            50,
+            bold=True,
+        )
 
         label_y = panel_top + 55
 
@@ -290,6 +368,10 @@ def create_scene(
         )
 
 
+# ============================================================
+# VIDEO SCENE CREATION
+# ============================================================
+
 def create_scene_video(
     image_file: Path,
     output_file: Path,
@@ -297,7 +379,10 @@ def create_scene_video(
 ) -> None:
     """Turn one scene image into a moving video segment."""
 
-    frames = max(1, int(duration * FPS))
+    frames = max(
+        1,
+        int(duration * FPS),
+    )
 
     zoom_filter = (
         f"scale={WIDTH}:{HEIGHT}:"
@@ -353,19 +438,36 @@ def create_scene_video(
         )
 
 
+# ============================================================
+# SCENE COMBINATION
+# ============================================================
+
 def combine_scenes(
     scene_videos: list[Path],
     output_file: Path,
 ) -> None:
-    """Combine the three scene videos into one Reel."""
+    """Combine the three scene videos into one silent Reel."""
 
-    concat_file = output_file.parent / "concat.txt"
+    if not scene_videos:
+        raise ValueError(
+            "No scene videos were supplied."
+        )
+
+    concat_file = (
+        output_file.parent / "concat.txt"
+    )
 
     lines = []
 
     for scene in scene_videos:
-        safe_path = str(scene.resolve()).replace("'", "'\\''")
-        lines.append(f"file '{safe_path}'")
+        safe_path = (
+            str(scene.resolve())
+            .replace("'", "'\\''")
+        )
+
+        lines.append(
+            f"file '{safe_path}'"
+        )
 
     concat_file.write_text(
         "\n".join(lines),
@@ -401,11 +503,72 @@ def combine_scenes(
         )
 
 
+# ============================================================
+# AUDIO MIXING
+# ============================================================
+
+def add_audio(
+    video_file: Path,
+    audio_file: Path,
+    output_file: Path,
+) -> None:
+    """
+    Add local audio to the Reel.
+
+    The audio is looped or trimmed to match the video duration.
+
+    The final video keeps the original video stream and receives
+    an AAC audio stream suitable for social-media video.
+    """
+
+    command = [
+        "ffmpeg",
+        "-y",
+        "-i",
+        str(video_file),
+        "-stream_loop",
+        "-1",
+        "-i",
+        str(audio_file),
+        "-map",
+        "0:v:0",
+        "-map",
+        "1:a:0",
+        "-c:v",
+        "copy",
+        "-c:a",
+        "aac",
+        "-b:a",
+        "128k",
+        "-shortest",
+        "-movflags",
+        "+faststart",
+        str(output_file),
+    ]
+
+    result = subprocess.run(
+        command,
+        capture_output=True,
+        text=True,
+    )
+
+    if result.returncode != 0:
+        raise RuntimeError(
+            "FFmpeg audio mixing failed:\n"
+            + result.stderr
+        )
+
+
+# ============================================================
+# MAIN REEL GENERATOR
+# ============================================================
+
 def generate_reel(
     input_file: str | Path = DEFAULT_INPUT,
     output_file: str | Path = DEFAULT_OUTPUT,
     duration: int = DURATION,
     teaching_text: dict | None = None,
+    audio_file: str | Path | None = None,
 ) -> Path:
     """
     Create a three-part educational plumbing Reel.
@@ -415,6 +578,16 @@ def generate_reel(
         hook
         explanation
         takeaway
+
+    audio_file is optional.
+
+    If audio_file is supplied:
+        the audio is added to the final Reel.
+
+    If audio_file is not supplied:
+        the Reel remains silent.
+
+    This keeps audio optional while the audio library is being built.
     """
 
     if duration < 6:
@@ -429,34 +602,92 @@ def generate_reel(
 
     check_ffmpeg()
 
-    source = check_input_image(input_file)
+    source = check_input_image(
+        input_file
+    )
+
+    audio = None
+
+    if audio_file is not None:
+        audio = check_audio_file(
+            audio_file
+        )
 
     output = Path(output_file)
-    output.parent.mkdir(parents=True, exist_ok=True)
 
-    text = dict(DEFAULT_TEACHING_TEXT)
+    output.parent.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    text = dict(
+        DEFAULT_TEACHING_TEXT
+    )
 
     if teaching_text:
         for key in text:
             value = teaching_text.get(key)
 
-            if isinstance(value, str) and value.strip():
+            if (
+                isinstance(value, str)
+                and value.strip()
+            ):
                 text[key] = value.strip()
 
     scene_duration = duration / 3
 
-    print("==========================================")
-    print("OROM PLAN1 TEACHING REEL GENERATOR")
-    print("==========================================")
-    print(f"Source image : {source}")
-    print(f"Output Reel  : {output}")
-    print(f"Resolution   : {WIDTH}x{HEIGHT}")
-    print(f"FPS          : {FPS}")
-    print(f"Duration     : {duration} seconds")
-    print("Scenes       : Hook → Teaching → Takeaway")
-    print("Audio        : None")
-    print("Instagram    : Not connected")
-    print("==========================================")
+    print(
+        "=========================================="
+    )
+
+    print(
+        "OROM PLAN1 TEACHING REEL GENERATOR"
+    )
+
+    print(
+        "=========================================="
+    )
+
+    print(
+        f"Source image : {source}"
+    )
+
+    print(
+        f"Output Reel  : {output}"
+    )
+
+    print(
+        f"Resolution   : {WIDTH}x{HEIGHT}"
+    )
+
+    print(
+        f"FPS          : {FPS}"
+    )
+
+    print(
+        f"Duration     : {duration} seconds"
+    )
+
+    print(
+        "Scenes       : Hook → Teaching → Takeaway"
+    )
+
+    if audio:
+        print(
+            f"Audio        : {audio}"
+        )
+    else:
+        print(
+            "Audio        : None"
+        )
+
+    print(
+        "Instagram    : Not connected"
+    )
+
+    print(
+        "=========================================="
+    )
 
     with tempfile.TemporaryDirectory(
         prefix="orom_plan1_reel_"
@@ -497,7 +728,9 @@ def generate_reel(
             scene_images,
             start=1,
         ):
-            scene_video = temp / f"scene_{index}.mp4"
+            scene_video = (
+                temp / f"scene_{index}.mp4"
+            )
 
             create_scene_video(
                 scene_image,
@@ -505,12 +738,31 @@ def generate_reel(
                 scene_duration,
             )
 
-            scene_videos.append(scene_video)
+            scene_videos.append(
+                scene_video
+            )
+
+        silent_reel = (
+            temp / "silent_reel.mp4"
+        )
 
         combine_scenes(
             scene_videos,
-            output,
+            silent_reel,
         )
+
+        if audio is None:
+            shutil.copy2(
+                silent_reel,
+                output,
+            )
+
+        else:
+            add_audio(
+                video_file=silent_reel,
+                audio_file=audio,
+                output_file=output,
+            )
 
     if not output.exists():
         raise RuntimeError(
@@ -525,12 +777,34 @@ def generate_reel(
         )
 
     print()
-    print("==========================================")
-    print("TEACHING REEL CREATED SUCCESSFULLY")
-    print("==========================================")
-    print(f"File: {output}")
-    print(f"Size: {file_size:,} bytes")
-    print("==========================================")
+
+    print(
+        "=========================================="
+    )
+
+    print(
+        "TEACHING REEL CREATED SUCCESSFULLY"
+    )
+
+    print(
+        "=========================================="
+    )
+
+    print(
+        f"File: {output}"
+    )
+
+    print(
+        f"Size: {file_size:,} bytes"
+    )
+
+    print(
+        f"Audio: {'YES' if audio else 'NO'}"
+    )
+
+    print(
+        "=========================================="
+    )
 
     return output
 
