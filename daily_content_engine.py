@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from content_batch_generator import (
-    generate_content_pair,
+    generate_content_batches,
     attach_plan_metadata,
 )
 from content_generator import check_content
@@ -14,9 +14,7 @@ from image_generator import (
 from reel_generator import generate_reel
 
 
-OUTPUT_DIRECTORY = Path(
-    "daily_generated_content"
-)
+OUTPUT_DIRECTORY = Path("daily_generated_content")
 
 
 def is_reel(item: Dict[str, Any]) -> bool:
@@ -24,141 +22,74 @@ def is_reel(item: Dict[str, Any]) -> bool:
 
 
 def is_visual(item: Dict[str, Any]) -> bool:
-    return (
-        item.get("content_type")
-        == "educational_visual"
-    )
+    return item.get("content_type") == "educational_visual"
 
 
-def generate_content_batches(
-    daily_plan: List[Dict[str, Any]],
-) -> List[Dict[str, Any]]:
+def validate_content_list(
+    generated_content: List[Dict[str, Any]],
+) -> None:
     """
-    Generate the 10 daily content lessons using
-    five two-lesson Gemini batches.
+    Validate an already-generated 10-post content package.
 
-    Expected structure:
-
-        10 planned posts
-              ↓
-        5 pairs
-              ↓
-        5 Gemini requests
-              ↓
-        10 content lessons
+    This function performs validation only.
+    It does NOT call Gemini.
     """
 
-    if len(daily_plan) != 10:
-        raise ValueError(
-            "Daily content generation requires "
-            "exactly 10 planned posts."
-        )
-
-    generated_posts = []
-
-    for index in range(0, 10, 2):
-        first_item = daily_plan[index]
-        second_item = daily_plan[index + 1]
-
-        print()
-        print(
-            "=========================================="
-        )
-        print(
-            f"CONTENT BATCH "
-            f"{(index // 2) + 1}/5"
-        )
-        print(
-            "=========================================="
-        )
-
-        print(
-            f"Lesson 1 slot: "
-            f"{first_item['slot']}"
-        )
-
-        print(
-            f"Lesson 2 slot: "
-            f"{second_item['slot']}"
-        )
-
-        print(
-            f"Lesson 1 topic: "
-            f"{first_item['knowledge_area']}"
-        )
-
-        print(
-            f"Lesson 2 topic: "
-            f"{second_item['knowledge_area']}"
-        )
-
-        generated_pair = generate_content_pair(
-            first_item=first_item,
-            second_item=second_item,
-        )
-
-        pair_with_metadata = (
-            attach_plan_metadata(
-                generated_pair,
-                [
-                    first_item,
-                    second_item,
-                ],
-            )
-        )
-
-        if len(pair_with_metadata) != 2:
-            raise RuntimeError(
-                "A content batch did not return "
-                "exactly two lessons."
-            )
-
-        for content in pair_with_metadata:
-            if not check_content(content):
-                raise RuntimeError(
-                    "Generated batch content failed "
-                    "content validation."
-                )
-
-        generated_posts.extend(
-            pair_with_metadata
-        )
-
-        print(
-            f"Batch {(index // 2) + 1}/5 completed."
-        )
-
-    if len(generated_posts) != 10:
+    if len(generated_content) != 10:
         raise RuntimeError(
-            "Batch generation did not produce "
-            "exactly 10 lessons."
+            "Content package must contain exactly 10 lessons."
         )
 
     reels = [
         item
-        for item in generated_posts
+        for item in generated_content
         if is_reel(item)
     ]
 
     visuals = [
         item
-        for item in generated_posts
+        for item in generated_content
         if is_visual(item)
     ]
 
     if len(reels) != 5:
         raise RuntimeError(
-            "Batch generation did not produce "
-            "exactly 5 Reels."
+            "Content package must contain exactly 5 Reels."
         )
 
     if len(visuals) != 5:
         raise RuntimeError(
-            "Batch generation did not produce "
-            "exactly 5 educational visuals."
+            "Content package must contain exactly 5 educational visuals."
         )
 
-    return generated_posts
+    for index, content in enumerate(generated_content, start=1):
+        if not isinstance(content, dict):
+            raise RuntimeError(
+                f"Lesson {index} is not a valid content object."
+            )
+
+        if not check_content(content):
+            raise RuntimeError(
+                f"Lesson {index} failed content validation."
+            )
+
+        required_fields = [
+            "title",
+            "description",
+            "image_prompt",
+            "hashtags",
+            "visual_story",
+            "on_image_text",
+            "content_type",
+            "lesson_number",
+            "slot",
+        ]
+
+        for field in required_fields:
+            if field not in content:
+                raise RuntimeError(
+                    f"Lesson {index} is missing required field: {field}"
+                )
 
 
 def generate_one_post(
@@ -166,10 +97,10 @@ def generate_one_post(
     output_directory: Path = OUTPUT_DIRECTORY,
 ) -> Dict[str, Any]:
     """
-    Turn one already-generated content lesson into
-    its final image and, when required, its Reel.
+    Turn one already-generated lesson into its final media.
 
-    No Gemini content request happens here.
+    IMPORTANT:
+    No Gemini request happens inside this function.
     """
 
     output_directory.mkdir(
@@ -178,7 +109,9 @@ def generate_one_post(
     )
 
     slot = int(content["slot"])
+
     content_type = content["content_type"]
+
     lesson_number = int(
         content["lesson_number"]
     )
@@ -204,29 +137,22 @@ def generate_one_post(
     )
 
     print()
+    print("------------------------------------------")
     print(
-        "------------------------------------------"
+        f"PROCESSING LESSON {lesson_number}"
     )
+    print(f"Slot: {slot}")
+    print(f"Type: {content_type}")
     print(
-        f"Processing lesson {lesson_number}"
+        f"Topic: {content.get('knowledge_area', '')}"
     )
-    print(
-        f"Slot: {slot}"
-    )
-    print(
-        f"Type: {content_type}"
-    )
-    print(
-        f"Topic: "
-        f"{content['knowledge_area']}"
-    )
-    print(
-        "------------------------------------------"
-    )
+    print("------------------------------------------")
 
-    # ---------------------------------------------
-    # Generate the source image.
-    # ---------------------------------------------
+    # ------------------------------------------------
+    # STEP 1: Generate source image
+    # ------------------------------------------------
+
+    print("Generating source image...")
 
     generated_image = generate_image(
         content["image_prompt"],
@@ -237,23 +163,19 @@ def generate_one_post(
         generated_image
     ).exists():
         raise RuntimeError(
-            f"Image generation failed: "
-            f"{generated_image}"
+            f"Image generation failed: {generated_image}"
         )
 
-    # ---------------------------------------------
-    # Add educational text and prepare the final
-    # vertical Instagram image.
-    # ---------------------------------------------
+    # ------------------------------------------------
+    # STEP 2: Create final 1080x1920 image
+    # ------------------------------------------------
 
-    final_generated_image = (
-        make_vertical_image(
-            input_file=str(raw_image),
-            output_file=str(final_image),
-            on_image_text=content[
-                "on_image_text"
-            ],
-        )
+    print("Creating 9:16 educational image...")
+
+    final_generated_image = make_vertical_image(
+        input_file=str(raw_image),
+        output_file=str(final_image),
+        on_image_text=content["on_image_text"],
     )
 
     if not Path(
@@ -264,24 +186,34 @@ def generate_one_post(
             f"{final_generated_image}"
         )
 
-    # ---------------------------------------------
-    # Generate Reel only for Reel slots.
-    # ---------------------------------------------
+    # ------------------------------------------------
+    # STEP 3: Generate Reel for Reel lessons
+    # ------------------------------------------------
 
     reel_enabled = False
     reel_path: Optional[str] = None
 
     if is_reel(content):
+
+        print("Generating Reel...")
+
+        on_image_text = content[
+            "on_image_text"
+        ]
+
         teaching_text = {
-            "hook": content[
-                "on_image_text"
-            ]["hook"],
-            "explanation": content[
-                "on_image_text"
-            ]["explanation"],
-            "takeaway": content[
-                "on_image_text"
-            ]["takeaway"],
+            "hook": on_image_text.get(
+                "hook",
+                "",
+            ),
+            "explanation": on_image_text.get(
+                "explanation",
+                "",
+            ),
+            "takeaway": on_image_text.get(
+                "takeaway",
+                "",
+            ),
         }
 
         generated_reel = generate_reel(
@@ -302,9 +234,9 @@ def generate_one_post(
         reel_enabled = True
         reel_path = str(reel_file)
 
-    # ---------------------------------------------
-    # Create the final package for this lesson.
-    # ---------------------------------------------
+    # ------------------------------------------------
+    # STEP 4: Build final package
+    # ------------------------------------------------
 
     package = {
         "slot": slot,
@@ -327,24 +259,12 @@ def generate_one_post(
         ),
         "lesson_number": lesson_number,
         "title": content["title"],
-        "description": content[
-            "description"
-        ],
-        "image_prompt": content[
-            "image_prompt"
-        ],
-        "hashtags": content[
-            "hashtags"
-        ],
-        "visual_story": content[
-            "visual_story"
-        ],
-        "on_image_text": content[
-            "on_image_text"
-        ],
-        "image_file": str(
-            final_image
-        ),
+        "description": content["description"],
+        "image_prompt": content["image_prompt"],
+        "hashtags": content["hashtags"],
+        "visual_story": content["visual_story"],
+        "on_image_text": content["on_image_text"],
+        "image_file": str(final_image),
         "reel_enabled": reel_enabled,
         "reel_file": reel_path,
     }
@@ -352,92 +272,37 @@ def generate_one_post(
     return package
 
 
-def generate_daily_content(
-    daily_plan: List[Dict[str, Any]],
+def generate_media_from_content(
+    generated_content: List[Dict[str, Any]],
     output_directory: Path = OUTPUT_DIRECTORY,
 ) -> List[Dict[str, Any]]:
     """
-    Generate the complete 10-post day.
+    Generate all media from an EXISTING 10-post content package.
 
-    Stage 1:
-        Generate 10 lessons through 5 Gemini batches.
+    This is the important new function.
 
-    Stage 2:
-        Generate images for all 10 lessons.
-
-    Stage 3:
-        Generate Reels for the 5 Reel lessons.
+    Gemini is NOT called here.
     """
 
-    output_directory.mkdir(
-        parents=True,
-        exist_ok=True,
-    )
-
     print()
-    print(
-        "=========================================="
-    )
-    print(
-        "OROM PLAN1 DAILY CONTENT ENGINE"
-    )
-    print(
-        "=========================================="
-    )
-    print(
-        "Target: 10 posts"
-    )
-    print(
-        "Reels: 5"
-    )
-    print(
-        "Educational visuals: 5"
-    )
-    print(
-        "Gemini batch requests: 5"
-    )
-    print(
-        "=========================================="
-    )
+    print("==========================================")
+    print("OROM PLAN1 MEDIA GENERATION")
+    print("==========================================")
+    print("Existing lessons received: 10")
+    print("Gemini requests from this stage: 0")
+    print("Target images: 10")
+    print("Target Reels: 5")
+    print("Target educational visuals: 5")
+    print("==========================================")
 
-    # ---------------------------------------------
-    # STAGE 1
-    # Generate all 10 lessons using 5 batches.
-    # ---------------------------------------------
-
-    generated_content = (
-        generate_content_batches(
-            daily_plan
-        )
+    validate_content_list(
+        generated_content
     )
-
-    if len(generated_content) != 10:
-        raise RuntimeError(
-            "Stage 1 did not produce 10 lessons."
-        )
-
-    print()
-    print(
-        "=========================================="
-    )
-    print(
-        "STAGE 1 COMPLETE"
-    )
-    print(
-        "10 lessons generated from 5 batches."
-    )
-    print(
-        "=========================================="
-    )
-
-    # ---------------------------------------------
-    # STAGE 2 + 3
-    # Turn the generated lessons into media.
-    # ---------------------------------------------
 
     generated_posts = []
 
     for content in generated_content:
+
         package = generate_one_post(
             content=content,
             output_directory=output_directory,
@@ -447,14 +312,14 @@ def generate_daily_content(
             package
         )
 
-    # ---------------------------------------------
-    # Final validation.
-    # ---------------------------------------------
+    # ------------------------------------------------
+    # Final media validation
+    # ------------------------------------------------
 
     if len(generated_posts) != 10:
         raise RuntimeError(
-            "Daily engine did not produce "
-            "10 final posts."
+            "Media generation did not produce "
+            "exactly 10 posts."
         )
 
     reels = [
@@ -480,22 +345,23 @@ def generate_daily_content(
     successful_reels = [
         item
         for item in generated_posts
-        if item["reel_enabled"]
-        and item["reel_file"]
-        and Path(
-            item["reel_file"]
-        ).exists()
+        if (
+            item["reel_enabled"]
+            and item["reel_file"]
+            and Path(
+                item["reel_file"]
+            ).exists()
+        )
     ]
 
     if len(reels) != 5:
         raise RuntimeError(
-            "Final daily package must contain "
-            "5 Reels."
+            "Final package must contain exactly 5 Reels."
         )
 
     if len(visuals) != 5:
         raise RuntimeError(
-            "Final daily package must contain "
+            "Final package must contain exactly "
             "5 educational visuals."
         )
 
@@ -506,40 +372,127 @@ def generate_daily_content(
 
     if len(successful_reels) != 5:
         raise RuntimeError(
-            "All 5 Reel posts must have valid "
-            "Reel files."
+            "All 5 Reel posts must have valid Reel files."
         )
 
     print()
-    print(
-        "=========================================="
+    print("==========================================")
+    print("MEDIA GENERATION COMPLETE")
+    print("==========================================")
+    print("Posts: 10")
+    print("Images: 10")
+    print("Reels: 5")
+    print("Educational visuals: 5")
+    print("Gemini requests during media stage: 0")
+    print("==========================================")
+
+    return generated_posts
+
+
+def generate_daily_content(
+    daily_plan: List[Dict[str, Any]],
+    output_directory: Path = OUTPUT_DIRECTORY,
+    generated_content: Optional[
+        List[Dict[str, Any]]
+    ] = None,
+) -> List[Dict[str, Any]]:
+    """
+    Generate the complete daily 10-post package.
+
+    If generated_content is supplied:
+        use it directly and DO NOT call Gemini again.
+
+    If generated_content is not supplied:
+        generate the 10 lessons using five Gemini batches,
+        then generate the media.
+
+    This keeps the normal production path working while
+    preventing duplicate Gemini generation during tests.
+    """
+
+    if len(daily_plan) != 10:
+        raise ValueError(
+            "Daily content generation requires exactly 10 plan items."
+        )
+
+    output_directory.mkdir(
+        parents=True,
+        exist_ok=True,
     )
-    print(
-        "DAILY CONTENT GENERATION COMPLETE"
+
+    print()
+    print("==========================================")
+    print("OROM PLAN1 DAILY CONTENT ENGINE")
+    print("==========================================")
+    print("Target: 10 posts")
+    print("Reels: 5")
+    print("Educational visuals: 5")
+    print("==========================================")
+
+    # ------------------------------------------------
+    # STAGE 1
+    # ------------------------------------------------
+
+    if generated_content is None:
+
+        print()
+        print("STAGE 1: GENERATING 10 LESSONS")
+        print("------------------------------------------")
+
+        generated_content = generate_content_batches(
+            daily_plan
+        )
+
+        print()
+        print(
+            "STAGE 1 COMPLETE: "
+            "10 lessons generated."
+        )
+
+    else:
+
+        print()
+        print("STAGE 1: EXISTING CONTENT RECEIVED")
+        print("------------------------------------------")
+        print(
+            "Skipping Gemini generation."
+        )
+        print(
+            "Using the 10 lessons already generated "
+            "by the test/workflow."
+        )
+
+    # ------------------------------------------------
+    # Attach plan metadata if necessary
+    # ------------------------------------------------
+
+    if len(generated_content) != 10:
+        raise RuntimeError(
+            "Content stage did not provide exactly 10 lessons."
+        )
+
+    # Check whether planner metadata is already attached.
+
+    metadata_complete = all(
+        "slot" in item
+        and "lesson_number" in item
+        and "content_type" in item
+        for item in generated_content
     )
-    print(
-        "=========================================="
-    )
-    print(
-        "Posts: 10"
-    )
-    print(
-        "Reels: 5"
-    )
-    print(
-        "Educational visuals: 5"
-    )
-    print(
-        "Images: 10"
-    )
-    print(
-        "Reels generated: 5"
-    )
-    print(
-        "Gemini content batches: 5"
-    )
-    print(
-        "=========================================="
+
+    if not metadata_complete:
+        generated_content = attach_plan_metadata(
+            generated_content,
+            daily_plan,
+        )
+
+    # ------------------------------------------------
+    # STAGE 2 + 3
+    # ------------------------------------------------
+
+    generated_posts = generate_media_from_content(
+        generated_content=generated_content,
+        output_directory=output_directory,
     )
 
     return generated_posts
@@ -551,9 +504,6 @@ def save_daily_package(
         "daily_generated_content.json"
     ),
 ) -> Path:
-    """
-    Save the complete daily content package.
-    """
 
     reels = [
         item
@@ -584,6 +534,7 @@ def save_daily_package(
         "w",
         encoding="utf-8",
     ) as file:
+
         json.dump(
             payload,
             file,
@@ -592,19 +543,17 @@ def save_daily_package(
         )
 
     print(
-        f"Daily package saved to: "
-        f"{output_file}"
+        f"Daily package saved to: {output_file}"
     )
 
-    return Path(output_file)
+    return Path(
+        output_file
+    )
 
 
 def summarize_daily_content(
     generated_posts: List[Dict[str, Any]],
 ) -> Dict[str, int]:
-    """
-    Return a simple summary of the generated day.
-    """
 
     reels = [
         item
@@ -629,11 +578,13 @@ def summarize_daily_content(
     successful_reels = [
         item
         for item in generated_posts
-        if item.get("reel_enabled")
-        and item.get("reel_file")
-        and Path(
-            item["reel_file"]
-        ).exists()
+        if (
+            item.get("reel_enabled")
+            and item.get("reel_file")
+            and Path(
+                item["reel_file"]
+            ).exists()
+        )
     ]
 
     return {
@@ -641,9 +592,7 @@ def summarize_daily_content(
             generated_posts
         ),
         "reels": len(reels),
-        "educational_visuals": len(
-            visuals
-        ),
+        "educational_visuals": len(visuals),
         "successful_images": len(
             successful_images
         ),
@@ -654,24 +603,22 @@ def summarize_daily_content(
 
 
 if __name__ == "__main__":
+
     print(
         "Orom Plan1 daily content engine loaded."
     )
+
+    print()
+    print("Architecture:")
+    print("10 planned posts")
+    print("-> 5 Gemini content batches")
+    print("-> 10 lessons")
+    print("-> 10 images")
+    print("-> 5 Reels + 5 educational visuals")
+
+    print()
     print(
-        "Architecture:"
-    )
-    print(
-        "10 planned posts"
-    )
-    print(
-        "-> 5 content batches"
-    )
-    print(
-        "-> 10 lessons"
-    )
-    print(
-        "-> 10 images"
-    )
-    print(
-        "-> 5 Reels + 5 educational visuals"
+        "Media generation can also consume "
+        "already-generated lessons without "
+        "calling Gemini again."
     )
