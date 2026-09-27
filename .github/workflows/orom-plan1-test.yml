@@ -127,12 +127,16 @@ jobs:
           PY
 
       - name: Test batch generator safely
-        env:
-          GEMINI_API_KEY: test-key-for-safe-test
         run: |
           python - <<'PY'
+          import os
           import sys
           import types
+
+          # Safe offline test only.
+          # The real Gemini API is NOT called.
+
+          os.environ["GEMINI_API_KEY"] = "safe-test-placeholder"
 
           fake_generator = types.ModuleType("content_generator")
 
@@ -150,7 +154,10 @@ jobs:
                       "takeaway": "Good installation matters."
                   },
                   "lesson_type": "professional_tip",
-                  "content_type": kwargs.get("content_type", "educational_visual"),
+                  "content_type": kwargs.get(
+                      "content_type",
+                      "educational_visual"
+                  ),
                   "knowledge_area": "Professional Plumbing",
                   "lesson_number": kwargs.get("lesson_number", 1)
               }
@@ -166,6 +173,7 @@ jobs:
           import content_batch_generator
 
           print("Batch generator imported successfully.")
+          print("Gemini was NOT called.")
           print("Safe offline batch-generator test passed.")
           PY
 
