@@ -42,7 +42,7 @@ jobs:
 
       - name: Python syntax check
         run: |
-            python -m py_compile \
+          python -m py_compile \
             main.py \
             content_generator.py \
             content_planner.py \
@@ -51,7 +51,7 @@ jobs:
             image_generator.py \
             reel_generator.py
 
-            echo "Python syntax check passed."
+          echo "Python syntax check passed."
 
       - name: JSON validation
         run: |
@@ -137,10 +137,6 @@ jobs:
           import os
           import sys
           import types
-
-          # The module checks for GEMINI_API_KEY during import.
-          # This placeholder exists only inside this offline test.
-          # No Gemini request is made.
 
           os.environ["GEMINI_API_KEY"] = (
               "safe-test-placeholder"
@@ -235,8 +231,6 @@ jobs:
           import sys
           import types
 
-          # Required only because the real module checks
-          # this variable when it is imported.
           os.environ["GEMINI_API_KEY"] = (
               "safe-test-placeholder"
           )
@@ -274,13 +268,13 @@ jobs:
               ])
 
           class FakeModels:
-          def generate_content(
-            self,
-          model,
-          contents,
-          config=None,
-          **kwargs
-          ):
+              def generate_content(
+                  self,
+                  model,
+                  contents,
+                  config=None,
+                  **kwargs
+              ):
                   assert model
 
                   assert (
@@ -322,9 +316,6 @@ jobs:
               "content_batch_generator"
           )
 
-          # Replace the REAL Gemini client after import.
-          # The placeholder key can therefore never be
-          # sent to Google's API.
           batch.client = types.SimpleNamespace(
               models=FakeModels()
           )
