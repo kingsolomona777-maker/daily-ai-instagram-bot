@@ -1,23 +1,23 @@
 {
-  "idea": "Common causes of blocked sinks",
-  "title": "Understanding Grease Blockages in Kitchen Drain Pipes",
-  "description": "A practical lesson on how liquid cooking fats solidify inside cold drain pipes, narrowing the flow diameter and causing deep sink clogs.",
-  "image_prompt": "A photorealistic vertical 9:16 close-up photograph of a kitchen sink plumbing setup inside an under-sink cabinet. A clean, white PVC drain pipe extending from a standard P-trap is shown with a clear side cutaway view. Inside the cutaway pipe section, a thick, realistic layer of solidified yellowish grease and fine food debris coats the interior walls of the pipe, severely restricting the internal flow diameter. The surrounding plumbing includes a stainless steel sink basin underside, realistic threaded slip-nuts, and clean PVC solvent-weld fittings. Bright, realistic task lighting highlights the contrast between the clean pipe exterior and the greasy buildup inside. No text, no logos, no watermarks, no arrows, no labels.",
-  "visual_story": "A detailed cutaway view under a kitchen sink demonstrating how liquid fat coats the internal wall of a PVC waste line, restricting water flow.",
+  "idea": "Why proper pipe sizing matters",
+  "title": "Why Pipe Sizing Matters: Water Supply Flow & Pressure",
+  "description": "Sizing water supply lines isn't just about getting water to a tap—it is about controlling flow velocity and friction loss. When supply pipes are undersized, water velocity increases significantly. This causes high friction loss, noisy piping, and dramatic pressure drops whenever a second fixture is turned on. A 3/4-inch (20mm) pipe carries roughly double the flow volume of a 1/2-inch (15mm) pipe due to cross-sectional area differences. Properly sizing trunk lines and branch pipes ensures balanced delivery across all fixtures simultaneously. What pipe sizing issues do you notice most on site?",
+  "image_prompt": "A detailed, photorealistic 9:16 vertical educational plumbing visual set inside a clean wall-stud frame. The image shows a side-by-side comparison of two water supply pipes mounted cleanly against wood framing: a smaller 1/2-inch (15mm) PPR/copper branch line on the left and a correctly sized 3/4-inch (20mm) line on the right, both connected with clean brass and socket-fusion fittings. The internal diameters are cleanly visible at an cutaway end section to visually demonstrate internal flow capacity. Pristine craftsmanship, crisp metal textures, bright natural work-site lighting, centered composition with uncluttered top and bottom regions left open for overlay text. Photorealistic, physically accurate plumbing arrangement, no text, no labels, no watermarks, no logos.",
+  "visual_story": "The viewer instantly notices the physical diameter contrast between a 1/2-inch line and a 3/4-inch line side-by-side inside a wall cavity. The cutaway visual emphasizes cross-sectional area, showing how a slight increase in pipe diameter significantly increases available volume and reduces friction loss.",
   "on_image_text": {
-    "hook": "Hot Grease Doesn't Stay Liquid",
-    "explanation": "Liquid fats rapidly cool inside cold drain pipes, clinging to pipe walls and catching passing food scraps.",
-    "callout": "F.O.G. (Fats, Oils & Grease) Accumulation",
-    "takeaway": "Scrape pans into the trash and wipe with paper towels before washing."
+    "hook": "Small Pipe, Huge Pressure Drop",
+    "explanation": "Undersized pipes increase water velocity and friction, starving fixtures when used together.",
+    "callout": "Cross-Sectional Area vs Friction Loss",
+    "takeaway": "Size supply main trunks larger than branch pipes to maintain stable fixture pressure."
   },
   "hashtags": [
-    "#PlumbingEducation",
-    "#PlumbingTips",
-    "#SinkClog",
-    "#HomeMaintenance",
-    "#ApprenticePlumber",
-    "#PlumbingAdvice",
-    "#DrainCleaning"
+    "#plumbingeducation",
+    "#pipesizing",
+    "#plumbingtips",
+    "#waterpressure",
+    "#plumbingapprentice",
+    "#plumbingcode",
+    "#tradeschool"
   ],
   "reel_enabled": false,
   "reel_file": null
