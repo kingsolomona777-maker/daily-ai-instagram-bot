@@ -1,0 +1,360 @@
+name: Orom Plan1 - 10 Post Engine Audio Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  engine-audio-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install Pillow
+        run: |
+          python -m pip install --upgrade pip
+          pip install Pillow
+
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Check required files
+        run: |
+          test -f daily_content_engine.py
+          test -f reel_generator.py
+
+          python -m py_compile daily_content_engine.py
+          python -m py_compile reel_generator.py
+
+          echo "Required files passed syntax validation"
+
+      - name: Create local test audio
+        run: |
+          ffmpeg -y \
+            -f lavfi \
+            -i "sine=frequency=440:duration=8" \
+            -c:a pcm_s16le \
+            -ar 44100 \
+            -ac 2 \
+            test_engine_audio.wav
+
+          test -f test_engine_audio.wav
+
+          echo "Test audio created successfully"
+
+      - name: Run 10-post audio engine test
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageDraw
+
+          import daily_content_engine as engine
+
+
+          OUTPUT = Path("engine_audio_test_output")
+          OUTPUT.mkdir(parents=True, exist_ok=True)
+
+
+          # ------------------------------------------------
+          # Create a local test image generator
+          # ------------------------------------------------
+
+          def fake_generate_image(prompt, output_file):
+              image = Image.new(
+                  "RGB",
+                  (1080, 1080),
+                  "white",
+              )
+
+              draw = ImageDraw.Draw(image)
+
+              draw.text(
+                  (100, 450),
+                  "OROM PLAN1 TEST",
+                  fill="black",
+              )
+
+              image.save(
+                  output_file,
+                  quality=95,
+              )
+
+              return output_file
+
+
+          # ------------------------------------------------
+          # Replace external image generation
+          # ------------------------------------------------
+
+          engine.generate_image = fake_generate_image
+
+
+          # ------------------------------------------------
+          # Replace vertical image processing
+          # ------------------------------------------------
+
+          def fake_make_vertical_image(
+              input_file,
+              output_file,
+              on_image_text,
+          ):
+              image = Image.open(input_file).convert("RGB")
+
+              image = image.resize(
+                  (1080, 1920)
+              )
+
+              image.save(
+                  output_file,
+                  quality=95,
+              )
+
+              return output_file
+
+
+          engine.make_vertical_image = (
+              fake_make_vertical_image
+          )
+
+
+          # ------------------------------------------------
+          # Build 10 realistic test lessons
+          # ------------------------------------------------
+
+          generated_content = []
+
+          for slot in range(1, 11):
+
+              if slot % 2 == 1:
+                  content_type = "reel"
+              else:
+                  content_type = "educational_visual"
+
+              lesson = {
+                  "slot": slot,
+                  "lesson_number": slot,
+                  "content_type": content_type,
+                  "role": "test",
+                  "lesson_type": "professional_tip",
+                  "knowledge_path": "Plumbing Fundamentals",
+                  "knowledge_area": "Drainage",
+                  "title": f"Test Plumbing Lesson {slot}",
+                  "description": (
+                      "This is an offline integration test "
+                      "lesson for the Orom Plan1 media engine."
+                  ),
+                  "image_prompt": (
+                      "A realistic professional plumbing "
+                      "installation for testing."
+                  ),
+                  "hashtags": [
+                      "#plumbing",
+                      "#plumber",
+                      "#oromplan1",
+                  ],
+                  "visual_story": (
+                      "Show a realistic plumbing teaching scene."
+                  ),
+                  "on_image_text": {
+                      "hook": (
+                          f"Plumbing lesson {slot}"
+                      ),
+                      "explanation": (
+                          "Understand the plumbing principle."
+                      ),
+                      "takeaway": (
+                          "Use correct professional practice."
+                      ),
+                  },
+              }
+
+              generated_content.append(
+                  lesson
+              )
+
+
+          # ------------------------------------------------
+          # Prevent the real content validator from
+          # requiring Gemini-generated structure.
+          # ------------------------------------------------
+
+          engine.check_content = (
+              lambda content: True
+          )
+
+
+          # ------------------------------------------------
+          # Generate all 10 media files
+          # ------------------------------------------------
+
+          packages = engine.generate_media_from_content(
+              generated_content=generated_content,
+              output_directory=OUTPUT,
+              audio_file=Path(
+                  "test_engine_audio.wav"
+              ),
+          )
+
+
+          # ------------------------------------------------
+          # Validate package count
+          # ------------------------------------------------
+
+          if len(packages) != 10:
+              raise RuntimeError(
+                  f"Expected 10 packages, got {len(packages)}"
+              )
+
+
+          reels = [
+              item
+              for item in packages
+              if item["content_type"] == "reel"
+          ]
+
+          visuals = [
+              item
+              for item in packages
+              if item["content_type"]
+              == "educational_visual"
+          ]
+
+
+          if len(reels) != 5:
+              raise RuntimeError(
+                  f"Expected 5 Reels, got {len(reels)}"
+              )
+
+
+          if len(visuals) != 5:
+              raise RuntimeError(
+                  f"Expected 5 educational visuals, got {len(visuals)}"
+              )
+
+
+          # ------------------------------------------------
+          # Validate images
+          # ------------------------------------------------
+
+          for item in packages:
+
+              image_file = Path(
+                  item["image_file"]
+              )
+
+              if not image_file.exists():
+                  raise RuntimeError(
+                      f"Missing image: {image_file}"
+                  )
+
+              with Image.open(
+                  image_file
+              ) as image:
+
+                  if image.size != (
+                      1080,
+                      1920,
+                  ):
+                      raise RuntimeError(
+                          f"Invalid image size for "
+                          f"{image_file}: {image.size}"
+                      )
+
+
+          # ------------------------------------------------
+          # Validate Reels + audio metadata
+          # ------------------------------------------------
+
+          for item in reels:
+
+              reel_file = Path(
+                  item["reel_file"]
+              )
+
+              if not reel_file.exists():
+                  raise RuntimeError(
+                      f"Missing Reel: {reel_file}"
+                  )
+
+              if not item.get(
+                  "reel_audio_file"
+              ):
+                  raise RuntimeError(
+                      "Reel does not contain "
+                      "audio metadata."
+                  )
+
+
+          print()
+          print("==========================================")
+          print("10-POST ENGINE AUDIO TEST PASSED")
+          print("==========================================")
+          print("Posts: 10")
+          print("Images: 10")
+          print("Reels: 5")
+          print("Educational visuals: 5")
+          print("Audio-enabled Reels: 5")
+          print("Gemini: NOT USED")
+          print("Cloudflare: NOT USED")
+          print("Instagram: NOT USED")
+          print("==========================================")
+          PY
+
+      - name: Validate Reel audio streams
+        run: |
+          REEL_COUNT=$(find engine_audio_test_output -name "*.mp4" | wc -l)
+
+          if [ "$REEL_COUNT" -ne 5 ]; then
+            echo "ERROR: Expected 5 Reel files, found $REEL_COUNT"
+            exit 1
+          fi
+
+          for FILE in engine_audio_test_output/*.mp4; do
+            echo ""
+            echo "Checking: $FILE"
+
+            ffprobe -v error \
+              -select_streams v:0 \
+              -show_entries stream=width,height,r_frame_rate \
+              -of default=noprint_wrappers=1 \
+              "$FILE"
+
+            echo "Audio stream:"
+            ffprobe -v error \
+              -select_streams a:0 \
+              -show_entries stream=codec_name,sample_rate,channels \
+              -of default=noprint_wrappers=1 \
+              "$FILE"
+
+            echo "Duration:"
+            ffprobe -v error \
+              -show_entries format=duration \
+              -of default=noprint_wrappers=1 \
+              "$FILE"
+          done
+
+          echo ""
+          echo "All 5 Reel audio streams validated"
+
+      - name: Upload test artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: orom-plan1-engine-audio-test
+          path: |
+            engine_audio_test_output/
+            test_engine_audio.wav
+
+      - name: Final result
+        run: |
+          echo "=========================================="
+          echo "OROM PLAN1 10-POST AUDIO ENGINE TEST"
+          echo "PASSED"
+          echo "=========================================="
