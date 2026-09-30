@@ -51,6 +51,8 @@ jobs:
           echo "Test audio created successfully"
 
       - name: Run 10-post audio engine test
+        env:
+         GEMINI_API_KEY: test-key-not-used
         run: |
           python - <<'PY'
           from pathlib import Path
