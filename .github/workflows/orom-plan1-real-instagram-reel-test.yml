@@ -1,0 +1,610 @@
+name: Orom Plan1 - Real Instagram Reel Test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  real-instagram-reel-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install google-genai requests Pillow
+
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Check required files
+        run: |
+          test -f content_planner.py
+          test -f content_batch_generator.py
+          test -f daily_content_engine.py
+          test -f image_generator.py
+          test -f reel_generator.py
+
+          echo "All required files found."
+
+      - name: Check Python syntax
+        run: |
+          python -m py_compile content_planner.py
+          python -m py_compile content_batch_generator.py
+          python -m py_compile daily_content_engine.py
+          python -m py_compile image_generator.py
+          python -m py_compile reel_generator.py
+
+          echo "Python syntax check passed."
+
+      - name: Create temporary test audio
+        run: |
+          ffmpeg -y \
+            -f lavfi \
+            -i "sine=frequency=440:duration=8" \
+            -ar 48000 \
+            -ac 2 \
+            -c:a pcm_s16le \
+            test_instagram_reel_audio.wav
+
+          test -s test_instagram_reel_audio.wav
+
+          echo "Test audio created successfully."
+
+      - name: Generate one real Reel
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          from content_planner import create_daily_plan, validate_daily_plan
+          from content_batch_generator import generate_content_batches
+          from daily_content_engine import generate_daily_content
+
+          print()
+          print("=" * 70)
+          print("OROM PLAN1")
+          print("REAL INSTAGRAM REEL TEST")
+          print("=" * 70)
+          print()
+
+          print("STEP 1: Creating one Reel plan...")
+          print()
+
+          history_file = Path("instagram_reel_test_history.json")
+
+          daily_plan = create_daily_plan(
+              day_number=1,
+              history_file=history_file,
+          )
+
+          reel_plan = [
+              item
+              for item in daily_plan
+              if item.get("content_type") == "reel"
+          ]
+
+          if not reel_plan:
+              raise RuntimeError("No Reel found in generated plan.")
+
+          reel_plan = [reel_plan[0]]
+
+          if not validate_daily_plan(reel_plan):
+              print("Full plan validation skipped because only one Reel is being tested.")
+
+          print("Selected Reel:")
+          print(reel_plan[0])
+          print()
+
+          print("=" * 70)
+          print("STEP 2: Generating one real lesson with Gemini")
+          print("=" * 70)
+          print()
+
+          content = generate_content_batches(reel_plan)
+
+          if len(content) != 1:
+              raise RuntimeError(
+                  f"Expected exactly 1 generated lesson, got {len(content)}"
+              )
+
+          lesson = content[0]
+
+          if lesson.get("content_type") != "reel":
+              raise RuntimeError(
+                  f"Expected content_type=reel, got {lesson.get('content_type')}"
+              )
+
+          print("Real Gemini lesson generated.")
+          print(f"Title: {lesson.get('title')}")
+          print(f"Lesson type: {lesson.get('lesson_type')}")
+          print()
+
+          print("=" * 70)
+          print("STEP 3: Generating the Reel media")
+          print("=" * 70)
+          print()
+
+          output_directory = Path("instagram_reel_test_output")
+          output_directory.mkdir(parents=True, exist_ok=True)
+
+          packages = generate_daily_content(
+              daily_plan=reel_plan,
+              output_directory=output_directory,
+              generated_content=content,
+              audio_file=Path("test_instagram_reel_audio.wav"),
+          )
+
+          if len(packages) != 1:
+              raise RuntimeError(
+                  f"Expected exactly 1 media package, got {len(packages)}"
+              )
+
+          package = packages[0]
+
+          reel_file = Path(package["reel_file"])
+
+          if not reel_file.exists():
+              raise RuntimeError(
+                  f"Reel file was not created: {reel_file}"
+              )
+
+          if reel_file.stat().st_size <= 0:
+              raise RuntimeError(
+                  f"Reel file is empty: {reel_file}"
+              )
+
+          print(f"Reel created: {reel_file}")
+          print(f"Reel size: {reel_file.stat().st_size} bytes")
+          print()
+
+          print("=" * 70)
+          print("STEP 4: Validating Reel technical streams")
+          print("=" * 70)
+          print()
+
+          PY
+
+          REEL_FILE=$(find instagram_reel_test_output -type f -name "*.mp4" | head -n 1)
+
+          if [ -z "$REEL_FILE" ]; then
+            echo "No Reel MP4 found."
+            exit 1
+          fi
+
+          echo "Reel file: $REEL_FILE"
+
+          VIDEO_CODEC=$(ffprobe \
+            -v error \
+            -select_streams v:0 \
+            -show_entries stream=codec_name \
+            -of csv=p=0 \
+            "$REEL_FILE")
+
+          AUDIO_CODEC=$(ffprobe \
+            -v error \
+            -select_streams a:0 \
+            -show_entries stream=codec_name \
+            -of csv=p=0 \
+            "$REEL_FILE")
+
+          WIDTH=$(ffprobe \
+            -v error \
+            -select_streams v:0 \
+            -show_entries stream=width \
+            -of csv=p=0 \
+            "$REEL_FILE")
+
+          HEIGHT=$(ffprobe \
+            -v error \
+            -select_streams v:0 \
+            -show_entries stream=height \
+            -of csv=p=0 \
+            "$REEL_FILE")
+
+          DURATION=$(ffprobe \
+            -v error \
+            -show_entries format=duration \
+            -of default=noprint_wrappers=1:nokey=1 \
+            "$REEL_FILE")
+
+          echo "Video codec: $VIDEO_CODEC"
+          echo "Audio codec: $AUDIO_CODEC"
+          echo "Width: $WIDTH"
+          echo "Height: $HEIGHT"
+          echo "Duration: $DURATION"
+
+          test "$VIDEO_CODEC" = "h264"
+          test "$AUDIO_CODEC" = "aac"
+
+          if [ "$WIDTH" -gt 1920 ]; then
+            echo "Video width is above 1920."
+            exit 1
+          fi
+
+          if [ "$HEIGHT" -gt 1920 ]; then
+            echo "Video height is above 1920."
+            exit 1
+          fi
+
+          echo ""
+          echo "Reel technical validation passed."
+
+      - name: Prepare public GitHub Reel URL
+        id: prepare_url
+        run: |
+          set -e
+
+          REEL_FILE=$(find instagram_reel_test_output -type f -name "*.mp4" | head -n 1)
+
+          if [ -z "$REEL_FILE" ]; then
+            echo "No Reel file found."
+            exit 1
+          fi
+
+          PUBLIC_DIR="instagram_reel_test_public"
+          PUBLIC_FILE="$PUBLIC_DIR/orom-plan1-instagram-reel-test.mp4"
+
+          rm -rf "$PUBLIC_DIR"
+          mkdir -p "$PUBLIC_DIR"
+
+          cp "$REEL_FILE" "$PUBLIC_FILE"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add "$PUBLIC_FILE"
+
+          git commit -m "test: add temporary Orom Plan1 Instagram Reel"
+
+          git push origin HEAD:main
+
+          REPO="${GITHUB_REPOSITORY}"
+          PUBLIC_URL="https://raw.githubusercontent.com/${REPO}/main/${PUBLIC_FILE}"
+
+          echo "PUBLIC_URL=$PUBLIC_URL" >> "$GITHUB_OUTPUT"
+
+          echo ""
+          echo "Public Reel URL:"
+          echo "$PUBLIC_URL"
+
+      - name: Wait for public Reel URL
+        env:
+          PUBLIC_URL: ${{ steps.prepare_url.outputs.PUBLIC_URL }}
+        run: |
+          set -e
+
+          echo "Checking whether GitHub raw URL is publicly reachable..."
+
+          for attempt in $(seq 1 12); do
+            echo ""
+            echo "Attempt $attempt/12"
+
+            HTTP_CODE=$(curl \
+              -L \
+              -s \
+              -o /dev/null \
+              -w "%{http_code}" \
+              "$PUBLIC_URL")
+
+            echo "HTTP status: $HTTP_CODE"
+
+            if [ "$HTTP_CODE" = "200" ]; then
+              echo "Public Reel URL is reachable."
+              exit 0
+            fi
+
+            sleep 5
+          done
+
+          echo "GitHub raw Reel URL did not become reachable."
+          exit 1
+
+      - name: Verify Instagram access token and discover IG user
+        id: instagram_user
+        env:
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+        run: |
+          set -e
+
+          if [ -z "$INSTAGRAM_ACCESS_TOKEN" ]; then
+            echo "INSTAGRAM_ACCESS_TOKEN secret is missing."
+            exit 1
+          fi
+
+          RESPONSE=$(curl \
+            -sS \
+            --get \
+            "https://graph.facebook.com/v26.0/me" \
+            --data-urlencode "fields=id,username" \
+            --data-urlencode "access_token=$INSTAGRAM_ACCESS_TOKEN")
+
+          echo "Instagram account lookup response:"
+          echo "$RESPONSE"
+
+          echo "$RESPONSE" > instagram_user_response.json
+
+          IG_USER_ID=$(python - <<'PY'
+          import json
+
+          with open("instagram_user_response.json", "r", encoding="utf-8") as f:
+              data = json.load(f)
+
+          if "error" in data:
+              raise SystemExit(
+                  "Instagram API error: "
+                  + json.dumps(data["error"], indent=2)
+              )
+
+          user_id = data.get("id")
+
+          if not user_id:
+              raise SystemExit(
+                  "Instagram API did not return an account ID."
+              )
+
+          print(user_id)
+          PY
+          )
+
+          USERNAME=$(python - <<'PY'
+          import json
+
+          with open("instagram_user_response.json", "r", encoding="utf-8") as f:
+              data = json.load(f)
+
+          print(data.get("username", "unknown"))
+          PY
+          )
+
+          echo "IG_USER_ID=$IG_USER_ID" >> "$GITHUB_OUTPUT"
+          echo "USERNAME=$USERNAME" >> "$GITHUB_OUTPUT"
+
+          echo ""
+          echo "Instagram account:"
+          echo "Username: $USERNAME"
+          echo "ID: $IG_USER_ID"
+
+      - name: Create Instagram Reel container
+        id: create_container
+        env:
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          IG_USER_ID: ${{ steps.instagram_user.outputs.IG_USER_ID }}
+          PUBLIC_URL: ${{ steps.prepare_url.outputs.PUBLIC_URL }}
+        run: |
+          set -e
+
+          CAPTION="Orom Plan1 Reel Test: ${GITHUB_RUN_NUMBER}. This is a technical publishing test for our automated plumbing education system."
+
+          echo "Creating Instagram Reel container..."
+
+          RESPONSE=$(curl \
+            -sS \
+            --request POST \
+            "https://graph.facebook.com/v26.0/${IG_USER_ID}/media" \
+            --data-urlencode "media_type=REELS" \
+            --data-urlencode "video_url=${PUBLIC_URL}" \
+            --data-urlencode "caption=${CAPTION}" \
+            --data-urlencode "share_to_feed=true" \
+            --data-urlencode "access_token=${INSTAGRAM_ACCESS_TOKEN}")
+
+          echo "Instagram container response:"
+          echo "$RESPONSE"
+
+          echo "$RESPONSE" > instagram_container_response.json
+
+          CONTAINER_ID=$(python - <<'PY'
+          import json
+
+          with open("instagram_container_response.json", "r", encoding="utf-8") as f:
+              data = json.load(f)
+
+          if "error" in data:
+              raise SystemExit(
+                  "Instagram container creation failed:\n"
+                  + json.dumps(data["error"], indent=2)
+              )
+
+          container_id = data.get("id")
+
+          if not container_id:
+              raise SystemExit(
+                  "Instagram API did not return a container ID."
+              )
+
+          print(container_id)
+          PY
+          )
+
+          echo "CONTAINER_ID=$CONTAINER_ID" >> "$GITHUB_OUTPUT"
+
+          echo ""
+          echo "Instagram Reel container created:"
+          echo "$CONTAINER_ID"
+
+      - name: Wait for Instagram Reel processing
+        env:
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          CONTAINER_ID: ${{ steps.create_container.outputs.CONTAINER_ID }}
+        run: |
+          set -e
+
+          echo ""
+          echo "Waiting for Instagram to finish processing the Reel..."
+
+          for attempt in $(seq 1 20); do
+            echo ""
+            echo "Status check $attempt/20"
+
+            RESPONSE=$(curl \
+              -sS \
+              --get \
+              "https://graph.facebook.com/v26.0/${CONTAINER_ID}" \
+              --data-urlencode "fields=status_code,status" \
+              --data-urlencode "access_token=${INSTAGRAM_ACCESS_TOKEN}")
+
+            echo "$RESPONSE"
+
+            echo "$RESPONSE" > instagram_container_status.json
+
+            STATUS=$(python - <<'PY'
+            import json
+
+            with open("instagram_container_status.json", "r", encoding="utf-8") as f:
+                data = json.load(f)
+
+            if "error" in data:
+                raise SystemExit(
+                    "Instagram status request failed:\n"
+                    + json.dumps(data["error"], indent=2)
+                )
+
+            print(data.get("status_code", "UNKNOWN"))
+            PY
+            )
+
+            echo "Current status: $STATUS"
+
+            if [ "$STATUS" = "FINISHED" ]; then
+              echo ""
+              echo "Instagram Reel is ready to publish."
+              exit 0
+            fi
+
+            if [ "$STATUS" = "ERROR" ]; then
+              echo ""
+              echo "Instagram reported an ERROR."
+              cat instagram_container_status.json
+              exit 1
+            fi
+
+            if [ "$STATUS" = "EXPIRED" ]; then
+              echo ""
+              echo "Instagram container expired."
+              exit 1
+            fi
+
+            sleep 15
+          done
+
+          echo ""
+          echo "Instagram Reel did not reach FINISHED within the test window."
+          exit 1
+
+      - name: Publish Instagram Reel
+        id: publish
+        env:
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          IG_USER_ID: ${{ steps.instagram_user.outputs.IG_USER_ID }}
+          CONTAINER_ID: ${{ steps.create_container.outputs.CONTAINER_ID }}
+        run: |
+          set -e
+
+          echo ""
+          echo "=" * 70
+          echo "PUBLISHING REAL INSTAGRAM REEL"
+          echo "=" * 70
+          echo ""
+
+          RESPONSE=$(curl \
+            -sS \
+            --request POST \
+            "https://graph.facebook.com/v26.0/${IG_USER_ID}/media_publish" \
+            --data-urlencode "creation_id=${CONTAINER_ID}" \
+            --data-urlencode "access_token=${INSTAGRAM_ACCESS_TOKEN}")
+
+          echo "Instagram publish response:"
+          echo "$RESPONSE"
+
+          echo "$RESPONSE" > instagram_publish_response.json
+
+          MEDIA_ID=$(python - <<'PY'
+          import json
+
+          with open("instagram_publish_response.json", "r", encoding="utf-8") as f:
+              data = json.load(f)
+
+          if "error" in data:
+              raise SystemExit(
+                  "Instagram Reel publishing failed:\n"
+                  + json.dumps(data["error"], indent=2)
+              )
+
+          media_id = data.get("id")
+
+          if not media_id:
+              raise SystemExit(
+                  "Instagram API did not return a published media ID."
+              )
+
+          print(media_id)
+          PY
+          )
+
+          echo "MEDIA_ID=$MEDIA_ID" >> "$GITHUB_OUTPUT"
+
+          echo ""
+          echo "=" * 70
+          echo "REAL INSTAGRAM REEL PUBLISHED"
+          echo "=" * 70
+          echo "Instagram Media ID: $MEDIA_ID"
+          echo "=" * 70
+
+      - name: Save test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: orom-plan1-real-instagram-reel-test
+          path: |
+            instagram_reel_test_output/
+            instagram_user_response.json
+            instagram_container_response.json
+            instagram_container_status.json
+            instagram_publish_response.json
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Test summary
+        if: success()
+        env:
+          IG_USERNAME: ${{ steps.instagram_user.outputs.USERNAME }}
+          IG_USER_ID: ${{ steps.instagram_user.outputs.IG_USER_ID }}
+          CONTAINER_ID: ${{ steps.create_container.outputs.CONTAINER_ID }}
+          MEDIA_ID: ${{ steps.publish.outputs.MEDIA_ID }}
+        run: |
+          echo ""
+          echo "============================================================"
+          echo "OROM PLAN1 REAL INSTAGRAM REEL TEST PASSED"
+          echo "============================================================"
+          echo ""
+          echo "Instagram username: $IG_USERNAME"
+          echo "Instagram user ID: $IG_USER_ID"
+          echo "Container ID: $CONTAINER_ID"
+          echo "Published Media ID: $MEDIA_ID"
+          echo ""
+          echo "Gemini: USED"
+          echo "Cloudflare: USED"
+          echo "Real Reel generation: PASSED"
+          echo "Instagram container creation: PASSED"
+          echo "Instagram processing: PASSED"
+          echo "Instagram publishing: PASSED"
+          echo ""
+          echo "============================================================"
