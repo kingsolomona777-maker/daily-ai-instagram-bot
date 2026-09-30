@@ -1,4 +1,5 @@
 import json
+import os
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -23,6 +24,50 @@ def is_reel(item: Dict[str, Any]) -> bool:
 
 def is_visual(item: Dict[str, Any]) -> bool:
     return item.get("content_type") == "educational_visual"
+
+
+def get_reel_audio_file() -> Optional[Path]:
+    """
+    Find the optional local Reel audio file.
+
+    The audio path is supplied through:
+
+        OROM_PLAN1_AUDIO_FILE
+
+    If the variable is missing or the file does not exist,
+    Reel generation continues without audio.
+
+    This keeps the engine compatible with existing tests
+    while allowing production audio to be connected later.
+    """
+
+    configured_audio = os.getenv(
+        "OROM_PLAN1_AUDIO_FILE",
+        "",
+    ).strip()
+
+    if not configured_audio:
+        return None
+
+    audio_path = Path(configured_audio)
+
+    if not audio_path.exists():
+        raise RuntimeError(
+            "OROM_PLAN1_AUDIO_FILE was configured, "
+            f"but the audio file does not exist: {audio_path}"
+        )
+
+    if not audio_path.is_file():
+        raise RuntimeError(
+            "OROM_PLAN1_AUDIO_FILE does not point to a file: "
+            f"{audio_path}"
+        )
+
+    print(
+        f"Reel audio enabled: {audio_path}"
+    )
+
+    return audio_path
 
 
 def validate_content_list(
@@ -62,7 +107,11 @@ def validate_content_list(
             "Content package must contain exactly 5 educational visuals."
         )
 
-    for index, content in enumerate(generated_content, start=1):
+    for index, content in enumerate(
+        generated_content,
+        start=1,
+    ):
+
         if not isinstance(content, dict):
             raise RuntimeError(
                 f"Lesson {index} is not a valid content object."
@@ -95,12 +144,19 @@ def validate_content_list(
 def generate_one_post(
     content: Dict[str, Any],
     output_directory: Path = OUTPUT_DIRECTORY,
+    audio_file: Optional[Path] = None,
 ) -> Dict[str, Any]:
     """
     Turn one already-generated lesson into its final media.
 
     IMPORTANT:
     No Gemini request happens inside this function.
+
+    For Reel lessons:
+        - generate the Reel
+        - optionally attach the supplied local audio file
+
+    Educational visual lessons receive only the final image.
     """
 
     output_directory.mkdir(
@@ -192,6 +248,7 @@ def generate_one_post(
 
     reel_enabled = False
     reel_path: Optional[str] = None
+    reel_audio_path: Optional[str] = None
 
     if is_reel(content):
 
@@ -216,11 +273,31 @@ def generate_one_post(
             ),
         }
 
+        if audio_file is not None:
+            print(
+                f"Using Reel audio: {audio_file}"
+            )
+
+            reel_audio_path = str(
+                audio_file
+            )
+
+        else:
+            print(
+                "No Reel audio configured. "
+                "Generating silent Reel."
+            )
+
         generated_reel = generate_reel(
             input_file=str(final_image),
             output_file=str(reel_file),
             duration=8,
             teaching_text=teaching_text,
+            audio_file=(
+                str(audio_file)
+                if audio_file is not None
+                else None
+            ),
         )
 
         if not Path(
@@ -267,6 +344,7 @@ def generate_one_post(
         "image_file": str(final_image),
         "reel_enabled": reel_enabled,
         "reel_file": reel_path,
+        "reel_audio_file": reel_audio_path,
     }
 
     return package
@@ -275,13 +353,14 @@ def generate_one_post(
 def generate_media_from_content(
     generated_content: List[Dict[str, Any]],
     output_directory: Path = OUTPUT_DIRECTORY,
+    audio_file: Optional[Path] = None,
 ) -> List[Dict[str, Any]]:
     """
     Generate all media from an EXISTING 10-post content package.
 
-    This is the important new function.
-
     Gemini is NOT called here.
+
+    If audio_file is supplied, it is attached to every Reel.
     """
 
     print()
@@ -293,6 +372,16 @@ def generate_media_from_content(
     print("Target images: 10")
     print("Target Reels: 5")
     print("Target educational visuals: 5")
+
+    if audio_file is not None:
+        print(
+            f"Reel audio: {audio_file}"
+        )
+    else:
+        print(
+            "Reel audio: NOT CONFIGURED"
+        )
+
     print("==========================================")
 
     validate_content_list(
@@ -306,6 +395,7 @@ def generate_media_from_content(
         package = generate_one_post(
             content=content,
             output_directory=output_directory,
+            audio_file=audio_file,
         )
 
         generated_posts.append(
@@ -383,6 +473,12 @@ def generate_media_from_content(
     print("Images: 10")
     print("Reels: 5")
     print("Educational visuals: 5")
+
+    if audio_file is not None:
+        print("Reel audio: ENABLED")
+    else:
+        print("Reel audio: NOT CONFIGURED")
+
     print("Gemini requests during media stage: 0")
     print("==========================================")
 
@@ -395,6 +491,7 @@ def generate_daily_content(
     generated_content: Optional[
         List[Dict[str, Any]]
     ] = None,
+    audio_file: Optional[Path] = None,
 ) -> List[Dict[str, Any]]:
     """
     Generate the complete daily 10-post package.
@@ -406,8 +503,13 @@ def generate_daily_content(
         generate the 10 lessons using five Gemini batches,
         then generate the media.
 
-    This keeps the normal production path working while
-    preventing duplicate Gemini generation during tests.
+    Audio can be supplied explicitly with audio_file.
+
+    If audio_file is not supplied, the engine checks:
+
+        OROM_PLAN1_AUDIO_FILE
+
+    If no audio is configured, Reels remain silent.
     """
 
     if len(daily_plan) != 10:
@@ -420,6 +522,21 @@ def generate_daily_content(
         exist_ok=True,
     )
 
+    # ------------------------------------------------
+    # Resolve optional Reel audio
+    # ------------------------------------------------
+
+    if audio_file is None:
+        audio_file = get_reel_audio_file()
+
+    if audio_file is not None:
+        audio_file = Path(audio_file)
+
+        if not audio_file.exists():
+            raise RuntimeError(
+                f"Reel audio file does not exist: {audio_file}"
+            )
+
     print()
     print("==========================================")
     print("OROM PLAN1 DAILY CONTENT ENGINE")
@@ -427,6 +544,16 @@ def generate_daily_content(
     print("Target: 10 posts")
     print("Reels: 5")
     print("Educational visuals: 5")
+
+    if audio_file is not None:
+        print(
+            f"Reel audio: {audio_file}"
+        )
+    else:
+        print(
+            "Reel audio: NOT CONFIGURED"
+        )
+
     print("==========================================")
 
     # ------------------------------------------------
@@ -471,8 +598,6 @@ def generate_daily_content(
             "Content stage did not provide exactly 10 lessons."
         )
 
-    # Check whether planner metadata is already attached.
-
     metadata_complete = all(
         "slot" in item
         and "lesson_number" in item
@@ -493,6 +618,7 @@ def generate_daily_content(
     generated_posts = generate_media_from_content(
         generated_content=generated_content,
         output_directory=output_directory,
+        audio_file=audio_file,
     )
 
     return generated_posts
@@ -517,6 +643,12 @@ def save_daily_package(
         if is_visual(item)
     ]
 
+    audio_reels = [
+        item
+        for item in reels
+        if item.get("reel_audio_file")
+    ]
+
     payload = {
         "total_posts": len(
             generated_posts
@@ -524,6 +656,9 @@ def save_daily_package(
         "reels": len(reels),
         "educational_visuals": len(
             visuals
+        ),
+        "audio_reels": len(
+            audio_reels
         ),
         "posts": generated_posts,
     }
@@ -587,6 +722,15 @@ def summarize_daily_content(
         )
     ]
 
+    audio_reels = [
+        item
+        for item in generated_posts
+        if (
+            item.get("reel_enabled")
+            and item.get("reel_audio_file")
+        )
+    ]
+
     return {
         "total_posts": len(
             generated_posts
@@ -598,6 +742,9 @@ def summarize_daily_content(
         ),
         "successful_reels": len(
             successful_reels
+        ),
+        "audio_reels": len(
+            audio_reels
         ),
     }
 
@@ -615,6 +762,7 @@ if __name__ == "__main__":
     print("-> 10 lessons")
     print("-> 10 images")
     print("-> 5 Reels + 5 educational visuals")
+    print("-> optional local Reel audio")
 
     print()
     print(
