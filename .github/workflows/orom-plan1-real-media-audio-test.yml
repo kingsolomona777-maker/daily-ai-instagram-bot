@@ -1,0 +1,412 @@
+name: Orom Plan1 - Real 10 Post Media Audio Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  real-media-audio-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install google-genai requests Pillow
+
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Check required files
+        run: |
+          test -f content_planner.py
+          test -f content_batch_generator.py
+          test -f daily_content_engine.py
+          test -f image_generator.py
+          test -f reel_generator.py
+          echo "All required files found."
+
+      - name: Check Python syntax
+        run: |
+          python -m py_compile content_planner.py
+          python -m py_compile content_batch_generator.py
+          python -m py_compile daily_content_engine.py
+          python -m py_compile image_generator.py
+          python -m py_compile reel_generator.py
+          echo "Python syntax check passed."
+
+      - name: Create test audio
+        run: |
+          ffmpeg -y \
+            -f lavfi \
+            -i "sine=frequency=440:duration=8" \
+            -ar 44100 \
+            -ac 2 \
+            test_orom_plan1_audio.wav
+
+          test -s test_orom_plan1_audio.wav
+          echo "Test audio created successfully."
+
+      - name: Run real 10-post media audio test
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          from PIL import Image
+
+          from content_planner import (
+              create_daily_plan,
+              validate_daily_plan,
+          )
+
+          from content_batch_generator import (
+              generate_content_batches,
+          )
+
+          from daily_content_engine import (
+              generate_daily_content,
+              summarize_daily_content,
+          )
+
+          print()
+          print("=" * 70)
+          print("OROM PLAN1")
+          print("REAL 10-POST MEDIA AUDIO TEST")
+          print("=" * 70)
+          print()
+
+          # ------------------------------------------------------------
+          # STEP 1
+          # ------------------------------------------------------------
+
+          print("STEP 1: Creating daily 10-post plan...")
+          print()
+
+          history_file = Path(
+              "real_media_audio_test_history.json"
+          )
+
+          daily_plan = create_daily_plan(
+              day_number=1,
+              history_file=history_file,
+          )
+
+          if not validate_daily_plan(
+              daily_plan
+          ):
+              raise RuntimeError(
+                  "Daily plan validation failed."
+              )
+
+          if len(daily_plan) != 10:
+              raise RuntimeError(
+                  f"Expected 10 plan items, got {len(daily_plan)}"
+              )
+
+          print(
+              f"Daily plan created successfully: "
+              f"{len(daily_plan)} posts"
+          )
+
+          # ------------------------------------------------------------
+          # STEP 2
+          # ------------------------------------------------------------
+
+          print()
+          print("=" * 70)
+          print("STEP 2: Generating 10 real lessons with Gemini")
+          print("=" * 70)
+          print()
+
+          content = generate_content_batches(
+              daily_plan
+          )
+
+          if len(content) != 10:
+              raise RuntimeError(
+                  f"Expected 10 lessons, got {len(content)}"
+              )
+
+          reels = [
+              item
+              for item in content
+              if item.get("content_type") == "reel"
+          ]
+
+          visuals = [
+              item
+              for item in content
+              if item.get("content_type")
+              == "educational_visual"
+          ]
+
+          if len(reels) != 5:
+              raise RuntimeError(
+                  f"Expected 5 Reels, got {len(reels)}"
+              )
+
+          if len(visuals) != 5:
+              raise RuntimeError(
+                  f"Expected 5 educational visuals, got {len(visuals)}"
+              )
+
+          print("Gemini generated 10 lessons successfully.")
+          print("Reels: 5")
+          print("Educational visuals: 5")
+
+          # ------------------------------------------------------------
+          # STEP 3
+          # ------------------------------------------------------------
+
+          print()
+          print("=" * 70)
+          print("STEP 3: Generating real images, Reels and audio")
+          print("=" * 70)
+          print()
+
+          output_directory = Path(
+              "real_media_audio_test_output"
+          )
+
+          output_directory.mkdir(
+              parents=True,
+              exist_ok=True,
+          )
+
+          packages = generate_daily_content(
+              daily_plan=daily_plan,
+              output_directory=output_directory,
+              generated_content=content,
+              audio_file=Path(
+                  "test_orom_plan1_audio.wav"
+              ),
+          )
+
+          # ------------------------------------------------------------
+          # STEP 4
+          # ------------------------------------------------------------
+
+          print()
+          print("=" * 70)
+          print("STEP 4: Validating complete media package")
+          print("=" * 70)
+          print()
+
+          if len(packages) != 10:
+              raise RuntimeError(
+                  f"Expected 10 media packages, got {len(packages)}"
+              )
+
+          image_count = 0
+          reel_count = 0
+          visual_count = 0
+          audio_reel_count = 0
+
+          for index, package in enumerate(
+              packages,
+              start=1,
+          ):
+              content_type = package.get(
+                  "content_type"
+              )
+
+              print()
+              print(
+                  f"POST {index}/10"
+              )
+              print(
+                  f"Type: {content_type}"
+              )
+              print(
+                  f"Title: {package.get('title')}"
+              )
+
+              image_file = Path(
+                  package["image_file"]
+              )
+
+              if not image_file.exists():
+                  raise RuntimeError(
+                      f"Missing image: {image_file}"
+                  )
+
+              if image_file.stat().st_size <= 0:
+                  raise RuntimeError(
+                      f"Image is empty: {image_file}"
+                  )
+
+              with Image.open(
+                  image_file
+              ) as image:
+
+                  if image.size != (
+                      1080,
+                      1920,
+                  ):
+                      raise RuntimeError(
+                          f"Invalid image size for "
+                          f"{image_file}: {image.size}"
+                      )
+
+              image_count += 1
+
+              if content_type == "reel":
+
+                  reel_count += 1
+
+                  reel_file = Path(
+                      package["reel_file"]
+                  )
+
+                  if not reel_file.exists():
+                      raise RuntimeError(
+                          f"Missing Reel: {reel_file}"
+                      )
+
+                  if reel_file.stat().st_size <= 0:
+                      raise RuntimeError(
+                          f"Reel is empty: {reel_file}"
+                      )
+
+                  audio_file = package.get(
+                      "reel_audio_file"
+                  )
+
+                  if not audio_file:
+                      raise RuntimeError(
+                          "Reel has no audio metadata."
+                      )
+
+                  audio_reel_count += 1
+
+              elif content_type == "educational_visual":
+
+                  visual_count += 1
+
+              else:
+
+                  raise RuntimeError(
+                      f"Unexpected content type: "
+                      f"{content_type}"
+                  )
+
+          # ------------------------------------------------------------
+          # FINAL COUNTS
+          # ------------------------------------------------------------
+
+          if image_count != 10:
+              raise RuntimeError(
+                  f"Expected 10 images, got {image_count}"
+              )
+
+          if reel_count != 5:
+              raise RuntimeError(
+                  f"Expected 5 Reels, got {reel_count}"
+              )
+
+          if visual_count != 5:
+              raise RuntimeError(
+                  f"Expected 5 educational visuals, got {visual_count}"
+              )
+
+          if audio_reel_count != 5:
+              raise RuntimeError(
+                  f"Expected 5 audio-enabled Reels, "
+                  f"got {audio_reel_count}"
+              )
+
+          print()
+          print("=" * 70)
+          print("REAL 10-POST MEDIA AUDIO TEST PASSED")
+          print("=" * 70)
+          print("Posts: 10")
+          print("Images: 10")
+          print("Reels: 5")
+          print("Educational visuals: 5")
+          print("Audio-enabled Reels: 5")
+          print("Gemini: USED")
+          print("Cloudflare: USED")
+          print("Instagram: NOT USED")
+          print("=" * 70)
+
+          summary = summarize_daily_content(
+              packages
+          )
+
+          print()
+          print("MEDIA SUMMARY")
+          print(summary)
+          print()
+          PY
+
+      - name: Verify Reel video and audio streams
+        run: |
+          reel_count=0
+
+          for file in real_media_audio_test_output/*.mp4; do
+            if [ -f "$file" ]; then
+              reel_count=$((reel_count + 1))
+
+              echo ""
+              echo "Checking: $file"
+
+              video_streams=$(ffprobe \
+                -v error \
+                -select_streams v:0 \
+                -show_entries stream=codec_type \
+                -of csv=p=0 \
+                "$file")
+
+              audio_streams=$(ffprobe \
+                -v error \
+                -select_streams a:0 \
+                -show_entries stream=codec_type \
+                -of csv=p=0 \
+                "$file")
+
+              duration=$(ffprobe \
+                -v error \
+                -show_entries format=duration \
+                -of default=noprint_wrappers=1:nokey=1 \
+                "$file")
+
+              echo "Video stream: $video_streams"
+              echo "Audio stream: $audio_streams"
+              echo "Duration: $duration"
+
+              test "$video_streams" = "video"
+              test "$audio_streams" = "audio"
+            fi
+          done
+
+          if [ "$reel_count" -ne 5 ]; then
+            echo "Expected 5 Reel files, found $reel_count"
+            exit 1
+          fi
+
+          echo ""
+          echo "All 5 Reels contain video and audio streams."
+
+      - name: Upload real media test artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: orom-plan1-real-media-audio-test
+          path: |
+            real_media_audio_test_output/
+            test_orom_plan1_audio.wav
+          if-no-files-found: error
+          retention-days: 7
