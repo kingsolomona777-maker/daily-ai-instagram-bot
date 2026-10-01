@@ -1,0 +1,217 @@
+name: Orom Plan1 - Instagram Reel Publish Only Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish-reel:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Publish existing Reel to Instagram
+        env:
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+        run: |
+          set -e
+
+          echo "Starting Instagram Reel publish-only test..."
+          echo ""
+
+          if [ -z "$INSTAGRAM_ACCESS_TOKEN" ]; then
+            echo "ERROR: INSTAGRAM_ACCESS_TOKEN secret is empty."
+            exit 1
+          fi
+
+          VIDEO_URL="https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/main/instagram_reel_test_public/orom-plan1-instagram-reel-test.mp4"
+
+          echo "Testing public Reel URL:"
+          echo "$VIDEO_URL"
+          echo ""
+
+          echo "Checking Instagram Login token..."
+
+          ACCOUNT_RESPONSE=$(curl -sS --get \
+            "https://graph.instagram.com/v26.0/me" \
+            --data-urlencode "fields=id,username" \
+            --data-urlencode "access_token=$INSTAGRAM_ACCESS_TOKEN")
+
+          echo "Instagram account response:"
+          echo "$ACCOUNT_RESPONSE"
+          echo ""
+
+          IG_USER_ID=$(python - <<'PY' "$ACCOUNT_RESPONSE"
+          import json
+          import sys
+
+          response = json.loads(sys.argv[1])
+
+          if "error" in response:
+              print("Instagram token/account check failed.")
+              print(json.dumps(response, indent=2))
+              raise SystemExit(1)
+
+          print(response["id"])
+          PY
+          )
+
+          IG_USERNAME=$(python - <<'PY' "$ACCOUNT_RESPONSE"
+          import json
+          import sys
+
+          response = json.loads(sys.argv[1])
+
+          if "error" in response:
+              raise SystemExit(1)
+
+          print(response.get("username", "unknown"))
+          PY
+          )
+
+          echo "Instagram ID: $IG_USER_ID"
+          echo "Instagram username: @$IG_USERNAME"
+          echo ""
+
+          echo "Checking that the Reel file is publicly reachable..."
+
+          HTTP_STATUS=$(curl -L -sS -o /dev/null -w "%{http_code}" "$VIDEO_URL")
+
+          echo "Public video HTTP status: $HTTP_STATUS"
+
+          if [ "$HTTP_STATUS" != "200" ]; then
+            echo "ERROR: Instagram cannot fetch the public Reel file."
+            exit 1
+          fi
+
+          echo ""
+          echo "Creating Instagram Reel container..."
+
+          CONTAINER_RESPONSE=$(curl \
+            -sS \
+            --request POST \
+            "https://graph.instagram.com/v26.0/${IG_USER_ID}/media" \
+            --data-urlencode "media_type=REELS" \
+            --data-urlencode "video_url=${VIDEO_URL}" \
+            --data-urlencode "caption=Professional plumbing knowledge made simple. Follow for practical plumbing lessons and tips. #plumbing #plumber #plumbingtips #plumbingwork #diyplumbing" \
+            --data-urlencode "share_to_feed=true" \
+            --data-urlencode "access_token=${INSTAGRAM_ACCESS_TOKEN}")
+
+          echo "Container response:"
+          echo "$CONTAINER_RESPONSE"
+          echo ""
+
+          CONTAINER_ID=$(python - <<'PY' "$CONTAINER_RESPONSE"
+          import json
+          import sys
+
+          response = json.loads(sys.argv[1])
+
+          if "error" in response:
+              print("")
+              print("Instagram Reel container creation FAILED.")
+              print(json.dumps(response, indent=2))
+              raise SystemExit(1)
+
+          container_id = response.get("id")
+
+          if not container_id:
+              print("ERROR: Instagram did not return a container ID.")
+              print(json.dumps(response, indent=2))
+              raise SystemExit(1)
+
+          print(container_id)
+          PY
+          )
+
+          echo "Container ID: $CONTAINER_ID"
+          echo ""
+
+          echo "Waiting for Instagram to process the Reel..."
+
+          for ATTEMPT in {1..20}; do
+
+            STATUS_RESPONSE=$(curl -sS --get \
+              "https://graph.instagram.com/v26.0/${CONTAINER_ID}" \
+              --data-urlencode "fields=status,status_code" \
+              --data-urlencode "access_token=${INSTAGRAM_ACCESS_TOKEN}")
+
+            echo "Attempt $ATTEMPT:"
+            echo "$STATUS_RESPONSE"
+            echo ""
+
+            STATUS_CODE=$(python - <<'PY' "$STATUS_RESPONSE"
+          import json
+          import sys
+
+          response = json.loads(sys.argv[1])
+
+          if "error" in response:
+              print("ERROR")
+              raise SystemExit(0)
+
+          print(response.get("status_code", "UNKNOWN"))
+          PY
+            )
+
+            if [ "$STATUS_CODE" = "FINISHED" ]; then
+              echo "Instagram finished processing the Reel."
+              break
+            fi
+
+            if [ "$STATUS_CODE" = "ERROR" ]; then
+              echo "Instagram reported an error while processing the Reel."
+              exit 1
+            fi
+
+            if [ "$ATTEMPT" = "20" ]; then
+              echo "Instagram did not finish processing within the test window."
+              exit 1
+            fi
+
+            sleep 15
+
+          done
+
+          echo ""
+          echo "Publishing Reel..."
+
+          PUBLISH_RESPONSE=$(curl \
+            -sS \
+            --request POST \
+            "https://graph.instagram.com/v26.0/${IG_USER_ID}/media_publish" \
+            --data-urlencode "creation_id=${CONTAINER_ID}" \
+            --data-urlencode "access_token=${INSTAGRAM_ACCESS_TOKEN}")
+
+          echo "Publish response:"
+          echo "$PUBLISH_RESPONSE"
+          echo ""
+
+          python - <<'PY' "$PUBLISH_RESPONSE"
+          import json
+          import sys
+
+          response = json.loads(sys.argv[1])
+
+          if "error" in response:
+              print("")
+              print("Instagram Reel publishing FAILED.")
+              print(json.dumps(response, indent=2))
+              raise SystemExit(1)
+
+          media_id = response.get("id")
+
+          if not media_id:
+              print("ERROR: Instagram did not return a published media ID.")
+              print(json.dumps(response, indent=2))
+              raise SystemExit(1)
+
+          print("==========================================")
+          print("INSTAGRAM REEL PUBLISHED SUCCESSFULLY")
+          print("==========================================")
+          print("Instagram username: @", end="")
+          print("$IG_USERNAME")
+          print("Published media ID:", media_id)
+          print("==========================================")
+          PY
