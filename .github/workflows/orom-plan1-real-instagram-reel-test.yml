@@ -12,6 +12,7 @@ jobs:
     timeout-minutes: 45
 
     steps:
+
       - name: Checkout repository
         uses: actions/checkout@v5
         with:
@@ -39,7 +40,6 @@ jobs:
           test -f daily_content_engine.py
           test -f image_generator.py
           test -f reel_generator.py
-
           echo "All required files found."
 
       - name: Check Python syntax
@@ -49,7 +49,6 @@ jobs:
           python -m py_compile daily_content_engine.py
           python -m py_compile image_generator.py
           python -m py_compile reel_generator.py
-
           echo "Python syntax check passed."
 
       - name: Create temporary test audio
@@ -63,10 +62,9 @@ jobs:
             test_instagram_reel_audio.wav
 
           test -s test_instagram_reel_audio.wav
+          echo "Test audio created."
 
-          echo "Test audio created successfully."
-
-      - name: Generate real 10-post content
+      - name: Generate 10 real lessons
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
@@ -77,15 +75,9 @@ jobs:
           from content_planner import create_daily_plan, validate_daily_plan
           from content_batch_generator import generate_content_batches
 
-          print()
           print("=" * 70)
-          print("OROM PLAN1")
-          print("REAL INSTAGRAM REEL TEST")
+          print("OROM PLAN1 - REAL INSTAGRAM REEL TEST")
           print("=" * 70)
-          print()
-
-          print("STEP 1: Creating the normal 10-post plan...")
-          print()
 
           history_file = Path("instagram_reel_test_history.json")
 
@@ -102,13 +94,7 @@ jobs:
                   f"Expected 10 plan items, got {len(daily_plan)}"
               )
 
-          print(f"Daily plan created: {len(daily_plan)} posts")
-
-          print()
-          print("=" * 70)
-          print("STEP 2: Generating the 10 real lessons with Gemini")
-          print("=" * 70)
-          print()
+          print(f"Daily plan: {len(daily_plan)} posts")
 
           content = generate_content_batches(daily_plan)
 
@@ -118,14 +104,12 @@ jobs:
               )
 
           reels = [
-              item
-              for item in content
+              item for item in content
               if item.get("content_type") == "reel"
           ]
 
           visuals = [
-              item
-              for item in content
+              item for item in content
               if item.get("content_type") == "educational_visual"
           ]
 
@@ -139,13 +123,6 @@ jobs:
                   f"Expected 5 educational visuals, got {len(visuals)}"
               )
 
-          print("Gemini generated all 10 lessons successfully.")
-          print("Reels:", len(reels))
-          print("Educational visuals:", len(visuals))
-
-          print()
-          print("Selecting the first Reel for Instagram publishing test...")
-
           selected_index = next(
               index
               for index, item in enumerate(content)
@@ -155,8 +132,12 @@ jobs:
           selected = content[selected_index]
 
           print()
+          print("Generated 10 lessons successfully.")
+          print("Reels:", len(reels))
+          print("Educational visuals:", len(visuals))
+          print()
           print("Selected Reel:")
-          print("Content index:", selected_index)
+          print("Index:", selected_index)
           print("Title:", selected.get("title"))
           print("Lesson type:", selected.get("lesson_type"))
           print("Knowledge area:", selected.get("knowledge_area"))
@@ -178,10 +159,10 @@ jobs:
               )
 
           print()
-          print("Generated content saved successfully.")
+          print("Content generation passed.")
           PY
 
-      - name: Generate all real media
+      - name: Generate real media
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -191,15 +172,7 @@ jobs:
           from pathlib import Path
           import json
 
-          from PIL import Image
-
           from daily_content_engine import generate_daily_content
-
-          print()
-          print("=" * 70)
-          print("STEP 3: Generating real media")
-          print("=" * 70)
-          print()
 
           with open(
               "instagram_reel_test_content.json",
@@ -239,7 +212,7 @@ jobs:
 
           if selected_package.get("content_type") != "reel":
               raise RuntimeError(
-                  "Selected media package is not a Reel."
+                  "Selected package is not a Reel."
               )
 
           reel_file = Path(
@@ -256,25 +229,10 @@ jobs:
                   f"Reel file is empty: {reel_file}"
               )
 
-          image_file = Path(
-              selected_package["image_file"]
-          )
-
-          if not image_file.exists():
-              raise RuntimeError(
-                  f"Reel image does not exist: {image_file}"
-              )
-
-          with Image.open(image_file) as image:
-              print("Reel image size:", image.size)
-
-          print()
-          print("Selected Reel:")
-          print("Reel file:", reel_file)
-          print("Reel size:", reel_file.stat().st_size)
-          print("Image file:", image_file)
           print()
           print("Real media generation passed.")
+          print("Selected Reel:", reel_file)
+          print("Reel size:", reel_file.stat().st_size)
 
           with open(
               "selected_reel_metadata.json",
@@ -284,9 +242,10 @@ jobs:
               json.dump(
                   {
                       "reel_file": str(reel_file),
-                      "image_file": str(image_file),
                       "title": selected_package.get("title"),
-                      "caption": selected_package.get("description"),
+                      "description": selected_package.get(
+                          "description"
+                      ),
                       "content_type": selected_package.get(
                           "content_type"
                       ),
@@ -318,9 +277,6 @@ jobs:
           PY
           )
 
-          echo "Selected Reel:"
-          echo "$REEL_FILE"
-
           VIDEO_CODEC=$(ffprobe \
             -v error \
             -select_streams v:0 \
@@ -332,20 +288,6 @@ jobs:
             -v error \
             -select_streams a:0 \
             -show_entries stream=codec_name \
-            -of csv=p=0 \
-            "$REEL_FILE")
-
-          VIDEO_STREAM=$(ffprobe \
-            -v error \
-            -select_streams v:0 \
-            -show_entries stream=codec_type \
-            -of csv=p=0 \
-            "$REEL_FILE")
-
-          AUDIO_STREAM=$(ffprobe \
-            -v error \
-            -select_streams a:0 \
-            -show_entries stream=codec_type \
             -of csv=p=0 \
             "$REEL_FILE")
 
@@ -369,24 +311,18 @@ jobs:
             -of default=noprint_wrappers=1:nokey=1 \
             "$REEL_FILE")
 
-          echo ""
-          echo "Video stream: $VIDEO_STREAM"
-          echo "Audio stream: $AUDIO_STREAM"
           echo "Video codec: $VIDEO_CODEC"
           echo "Audio codec: $AUDIO_CODEC"
           echo "Width: $WIDTH"
           echo "Height: $HEIGHT"
           echo "Duration: $DURATION"
 
-          test "$VIDEO_STREAM" = "video"
-          test "$AUDIO_STREAM" = "audio"
           test "$VIDEO_CODEC" = "h264"
           test "$AUDIO_CODEC" = "aac"
 
-          echo ""
           echo "Reel video/audio validation passed."
 
-      - name: Prepare public GitHub Reel URL
+      - name: Prepare public Reel
         id: prepare_url
         run: |
           set -e
@@ -418,14 +354,14 @@ jobs:
 
           git add "$PUBLIC_FILE"
 
-          git commit \
-            -m "test: add temporary Orom Plan1 Instagram Reel"
+          git diff --cached --quiet || \
+            git commit -m "test: update temporary Orom Plan1 Instagram Reel"
 
+          git fetch origin main
+          git rebase origin/main
           git push origin HEAD:main
 
-          REPO="${GITHUB_REPOSITORY}"
-
-          PUBLIC_URL="https://raw.githubusercontent.com/${REPO}/main/${PUBLIC_FILE}"
+          PUBLIC_URL="https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/main/${PUBLIC_FILE}"
 
           echo "PUBLIC_URL=$PUBLIC_URL" >> "$GITHUB_OUTPUT"
 
@@ -433,17 +369,14 @@ jobs:
           echo "Public Reel URL:"
           echo "$PUBLIC_URL"
 
-      - name: Wait for public Reel URL
+      - name: Wait for public Reel
         env:
           PUBLIC_URL: ${{ steps.prepare_url.outputs.PUBLIC_URL }}
         run: |
           set -e
 
-          echo "Checking public GitHub Reel URL..."
-
           for attempt in $(seq 1 12); do
-            echo ""
-            echo "Attempt $attempt/12"
+            echo "Checking public Reel: attempt $attempt/12"
 
             HTTP_CODE=$(curl \
               -L \
@@ -455,43 +388,36 @@ jobs:
             echo "HTTP status: $HTTP_CODE"
 
             if [ "$HTTP_CODE" = "200" ]; then
-              echo ""
-              echo "Public Reel URL is reachable."
+              echo "Public Reel is reachable."
               exit 0
             fi
 
             sleep 5
           done
 
-          echo ""
-          echo "Public Reel URL did not become reachable."
+          echo "Public Reel did not become reachable."
           exit 1
 
-      - name: Verify Instagram access token
+      - name: Verify Instagram Login token
         id: instagram_user
         env:
           INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
         run: |
           set -e
 
-          if [ -z "$INSTAGRAM_ACCESS_TOKEN" ]; then
-            echo "INSTAGRAM_ACCESS_TOKEN secret is missing."
-            exit 1
-          fi
-
           RESPONSE=$(curl \
             -sS \
             --get \
-            "https://graph.facebook.com/v26.0/me" \
+            "https://graph.instagram.com/v26.0/me" \
             --data-urlencode "fields=id,username" \
             --data-urlencode "access_token=$INSTAGRAM_ACCESS_TOKEN")
 
-          echo "Instagram account lookup response:"
+          echo "Instagram account response:"
           echo "$RESPONSE"
 
           echo "$RESPONSE" > instagram_user_response.json
 
-          IG_USER_ID=$(python - <<'PY'
+          python - <<'PY'
           import json
 
           with open(
@@ -503,7 +429,7 @@ jobs:
 
           if "error" in data:
               raise SystemExit(
-                  "Instagram API error:\n"
+                  "Instagram token error:\n"
                   + json.dumps(
                       data["error"],
                       indent=2,
@@ -511,60 +437,54 @@ jobs:
               )
 
           user_id = data.get("id")
+          username = data.get("username")
 
           if not user_id:
               raise SystemExit(
-                  "Instagram API did not return an account ID."
+                  "Instagram API did not return user ID."
               )
 
-          print(user_id)
-          PY
-          )
-
-          USERNAME=$(python - <<'PY'
-          import json
+          print()
+          print("Instagram username:", username)
+          print("Instagram user ID:", user_id)
 
           with open(
-              "instagram_user_response.json",
-              "r",
-              encoding="utf-8",
+              "instagram_user.env",
+              "w",
           ) as f:
-              data = json.load(f)
-
-          print(
-              data.get(
-                  "username",
-                  "unknown",
-              )
-          )
+              f.write(f"IG_USER_ID={user_id}\n")
+              f.write(f"USERNAME={username}\n")
           PY
-          )
+
+          cat instagram_user.env >> "$GITHUB_OUTPUT"
+
+      - name: Load Instagram account
+        id: load_user
+        run: |
+          cat instagram_user.env
+
+          source instagram_user.env
 
           echo "IG_USER_ID=$IG_USER_ID" >> "$GITHUB_OUTPUT"
           echo "USERNAME=$USERNAME" >> "$GITHUB_OUTPUT"
-
-          echo ""
-          echo "Instagram username: $USERNAME"
-          echo "Instagram user ID: $IG_USER_ID"
 
       - name: Create Instagram Reel container
         id: create_container
         env:
           INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
-          IG_USER_ID: ${{ steps.instagram_user.outputs.IG_USER_ID }}
+          IG_USER_ID: ${{ steps.load_user.outputs.IG_USER_ID }}
           PUBLIC_URL: ${{ steps.prepare_url.outputs.PUBLIC_URL }}
         run: |
           set -e
 
           CAPTION="Orom Plan1 Reel Test ${GITHUB_RUN_NUMBER}. Technical publishing test for our automated plumbing education system."
 
-          echo ""
           echo "Creating Instagram Reel container..."
 
           RESPONSE=$(curl \
             -sS \
             --request POST \
-            "https://graph.facebook.com/v26.0/${IG_USER_ID}/media" \
+            "https://graph.instagram.com/v26.0/${IG_USER_ID}/media" \
             --data-urlencode "media_type=REELS" \
             --data-urlencode "video_url=${PUBLIC_URL}" \
             --data-urlencode "caption=${CAPTION}" \
@@ -599,7 +519,7 @@ jobs:
 
           if not container_id:
               raise SystemExit(
-                  "Instagram API did not return a container ID."
+                  "Instagram API did not return container ID."
               )
 
           print(container_id)
@@ -608,28 +528,27 @@ jobs:
 
           echo "CONTAINER_ID=$CONTAINER_ID" >> "$GITHUB_OUTPUT"
 
-          echo ""
           echo "Instagram Reel container created:"
           echo "$CONTAINER_ID"
 
-      - name: Wait for Instagram Reel processing
+      - name: Wait for Reel processing
         env:
           INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
           CONTAINER_ID: ${{ steps.create_container.outputs.CONTAINER_ID }}
         run: |
           set -e
 
-          echo ""
           echo "Waiting for Instagram to process the Reel..."
 
           for attempt in $(seq 1 20); do
+
             echo ""
             echo "Status check $attempt/20"
 
             RESPONSE=$(curl \
               -sS \
               --get \
-              "https://graph.facebook.com/v26.0/${CONTAINER_ID}" \
+              "https://graph.instagram.com/v26.0/${CONTAINER_ID}" \
               --data-urlencode "fields=status_code,status" \
               --data-urlencode "access_token=${INSTAGRAM_ACCESS_TOKEN}")
 
@@ -656,40 +575,27 @@ jobs:
                     )
                 )
 
-            print(
-                data.get(
-                    "status_code",
-                    "UNKNOWN",
-                )
-            )
+            print(data.get("status_code", "UNKNOWN"))
             PY
             )
 
             echo "Current status: $STATUS"
 
             if [ "$STATUS" = "FINISHED" ]; then
-              echo ""
-              echo "Instagram Reel is ready to publish."
+              echo "Instagram Reel is ready."
               exit 0
             fi
 
-            if [ "$STATUS" = "ERROR" ]; then
-              echo ""
-              echo "Instagram reported an ERROR."
+            if [ "$STATUS" = "ERROR" ] || \
+               [ "$STATUS" = "EXPIRED" ]; then
+              echo "Instagram Reel processing failed."
               cat instagram_container_status.json
-              exit 1
-            fi
-
-            if [ "$STATUS" = "EXPIRED" ]; then
-              echo ""
-              echo "Instagram container expired."
               exit 1
             fi
 
             sleep 15
           done
 
-          echo ""
           echo "Instagram Reel did not reach FINISHED."
           exit 1
 
@@ -697,7 +603,7 @@ jobs:
         id: publish
         env:
           INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
-          IG_USER_ID: ${{ steps.instagram_user.outputs.IG_USER_ID }}
+          IG_USER_ID: ${{ steps.load_user.outputs.IG_USER_ID }}
           CONTAINER_ID: ${{ steps.create_container.outputs.CONTAINER_ID }}
         run: |
           set -e
@@ -706,12 +612,11 @@ jobs:
           echo "============================================================"
           echo "PUBLISHING REAL INSTAGRAM REEL"
           echo "============================================================"
-          echo ""
 
           RESPONSE=$(curl \
             -sS \
             --request POST \
-            "https://graph.facebook.com/v26.0/${IG_USER_ID}/media_publish" \
+            "https://graph.instagram.com/v26.0/${IG_USER_ID}/media_publish" \
             --data-urlencode "creation_id=${CONTAINER_ID}" \
             --data-urlencode "access_token=${INSTAGRAM_ACCESS_TOKEN}")
 
@@ -743,7 +648,7 @@ jobs:
 
           if not media_id:
               raise SystemExit(
-                  "Instagram API did not return a published media ID."
+                  "Instagram API did not return published media ID."
               )
 
           print(media_id)
@@ -778,8 +683,8 @@ jobs:
       - name: Final success summary
         if: success()
         env:
-          IG_USERNAME: ${{ steps.instagram_user.outputs.USERNAME }}
-          IG_USER_ID: ${{ steps.instagram_user.outputs.IG_USER_ID }}
+          IG_USERNAME: ${{ steps.load_user.outputs.USERNAME }}
+          IG_USER_ID: ${{ steps.load_user.outputs.IG_USER_ID }}
           CONTAINER_ID: ${{ steps.create_container.outputs.CONTAINER_ID }}
           MEDIA_ID: ${{ steps.publish.outputs.MEDIA_ID }}
         run: |
@@ -788,7 +693,7 @@ jobs:
           echo "OROM PLAN1 REAL INSTAGRAM REEL TEST PASSED"
           echo "============================================================"
           echo ""
-          echo "Instagram username: $IG_USERNAME"
+          echo "Instagram username: @$IG_USERNAME"
           echo "Instagram user ID: $IG_USER_ID"
           echo "Container ID: $CONTAINER_ID"
           echo "Published Media ID: $MEDIA_ID"
@@ -797,6 +702,7 @@ jobs:
           echo "Cloudflare: USED"
           echo "Reel generation: PASSED"
           echo "Audio: PASSED"
+          echo "Instagram Login token: PASSED"
           echo "Instagram container: PASSED"
           echo "Instagram processing: PASSED"
           echo "Instagram publishing: PASSED"
