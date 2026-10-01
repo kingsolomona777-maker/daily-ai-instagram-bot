@@ -541,7 +541,6 @@ jobs:
           echo "Waiting for Instagram to process the Reel..."
 
           for attempt in $(seq 1 20); do
-
             echo ""
             echo "Status check $attempt/20"
 
@@ -552,32 +551,25 @@ jobs:
               --data-urlencode "fields=status_code,status" \
               --data-urlencode "access_token=${INSTAGRAM_ACCESS_TOKEN}")
 
+            echo "Instagram status response:"
             echo "$RESPONSE"
 
-            echo "$RESPONSE" > instagram_container_status.json
+            printf '%s' "$RESPONSE" > instagram_container_status.json
 
-            STATUS=$(python - <<'PY'
-            import json
+            STATUS=$(python -c '
+          import json
 
-            with open(
-                "instagram_container_status.json",
-                "r",
-                encoding="utf-8",
-            ) as f:
-                data = json.load(f)
+          with open("instagram_container_status.json", "r", encoding="utf-8") as f:
+              data = json.load(f)
 
-            if "error" in data:
-                raise SystemExit(
-                    "Instagram status request failed:\n"
-                    + json.dumps(
-                        data["error"],
-                        indent=2,
-                    )
-                )
+          if "error" in data:
+              raise SystemExit(
+                  "Instagram status request failed:\n"
+                  + json.dumps(data["error"], indent=2)
+              )
 
-            print(data.get("status_code", "UNKNOWN"))
-            PY
-            )
+          print(data.get("status_code", "UNKNOWN"))
+          ')
 
             echo "Current status: $STATUS"
 
@@ -586,8 +578,7 @@ jobs:
               exit 0
             fi
 
-            if [ "$STATUS" = "ERROR" ] || \
-               [ "$STATUS" = "EXPIRED" ]; then
+            if [ "$STATUS" = "ERROR" ] || [ "$STATUS" = "EXPIRED" ]; then
               echo "Instagram Reel processing failed."
               cat instagram_container_status.json
               exit 1
@@ -598,7 +589,7 @@ jobs:
 
           echo "Instagram Reel did not reach FINISHED."
           exit 1
-
+          
       - name: Publish Instagram Reel
         id: publish
         env:
