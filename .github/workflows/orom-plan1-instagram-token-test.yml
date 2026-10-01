@@ -1,0 +1,48 @@
+name: Orom Plan1 - Instagram Login Token Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  token-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Test Instagram Login access token
+        env:
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+        run: |
+          set -e
+
+          echo "Checking Instagram Login access token..."
+
+          if [ -z "$INSTAGRAM_ACCESS_TOKEN" ]; then
+            echo "ERROR: INSTAGRAM_ACCESS_TOKEN secret is empty."
+            exit 1
+          fi
+
+          RESPONSE=$(curl -sS --get \
+            "https://graph.instagram.com/v26.0/me" \
+            --data-urlencode "fields=id,username" \
+            --data-urlencode "access_token=$INSTAGRAM_ACCESS_TOKEN")
+
+          echo "Instagram response:"
+          echo "$RESPONSE"
+
+          python - <<'PY' "$RESPONSE"
+          import json
+          import sys
+
+          response = json.loads(sys.argv[1])
+
+          if "error" in response:
+              print("")
+              print("Instagram token test FAILED.")
+              print(json.dumps(response, indent=2))
+              raise SystemExit(1)
+
+          print("")
+          print("Instagram token test PASSED.")
+          print("Instagram ID:", response.get("id"))
+          print("Instagram username:", response.get("username"))
+          PY
