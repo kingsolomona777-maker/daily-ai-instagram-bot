@@ -1,23 +1,23 @@
 {
-  "idea": "Why professional plumbing installation matters",
-  "title": "Proper Drain Line Slope",
-  "description": "A drain pipe is not just a pipe tilted downwards at random—it requires precise geometry. In standard residential gravity drainage (for pipes up to 3 inches in diameter), plumbing codes generally require a consistent slope of 1/4 inch of fall per linear foot. If the pitch is flat or back-sloped, wastewater stalls, allowing solid waste to settle and create recurrent clogs. Professional installation ensures proper hanger spacing and continuous grade from the fixture trap to the main sewer line, preventing pipe sag under weight. Have you ever diagnosed a chronic drain clog that was caused by incorrect slope or sagging pipe framing?",
-  "image_prompt": "A detailed educational cutaway visual showing a 3-inch white schedule 40 PVC DWV drain pipe installed underneath wood floor joists in a clean basement utility space. The visual uses a clear longitudinal cutaway along the pipe to show wastewater flowing smoothly without standing water. The pipe maintains a realistic, consistent downward grade from left to right, supported by clean plastic pipe hangers fastened securely to the joists. Professional job site lighting with crisp shadows. Vertical 9:16 composition, centered subject, clean upper and lower space for overlay text. Photorealistic details, physically accurate plumbing fittings, clean geometry, no text, no logos, no watermarks, no commercial labels.",
-  "visual_story": "The visual focuses on a cross-sectional view of an indoor PVC drain pipe attached to floor framing. Viewers can see the exact continuous pitch (1/4 inch per foot grade) and how wastewater moves efficiently along the bottom of the pipe without pooling. The proper placement of pipe hangers demonstrates how structural support maintains this angle over time, visually linking professional installation practice directly to clog-free drainage.",
+  "idea": "How to detect a leaking toilet",
+  "title": "How to Detect a Silent Toilet Flapper Leak",
+  "description": "An educational guide demonstrating how to use a simple dye test to identify silent flush valve leaks in a toilet tank.",
+  "image_prompt": "A professional educational 3D cross-section cutaway photo of a white ceramic toilet tank and bowl in a brightly lit modern bathroom. Inside the upper porcelain tank, clear water is tinted with vibrant dark blue liquid dye. At the bottom of the tank, a flexible rubber flapper valve is slightly unseated on the plastic flush valve orifice, allowing a thin stream of deep blue water to seep down into the clear water of the lower toilet bowl. Clear physical details showing the fill valve, overflow tube, and flapper assembly inside the tank. High-detail realistic materials, clean lighting, 9:16 vertical orientation, centered composition with clean background space at the top and bottom. No text, no captions, no arrows, no watermarks, no logos, no visual overlays.",
+  "visual_story": "The visual uses a clear sectional cutaway to highlight the hidden path water takes between the tank and bowl. By showing dark blue dye dispersing in the upper tank and trickling past a compromised flapper valve down into the lower bowl, the viewer visually connects an unseen interior failure with an observable result in the bowl without needing to pull the flush lever.",
   "on_image_text": {
-    "hook": "Why Drain Slope Matters",
-    "explanation": "Drain lines require a precise 1/4 inch per foot slope so water carries solids together without leaving debris behind.",
-    "callout": "1/4\" Per Foot Slope",
-    "takeaway": "Correct pitch and rigid pipe supports prevent standing water and chronic drain blockages."
+    "hook": "Silent toilet leaks waste hundreds of liters daily.",
+    "explanation": "A degraded rubber flapper allows tank water to continuously trickle into the bowl.",
+    "callout": "Flush Valve Flapper Failure",
+    "takeaway": "Add food dye to the tank; if color enters the bowl within 15 minutes without flushing, replace the seal."
   },
   "hashtags": [
-    "#plumbingeducation",
-    "#plumbingtips",
-    "#drainage",
-    "#apprenticeplumber",
-    "#plumbingcode",
-    "#homeownerinfo",
-    "#oromplan1"
+    "#PlumbingEducation",
+    "#ToiletRepair",
+    "#PlumbingTips",
+    "#WaterConservation",
+    "#HomeMaintenance",
+    "#ApprenticePlumber",
+    "#Plumbing101"
   ],
   "reel_enabled": false,
   "reel_file": null
