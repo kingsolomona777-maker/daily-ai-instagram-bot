@@ -1,0 +1,701 @@
+name: Orom Plan1 Daily Publisher
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    # Every 15 minutes, UTC.
+    # Lagos is UTC+1.
+    - cron: "*/15 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: orom-plan1-daily-publisher
+  cancel-in-progress: false
+
+jobs:
+  publish-next-due-post:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install requests
+        run: pip install requests
+
+      - name: Publish next due post
+        env:
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import subprocess
+          import time
+          from datetime import datetime, timedelta
+          from pathlib import Path
+          from zoneinfo import ZoneInfo
+
+          import requests
+
+          GRAPH_VERSION = "v26.0"
+          GRAPH_BASE = f"https://graph.instagram.com/{GRAPH_VERSION}"
+          TIMEZONE = ZoneInfo("Africa/Lagos")
+
+          token = os.environ["INSTAGRAM_ACCESS_TOKEN"]
+
+          # ============================================================
+          # 1. Determine today's Lagos date and time
+          # ============================================================
+
+          now = datetime.now(TIMEZONE)
+          package_date = now.strftime("%Y-%m-%d")
+
+          package_dir = Path("daily_packages") / package_date
+          schedule_file = package_dir / "schedule.json"
+
+          print("==============================================")
+          print("OROM PLAN1 DAILY PUBLISHER")
+          print("==============================================")
+          print(f"Lagos date: {package_date}")
+          print(f"Lagos time: {now.strftime('%H:%M:%S')}")
+          print(f"Package: {package_dir}")
+          print("==============================================")
+
+          # ============================================================
+          # 2. Require today's package
+          # ============================================================
+
+          if not schedule_file.exists():
+              print(
+                  "No package exists for today yet."
+              )
+              print(
+                  "Nothing will be published."
+              )
+              raise SystemExit(0)
+
+          with schedule_file.open("r", encoding="utf-8") as f:
+              schedule_data = json.load(f)
+
+          package_status = schedule_data.get("status")
+
+          print(f"Package status: {package_status}")
+
+          if package_status != "ready":
+              raise SystemExit(
+                  "ERROR: Today's package is not READY. "
+                  "Publisher will not publish anything."
+              )
+
+          # ============================================================
+          # 3. Validate package structure
+          # ============================================================
+
+          total_posts = schedule_data.get("total_posts")
+          reels = schedule_data.get("reels")
+          visuals = schedule_data.get("educational_visuals")
+
+          if total_posts != 10:
+              raise SystemExit(
+                  f"ERROR: Package must contain exactly 10 posts. "
+                  f"Found: {total_posts}"
+              )
+
+          if reels != 5:
+              raise SystemExit(
+                  f"ERROR: Package must contain exactly 5 Reels. "
+                  f"Found: {reels}"
+              )
+
+          if visuals != 5:
+              raise SystemExit(
+                  f"ERROR: Package must contain exactly 5 educational "
+                  f"visuals. Found: {visuals}"
+              )
+
+          schedule_entries = schedule_data.get("schedule")
+
+          if not isinstance(schedule_entries, list):
+              raise SystemExit(
+                  "ERROR: schedule.json does not contain a valid schedule."
+              )
+
+          if len(schedule_entries) != 10:
+              raise SystemExit(
+                  "ERROR: Schedule must contain exactly 10 entries."
+              )
+
+          # ============================================================
+          # 4. Read all post metadata
+          # ============================================================
+
+          posts = []
+
+          for index in range(1, 11):
+              post_dir = package_dir / f"post_{index:02d}"
+              content_file = post_dir / "content.json"
+
+              if not content_file.exists():
+                  raise SystemExit(
+                      f"ERROR: Missing metadata: {content_file}"
+                  )
+
+              with content_file.open("r", encoding="utf-8") as f:
+                  content = json.load(f)
+
+              posts.append(
+                  {
+                      "index": index,
+                      "directory": post_dir,
+                      "content_file": content_file,
+                      "content": content,
+                  }
+              )
+
+          # ============================================================
+          # 5. Find the earliest pending post that is due
+          #
+          # IMPORTANT:
+          # Only ONE post may be selected per workflow run.
+          # ============================================================
+
+          def parse_schedule_time(value):
+              if not isinstance(value, str):
+                  return None
+
+              try:
+                  hour, minute = value.strip().split(":")
+                  hour = int(hour)
+                  minute = int(minute)
+
+                  if not (0 <= hour <= 23):
+                      return None
+
+                  if not (0 <= minute <= 59):
+                      return None
+
+                  return hour, minute
+
+              except Exception:
+                  return None
+
+          candidates = []
+
+          for entry in schedule_entries:
+              slot = entry.get("slot")
+              schedule_time = entry.get("schedule_time")
+
+              if slot is None:
+                  raise SystemExit(
+                      "ERROR: Schedule entry is missing slot."
+                  )
+
+              try:
+                  slot_number = int(slot)
+              except Exception:
+                  raise SystemExit(
+                      f"ERROR: Invalid schedule slot: {slot}"
+                  )
+
+              if not 1 <= slot_number <= 10:
+                  raise SystemExit(
+                      f"ERROR: Invalid schedule slot number: {slot_number}"
+                  )
+
+              parsed = parse_schedule_time(schedule_time)
+
+              if parsed is None:
+                  raise SystemExit(
+                      f"ERROR: Invalid schedule time for post "
+                      f"{slot_number}: {schedule_time}"
+                  )
+
+              hour, minute = parsed
+
+              scheduled_datetime = now.replace(
+                  hour=hour,
+                  minute=minute,
+                  second=0,
+                  microsecond=0,
+              )
+
+              post = posts[slot_number - 1]
+              content = post["content"]
+
+              publication_status = content.get(
+                  "publication_status",
+                  "pending",
+              )
+
+              if publication_status == "published":
+                  continue
+
+              if publication_status != "pending":
+                  raise SystemExit(
+                      f"ERROR: post_{slot_number:02d} has unexpected "
+                      f"publication_status: {publication_status}"
+                  )
+
+              # A post is due once Lagos time reaches its scheduled time.
+              if now >= scheduled_datetime:
+                  candidates.append(
+                      (
+                          scheduled_datetime,
+                          slot_number,
+                          schedule_time,
+                          post,
+                      )
+                  )
+
+          # ============================================================
+          # 6. Nothing due yet
+          # ============================================================
+
+          if not candidates:
+              print("")
+              print("No pending post is due yet.")
+              print("Publisher finished without publishing anything.")
+              raise SystemExit(0)
+
+          # ============================================================
+          # 7. Select ONLY the earliest due post
+          # ============================================================
+
+          candidates.sort(
+              key=lambda item: (
+                  item[0],
+                  item[1],
+              )
+          )
+
+          scheduled_datetime, slot_number, schedule_time, post = (
+              candidates[0]
+          )
+
+          content_file = post["content_file"]
+          post_dir = post["directory"]
+          content = post["content"]
+
+          print("")
+          print("Next post selected:")
+          print(f"Post: post_{slot_number:02d}")
+          print(f"Scheduled time: {schedule_time}")
+          print(f"Content type: {content.get('content_type')}")
+          print(f"Current status: {content.get('publication_status')}")
+
+          # ============================================================
+          # 8. Safety checks
+          # ============================================================
+
+          content_type = content.get("content_type")
+
+          if content_type not in {
+              "reel",
+              "educational_visual",
+          }:
+              raise SystemExit(
+                  f"ERROR: Unsupported content type: {content_type}"
+              )
+
+          if content.get("publication_status") != "pending":
+              raise SystemExit(
+                  "ERROR: Selected post is no longer pending."
+              )
+
+          title = str(content.get("title", "")).strip()
+          description = str(content.get("description", "")).strip()
+          hashtags = content.get("hashtags", [])
+
+          if isinstance(hashtags, list):
+              hashtag_text = " ".join(
+                  str(tag).strip()
+                  for tag in hashtags
+                  if str(tag).strip()
+              )
+          else:
+              hashtag_text = str(hashtags).strip()
+
+          caption = "\n\n".join(
+              part
+              for part in [
+                  title,
+                  description,
+                  hashtag_text,
+              ]
+              if part
+          )
+
+          if not caption:
+              raise SystemExit(
+                  "ERROR: Caption is empty."
+              )
+
+          # ============================================================
+          # 9. Verify required media
+          # ============================================================
+
+          image_file = post_dir / "image.jpg"
+          reel_file = post_dir / "reel.mp4"
+
+          if content_type == "reel":
+              if not reel_file.exists():
+                  raise SystemExit(
+                      f"ERROR: Missing Reel file: {reel_file}"
+                  )
+
+              media_file = reel_file
+
+          else:
+              if not image_file.exists():
+                  raise SystemExit(
+                      f"ERROR: Missing image file: {image_file}"
+                  )
+
+              media_file = image_file
+
+          print(f"Media file: {media_file}")
+
+          # ============================================================
+          # 10. Build public GitHub media URL
+          # ============================================================
+
+          repository = os.environ.get(
+              "GITHUB_REPOSITORY",
+              "kingsolomona777-maker/daily-ai-instagram-bot",
+          )
+
+          media_relative_path = (
+              f"daily_packages/{package_date}/"
+              f"post_{slot_number:02d}/"
+              f"{media_file.name}"
+          )
+
+          media_url = (
+              f"https://raw.githubusercontent.com/"
+              f"{repository}/main/{media_relative_path}"
+          )
+
+          print(f"Public media URL: {media_url}")
+
+          # Verify GitHub is serving the file.
+          media_check = requests.get(
+              media_url,
+              timeout=30,
+              allow_redirects=True,
+          )
+
+          print(
+              f"Media HTTP status: "
+              f"{media_check.status_code}"
+          )
+
+          print(
+              f"Media content type: "
+              f"{media_check.headers.get('content-type')}"
+          )
+
+          if media_check.status_code != 200:
+              raise SystemExit(
+                  "ERROR: Public GitHub media URL is not available."
+              )
+
+          # ============================================================
+          # 11. Verify Instagram account/token
+          # ============================================================
+
+          me_response = requests.get(
+              f"{GRAPH_BASE}/me",
+              params={
+                  "fields": "id,username",
+                  "access_token": token,
+              },
+              timeout=30,
+          )
+
+          print(
+              f"Instagram account response: "
+              f"{me_response.text}"
+          )
+
+          me_response.raise_for_status()
+
+          me_data = me_response.json()
+
+          ig_user_id = me_data.get("id")
+          username = me_data.get("username")
+
+          if not ig_user_id:
+              raise SystemExit(
+                  "ERROR: Instagram user ID was not returned."
+              )
+
+          print(f"Instagram account: @{username}")
+          print(f"Instagram user ID: {ig_user_id}")
+
+          # ============================================================
+          # 12. Create Instagram media container
+          # ============================================================
+
+          print("")
+          print("Creating Instagram media container...")
+
+          if content_type == "reel":
+              create_response = requests.post(
+                  f"{GRAPH_BASE}/{ig_user_id}/media",
+                  data={
+                      "media_type": "REELS",
+                      "video_url": media_url,
+                      "caption": caption,
+                      "share_to_feed": "true",
+                      "access_token": token,
+                  },
+                  timeout=60,
+              )
+
+          else:
+              create_response = requests.post(
+                  f"{GRAPH_BASE}/{ig_user_id}/media",
+                  data={
+                      "image_url": media_url,
+                      "caption": caption,
+                      "access_token": token,
+                  },
+                  timeout=60,
+              )
+
+          print(
+              f"Container creation HTTP status: "
+              f"{create_response.status_code}"
+          )
+
+          print(
+              f"Container creation response: "
+              f"{create_response.text}"
+          )
+
+          create_response.raise_for_status()
+
+          create_data = create_response.json()
+          container_id = create_data.get("id")
+
+          if not container_id:
+              raise SystemExit(
+                  "ERROR: Instagram did not return a container ID."
+              )
+
+          print(f"Container ID: {container_id}")
+
+          # ============================================================
+          # 13. Poll container
+          # ============================================================
+
+          print("")
+          print("Waiting for Instagram container...")
+
+          finished = False
+
+          for attempt in range(1, 21):
+
+              status_response = requests.get(
+                  f"{GRAPH_BASE}/{container_id}",
+                  params={
+                      "fields": "status_code,status",
+                      "access_token": token,
+                  },
+                  timeout=30,
+              )
+
+              print(
+                  f"Poll {attempt}/20: "
+                  f"{status_response.text}"
+              )
+
+              status_response.raise_for_status()
+
+              status_data = status_response.json()
+
+              status_code = status_data.get("status_code")
+
+              if status_code == "FINISHED":
+                  finished = True
+                  print(
+                      "Instagram container is FINISHED."
+                  )
+                  break
+
+              if status_code in {
+                  "ERROR",
+                  "EXPIRED",
+              }:
+                  raise SystemExit(
+                      "ERROR: Instagram container failed: "
+                      f"{status_response.text}"
+                  )
+
+              time.sleep(15)
+
+          if not finished:
+              raise SystemExit(
+                  "ERROR: Instagram container did not reach "
+                  "FINISHED within the allowed polling period."
+              )
+
+          # ============================================================
+          # 14. Publish
+          # ============================================================
+
+          print("")
+          print("Publishing post...")
+
+          publish_response = requests.post(
+              f"{GRAPH_BASE}/{ig_user_id}/media_publish",
+              data={
+                  "creation_id": container_id,
+                  "access_token": token,
+              },
+              timeout=60,
+          )
+
+          print(
+              f"Publish HTTP status: "
+              f"{publish_response.status_code}"
+          )
+
+          print(
+              f"Publish response: "
+              f"{publish_response.text}"
+          )
+
+          publish_response.raise_for_status()
+
+          publish_data = publish_response.json()
+
+          media_id = publish_data.get("id")
+
+          if not media_id:
+              raise SystemExit(
+                  "ERROR: Instagram did not return a media ID."
+              )
+
+          print(f"Instagram media ID: {media_id}")
+
+          # ============================================================
+          # 15. Mark this exact post as published
+          # ============================================================
+
+          content["publication_status"] = "published"
+          content["instagram_media_id"] = media_id
+          content["published_at"] = datetime.now(
+              TIMEZONE
+          ).isoformat()
+
+          with content_file.open(
+              "w",
+              encoding="utf-8",
+          ) as f:
+              json.dump(
+                  content,
+                  f,
+                  indent=2,
+                  ensure_ascii=False,
+              )
+              f.write("\n")
+
+          print(
+              f"Updated: {content_file}"
+          )
+
+          # ============================================================
+          # 16. Commit publication status
+          # ============================================================
+
+          subprocess.run(
+              [
+                  "git",
+                  "config",
+                  "user.name",
+                  "github-actions[bot]",
+              ],
+              check=True,
+          )
+
+          subprocess.run(
+              [
+                  "git",
+                  "config",
+                  "user.email",
+                  "41898282+github-actions[bot]@users.noreply.github.com",
+              ],
+              check=True,
+          )
+
+          subprocess.run(
+              [
+                  "git",
+                  "add",
+                  str(content_file),
+              ],
+              check=True,
+          )
+
+          diff_check = subprocess.run(
+              [
+                  "git",
+                  "diff",
+                  "--cached",
+                  "--quiet",
+              ]
+          )
+
+          if diff_check.returncode == 0:
+              raise SystemExit(
+                  "ERROR: No metadata change was detected."
+              )
+
+          subprocess.run(
+              [
+                  "git",
+                  "commit",
+                  "-m",
+                  f"Mark Orom Plan1 post_{slot_number:02d} as published",
+              ],
+              check=True,
+          )
+
+          subprocess.run(
+              [
+                  "git",
+                  "push",
+              ],
+              check=True,
+          )
+
+          # ============================================================
+          # 17. Final result
+          # ============================================================
+
+          print("")
+          print("==============================================")
+          print("OROM PLAN1 DAILY PUBLISHER SUCCESS")
+          print("==============================================")
+          print(f"Account: @{username}")
+          print(f"Date: {package_date}")
+          print(f"Published: post_{slot_number:02d}")
+          print(f"Type: {content_type}")
+          print(f"Scheduled: {schedule_time}")
+          print(f"Media ID: {media_id}")
+          print("Status saved to GitHub.")
+          print("Only ONE post was published this run.")
+          print("==============================================")
+          PY
