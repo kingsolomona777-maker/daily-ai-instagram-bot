@@ -1,0 +1,130 @@
+{
+  "package_date": "2026-10-03",
+  "timezone": "Africa/Lagos",
+  "status": "ready",
+  "total_posts": 10,
+  "reels": 5,
+  "educational_visuals": 5,
+  "schedule": [
+    {
+      "slot": 1,
+      "lesson_number": 1,
+      "content_type": "reel",
+      "title": "Why Slow Drains Happen: Identifying the Root Cause",
+      "schedule_time": "07:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_01",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 2,
+      "lesson_number": 2,
+      "content_type": "educational_visual",
+      "title": "How Sink Drainage Systems Work",
+      "schedule_time": "09:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_02",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 3,
+      "lesson_number": 3,
+      "content_type": "reel",
+      "title": "The Hidden Danger of Back-Graded Waste Pipes",
+      "schedule_time": "11:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_03",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 4,
+      "lesson_number": 4,
+      "content_type": "educational_visual",
+      "title": "Understanding the Role of the Drain Trap",
+      "schedule_time": "13:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_04",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 5,
+      "lesson_number": 5,
+      "content_type": "reel",
+      "title": "Diagnosing Drain Ventilation Failures",
+      "schedule_time": "15:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_05",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 6,
+      "lesson_number": 6,
+      "content_type": "educational_visual",
+      "title": "Understanding Pipe Slope in Drainage Systems",
+      "schedule_time": "17:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_06",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 7,
+      "lesson_number": 7,
+      "content_type": "reel",
+      "title": "Why Sanitary Tees Fail in Horizontal Drainage Lines",
+      "schedule_time": "19:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_07",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 8,
+      "lesson_number": 8,
+      "content_type": "educational_visual",
+      "title": "Cast Iron vs. PVC in Drain, Waste, and Vent Systems",
+      "schedule_time": "21:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_08",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 9,
+      "lesson_number": 9,
+      "content_type": "reel",
+      "title": "Pipe Slope Myth: Steeper Isn't Always Better",
+      "schedule_time": "22:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_09",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 10,
+      "lesson_number": 10,
+      "content_type": "educational_visual",
+      "title": "Understanding Trap Seal Integrity and Venting",
+      "schedule_time": "23:30",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_10",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    }
+  ]
+}
