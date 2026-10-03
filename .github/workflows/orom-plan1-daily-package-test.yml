@@ -1,0 +1,339 @@
+name: Orom Plan1 Daily Package Integration Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  daily-package-integration-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install required Python packages
+        run: |
+          pip install Pillow google-genai
+
+      - name: Compile project files
+        env:
+          GEMINI_API_KEY: test-key-not-used
+        run: |
+          python -m py_compile daily_content_engine.py
+          python -m py_compile daily_package_manager.py
+
+      - name: Test engine to package manager connection
+        env:
+          GEMINI_API_KEY: test-key-not-used
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import shutil
+          import json
+
+          import daily_content_engine as engine
+          from daily_package_manager import build_daily_package
+
+          output_dir = Path("integration_test_media")
+          package_root = Path("integration_test_packages")
+
+          shutil.rmtree(output_dir, ignore_errors=True)
+          shutil.rmtree(package_root, ignore_errors=True)
+
+          output_dir.mkdir(parents=True)
+
+          # ---------------------------------------------------------
+          # Fake content generation
+          # This replaces Gemini for this integration test.
+          # ---------------------------------------------------------
+
+          def fake_generate_content_batches(daily_plan):
+              posts = []
+
+              for item in daily_plan:
+                  slot = item["slot"]
+                  is_reel = slot % 2 == 1
+
+                  posts.append({
+                      "slot": slot,
+                      "lesson_number": slot,
+                      "content_type": (
+                          "reel"
+                          if is_reel
+                          else "educational_visual"
+                      ),
+                      "role": item.get(
+                          "role",
+                          "professional_tip"
+                      ),
+                      "lesson_type": item.get(
+                          "lesson_type",
+                          "educational"
+                      ),
+                      "knowledge_path": item.get(
+                          "knowledge_path",
+                          "Plumbing"
+                      ),
+                      "knowledge_area": item.get(
+                          "knowledge_area",
+                          "Plumbing"
+                      ),
+                      "title": (
+                          f"Integration Test "
+                          f"Plumbing Lesson {slot}"
+                      ),
+                      "description": (
+                          f"Integration test lesson "
+                          f"description {slot}."
+                      ),
+                      "hashtags": [
+                          "#plumbing",
+                          "#plumbingtips"
+                      ],
+                      "image_prompt": (
+                          "Professional realistic "
+                          "plumbing photograph."
+                      ),
+                      "on_image_text": {
+                          "hook": f"Plumbing Lesson {slot}",
+                          "explanation": "Test explanation",
+                          "callout": "Test callout",
+                          "takeaway": "Test takeaway",
+                      },
+                  })
+
+              return posts
+
+          engine.generate_content_batches = (
+              fake_generate_content_batches
+          )
+
+          # ---------------------------------------------------------
+          # Fake image generation
+          # This replaces Cloudflare FLUX.
+          # ---------------------------------------------------------
+
+          def fake_generate_image(prompt, output_file):
+              output_file = Path(output_file)
+
+              from PIL import Image
+
+              image = Image.new(
+                  "RGB",
+                  (1024, 1024),
+                  "white"
+              )
+
+              image.save(output_file, format="JPEG")
+
+          engine.generate_image = fake_generate_image
+
+          # ---------------------------------------------------------
+          # Fake educational image preparation
+          # ---------------------------------------------------------
+
+          def fake_make_vertical_image(
+              input_file,
+              output_file,
+              on_image_text=None,
+          ):
+              output_file = Path(output_file)
+
+              from PIL import Image
+
+              image = Image.open(input_file).convert("RGB")
+              image = image.resize((1080, 1920))
+              image.save(output_file, format="JPEG")
+
+          engine.make_vertical_image = fake_make_vertical_image
+
+          # ---------------------------------------------------------
+          # Fake Reel generation
+          # This replaces FFmpeg Reel rendering.
+          # ---------------------------------------------------------
+
+          def fake_generate_reel(
+              input_file,
+              output_file,
+              duration=8,
+              teaching_text=None,
+              audio_file=None,
+          ):
+              output_file = Path(output_file)
+              output_file.write_bytes(
+                  b"fake-reel-media-for-integration-test"
+              )
+
+          engine.generate_reel = fake_generate_reel
+
+          # ---------------------------------------------------------
+          # Create the same 10-slot daily plan structure.
+          # ---------------------------------------------------------
+
+          daily_plan = []
+
+          for slot in range(1, 11):
+              daily_plan.append({
+                  "slot": slot,
+                  "lesson_number": slot,
+                  "content_type": (
+                      "reel"
+                      if slot % 2 == 1
+                      else "educational_visual"
+                  ),
+                  "role": (
+                      "problem_and_cause"
+                      if slot % 2 == 1
+                      else "how_it_works"
+                  ),
+                  "lesson_type": "educational",
+                  "knowledge_path": (
+                      "Drainage Fundamentals"
+                  ),
+                  "knowledge_area": "Plumbing",
+              })
+
+          # ---------------------------------------------------------
+          # Generate the complete 10-post media package.
+          # ---------------------------------------------------------
+
+          generated_content = (
+              engine.generate_content_batches(
+                  daily_plan
+              )
+          )
+
+          media_packages = (
+              engine.generate_media_from_content(
+                  generated_content=generated_content,
+                  output_directory=output_dir,
+                  audio_file=None,
+              )
+          )
+
+          assert len(media_packages) == 10
+
+          # ---------------------------------------------------------
+          # Convert engine output into package-manager input.
+          # ---------------------------------------------------------
+
+          package_posts = []
+
+          for index, package in enumerate(
+              media_packages,
+              start=1,
+          ):
+              content = package["content"]
+
+              package_posts.append({
+                  **content,
+                  "slot": index,
+                  "image_file": str(
+                      package["image_file"]
+                  ),
+                  "reel_file": (
+                      str(package["reel_file"])
+                      if package.get("reel_file")
+                      else None
+                  ),
+                  "reel_audio_file": (
+                      str(package["reel_audio_file"])
+                      if package.get("reel_audio_file")
+                      else None
+                  ),
+              })
+
+          # ---------------------------------------------------------
+          # Build the real daily package.
+          # ---------------------------------------------------------
+
+          package_dir = build_daily_package(
+              generated_posts=package_posts,
+              package_date="2099-01-02",
+              package_root=package_root,
+          )
+
+          schedule_file = (
+              package_dir / "schedule.json"
+          )
+
+          assert schedule_file.exists()
+
+          schedule = json.loads(
+              schedule_file.read_text()
+          )
+
+          assert schedule["status"] == "ready"
+          assert schedule["total_posts"] == 10
+          assert schedule["reels"] == 5
+          assert schedule["educational_visuals"] == 5
+
+          post_dirs = sorted(
+              package_dir.glob("post_*")
+          )
+
+          assert len(post_dirs) == 10
+
+          reel_count = 0
+          visual_count = 0
+
+          for post_dir in post_dirs:
+              assert (
+                  post_dir / "image.jpg"
+              ).exists()
+
+              content_file = (
+                  post_dir / "content.json"
+              )
+
+              assert content_file.exists()
+
+              content = json.loads(
+                  content_file.read_text()
+              )
+
+              assert (
+                  content["publication_status"]
+                  == "pending"
+              )
+
+              if content["content_type"] == "reel":
+                  reel_count += 1
+
+                  assert (
+                      post_dir / "reel.mp4"
+                  ).exists()
+              else:
+                  visual_count += 1
+
+          assert reel_count == 5
+          assert visual_count == 5
+
+          print("")
+          print("========================================")
+          print("DAILY PACKAGE INTEGRATION TEST PASSED")
+          print("========================================")
+          print("10 lessons generated")
+          print("10 media packages created")
+          print("5 Reels created")
+          print("5 educational visuals created")
+          print("10 posts packaged")
+          print("Package status: READY")
+          print("Publication status: PENDING")
+          print("Gemini: NOT USED")
+          print("Cloudflare FLUX: NOT USED")
+          print("Instagram: NOT USED")
+          print("========================================")
+
+          PY
+
+      - name: Clean integration test files
+        if: always()
+        run: |
+          rm -rf integration_test_media
+          rm -rf integration_test_packages
