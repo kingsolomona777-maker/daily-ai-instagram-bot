@@ -47,8 +47,9 @@ jobs:
 
           output_dir.mkdir(parents=True)
 
+          # ---------------------------------------------------------
           # Fake Gemini content generation.
-          # This test does NOT use the real Gemini API.
+          # ---------------------------------------------------------
 
           def fake_generate_content_batches(daily_plan):
               posts = []
@@ -126,8 +127,9 @@ jobs:
               fake_generate_content_batches
           )
 
+          # ---------------------------------------------------------
           # Fake Cloudflare image generation.
-          # This test does NOT use Cloudflare AI.
+          # ---------------------------------------------------------
 
           def fake_generate_image(prompt, output_file):
               output_file = Path(output_file)
@@ -149,7 +151,9 @@ jobs:
 
           engine.generate_image = fake_generate_image
 
-          # Fake vertical image preparation.
+          # ---------------------------------------------------------
+          # Fake vertical educational image preparation.
+          # ---------------------------------------------------------
 
           def fake_make_vertical_image(
               input_file,
@@ -172,7 +176,9 @@ jobs:
 
           engine.make_vertical_image = fake_make_vertical_image
 
+          # ---------------------------------------------------------
           # Fake Reel generation.
+          # ---------------------------------------------------------
 
           def fake_generate_reel(
               input_file,
@@ -191,7 +197,9 @@ jobs:
 
           engine.generate_reel = fake_generate_reel
 
-          # Create the 10-slot daily plan.
+          # ---------------------------------------------------------
+          # Create the normal 10-slot daily plan.
+          # ---------------------------------------------------------
 
           daily_plan = []
 
@@ -238,7 +246,9 @@ jobs:
                   "knowledge_area": "Plumbing",
               })
 
-          # Generate 10 validated lessons.
+          # ---------------------------------------------------------
+          # Generate the 10 lessons.
+          # ---------------------------------------------------------
 
           generated_content = (
               engine.generate_content_batches(
@@ -248,7 +258,9 @@ jobs:
 
           assert len(generated_content) == 10
 
-          # Generate 10 media packages.
+          # ---------------------------------------------------------
+          # Generate all 10 media assets.
+          # ---------------------------------------------------------
 
           media_packages = (
               engine.generate_media_from_content(
@@ -260,35 +272,43 @@ jobs:
 
           assert len(media_packages) == 10
 
-          # Prepare package-manager input.
+          # ---------------------------------------------------------
+          # Combine each generated lesson with its media files.
+          #
+          # The media engine returns media information separately.
+          # The lesson content remains in generated_content.
+          # ---------------------------------------------------------
 
           package_posts = []
 
-          for index, package in enumerate(
-              media_packages,
-              start=1,
+          for index, media in enumerate(
+              media_packages
           ):
-              content = package["content"]
+              content = generated_content[index]
 
               package_posts.append({
                   **content,
-                  "slot": index,
+                  "slot": index + 1,
                   "image_file": str(
-                      package["image_file"]
+                      media["image_file"]
                   ),
                   "reel_file": (
-                      str(package["reel_file"])
-                      if package.get("reel_file")
+                      str(media["reel_file"])
+                      if media.get("reel_file")
                       else None
                   ),
                   "reel_audio_file": (
-                      str(package["reel_audio_file"])
-                      if package.get("reel_audio_file")
+                      str(media["reel_audio_file"])
+                      if media.get("reel_audio_file")
                       else None
                   ),
               })
 
+          assert len(package_posts) == 10
+
+          # ---------------------------------------------------------
           # Build the daily package.
+          # ---------------------------------------------------------
 
           package_dir = build_daily_package(
               generated_posts=package_posts,
@@ -320,6 +340,7 @@ jobs:
           visual_count = 0
 
           for post_dir in post_dirs:
+
               assert (
                   post_dir / "image.jpg"
               ).exists()
