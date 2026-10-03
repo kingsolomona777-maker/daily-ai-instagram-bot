@@ -1,0 +1,388 @@
+name: Orom Plan1 Daily Package Generator
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: "30 0 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  generate-daily-package:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python packages
+        run: |
+          pip install google-genai requests Pillow
+
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Check today's package
+        id: package_check
+        run: |
+          PACKAGE_DATE=$(TZ=Africa/Lagos date +%Y-%m-%d)
+          PACKAGE_DIR="daily_packages/${PACKAGE_DATE}"
+
+          echo "Package date: ${PACKAGE_DATE}"
+          echo "Package directory: ${PACKAGE_DIR}"
+
+          if [ -f "${PACKAGE_DIR}/schedule.json" ]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "Today's package already exists."
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+            echo "Today's package does not exist."
+          fi
+
+      - name: Generate today's 10-post package
+        if: steps.package_check.outputs.exists == 'false'
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+          import shutil
+          import json
+
+          from content_planner import (
+              create_daily_plan,
+              validate_daily_plan,
+          )
+
+          from content_batch_generator import (
+              generate_content_batches,
+          )
+
+          from daily_content_engine import (
+              validate_content_list,
+              generate_media_from_content,
+          )
+
+          from daily_package_manager import (
+              build_daily_package,
+          )
+
+          # ---------------------------------------------------------
+          # Determine today's Lagos date.
+          # ---------------------------------------------------------
+
+          lagos_now = datetime.now(
+              ZoneInfo("Africa/Lagos")
+          )
+
+          package_date = lagos_now.strftime(
+              "%Y-%m-%d"
+          )
+
+          print("")
+          print("==========================================")
+          print("OROM PLAN1 DAILY PACKAGE GENERATOR")
+          print("==========================================")
+          print(f"Package date: {package_date}")
+          print("Target posts: 10")
+          print("Target Reels: 5")
+          print("Target educational visuals: 5")
+          print("Gemini generation: ON")
+          print("Cloudflare FLUX generation: ON")
+          print("Instagram publishing: OFF")
+          print("==========================================")
+
+          # ---------------------------------------------------------
+          # Safety check.
+          # ---------------------------------------------------------
+
+          package_root = Path("daily_packages")
+          package_dir = (
+              package_root / package_date
+          )
+
+          if package_dir.exists():
+              raise RuntimeError(
+                  f"Package already exists: {package_dir}. "
+                  "Generation stopped to prevent duplicate AI usage."
+              )
+
+          # ---------------------------------------------------------
+          # Step 1: Create the 10-slot learning plan.
+          # ---------------------------------------------------------
+
+          print("")
+          print("STEP 1: Creating 10-post daily plan...")
+
+          daily_plan = create_daily_plan()
+
+          validate_daily_plan(daily_plan)
+
+          assert len(daily_plan) == 10
+
+          print("Daily plan created successfully.")
+          print("10 planned lessons confirmed.")
+
+          # ---------------------------------------------------------
+          # Step 2: Generate all 10 lessons with Gemini.
+          # ---------------------------------------------------------
+
+          print("")
+          print("STEP 2: Generating 10 lessons with Gemini...")
+          print("This is the only Gemini generation stage.")
+
+          generated_content = generate_content_batches(
+              daily_plan
+          )
+
+          validate_content_list(
+              generated_content
+          )
+
+          assert len(generated_content) == 10
+
+          print("Gemini content generation complete.")
+          print("10 validated lessons received.")
+
+          # ---------------------------------------------------------
+          # Step 3: Generate all media.
+          #
+          # This performs:
+          # 10 source images
+          # 10 educational 9:16 images
+          # 5 Reels
+          #
+          # No second Gemini request happens here.
+          # ---------------------------------------------------------
+
+          output_directory = Path(
+              "daily_media_generation"
+          )
+
+          shutil.rmtree(
+              output_directory,
+              ignore_errors=True
+          )
+
+          output_directory.mkdir(
+              parents=True,
+              exist_ok=True
+          )
+
+          print("")
+          print("STEP 3: Generating 10 media packages...")
+          print("Cloudflare FLUX will be used here.")
+          print("Gemini will NOT be called again.")
+
+          media_packages = (
+              generate_media_from_content(
+                  generated_content=generated_content,
+                  output_directory=output_directory,
+                  audio_file=None,
+              )
+          )
+
+          assert len(media_packages) == 10
+
+          print("")
+          print("Media generation complete.")
+          print("10 media packages created.")
+
+          # ---------------------------------------------------------
+          # Step 4: Connect lesson data with generated media.
+          # ---------------------------------------------------------
+
+          package_posts = []
+
+          for index, media in enumerate(
+              media_packages
+          ):
+              content = generated_content[index]
+
+              package_posts.append({
+                  **content,
+
+                  "slot": index + 1,
+
+                  "image_file": str(
+                      media["image_file"]
+                  ),
+
+                  "reel_file": (
+                      str(media["reel_file"])
+                      if media.get("reel_file")
+                      else None
+                  ),
+
+                  "reel_audio_file": (
+                      str(media["reel_audio_file"])
+                      if media.get("reel_audio_file")
+                      else None
+                  ),
+              })
+
+          assert len(package_posts) == 10
+
+          # ---------------------------------------------------------
+          # Step 5: Build the READY daily package.
+          # ---------------------------------------------------------
+
+          print("")
+          print("STEP 4: Building daily package...")
+
+          package_dir = build_daily_package(
+              generated_posts=package_posts,
+              package_date=package_date,
+              package_root=package_root,
+          )
+
+          print(
+              f"Package created: {package_dir}"
+          )
+
+          # ---------------------------------------------------------
+          # Step 6: Verify the package before committing it.
+          # ---------------------------------------------------------
+
+          schedule_file = (
+              package_dir / "schedule.json"
+          )
+
+          assert schedule_file.exists()
+
+          schedule = json.loads(
+              schedule_file.read_text()
+          )
+
+          assert schedule["status"] == "ready"
+          assert schedule["total_posts"] == 10
+          assert schedule["reels"] == 5
+          assert schedule["educational_visuals"] == 5
+
+          post_dirs = sorted(
+              package_dir.glob("post_*")
+          )
+
+          assert len(post_dirs) == 10
+
+          reel_count = 0
+          visual_count = 0
+
+          for post_dir in post_dirs:
+
+              image_file = (
+                  post_dir / "image.jpg"
+              )
+
+              content_file = (
+                  post_dir / "content.json"
+              )
+
+              assert image_file.exists()
+              assert content_file.exists()
+
+              content = json.loads(
+                  content_file.read_text()
+              )
+
+              assert (
+                  content["publication_status"]
+                  == "pending"
+              )
+
+              if content["content_type"] == "reel":
+
+                  reel_count += 1
+
+                  assert (
+                      post_dir / "reel.mp4"
+                  ).exists()
+
+              elif (
+                  content["content_type"]
+                  == "educational_visual"
+              ):
+
+                  visual_count += 1
+
+              else:
+
+                  raise RuntimeError(
+                      "Unknown content type: "
+                      f"{content['content_type']}"
+                  )
+
+          assert reel_count == 5
+          assert visual_count == 5
+
+          print("")
+          print("==========================================")
+          print("DAILY PACKAGE READY")
+          print("==========================================")
+          print(f"Date: {package_date}")
+          print("Posts: 10")
+          print("Reels: 5")
+          print("Educational visuals: 5")
+          print("Images: 10")
+          print("Package status: READY")
+          print("Publication status: PENDING")
+          print("Instagram publishing: NOT RUN")
+          print("==========================================")
+
+          # ---------------------------------------------------------
+          # Remove temporary media-generation directory.
+          # The package manager has already copied the final assets.
+          # ---------------------------------------------------------
+
+          shutil.rmtree(
+              output_directory,
+              ignore_errors=True
+          )
+
+          PY
+
+      - name: Commit daily package
+        if: steps.package_check.outputs.exists == 'false'
+        run: |
+          PACKAGE_DATE=$(TZ=Africa/Lagos date +%Y-%m-%d)
+
+          git config user.name "Orom Plan1 Bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add "daily_packages/${PACKAGE_DATE}"
+
+          if git diff --cached --quiet; then
+            echo "No package changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Orom Plan1 daily package ${PACKAGE_DATE}"
+
+          git push origin HEAD:main
+
+      - name: Existing package notice
+        if: steps.package_check.outputs.exists == 'true'
+        run: |
+          PACKAGE_DATE=$(TZ=Africa/Lagos date +%Y-%m-%d)
+
+          echo "=========================================="
+          echo "PACKAGE ALREADY EXISTS"
+          echo "=========================================="
+          echo "Date: ${PACKAGE_DATE}"
+          echo "No Gemini generation performed."
+          echo "No Cloudflare generation performed."
+          echo "No duplicate package created."
+          echo "=========================================="
