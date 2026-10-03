@@ -1,0 +1,191 @@
+name: Orom Plan1 Package Manager Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  package-manager-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Compile package manager
+        run: python -m py_compile daily_package_manager.py
+
+      - name: Test daily package creation
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          import shutil
+
+          from daily_package_manager import build_daily_package
+
+          root = Path("package_manager_test_output")
+
+          if root.exists():
+              shutil.rmtree(root)
+
+          source = Path("package_manager_test_source")
+
+          if source.exists():
+              shutil.rmtree(source)
+
+          source.mkdir(parents=True)
+
+          posts = []
+
+          for slot in range(1, 11):
+              image_file = source / f"image_{slot:02d}.jpg"
+              image_file.write_bytes(b"fake-image-data")
+
+              is_reel = slot % 2 == 1
+              reel_file = None
+
+              if is_reel:
+                  reel_file = source / f"reel_{slot:02d}.mp4"
+                  reel_file.write_bytes(b"fake-reel-data")
+
+              posts.append({
+                  "slot": slot,
+                  "lesson_number": slot,
+                  "content_type": (
+                      "reel"
+                      if is_reel
+                      else "educational_visual"
+                  ),
+                  "role": (
+                      "problem_and_cause"
+                      if is_reel
+                      else "how_it_works"
+                  ),
+                  "lesson_type": "educational",
+                  "knowledge_path": "Drainage Fundamentals",
+                  "knowledge_area": "Plumbing",
+                  "title": f"Test Plumbing Lesson {slot}",
+                  "description": (
+                      f"Test educational description for lesson {slot}."
+                  ),
+                  "hashtags": [
+                      "#plumbing",
+                      "#plumbingtips"
+                  ],
+                  "image_file": str(image_file),
+                  "reel_file": (
+                      str(reel_file)
+                      if reel_file
+                      else None
+                  ),
+                  "reel_audio_file": None,
+              })
+
+          package_date = "2099-01-01"
+
+          result = build_daily_package(
+              generated_posts=posts,
+              package_date=package_date,
+              package_root=root,
+          )
+
+          daily_dir = root / package_date
+          schedule_file = daily_dir / "schedule.json"
+
+          assert result == daily_dir
+          assert schedule_file.exists(), (
+              "schedule.json was not created"
+          )
+
+          schedule = json.loads(
+              schedule_file.read_text()
+          )
+
+          assert schedule["status"] == "ready"
+          assert schedule["total_posts"] == 10
+          assert schedule["reels"] == 5
+          assert schedule["educational_visuals"] == 5
+          assert len(schedule["schedule"]) == 10
+
+          post_dirs = sorted(
+              daily_dir.glob("post_*")
+          )
+
+          assert len(post_dirs) == 10, (
+              f"Expected 10 post directories, "
+              f"found {len(post_dirs)}"
+          )
+
+          reel_count = 0
+          visual_count = 0
+
+          for post_dir in post_dirs:
+
+              content_file = post_dir / "content.json"
+              image_file = post_dir / "image.jpg"
+
+              assert content_file.exists(), (
+                  f"Missing {content_file}"
+              )
+
+              assert image_file.exists(), (
+                  f"Missing {image_file}"
+              )
+
+              content = json.loads(
+                  content_file.read_text()
+              )
+
+              assert content["publication_status"] == "pending"
+
+              assert content["instagram_media_id"] is None
+
+              assert content["published_at"] is None
+
+              if content["content_type"] == "reel":
+
+                  reel_count += 1
+
+                  assert (
+                      post_dir / "reel.mp4"
+                  ).exists(), (
+                      f"Missing reel.mp4 in {post_dir}"
+                  )
+
+              else:
+
+                  visual_count += 1
+
+                  assert (
+                      content["content_type"]
+                      == "educational_visual"
+                  )
+
+          assert reel_count == 5, (
+              f"Expected 5 reels, found {reel_count}"
+          )
+
+          assert visual_count == 5, (
+              f"Expected 5 educational visuals, "
+              f"found {visual_count}"
+          )
+
+          print("PACKAGE MANAGER TEST PASSED")
+          print(f"Package: {daily_dir}")
+          print("10 posts packaged successfully")
+          print("5 Reels packaged successfully")
+          print("5 educational visuals packaged successfully")
+          print("All publication statuses are pending")
+          print("Schedule status is ready")
+          PY
+
+      - name: Clean test files
+        if: always()
+        run: |
+          rm -rf package_manager_test_output
+          rm -rf package_manager_test_source
