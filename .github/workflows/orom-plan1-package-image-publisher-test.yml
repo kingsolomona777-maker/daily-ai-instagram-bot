@@ -1,0 +1,371 @@
+name: Orom Plan1 Package Image Publisher Test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish-post-02:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install requests
+        run: pip install requests
+
+      - name: Publish post_02
+        env:
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import time
+          from datetime import datetime
+          from pathlib import Path
+          from zoneinfo import ZoneInfo
+
+          import requests
+
+          GRAPH_VERSION = "v26.0"
+          GRAPH_BASE = f"https://graph.instagram.com/{GRAPH_VERSION}"
+          REPO_OWNER = "kingsolomona777-maker"
+          REPO_NAME = "daily-ai-instagram-bot"
+          BRANCH = "main"
+
+          token = os.environ["INSTAGRAM_ACCESS_TOKEN"]
+
+          # ------------------------------------------------------------
+          # 1. Determine today's Lagos package
+          # ------------------------------------------------------------
+
+          now_lagos = datetime.now(ZoneInfo("Africa/Lagos"))
+          package_date = now_lagos.strftime("%Y-%m-%d")
+
+          package_dir = Path("daily_packages") / package_date
+          post_dir = package_dir / "post_02"
+          content_file = post_dir / "content.json"
+          image_file = post_dir / "image.jpg"
+
+          print(f"Package date: {package_date}")
+          print(f"Package directory: {package_dir}")
+          print(f"Post directory: {post_dir}")
+
+          if not content_file.exists():
+              raise SystemExit(
+                  f"ERROR: Missing package metadata: {content_file}"
+              )
+
+          if not image_file.exists():
+              raise SystemExit(
+                  f"ERROR: Missing educational image: {image_file}"
+              )
+
+          # ------------------------------------------------------------
+          # 2. Load package metadata
+          # ------------------------------------------------------------
+
+          with content_file.open("r", encoding="utf-8") as f:
+              content = json.load(f)
+
+          print(f"Content type: {content.get('content_type')}")
+          print(f"Publication status: {content.get('publication_status')}")
+
+          if content.get("publication_status") == "published":
+              raise SystemExit(
+                  "ERROR: post_02 is already marked as published."
+              )
+
+          if content.get("content_type") != "educational_visual":
+              raise SystemExit(
+                  "ERROR: post_02 is not an educational_visual."
+              )
+
+          # ------------------------------------------------------------
+          # 3. Build public GitHub image URL
+          # ------------------------------------------------------------
+
+          image_url = (
+              f"https://raw.githubusercontent.com/"
+              f"{REPO_OWNER}/{REPO_NAME}/{BRANCH}/"
+              f"daily_packages/{package_date}/post_02/image.jpg"
+          )
+
+          print(f"Public image URL: {image_url}")
+
+          # Verify that GitHub can serve the image.
+          image_check = requests.get(
+              image_url,
+              timeout=30,
+              allow_redirects=True,
+          )
+
+          print(f"Image HTTP status: {image_check.status_code}")
+          print(
+              f"Image content type: "
+              f"{image_check.headers.get('content-type')}"
+          )
+
+          if image_check.status_code != 200:
+              raise SystemExit(
+                  "ERROR: Instagram cannot use an image that GitHub "
+                  "is not serving successfully."
+              )
+
+          # ------------------------------------------------------------
+          # 4. Verify Instagram token and identify account
+          # ------------------------------------------------------------
+
+          me_response = requests.get(
+              f"{GRAPH_BASE}/me",
+              params={
+                  "fields": "id,username",
+                  "access_token": token,
+              },
+              timeout=30,
+          )
+
+          print(f"Instagram account response: {me_response.text}")
+
+          me_response.raise_for_status()
+
+          me_data = me_response.json()
+          ig_user_id = me_data.get("id")
+          username = me_data.get("username")
+
+          if not ig_user_id:
+              raise SystemExit(
+                  "ERROR: Instagram user ID was not returned."
+              )
+
+          print(f"Instagram account: @{username}")
+          print(f"Instagram user ID: {ig_user_id}")
+
+          # ------------------------------------------------------------
+          # 5. Build caption
+          # ------------------------------------------------------------
+
+          title = str(content.get("title", "")).strip()
+          description = str(content.get("description", "")).strip()
+          hashtags = content.get("hashtags", [])
+
+          if isinstance(hashtags, list):
+              hashtag_text = " ".join(
+                  str(tag).strip()
+                  for tag in hashtags
+                  if str(tag).strip()
+              )
+          else:
+              hashtag_text = str(hashtags).strip()
+
+          caption_parts = [
+              title,
+              description,
+              hashtag_text,
+          ]
+
+          caption = "\n\n".join(
+              part for part in caption_parts if part
+          )
+
+          if not caption:
+              raise SystemExit(
+                  "ERROR: Caption is empty."
+              )
+
+          print("Caption prepared successfully.")
+
+          # ------------------------------------------------------------
+          # 6. Create Instagram image container
+          # ------------------------------------------------------------
+
+          print("Creating Instagram image container...")
+
+          create_response = requests.post(
+              f"{GRAPH_BASE}/{ig_user_id}/media",
+              data={
+                  "image_url": image_url,
+                  "caption": caption,
+                  "access_token": token,
+              },
+              timeout=60,
+          )
+
+          print(
+              f"Container creation HTTP status: "
+              f"{create_response.status_code}"
+          )
+          print(f"Container creation response: {create_response.text}")
+
+          create_response.raise_for_status()
+
+          create_data = create_response.json()
+          container_id = create_data.get("id")
+
+          if not container_id:
+              raise SystemExit(
+                  "ERROR: Instagram did not return a container ID."
+              )
+
+          print(f"Container ID: {container_id}")
+
+          # ------------------------------------------------------------
+          # 7. Poll container until ready
+          # ------------------------------------------------------------
+
+          print("Waiting for Instagram container to finish...")
+
+          final_status = None
+
+          for attempt in range(1, 21):
+              status_response = requests.get(
+                  f"{GRAPH_BASE}/{container_id}",
+                  params={
+                      "fields": "status_code,status",
+                      "access_token": token,
+                  },
+                  timeout=30,
+              )
+
+              print(
+                  f"Poll {attempt}/20: "
+                  f"{status_response.text}"
+              )
+
+              status_response.raise_for_status()
+
+              status_data = status_response.json()
+              status_code = status_data.get("status_code")
+              status_text = status_data.get("status")
+
+              final_status = status_code or status_text
+
+              if status_code == "FINISHED":
+                  print("Instagram image container is FINISHED.")
+                  break
+
+              if status_code in {"ERROR", "EXPIRED"}:
+                  raise SystemExit(
+                      f"ERROR: Instagram container failed: "
+                      f"{status_response.text}"
+                  )
+
+              time.sleep(15)
+
+          else:
+              raise SystemExit(
+                  "ERROR: Instagram image container did not become "
+                  "FINISHED within the allowed polling period."
+              )
+
+          # ------------------------------------------------------------
+          # 8. Publish the image
+          # ------------------------------------------------------------
+
+          print("Publishing Instagram image...")
+
+          publish_response = requests.post(
+              f"{GRAPH_BASE}/{ig_user_id}/media_publish",
+              data={
+                  "creation_id": container_id,
+                  "access_token": token,
+              },
+              timeout=60,
+          )
+
+          print(
+              f"Publish HTTP status: "
+              f"{publish_response.status_code}"
+          )
+          print(f"Publish response: {publish_response.text}")
+
+          publish_response.raise_for_status()
+
+          publish_data = publish_response.json()
+          media_id = publish_data.get("id")
+
+          if not media_id:
+              raise SystemExit(
+                  "ERROR: Instagram did not return a published media ID."
+              )
+
+          print(f"Published Instagram media ID: {media_id}")
+
+          # ------------------------------------------------------------
+          # 9. Update package metadata
+          # ------------------------------------------------------------
+
+          content["publication_status"] = "published"
+          content["instagram_media_id"] = media_id
+          content["published_at"] = datetime.now(
+              ZoneInfo("Africa/Lagos")
+          ).isoformat()
+
+          with content_file.open("w", encoding="utf-8") as f:
+              json.dump(
+                  content,
+                  f,
+                  indent=2,
+                  ensure_ascii=False,
+              )
+              f.write("\n")
+
+          print(f"Updated metadata: {content_file}")
+
+          # ------------------------------------------------------------
+          # 10. Commit publication status
+          # ------------------------------------------------------------
+
+          print("Committing publication status...")
+
+          os.system(
+              f'git config user.name "github-actions[bot]"'
+          )
+          os.system(
+              f'git config user.email '
+              f'"41898282+github-actions[bot]@users.noreply.github.com"'
+          )
+
+          os.system(
+              f'git add "{content_file}"'
+          )
+
+          commit_result = os.system(
+              'git diff --cached --quiet || '
+              'git commit -m "Mark Orom Plan1 post_02 as published"'
+          )
+
+          if commit_result != 0:
+              print(
+                  "Git commit command returned a non-zero status. "
+                  "Checking whether there were simply no changes."
+              )
+
+          push_result = os.system("git push")
+
+          if push_result != 0:
+              raise SystemExit(
+                  "ERROR: Failed to push publication status to GitHub."
+              )
+
+          print("")
+          print("==============================================")
+          print("POST_02 IMAGE PUBLISH TEST PASSED")
+          print("==============================================")
+          print(f"Instagram account: @{username}")
+          print(f"Package date: {package_date}")
+          print("Post: post_02")
+          print("Type: educational_visual")
+          print(f"Instagram media ID: {media_id}")
+          print("Package metadata updated to published.")
+          print("==============================================")
+          PY
