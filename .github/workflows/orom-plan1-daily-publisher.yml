@@ -6,7 +6,7 @@ on:
   schedule:
     # Every 15 minutes, UTC.
     # Lagos is UTC+1.
-    - cron: "*/15 * * * *"
+    - cron: "7,22,37,52 * * * *"
 
 permissions:
   contents: write
