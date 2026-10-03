@@ -47,13 +47,24 @@ jobs:
 
           output_dir.mkdir(parents=True)
 
-          # ---------------------------------------------------------
-          # Fake content generation
-          # This replaces Gemini for this integration test.
-          # ---------------------------------------------------------
+          # Fake Gemini content generation.
+          # This test does NOT use the real Gemini API.
 
           def fake_generate_content_batches(daily_plan):
               posts = []
+
+              lesson_types = [
+                  "problem_and_cause",
+                  "how_it_works",
+                  "common_mistake",
+                  "professional_tip",
+                  "troubleshooting",
+                  "maintenance",
+                  "installation_principle",
+                  "material_knowledge",
+                  "myth_vs_fact",
+                  "professional_tip",
+              ]
 
               for item in daily_plan:
                   slot = item["slot"]
@@ -67,43 +78,45 @@ jobs:
                           if is_reel
                           else "educational_visual"
                       ),
-                      "role": item.get(
-                          "role",
-                          "professional_tip"
-                      ),
-                      "lesson_type": item.get(
-                          "lesson_type",
-                          "educational"
-                      ),
-                      "knowledge_path": item.get(
-                          "knowledge_path",
-                          "Plumbing"
-                      ),
-                      "knowledge_area": item.get(
-                          "knowledge_area",
-                          "Plumbing"
-                      ),
+                      "role": item["role"],
+                      "lesson_type": lesson_types[slot - 1],
+                      "knowledge_path": item["knowledge_path"],
+                      "knowledge_area": item["knowledge_area"],
                       "title": (
-                          f"Integration Test "
-                          f"Plumbing Lesson {slot}"
+                          f"Integration Test Plumbing Lesson {slot}"
                       ),
                       "description": (
-                          f"Integration test lesson "
-                          f"description {slot}."
+                          f"A realistic educational plumbing lesson "
+                          f"created for integration testing, lesson {slot}."
+                      ),
+                      "image_prompt": (
+                          "Professional realistic plumbing installation "
+                          "photograph showing physically accurate pipe "
+                          "connections, realistic fittings and a clean "
+                          "working environment, no text, no logo, no watermark."
                       ),
                       "hashtags": [
                           "#plumbing",
-                          "#plumbingtips"
+                          "#plumbingtips",
+                          "#plumbingeducation",
+                          "#plumber",
                       ],
-                      "image_prompt": (
-                          "Professional realistic "
-                          "plumbing photograph."
+                      "visual_story": (
+                          "The visual clearly demonstrates the plumbing "
+                          "principle being taught so the viewer can "
+                          "understand the lesson from the image."
                       ),
                       "on_image_text": {
                           "hook": f"Plumbing Lesson {slot}",
-                          "explanation": "Test explanation",
-                          "callout": "Test callout",
-                          "takeaway": "Test takeaway",
+                          "explanation": (
+                              "Understand the plumbing principle."
+                          ),
+                          "callout": (
+                              "Key component or cause"
+                          ),
+                          "takeaway": (
+                              "Use the correct professional practice."
+                          ),
                       },
                   })
 
@@ -113,10 +126,8 @@ jobs:
               fake_generate_content_batches
           )
 
-          # ---------------------------------------------------------
-          # Fake image generation
-          # This replaces Cloudflare FLUX.
-          # ---------------------------------------------------------
+          # Fake Cloudflare image generation.
+          # This test does NOT use Cloudflare AI.
 
           def fake_generate_image(prompt, output_file):
               output_file = Path(output_file)
@@ -126,16 +137,19 @@ jobs:
               image = Image.new(
                   "RGB",
                   (1024, 1024),
-                  "white"
+                  "white",
               )
 
-              image.save(output_file, format="JPEG")
+              image.save(
+                  output_file,
+                  format="JPEG",
+              )
+
+              return str(output_file)
 
           engine.generate_image = fake_generate_image
 
-          # ---------------------------------------------------------
-          # Fake educational image preparation
-          # ---------------------------------------------------------
+          # Fake vertical image preparation.
 
           def fake_make_vertical_image(
               input_file,
@@ -148,14 +162,17 @@ jobs:
 
               image = Image.open(input_file).convert("RGB")
               image = image.resize((1080, 1920))
-              image.save(output_file, format="JPEG")
+
+              image.save(
+                  output_file,
+                  format="JPEG",
+              )
+
+              return str(output_file)
 
           engine.make_vertical_image = fake_make_vertical_image
 
-          # ---------------------------------------------------------
-          # Fake Reel generation
-          # This replaces FFmpeg Reel rendering.
-          # ---------------------------------------------------------
+          # Fake Reel generation.
 
           def fake_generate_reel(
               input_file,
@@ -165,17 +182,44 @@ jobs:
               audio_file=None,
           ):
               output_file = Path(output_file)
+
               output_file.write_bytes(
                   b"fake-reel-media-for-integration-test"
               )
 
+              return str(output_file)
+
           engine.generate_reel = fake_generate_reel
 
-          # ---------------------------------------------------------
-          # Create the same 10-slot daily plan structure.
-          # ---------------------------------------------------------
+          # Create the 10-slot daily plan.
 
           daily_plan = []
+
+          lesson_types = [
+              "problem_and_cause",
+              "how_it_works",
+              "common_mistake",
+              "professional_tip",
+              "troubleshooting",
+              "maintenance",
+              "installation_principle",
+              "material_knowledge",
+              "myth_vs_fact",
+              "professional_tip",
+          ]
+
+          roles = [
+              "problem_and_cause",
+              "how_it_works",
+              "common_mistake",
+              "professional_tip",
+              "troubleshooting",
+              "maintenance",
+              "installation_principle",
+              "material_knowledge",
+              "myth_vs_fact",
+              "professional_tip",
+          ]
 
           for slot in range(1, 11):
               daily_plan.append({
@@ -186,27 +230,25 @@ jobs:
                       if slot % 2 == 1
                       else "educational_visual"
                   ),
-                  "role": (
-                      "problem_and_cause"
-                      if slot % 2 == 1
-                      else "how_it_works"
-                  ),
-                  "lesson_type": "educational",
+                  "role": roles[slot - 1],
+                  "lesson_type": lesson_types[slot - 1],
                   "knowledge_path": (
                       "Drainage Fundamentals"
                   ),
                   "knowledge_area": "Plumbing",
               })
 
-          # ---------------------------------------------------------
-          # Generate the complete 10-post media package.
-          # ---------------------------------------------------------
+          # Generate 10 validated lessons.
 
           generated_content = (
               engine.generate_content_batches(
                   daily_plan
               )
           )
+
+          assert len(generated_content) == 10
+
+          # Generate 10 media packages.
 
           media_packages = (
               engine.generate_media_from_content(
@@ -218,9 +260,7 @@ jobs:
 
           assert len(media_packages) == 10
 
-          # ---------------------------------------------------------
-          # Convert engine output into package-manager input.
-          # ---------------------------------------------------------
+          # Prepare package-manager input.
 
           package_posts = []
 
@@ -248,9 +288,7 @@ jobs:
                   ),
               })
 
-          # ---------------------------------------------------------
-          # Build the real daily package.
-          # ---------------------------------------------------------
+          # Build the daily package.
 
           package_dir = build_daily_package(
               generated_posts=package_posts,
@@ -258,9 +296,7 @@ jobs:
               package_root=package_root,
           )
 
-          schedule_file = (
-              package_dir / "schedule.json"
-          )
+          schedule_file = package_dir / "schedule.json"
 
           assert schedule_file.exists()
 
@@ -272,6 +308,7 @@ jobs:
           assert schedule["total_posts"] == 10
           assert schedule["reels"] == 5
           assert schedule["educational_visuals"] == 5
+          assert len(schedule["schedule"]) == 10
 
           post_dirs = sorted(
               package_dir.glob("post_*")
