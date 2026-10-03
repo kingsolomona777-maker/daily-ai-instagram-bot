@@ -1,23 +1,23 @@
 {
-  "idea": "How to detect a leaking toilet",
-  "title": "How to Detect a Silent Toilet Flapper Leak",
-  "description": "An educational guide demonstrating how to use a simple dye test to identify silent flush valve leaks in a toilet tank.",
-  "image_prompt": "A professional educational 3D cross-section cutaway photo of a white ceramic toilet tank and bowl in a brightly lit modern bathroom. Inside the upper porcelain tank, clear water is tinted with vibrant dark blue liquid dye. At the bottom of the tank, a flexible rubber flapper valve is slightly unseated on the plastic flush valve orifice, allowing a thin stream of deep blue water to seep down into the clear water of the lower toilet bowl. Clear physical details showing the fill valve, overflow tube, and flapper assembly inside the tank. High-detail realistic materials, clean lighting, 9:16 vertical orientation, centered composition with clean background space at the top and bottom. No text, no captions, no arrows, no watermarks, no logos, no visual overlays.",
-  "visual_story": "The visual uses a clear sectional cutaway to highlight the hidden path water takes between the tank and bowl. By showing dark blue dye dispersing in the upper tank and trickling past a compromised flapper valve down into the lower bowl, the viewer visually connects an unseen interior failure with an observable result in the bowl without needing to pull the flush lever.",
+  "idea": "Signs of a hidden water leak",
+  "title": "Detecting Hidden Plumbing Leaks with the Water Meter Test",
+  "description": "A hidden water supply leak can waste thousands of liters before damp spots appear on walls or floors. To quickly verify an unseen leak without opening walls, perform a static meter check. Close every faucet, toilet valve, and water-using appliance in the building. Locate your main mechanical water meter and examine the dial face. Most meters feature a small triangular or star-shaped low-flow indicator. If this wheel rotates while every fixture is shut, water is actively escaping from your pressurized pipe network. This simple diagnostic confirms whether a hidden leak exists before pursuing acoustic tracing or thermal imaging.",
+  "image_prompt": "A crisp, photorealistic, vertical 9:16 close-up photograph of a brass mechanical water meter installed along a clean residential supply line. The meter face is protected by clear glass, showing a white dial with black numerical registers and a prominent red low-flow leak indicator wheel in the center. Modern copper supply pipes connect to the meter with threaded brass unions. Bright, natural directional lighting highlights the textured metal and clear dial face. Clean composition with natural shadow and empty space at the top and bottom third for text overlay placement. Professional plumbing installation setting, vertical orientation, photorealistic details, no text, no logos, no watermarks, no digital graphic overlays.",
+  "visual_story": "The visual provides a detailed, clear view of a mechanical water meter's dial face, focusing on the small low-flow indicator wheel. By showing the exact physical component used to detect small flows, the visual teaches viewers precisely where to look on their own equipment to verify if water is continuously flowing through a closed system.",
   "on_image_text": {
-    "hook": "Silent toilet leaks waste hundreds of liters daily.",
-    "explanation": "A degraded rubber flapper allows tank water to continuously trickle into the bowl.",
-    "callout": "Flush Valve Flapper Failure",
-    "takeaway": "Add food dye to the tank; if color enters the bowl within 15 minutes without flushing, replace the seal."
+    "hook": "How to Spot a Hidden Water Leak",
+    "explanation": "When all house fixtures are closed, the leak indicator wheel on your water meter should remain completely stationary.",
+    "callout": "Low-Flow Leak Indicator",
+    "takeaway": "A spinning dial with all valves shut confirms an active supply line leak."
   },
   "hashtags": [
     "#PlumbingEducation",
-    "#ToiletRepair",
+    "#LeakDetection",
     "#PlumbingTips",
-    "#WaterConservation",
+    "#WaterMeter",
     "#HomeMaintenance",
-    "#ApprenticePlumber",
-    "#Plumbing101"
+    "#PlumbingApprentice",
+    "#PlumbingDiagnostics"
   ],
   "reel_enabled": false,
   "reel_file": null
