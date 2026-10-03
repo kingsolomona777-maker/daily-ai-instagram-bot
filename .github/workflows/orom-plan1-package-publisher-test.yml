@@ -1,0 +1,445 @@
+name: Orom Plan1 Package Publisher Test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish-package-post:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install requests
+        run: |
+          pip install requests
+
+      - name: Publish post 01 from today's package
+        env:
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from datetime import datetime, timezone
+          from zoneinfo import ZoneInfo
+          import json
+          import time
+
+          import requests
+
+          GRAPH_VERSION = "v26.0"
+          GRAPH_BASE = (
+              f"https://graph.instagram.com/{GRAPH_VERSION}"
+          )
+
+          REPO_OWNER = "kingsolomona777-maker"
+          REPO_NAME = "daily-ai-instagram-bot"
+          BRANCH = "main"
+
+          PACKAGE_DATE = datetime.now(
+              ZoneInfo("Africa/Lagos")
+          ).strftime("%Y-%m-%d")
+
+          PACKAGE_DIR = (
+              Path("daily_packages")
+              / PACKAGE_DATE
+          )
+
+          POST_DIR = PACKAGE_DIR / "post_01"
+          CONTENT_FILE = POST_DIR / "content.json"
+
+          print("")
+          print("==========================================")
+          print("OROM PLAN1 PACKAGE PUBLISHER TEST")
+          print("==========================================")
+          print(f"Package date: {PACKAGE_DATE}")
+          print("Selected post: post_01")
+          print("Instagram publishing: ON")
+          print("Gemini: OFF")
+          print("Cloudflare: OFF")
+          print("==========================================")
+
+          # ---------------------------------------------------------
+          # Verify package exists.
+          # ---------------------------------------------------------
+
+          if not PACKAGE_DIR.exists():
+              raise RuntimeError(
+                  f"Today's package does not exist: {PACKAGE_DIR}"
+              )
+
+          if not CONTENT_FILE.exists():
+              raise RuntimeError(
+                  f"Missing content file: {CONTENT_FILE}"
+              )
+
+          content = json.loads(
+              CONTENT_FILE.read_text()
+          )
+
+          content_type = content.get(
+              "content_type"
+          )
+
+          publication_status = content.get(
+              "publication_status"
+          )
+
+          print("")
+          print("Package content loaded.")
+          print(f"Content type: {content_type}")
+          print(
+              f"Publication status: {publication_status}"
+          )
+
+          # ---------------------------------------------------------
+          # Never publish an already-published package item.
+          # ---------------------------------------------------------
+
+          if publication_status == "published":
+              raise RuntimeError(
+                  "post_01 is already marked as published. "
+                  "Publishing was stopped to prevent duplication."
+              )
+
+          # ---------------------------------------------------------
+          # This test expects post_01 to be a Reel.
+          # ---------------------------------------------------------
+
+          if content_type != "reel":
+              raise RuntimeError(
+                  "post_01 is not a Reel. "
+                  f"Found content_type={content_type}"
+              )
+
+          reel_file = POST_DIR / "reel.mp4"
+
+          if not reel_file.exists():
+              raise RuntimeError(
+                  f"Missing Reel file: {reel_file}"
+              )
+
+          # ---------------------------------------------------------
+          # Build the public GitHub raw URL.
+          # ---------------------------------------------------------
+
+          video_url = (
+              "https://raw.githubusercontent.com/"
+              f"{REPO_OWNER}/"
+              f"{REPO_NAME}/"
+              f"{BRANCH}/"
+              f"daily_packages/"
+              f"{PACKAGE_DATE}/"
+              "post_01/reel.mp4"
+          )
+
+          print("")
+          print("Public Reel URL:")
+          print(video_url)
+
+          # ---------------------------------------------------------
+          # Verify the Instagram access token.
+          # ---------------------------------------------------------
+
+          token = (
+              "${{ secrets.INSTAGRAM_ACCESS_TOKEN }}"
+          )
+
+          if not token:
+              raise RuntimeError(
+                  "INSTAGRAM_ACCESS_TOKEN secret is missing."
+              )
+
+          print("")
+          print("Verifying Instagram token...")
+
+          me_response = requests.get(
+              f"{GRAPH_BASE}/me",
+              params={
+                  "fields": "id,username",
+                  "access_token": token,
+              },
+              timeout=60,
+          )
+
+          print(
+              "Instagram response:",
+              me_response.text
+          )
+
+          me_response.raise_for_status()
+
+          me_data = me_response.json()
+
+          ig_user_id = me_data.get("id")
+          username = me_data.get("username")
+
+          if not ig_user_id:
+              raise RuntimeError(
+                  "Instagram user ID was not returned."
+              )
+
+          print(
+              f"Instagram account: @{username}"
+          )
+          print(
+              f"Instagram user ID: {ig_user_id}"
+          )
+
+          # ---------------------------------------------------------
+          # Create the Reel container.
+          # ---------------------------------------------------------
+
+          title = content.get(
+              "title",
+              "Orom Plan1 Plumbing Lesson"
+          )
+
+          description = content.get(
+              "description",
+              ""
+          )
+
+          hashtags = content.get(
+              "hashtags",
+              []
+          )
+
+          if isinstance(hashtags, list):
+              hashtag_text = " ".join(
+                  str(item)
+                  for item in hashtags
+              )
+          else:
+              hashtag_text = str(
+                  hashtags or ""
+              )
+
+          caption_parts = [
+              str(title).strip(),
+              str(description).strip(),
+              hashtag_text.strip(),
+          ]
+
+          caption = "\n\n".join(
+              part
+              for part in caption_parts
+              if part
+          )
+
+          print("")
+          print("Creating Instagram Reel container...")
+
+          container_response = requests.post(
+              f"{GRAPH_BASE}/{ig_user_id}/media",
+              data={
+                  "media_type": "REELS",
+                  "video_url": video_url,
+                  "caption": caption,
+                  "share_to_feed": "true",
+                  "access_token": token,
+              },
+              timeout=120,
+          )
+
+          print(
+              "Container response:",
+              container_response.text
+          )
+
+          container_response.raise_for_status()
+
+          container_data = (
+              container_response.json()
+          )
+
+          container_id = container_data.get(
+              "id"
+          )
+
+          if not container_id:
+              raise RuntimeError(
+                  "Instagram did not return a container ID."
+              )
+
+          print(
+              f"Container ID: {container_id}"
+          )
+
+          # ---------------------------------------------------------
+          # Wait for Instagram to finish processing.
+          # ---------------------------------------------------------
+
+          print("")
+          print(
+              "Waiting for Instagram to process Reel..."
+          )
+
+          final_status = None
+
+          for attempt in range(1, 21):
+
+              status_response = requests.get(
+                  f"{GRAPH_BASE}/{container_id}",
+                  params={
+                      "fields": (
+                          "status_code,status"
+                      ),
+                      "access_token": token,
+                  },
+                  timeout=60,
+              )
+
+              print(
+                  f"Processing check {attempt}: "
+                  f"{status_response.text}"
+              )
+
+              status_response.raise_for_status()
+
+              status_data = (
+                  status_response.json()
+              )
+
+              status_code = status_data.get(
+                  "status_code"
+              )
+
+              final_status = status_code
+
+              if status_code == "FINISHED":
+                  break
+
+              if status_code in (
+                  "ERROR",
+                  "EXPIRED",
+              ):
+                  raise RuntimeError(
+                      "Instagram Reel processing failed: "
+                      f"{status_data}"
+                  )
+
+              time.sleep(15)
+
+          if final_status != "FINISHED":
+              raise RuntimeError(
+                  "Instagram Reel did not reach "
+                  "FINISHED status within the "
+                  "allowed processing time."
+              )
+
+          # ---------------------------------------------------------
+          # Publish the Reel.
+          # ---------------------------------------------------------
+
+          print("")
+          print("Publishing Reel to Instagram...")
+
+          publish_response = requests.post(
+              f"{GRAPH_BASE}/{ig_user_id}/media_publish",
+              data={
+                  "creation_id": container_id,
+                  "access_token": token,
+              },
+              timeout=120,
+          )
+
+          print(
+              "Publish response:",
+              publish_response.text
+          )
+
+          publish_response.raise_for_status()
+
+          publish_data = (
+              publish_response.json()
+          )
+
+          instagram_media_id = (
+              publish_data.get("id")
+          )
+
+          if not instagram_media_id:
+              raise RuntimeError(
+                  "Instagram did not return a published "
+                  "media ID."
+              )
+
+          # ---------------------------------------------------------
+          # Record successful publication.
+          # ---------------------------------------------------------
+
+          published_at = datetime.now(
+              timezone.utc
+          ).isoformat()
+
+          content["publication_status"] = (
+              "published"
+          )
+
+          content["instagram_media_id"] = (
+              instagram_media_id
+          )
+
+          content["published_at"] = (
+              published_at
+          )
+
+          CONTENT_FILE.write_text(
+              json.dumps(
+                  content,
+                  indent=2,
+                  ensure_ascii=False,
+              )
+              + "\n"
+          )
+
+          print("")
+          print("==========================================")
+          print("PACKAGE POST PUBLISHED SUCCESSFULLY")
+          print("==========================================")
+          print(
+              f"Instagram account: @{username}"
+          )
+          print("Package post: post_01")
+          print(
+              f"Instagram media ID: "
+              f"{instagram_media_id}"
+          )
+          print(
+              f"Published at: {published_at}"
+          )
+          print("Package status: READY")
+          print("Post status: PUBLISHED")
+          print("==========================================")
+
+          PY
+
+      - name: Commit publication status
+        run: |
+          PACKAGE_DATE=$(TZ=Africa/Lagos date +%Y-%m-%d)
+
+          git config user.name "Orom Plan1 Bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add \
+            "daily_packages/${PACKAGE_DATE}/post_01/content.json"
+
+          if git diff --cached --quiet; then
+            echo "No publication-status changes to commit."
+            exit 0
+          fi
+
+          git commit \
+            -m "Orom Plan1 publish post 01 ${PACKAGE_DATE}"
+
+          git push origin HEAD:main
