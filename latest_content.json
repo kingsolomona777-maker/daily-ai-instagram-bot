@@ -1,23 +1,23 @@
 {
-  "idea": "When to replace old plumbing pipes",
-  "title": "Identifying Internal Pipe Tuberculation",
-  "description": "Educational tip demonstrating why galvanized steel supply pipes require replacement due to internal tuberculation and severe mineral scale accumulation.",
-  "image_prompt": "A professional macro photograph in vertical 9:16 aspect ratio showing a cleanly cut section of an old 3/4-inch galvanized steel water pipe held by a plumber wearing clean work gloves. The cross-section directly reveals severe internal tuberculation, showing thick layers of orange, brown, and dark red rust corrosion and mineral scaling that almost completely block the inner pipe channel, leaving only a tiny central hole for water flow. The outer metallic surface of the pipe appears relatively intact, highlighting the contrast between outer appearance and internal blockages. Clean daylight lighting, sharp focus on the internal lumen structure, neutral workshop background with shallow depth of field. No text, no logos, no watermarks, no artificial diagrams.",
-  "visual_story": "The viewer immediately notices a cross-section of an old galvanized steel water pipe. While the exterior metal wall looks solid and intact, the interior lumen is nearly completely choked with rust deposits and mineral buildup (tuberculation). This visual demonstrates why evaluating pipe health purely from the outside can be misleading, as internal restriction drastically reduces water volume and pressure throughout the supply system.",
+  "idea": "How to maintain kitchen drainage",
+  "title": "Preventing Grease Accumulation in Kitchen P-Traps",
+  "description": "Fats, oils, and grease enter kitchen drains as hot liquids, but as they travel into the cool P-trap and drainage branch, they rapidly lose heat. This temperature drop causes grease to solidify and adhere to the inner pipe walls, gradually restricting wastewater flow. Running cold water while washing greasy cookware speeds up this solidification inside the trap. To maintain clear drainage, scrape heavy grease from pots and plates into the trash before washing, and follow dishwashing with a warm water flush to carry suspended fats past the trap seal into the main drain line. How do you prevent grease buildup in your sink?",
+  "image_prompt": "An educational cutaway technical illustration of a kitchen sink drainage system under a stainless steel sink basin, vertical 9:16 aspect ratio. The main focus is a centered 1.5-inch white PVC P-trap with realistic threaded slip-joint nuts and a lower cleanout plug. The front section of the PVC trap curve is cut away in a clean sectional view to show the interior pipe wall. Inside, a visible layer of pale yellow solidified grease coats the upper inner walls of the trap, narrowing the water passage. Water fills the lower trap seal. Realistic lighting highlights the contrast between the smooth plastic fitting and the textured grease accumulation inside. Clean, professional background, realistic plumbing geometry, photorealistic render, no text, no labels, no watermark, no logos.",
+  "visual_story": "The visual uses a clear cutaway view of a kitchen P-trap beneath a sink basin to show the hidden interior mechanics of drain restricted flow. Viewers will observe how melted fats don't simply wash away; instead, they cling to the cold inner walls of the PVC trap curve, forming a thick deposit that narrows the path for wastewater. This directly illustrates why kitchen sinks gradually slow down over time.",
   "on_image_text": {
-    "hook": "Old Pipes Can Look Fine Outside But Be Choked Inside",
-    "explanation": "Galvanized steel pipes corrode internally over time, forming thick rust layers that restrict water flow and drop water pressure.",
-    "callout": "Internal Tuberculation Buildup",
-    "takeaway": "Persistent low water volume across multiple fixtures often indicates severe internal pipe corrosion requiring piping replacement."
+    "hook": "WHY KITCHEN DRAINS SLOW DOWN",
+    "explanation": "Hot fats cool rapidly inside the P-trap, coating the pipe walls with solid grease.",
+    "callout": "Grease Build-Up in Trap Seal",
+    "takeaway": "Scrape cookware into the trash before washing."
   },
   "hashtags": [
     "#PlumbingEducation",
+    "#KitchenPlumbing",
+    "#DrainMaintenance",
     "#PlumbingTips",
-    "#GalvanizedPipes",
-    "#PlumbingApprentice",
-    "#PipeReplacement",
-    "#PlumbingMaintenance",
-    "#HomeownerAdvice"
+    "#ApprenticePlumber",
+    "#PTrap",
+    "#PlumbingAdvice"
   ],
   "reel_enabled": false,
   "reel_file": null
