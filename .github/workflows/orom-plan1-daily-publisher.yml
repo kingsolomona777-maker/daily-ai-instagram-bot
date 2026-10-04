@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
 
   schedule:
-    # Every 15 minutes, UTC.
-    # Lagos is UTC+1.
+    # Runs approximately every 15 minutes.
+    # Times are UTC. Lagos is UTC+1.
     - cron: "7,22,37,52 * * * *"
 
 permissions:
@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  publish-next-due-post:
+  publish-due-posts:
     runs-on: ubuntu-latest
 
     steps:
@@ -33,7 +33,7 @@ jobs:
       - name: Install requests
         run: pip install requests
 
-      - name: Publish next due post
+      - name: Publish all due posts
         env:
           INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
         run: |
@@ -42,11 +42,12 @@ jobs:
           import os
           import subprocess
           import time
-          from datetime import datetime, timedelta
+          from datetime import datetime
           from pathlib import Path
           from zoneinfo import ZoneInfo
 
           import requests
+
 
           GRAPH_VERSION = "v26.0"
           GRAPH_BASE = f"https://graph.instagram.com/{GRAPH_VERSION}"
@@ -54,35 +55,28 @@ jobs:
 
           token = os.environ["INSTAGRAM_ACCESS_TOKEN"]
 
-          # ============================================================
-          # 1. Determine today's Lagos date and time
-          # ============================================================
-
-          now = datetime.now(TIMEZONE)
-          package_date = now.strftime("%Y-%m-%d")
-
-          package_dir = Path("daily_packages") / package_date
-          schedule_file = package_dir / "schedule.json"
-
           print("==============================================")
           print("OROM PLAN1 DAILY PUBLISHER")
           print("==============================================")
+
+          now = datetime.now(TIMEZONE)
+          package_date = now.strftime("%Y-%m-%d")
+          package_dir = Path("daily_packages") / package_date
+          schedule_file = package_dir / "schedule.json"
+
           print(f"Lagos date: {package_date}")
           print(f"Lagos time: {now.strftime('%H:%M:%S')}")
           print(f"Package: {package_dir}")
           print("==============================================")
 
+
           # ============================================================
-          # 2. Require today's package
+          # 1. Require today's package
           # ============================================================
 
           if not schedule_file.exists():
-              print(
-                  "No package exists for today yet."
-              )
-              print(
-                  "Nothing will be published."
-              )
+              print("No package exists for today yet.")
+              print("Nothing will be published.")
               raise SystemExit(0)
 
           with schedule_file.open("r", encoding="utf-8") as f:
@@ -98,8 +92,9 @@ jobs:
                   "Publisher will not publish anything."
               )
 
+
           # ============================================================
-          # 3. Validate package structure
+          # 2. Validate package structure
           # ============================================================
 
           total_posts = schedule_data.get("total_posts")
@@ -136,8 +131,9 @@ jobs:
                   "ERROR: Schedule must contain exactly 10 entries."
               )
 
+
           # ============================================================
-          # 4. Read all post metadata
+          # 3. Read all post metadata
           # ============================================================
 
           posts = []
@@ -163,11 +159,9 @@ jobs:
                   }
               )
 
+
           # ============================================================
-          # 5. Find the earliest pending post that is due
-          #
-          # IMPORTANT:
-          # Only ONE post may be selected per workflow run.
+          # 4. Parse schedule times
           # ============================================================
 
           def parse_schedule_time(value):
@@ -189,6 +183,16 @@ jobs:
 
               except Exception:
                   return None
+
+
+          # ============================================================
+          # 5. Find EVERY pending post that is already due
+          #
+          # This is the major fix.
+          #
+          # If GitHub runs late, all overdue posts are collected.
+          # Future posts are never published early.
+          # ============================================================
 
           candidates = []
 
@@ -247,7 +251,8 @@ jobs:
                       f"publication_status: {publication_status}"
                   )
 
-              # A post is due once Lagos time reaches its scheduled time.
+              # Only posts whose scheduled Lagos time has arrived
+              # are eligible.
               if now >= scheduled_datetime:
                   candidates.append(
                       (
@@ -258,8 +263,9 @@ jobs:
                       )
                   )
 
+
           # ============================================================
-          # 6. Nothing due yet
+          # 6. Nothing due
           # ============================================================
 
           if not candidates:
@@ -268,8 +274,9 @@ jobs:
               print("Publisher finished without publishing anything.")
               raise SystemExit(0)
 
+
           # ============================================================
-          # 7. Select ONLY the earliest due post
+          # 7. Publish oldest due posts first
           # ============================================================
 
           candidates.sort(
@@ -279,410 +286,565 @@ jobs:
               )
           )
 
-          scheduled_datetime, slot_number, schedule_time, post = (
-              candidates[0]
-          )
-
-          content_file = post["content_file"]
-          post_dir = post["directory"]
-          content = post["content"]
-
           print("")
-          print("Next post selected:")
-          print(f"Post: post_{slot_number:02d}")
-          print(f"Scheduled time: {schedule_time}")
-          print(f"Content type: {content.get('content_type')}")
-          print(f"Current status: {content.get('publication_status')}")
+          print("Due posts found:")
+          print("----------------------------------------------")
 
-          # ============================================================
-          # 8. Safety checks
-          # ============================================================
+          for item in candidates:
+              _, slot_number, schedule_time, post = item
+              content = post["content"]
 
-          content_type = content.get("content_type")
-
-          if content_type not in {
-              "reel",
-              "educational_visual",
-          }:
-              raise SystemExit(
-                  f"ERROR: Unsupported content type: {content_type}"
+              print(
+                  f"post_{slot_number:02d} | "
+                  f"scheduled {schedule_time} | "
+                  f"{content.get('content_type')} | "
+                  f"{content.get('publication_status')}"
               )
 
-          if content.get("publication_status") != "pending":
-              raise SystemExit(
-                  "ERROR: Selected post is no longer pending."
-              )
+          print("----------------------------------------------")
+          print(f"Total due posts: {len(candidates)}")
 
-          title = str(content.get("title", "")).strip()
-          description = str(content.get("description", "")).strip()
-          hashtags = content.get("hashtags", [])
-
-          if isinstance(hashtags, list):
-              hashtag_text = " ".join(
-                  str(tag).strip()
-                  for tag in hashtags
-                  if str(tag).strip()
-              )
-          else:
-              hashtag_text = str(hashtags).strip()
-
-          caption = "\n\n".join(
-              part
-              for part in [
-                  title,
-                  description,
-                  hashtag_text,
-              ]
-              if part
-          )
-
-          if not caption:
-              raise SystemExit(
-                  "ERROR: Caption is empty."
-              )
 
           # ============================================================
-          # 9. Verify required media
+          # 8. Helper to save publication status
           # ============================================================
 
-          image_file = post_dir / "image.jpg"
-          reel_file = post_dir / "reel.mp4"
+          def save_publication_status(
+              content_file,
+              content,
+              slot_number,
+              media_id,
+          ):
+              content["publication_status"] = "published"
+              content["instagram_media_id"] = media_id
+              content["published_at"] = datetime.now(
+                  TIMEZONE
+              ).isoformat()
 
-          if content_type == "reel":
-              if not reel_file.exists():
+              with content_file.open(
+                  "w",
+                  encoding="utf-8",
+              ) as f:
+                  json.dump(
+                      content,
+                      f,
+                      indent=2,
+                      ensure_ascii=False,
+                  )
+                  f.write("\n")
+
+              print(
+                  f"Updated: {content_file}"
+              )
+
+              # Configure Git identity.
+              subprocess.run(
+                  [
+                      "git",
+                      "config",
+                      "user.name",
+                      "github-actions[bot]",
+                  ],
+                  check=True,
+              )
+
+              subprocess.run(
+                  [
+                      "git",
+                      "config",
+                      "user.email",
+                      "41898282+github-actions[bot]@users.noreply.github.com",
+                  ],
+                  check=True,
+              )
+
+              # Stage only this exact post.
+              subprocess.run(
+                  [
+                      "git",
+                      "add",
+                      str(content_file),
+                  ],
+                  check=True,
+              )
+
+              diff_check = subprocess.run(
+                  [
+                      "git",
+                      "diff",
+                      "--cached",
+                      "--quiet",
+                  ]
+              )
+
+              if diff_check.returncode == 0:
                   raise SystemExit(
-                      f"ERROR: Missing Reel file: {reel_file}"
+                      "ERROR: No metadata change was detected."
                   )
 
-              media_file = reel_file
+              subprocess.run(
+                  [
+                      "git",
+                      "commit",
+                      "-m",
+                      f"Mark Orom Plan1 post_{slot_number:02d} as published",
+                  ],
+                  check=True,
+              )
 
-          else:
-              if not image_file.exists():
+              subprocess.run(
+                  [
+                      "git",
+                      "push",
+                  ],
+                  check=True,
+              )
+
+              print(
+                  f"GitHub status committed for post_{slot_number:02d}."
+              )
+
+
+          # ============================================================
+          # 9. Publish each due post
+          # ============================================================
+
+          published_count = 0
+
+          for (
+              scheduled_datetime,
+              slot_number,
+              schedule_time,
+              post,
+          ) in candidates:
+
+              post_dir = post["directory"]
+              content_file = post["content_file"]
+              content = post["content"]
+
+              print("")
+              print("==============================================")
+              print(
+                  f"PUBLISHING post_{slot_number:02d}"
+              )
+              print("==============================================")
+
+              print(f"Scheduled time: {schedule_time}")
+              print(
+                  f"Content type: "
+                  f"{content.get('content_type')}"
+              )
+              print(
+                  f"Current status: "
+                  f"{content.get('publication_status')}"
+              )
+
+
+              # ========================================================
+              # 10. Safety checks
+              # ========================================================
+
+              content_type = content.get("content_type")
+
+              if content_type not in {
+                  "reel",
+                  "educational_visual",
+              }:
                   raise SystemExit(
-                      f"ERROR: Missing image file: {image_file}"
+                      f"ERROR: Unsupported content type: {content_type}"
                   )
 
-              media_file = image_file
+              if content.get("publication_status") != "pending":
+                  raise SystemExit(
+                      "ERROR: Selected post is no longer pending."
+                  )
 
-          print(f"Media file: {media_file}")
 
-          # ============================================================
-          # 10. Build public GitHub media URL
-          # ============================================================
+              # ========================================================
+              # 11. Build caption
+              # ========================================================
 
-          repository = os.environ.get(
-              "GITHUB_REPOSITORY",
-              "kingsolomona777-maker/daily-ai-instagram-bot",
-          )
+              title = str(
+                  content.get("title", "")
+              ).strip()
 
-          media_relative_path = (
-              f"daily_packages/{package_date}/"
-              f"post_{slot_number:02d}/"
-              f"{media_file.name}"
-          )
+              description = str(
+                  content.get("description", "")
+              ).strip()
 
-          media_url = (
-              f"https://raw.githubusercontent.com/"
-              f"{repository}/main/{media_relative_path}"
-          )
+              hashtags = content.get("hashtags", [])
 
-          print(f"Public media URL: {media_url}")
+              if isinstance(hashtags, list):
+                  hashtag_text = " ".join(
+                      str(tag).strip()
+                      for tag in hashtags
+                      if str(tag).strip()
+                  )
+              else:
+                  hashtag_text = str(
+                      hashtags
+                  ).strip()
 
-          # Verify GitHub is serving the file.
-          media_check = requests.get(
-              media_url,
-              timeout=30,
-              allow_redirects=True,
-          )
-
-          print(
-              f"Media HTTP status: "
-              f"{media_check.status_code}"
-          )
-
-          print(
-              f"Media content type: "
-              f"{media_check.headers.get('content-type')}"
-          )
-
-          if media_check.status_code != 200:
-              raise SystemExit(
-                  "ERROR: Public GitHub media URL is not available."
+              caption = "\n\n".join(
+                  part
+                  for part in [
+                      title,
+                      description,
+                      hashtag_text,
+                  ]
+                  if part
               )
 
-          # ============================================================
-          # 11. Verify Instagram account/token
-          # ============================================================
+              if not caption:
+                  raise SystemExit(
+                      "ERROR: Caption is empty."
+                  )
 
-          me_response = requests.get(
-              f"{GRAPH_BASE}/me",
-              params={
-                  "fields": "id,username",
-                  "access_token": token,
-              },
-              timeout=30,
-          )
 
-          print(
-              f"Instagram account response: "
-              f"{me_response.text}"
-          )
+              # ========================================================
+              # 12. Verify required media
+              # ========================================================
 
-          me_response.raise_for_status()
+              image_file = post_dir / "image.jpg"
+              reel_file = post_dir / "reel.mp4"
 
-          me_data = me_response.json()
+              if content_type == "reel":
+                  if not reel_file.exists():
+                      raise SystemExit(
+                          f"ERROR: Missing Reel file: {reel_file}"
+                      )
 
-          ig_user_id = me_data.get("id")
-          username = me_data.get("username")
+                  media_file = reel_file
 
-          if not ig_user_id:
-              raise SystemExit(
-                  "ERROR: Instagram user ID was not returned."
+              else:
+                  if not image_file.exists():
+                      raise SystemExit(
+                          f"ERROR: Missing image file: {image_file}"
+                      )
+
+                  media_file = image_file
+
+              print(f"Media file: {media_file}")
+
+
+              # ========================================================
+              # 13. Build public GitHub media URL
+              # ========================================================
+
+              repository = os.environ.get(
+                  "GITHUB_REPOSITORY",
+                  "kingsolomona777-maker/daily-ai-instagram-bot",
               )
 
-          print(f"Instagram account: @{username}")
-          print(f"Instagram user ID: {ig_user_id}")
-
-          # ============================================================
-          # 12. Create Instagram media container
-          # ============================================================
-
-          print("")
-          print("Creating Instagram media container...")
-
-          if content_type == "reel":
-              create_response = requests.post(
-                  f"{GRAPH_BASE}/{ig_user_id}/media",
-                  data={
-                      "media_type": "REELS",
-                      "video_url": media_url,
-                      "caption": caption,
-                      "share_to_feed": "true",
-                      "access_token": token,
-                  },
-                  timeout=60,
+              media_relative_path = (
+                  f"daily_packages/{package_date}/"
+                  f"post_{slot_number:02d}/"
+                  f"{media_file.name}"
               )
 
-          else:
-              create_response = requests.post(
-                  f"{GRAPH_BASE}/{ig_user_id}/media",
-                  data={
-                      "image_url": media_url,
-                      "caption": caption,
-                      "access_token": token,
-                  },
-                  timeout=60,
+              media_url = (
+                  f"https://raw.githubusercontent.com/"
+                  f"{repository}/main/{media_relative_path}"
               )
 
-          print(
-              f"Container creation HTTP status: "
-              f"{create_response.status_code}"
-          )
-
-          print(
-              f"Container creation response: "
-              f"{create_response.text}"
-          )
-
-          create_response.raise_for_status()
-
-          create_data = create_response.json()
-          container_id = create_data.get("id")
-
-          if not container_id:
-              raise SystemExit(
-                  "ERROR: Instagram did not return a container ID."
+              print(
+                  f"Public media URL: {media_url}"
               )
 
-          print(f"Container ID: {container_id}")
 
-          # ============================================================
-          # 13. Poll container
-          # ============================================================
+              # ========================================================
+              # 14. Verify GitHub is serving the media
+              # ========================================================
 
-          print("")
-          print("Waiting for Instagram container...")
+              media_check = requests.get(
+                  media_url,
+                  timeout=30,
+                  allow_redirects=True,
+              )
 
-          finished = False
+              print(
+                  f"Media HTTP status: "
+                  f"{media_check.status_code}"
+              )
 
-          for attempt in range(1, 21):
+              print(
+                  f"Media content type: "
+                  f"{media_check.headers.get('content-type')}"
+              )
 
-              status_response = requests.get(
-                  f"{GRAPH_BASE}/{container_id}",
+              if media_check.status_code != 200:
+                  raise SystemExit(
+                      "ERROR: Public GitHub media URL is not available."
+                  )
+
+
+              # ========================================================
+              # 15. Verify Instagram account/token
+              # ========================================================
+
+              me_response = requests.get(
+                  f"{GRAPH_BASE}/me",
                   params={
-                      "fields": "status_code,status",
+                      "fields": "id,username",
                       "access_token": token,
                   },
                   timeout=30,
               )
 
               print(
-                  f"Poll {attempt}/20: "
-                  f"{status_response.text}"
+                  f"Instagram account response: "
+                  f"{me_response.text}"
               )
 
-              status_response.raise_for_status()
+              me_response.raise_for_status()
 
-              status_data = status_response.json()
+              me_data = me_response.json()
 
-              status_code = status_data.get("status_code")
+              ig_user_id = me_data.get("id")
+              username = me_data.get("username")
 
-              if status_code == "FINISHED":
-                  finished = True
-                  print(
-                      "Instagram container is FINISHED."
-                  )
-                  break
-
-              if status_code in {
-                  "ERROR",
-                  "EXPIRED",
-              }:
+              if not ig_user_id:
                   raise SystemExit(
-                      "ERROR: Instagram container failed: "
+                      "ERROR: Instagram user ID was not returned."
+                  )
+
+              print(
+                  f"Instagram account: @{username}"
+              )
+
+              print(
+                  f"Instagram user ID: {ig_user_id}"
+              )
+
+
+              # ========================================================
+              # 16. Create Instagram media container
+              # ========================================================
+
+              print("")
+              print(
+                  "Creating Instagram media container..."
+              )
+
+              if content_type == "reel":
+
+                  create_response = requests.post(
+                      f"{GRAPH_BASE}/{ig_user_id}/media",
+                      data={
+                          "media_type": "REELS",
+                          "video_url": media_url,
+                          "caption": caption,
+                          "share_to_feed": "true",
+                          "access_token": token,
+                      },
+                      timeout=60,
+                  )
+
+              else:
+
+                  create_response = requests.post(
+                      f"{GRAPH_BASE}/{ig_user_id}/media",
+                      data={
+                          "image_url": media_url,
+                          "caption": caption,
+                          "access_token": token,
+                      },
+                      timeout=60,
+                  )
+
+              print(
+                  f"Container creation HTTP status: "
+                  f"{create_response.status_code}"
+              )
+
+              print(
+                  f"Container creation response: "
+                  f"{create_response.text}"
+              )
+
+              create_response.raise_for_status()
+
+              create_data = create_response.json()
+
+              container_id = create_data.get("id")
+
+              if not container_id:
+                  raise SystemExit(
+                      "ERROR: Instagram did not return a container ID."
+                  )
+
+              print(
+                  f"Container ID: {container_id}"
+              )
+
+
+              # ========================================================
+              # 17. Poll Instagram container
+              # ========================================================
+
+              print("")
+              print(
+                  "Waiting for Instagram container..."
+              )
+
+              finished = False
+
+              for attempt in range(1, 21):
+
+                  status_response = requests.get(
+                      f"{GRAPH_BASE}/{container_id}",
+                      params={
+                          "fields": "status_code,status",
+                          "access_token": token,
+                      },
+                      timeout=30,
+                  )
+
+                  print(
+                      f"Poll {attempt}/20: "
                       f"{status_response.text}"
                   )
 
-              time.sleep(15)
+                  status_response.raise_for_status()
 
-          if not finished:
-              raise SystemExit(
-                  "ERROR: Instagram container did not reach "
-                  "FINISHED within the allowed polling period."
+                  status_data = status_response.json()
+
+                  status_code = status_data.get(
+                      "status_code"
+                  )
+
+                  if status_code == "FINISHED":
+                      finished = True
+
+                      print(
+                          "Instagram container is FINISHED."
+                      )
+
+                      break
+
+                  if status_code in {
+                      "ERROR",
+                      "EXPIRED",
+                  }:
+                      raise SystemExit(
+                          "ERROR: Instagram container failed: "
+                          f"{status_response.text}"
+                      )
+
+                  time.sleep(15)
+
+
+              if not finished:
+                  raise SystemExit(
+                      "ERROR: Instagram container did not reach "
+                      "FINISHED within the allowed polling period."
+                  )
+
+
+              # ========================================================
+              # 18. Publish to Instagram
+              # ========================================================
+
+              print("")
+              print(
+                  "Publishing post..."
               )
 
-          # ============================================================
-          # 14. Publish
-          # ============================================================
-
-          print("")
-          print("Publishing post...")
-
-          publish_response = requests.post(
-              f"{GRAPH_BASE}/{ig_user_id}/media_publish",
-              data={
-                  "creation_id": container_id,
-                  "access_token": token,
-              },
-              timeout=60,
-          )
-
-          print(
-              f"Publish HTTP status: "
-              f"{publish_response.status_code}"
-          )
-
-          print(
-              f"Publish response: "
-              f"{publish_response.text}"
-          )
-
-          publish_response.raise_for_status()
-
-          publish_data = publish_response.json()
-
-          media_id = publish_data.get("id")
-
-          if not media_id:
-              raise SystemExit(
-                  "ERROR: Instagram did not return a media ID."
+              publish_response = requests.post(
+                  f"{GRAPH_BASE}/{ig_user_id}/media_publish",
+                  data={
+                      "creation_id": container_id,
+                      "access_token": token,
+                  },
+                  timeout=60,
               )
 
-          print(f"Instagram media ID: {media_id}")
-
-          # ============================================================
-          # 15. Mark this exact post as published
-          # ============================================================
-
-          content["publication_status"] = "published"
-          content["instagram_media_id"] = media_id
-          content["published_at"] = datetime.now(
-              TIMEZONE
-          ).isoformat()
-
-          with content_file.open(
-              "w",
-              encoding="utf-8",
-          ) as f:
-              json.dump(
-                  content,
-                  f,
-                  indent=2,
-                  ensure_ascii=False,
-              )
-              f.write("\n")
-
-          print(
-              f"Updated: {content_file}"
-          )
-
-          # ============================================================
-          # 16. Commit publication status
-          # ============================================================
-
-          subprocess.run(
-              [
-                  "git",
-                  "config",
-                  "user.name",
-                  "github-actions[bot]",
-              ],
-              check=True,
-          )
-
-          subprocess.run(
-              [
-                  "git",
-                  "config",
-                  "user.email",
-                  "41898282+github-actions[bot]@users.noreply.github.com",
-              ],
-              check=True,
-          )
-
-          subprocess.run(
-              [
-                  "git",
-                  "add",
-                  str(content_file),
-              ],
-              check=True,
-          )
-
-          diff_check = subprocess.run(
-              [
-                  "git",
-                  "diff",
-                  "--cached",
-                  "--quiet",
-              ]
-          )
-
-          if diff_check.returncode == 0:
-              raise SystemExit(
-                  "ERROR: No metadata change was detected."
+              print(
+                  f"Publish HTTP status: "
+                  f"{publish_response.status_code}"
               )
 
-          subprocess.run(
-              [
-                  "git",
-                  "commit",
-                  "-m",
-                  f"Mark Orom Plan1 post_{slot_number:02d} as published",
-              ],
-              check=True,
-          )
+              print(
+                  f"Publish response: "
+                  f"{publish_response.text}"
+              )
 
-          subprocess.run(
-              [
-                  "git",
-                  "push",
-              ],
-              check=True,
-          )
+              publish_response.raise_for_status()
+
+              publish_data = publish_response.json()
+
+              media_id = publish_data.get("id")
+
+              if not media_id:
+                  raise SystemExit(
+                      "ERROR: Instagram did not return a media ID."
+                  )
+
+              print(
+                  f"Instagram media ID: {media_id}"
+              )
+
+
+              # ========================================================
+              # 19. Save status immediately
+              #
+              # IMPORTANT:
+              # We commit after EACH successful post.
+              #
+              # If a later post fails, already published posts remain
+              # permanently marked as published.
+              # ========================================================
+
+              save_publication_status(
+                  content_file=content_file,
+                  content=content,
+                  slot_number=slot_number,
+                  media_id=media_id,
+              )
+
+              published_count += 1
+
+              print("")
+              print(
+                  f"SUCCESS: post_{slot_number:02d} published."
+              )
+
+              print(
+                  f"Scheduled: {schedule_time}"
+              )
+
+              print(
+                  f"Media ID: {media_id}"
+              )
+
+              print(
+                  f"Published in this run: "
+                  f"{published_count}"
+              )
+
+
+              # ========================================================
+              # 20. Small safety pause before next overdue post
+              #
+              # This is only for catch-up situations.
+              # Future posts are never published early.
+              # ========================================================
+
+              if published_count < len(candidates):
+                  print("")
+                  print(
+                      "Catch-up mode: another post is already overdue."
+                  )
+
+                  print(
+                      "Waiting 30 seconds before the next publication..."
+                  )
+
+                  time.sleep(30)
+
 
           # ============================================================
-          # 17. Final result
+          # 21. Final result
           # ============================================================
 
           print("")
@@ -691,11 +853,16 @@ jobs:
           print("==============================================")
           print(f"Account: @{username}")
           print(f"Date: {package_date}")
-          print(f"Published: post_{slot_number:02d}")
-          print(f"Type: {content_type}")
-          print(f"Scheduled: {schedule_time}")
-          print(f"Media ID: {media_id}")
-          print("Status saved to GitHub.")
-          print("Only ONE post was published this run.")
+          print(
+              f"Posts published this run: "
+              f"{published_count}"
+          )
+          print(
+              f"Due posts found at start: "
+              f"{len(candidates)}"
+          )
+          print(
+              "All successfully published posts were saved to GitHub."
+          )
           print("==============================================")
           PY
