@@ -1,23 +1,23 @@
 {
-  "idea": "Signs of a hidden water leak",
-  "title": "Detecting Hidden Plumbing Leaks with the Water Meter Test",
-  "description": "A hidden water supply leak can waste thousands of liters before damp spots appear on walls or floors. To quickly verify an unseen leak without opening walls, perform a static meter check. Close every faucet, toilet valve, and water-using appliance in the building. Locate your main mechanical water meter and examine the dial face. Most meters feature a small triangular or star-shaped low-flow indicator. If this wheel rotates while every fixture is shut, water is actively escaping from your pressurized pipe network. This simple diagnostic confirms whether a hidden leak exists before pursuing acoustic tracing or thermal imaging.",
-  "image_prompt": "A crisp, photorealistic, vertical 9:16 close-up photograph of a brass mechanical water meter installed along a clean residential supply line. The meter face is protected by clear glass, showing a white dial with black numerical registers and a prominent red low-flow leak indicator wheel in the center. Modern copper supply pipes connect to the meter with threaded brass unions. Bright, natural directional lighting highlights the textured metal and clear dial face. Clean composition with natural shadow and empty space at the top and bottom third for text overlay placement. Professional plumbing installation setting, vertical orientation, photorealistic details, no text, no logos, no watermarks, no digital graphic overlays.",
-  "visual_story": "The visual provides a detailed, clear view of a mechanical water meter's dial face, focusing on the small low-flow indicator wheel. By showing the exact physical component used to detect small flows, the visual teaches viewers precisely where to look on their own equipment to verify if water is continuously flowing through a closed system.",
+  "idea": "When to replace old plumbing pipes",
+  "title": "Identifying Internal Pipe Tuberculation",
+  "description": "Educational tip demonstrating why galvanized steel supply pipes require replacement due to internal tuberculation and severe mineral scale accumulation.",
+  "image_prompt": "A professional macro photograph in vertical 9:16 aspect ratio showing a cleanly cut section of an old 3/4-inch galvanized steel water pipe held by a plumber wearing clean work gloves. The cross-section directly reveals severe internal tuberculation, showing thick layers of orange, brown, and dark red rust corrosion and mineral scaling that almost completely block the inner pipe channel, leaving only a tiny central hole for water flow. The outer metallic surface of the pipe appears relatively intact, highlighting the contrast between outer appearance and internal blockages. Clean daylight lighting, sharp focus on the internal lumen structure, neutral workshop background with shallow depth of field. No text, no logos, no watermarks, no artificial diagrams.",
+  "visual_story": "The viewer immediately notices a cross-section of an old galvanized steel water pipe. While the exterior metal wall looks solid and intact, the interior lumen is nearly completely choked with rust deposits and mineral buildup (tuberculation). This visual demonstrates why evaluating pipe health purely from the outside can be misleading, as internal restriction drastically reduces water volume and pressure throughout the supply system.",
   "on_image_text": {
-    "hook": "How to Spot a Hidden Water Leak",
-    "explanation": "When all house fixtures are closed, the leak indicator wheel on your water meter should remain completely stationary.",
-    "callout": "Low-Flow Leak Indicator",
-    "takeaway": "A spinning dial with all valves shut confirms an active supply line leak."
+    "hook": "Old Pipes Can Look Fine Outside But Be Choked Inside",
+    "explanation": "Galvanized steel pipes corrode internally over time, forming thick rust layers that restrict water flow and drop water pressure.",
+    "callout": "Internal Tuberculation Buildup",
+    "takeaway": "Persistent low water volume across multiple fixtures often indicates severe internal pipe corrosion requiring piping replacement."
   },
   "hashtags": [
     "#PlumbingEducation",
-    "#LeakDetection",
     "#PlumbingTips",
-    "#WaterMeter",
-    "#HomeMaintenance",
+    "#GalvanizedPipes",
     "#PlumbingApprentice",
-    "#PlumbingDiagnostics"
+    "#PipeReplacement",
+    "#PlumbingMaintenance",
+    "#HomeownerAdvice"
   ],
   "reel_enabled": false,
   "reel_file": null
