@@ -1,0 +1,28 @@
+{
+  "package_date": "2026-10-04",
+  "slot": 5,
+  "lesson_number": 5,
+  "content_type": "reel",
+  "role": "troubleshooting",
+  "lesson_type": "troubleshooting",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "drain ventilation",
+  "title": "Diagnosing Drainage Vent Failures",
+  "description": "When fixtures drain slowly or emit unpleasant sewer gases despite a clear trap, the root cause often lies upstream in the drainage ventilation system. Proper vent operation allows air to enter the drainage piping, equalizing pressure and preventing trap siphonage. A blocked roof stack, caused by debris or wildlife nesting, creates a vacuum effect that pulls water out of fixture traps. Professional troubleshooting begins by inspecting the roof terminal for obstructions before tearing into walls or clearing main lines unnecessarily. Understanding how atmospheric pressure interacts with gravity drainage saves time and prevents misdiagnoses on service calls.",
+  "hashtags": [
+    "PlumbingTroubleshooting",
+    "DrainVentilation",
+    "OromPlan1",
+    "DrainageFundamentals"
+  ],
+  "caption": "Diagnosing Drainage Vent Failures\n\nWhen fixtures drain slowly or emit unpleasant sewer gases despite a clear trap, the root cause often lies upstream in the drainage ventilation system. Proper vent operation allows air to enter the drainage piping, equalizing pressure and preventing trap siphonage. A blocked roof stack, caused by debris or wildlife nesting, creates a vacuum effect that pulls water out of fixture traps. Professional troubleshooting begins by inspecting the roof terminal for obstructions before tearing into walls or clearing main lines unnecessarily. Understanding how atmospheric pressure interacts with gravity drainage saves time and prevents misdiagnoses on service calls.\n\nPlumbingTroubleshooting DrainVentilation OromPlan1 DrainageFundamentals",
+  "schedule_time": "15:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-10-04/post_05/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-10-04/post_05/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}
