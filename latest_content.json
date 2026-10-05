@@ -1,23 +1,23 @@
 {
-  "idea": "How to maintain kitchen drainage",
-  "title": "Preventing Grease Accumulation in Kitchen P-Traps",
-  "description": "Fats, oils, and grease enter kitchen drains as hot liquids, but as they travel into the cool P-trap and drainage branch, they rapidly lose heat. This temperature drop causes grease to solidify and adhere to the inner pipe walls, gradually restricting wastewater flow. Running cold water while washing greasy cookware speeds up this solidification inside the trap. To maintain clear drainage, scrape heavy grease from pots and plates into the trash before washing, and follow dishwashing with a warm water flush to carry suspended fats past the trap seal into the main drain line. How do you prevent grease buildup in your sink?",
-  "image_prompt": "An educational cutaway technical illustration of a kitchen sink drainage system under a stainless steel sink basin, vertical 9:16 aspect ratio. The main focus is a centered 1.5-inch white PVC P-trap with realistic threaded slip-joint nuts and a lower cleanout plug. The front section of the PVC trap curve is cut away in a clean sectional view to show the interior pipe wall. Inside, a visible layer of pale yellow solidified grease coats the upper inner walls of the trap, narrowing the water passage. Water fills the lower trap seal. Realistic lighting highlights the contrast between the smooth plastic fitting and the textured grease accumulation inside. Clean, professional background, realistic plumbing geometry, photorealistic render, no text, no labels, no watermark, no logos.",
-  "visual_story": "The visual uses a clear cutaway view of a kitchen P-trap beneath a sink basin to show the hidden interior mechanics of drain restricted flow. Viewers will observe how melted fats don't simply wash away; instead, they cling to the cold inner walls of the PVC trap curve, forming a thick deposit that narrows the path for wastewater. This directly illustrates why kitchen sinks gradually slow down over time.",
+  "idea": "How to prevent bad smells from drains",
+  "title": "Maintaining the P-Trap Water Seal to Prevent Drain Odors",
+  "description": "Bad odors coming from sink or floor drains are often caused by a dried-out water seal inside the P-trap. The P-trap's curved dip holds a small pocket of standing water, acting as a physical barrier that prevents foul sewer gas from entering your room. When a sink or floor drain goes unused for extended periods, this water barrier evaporates, opening a direct path for odors. If you notice a sewage smell near an infrequently used fixture, pour clean water down the drain to re-establish the liquid barrier. Regular flushing keeps traps sealed effectively.",
+  "image_prompt": "A clean, photorealistic technical cutaway illustration of a standard residential white PVC P-trap assembly installed beneath a sink, vertical 9:16 aspect ratio. The detailed cross-section clearly reveals clean standing water sitting in the lower U-bend dip of the pipe, forming a complete liquid barrier seal inside the trap profile. The plumbing geometry features physically accurate slip-joint nuts, realistic wall thickness, and realistic wall outlet alignment. Soft professional studio lighting highlights the inner pipe walls and water surface. Clean, clutter-free background with a focus on the trap curve. Photorealistic finish, no text, no labels, no watermarks, no logos, no fake graphics.",
+  "visual_story": "The cutaway visual clearly shows the interior profile of a standard P-trap with standing water sitting in the lower curve. The viewer notices how the trapped water blocks the open air channel between the sewer line and the room outlet, instantly demonstrating how a physical water seal stops gas movement.",
   "on_image_text": {
-    "hook": "WHY KITCHEN DRAINS SLOW DOWN",
-    "explanation": "Hot fats cool rapidly inside the P-trap, coating the pipe walls with solid grease.",
-    "callout": "Grease Build-Up in Trap Seal",
-    "takeaway": "Scrape cookware into the trash before washing."
+    "hook": "Why Does Your Drain Smell Like Sewer Gas?",
+    "explanation": "P-traps hold standing water that acts as a physical barrier against foul drain odors.",
+    "callout": "Dried-Out Trap Seal",
+    "takeaway": "Pour water into unused drains weekly to maintain the protective water seal."
   },
   "hashtags": [
-    "#PlumbingEducation",
-    "#KitchenPlumbing",
-    "#DrainMaintenance",
-    "#PlumbingTips",
-    "#ApprenticePlumber",
-    "#PTrap",
-    "#PlumbingAdvice"
+    "#plumbingeducation",
+    "#ptrap",
+    "#drainmaintenance",
+    "#plumbingtips",
+    "#homeplumbing",
+    "#sewergas",
+    "#plumbingbasics"
   ],
   "reel_enabled": false,
   "reel_file": null
