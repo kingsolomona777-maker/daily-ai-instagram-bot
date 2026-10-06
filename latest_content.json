@@ -1,23 +1,23 @@
 {
-  "idea": "How to prevent bad smells from drains",
-  "title": "Maintaining the P-Trap Water Seal to Prevent Drain Odors",
-  "description": "Bad odors coming from sink or floor drains are often caused by a dried-out water seal inside the P-trap. The P-trap's curved dip holds a small pocket of standing water, acting as a physical barrier that prevents foul sewer gas from entering your room. When a sink or floor drain goes unused for extended periods, this water barrier evaporates, opening a direct path for odors. If you notice a sewage smell near an infrequently used fixture, pour clean water down the drain to re-establish the liquid barrier. Regular flushing keeps traps sealed effectively.",
-  "image_prompt": "A clean, photorealistic technical cutaway illustration of a standard residential white PVC P-trap assembly installed beneath a sink, vertical 9:16 aspect ratio. The detailed cross-section clearly reveals clean standing water sitting in the lower U-bend dip of the pipe, forming a complete liquid barrier seal inside the trap profile. The plumbing geometry features physically accurate slip-joint nuts, realistic wall thickness, and realistic wall outlet alignment. Soft professional studio lighting highlights the inner pipe walls and water surface. Clean, clutter-free background with a focus on the trap curve. Photorealistic finish, no text, no labels, no watermarks, no logos, no fake graphics.",
-  "visual_story": "The cutaway visual clearly shows the interior profile of a standard P-trap with standing water sitting in the lower curve. The viewer notices how the trapped water blocks the open air channel between the sewer line and the room outlet, instantly demonstrating how a physical water seal stops gas movement.",
+  "idea": "Basic plumbing maintenance every homeowner should know",
+  "title": "Prevent Seized Angle Stop Valves",
+  "description": "Emergency plumbing repairs often get delayed because the local shutoff valve under the sink is completely seized. Over time, dissolved minerals in your water supply settle around the internal stem and ball of angle stop valves. If a valve sits unmoved for years, these mineral deposits harden and lock the mechanism in place. To prevent this, gently close and reopen your under-sink angle stops twice a year. This simple maintenance habit breaks up early mineral buildup and ensures the valve will operate during a sudden leak or fixture replacement. If a valve resists heavy turning, do not force it—apply steady light pressure or seek professional assistance.",
+  "image_prompt": "A sharp, realistic close-up photograph of an under-sink plumbing environment in a clean, vertical 9:16 composition. In the central focus is a modern brass quarter-turn angle stop shutoff valve connected to a half-inch copper pipe stub-out extending from a light gray wall with a neat metal escutcheon plate. Connected to the top outlet of the valve is a braided stainless steel flexible water supply line extending upward. The brass surface has a clean satin finish, showing clear threaded connections and precise mechanical geometry. The background is slightly out of focus to keep the valve crisp and centered. High-contrast natural lighting highlights the metal textures. No text, no logos, no visual watermarks, no brand labels, no impossible fittings.",
+  "visual_story": "The visual focuses directly on a standard under-sink angle stop valve where the wall supply pipe meets the fixture flex line. Viewers can see the exact anatomical location of the shutoff valve, helping them identify the component that controls water flow to individual sinks and toilets before an emergency happens.",
   "on_image_text": {
-    "hook": "Why Does Your Drain Smell Like Sewer Gas?",
-    "explanation": "P-traps hold standing water that acts as a physical barrier against foul drain odors.",
-    "callout": "Dried-Out Trap Seal",
-    "takeaway": "Pour water into unused drains weekly to maintain the protective water seal."
+    "hook": "Why Under-Sink Shutoff Valves Seize",
+    "explanation": "Dissolved minerals settle inside idle valves, locking the internal stem over time.",
+    "callout": "Quarter-Turn Angle Stop Valve",
+    "takeaway": "Gently turn your shutoff valves off and on twice a year to keep them functional."
   },
   "hashtags": [
-    "#plumbingeducation",
-    "#ptrap",
-    "#drainmaintenance",
-    "#plumbingtips",
-    "#homeplumbing",
-    "#sewergas",
-    "#plumbingbasics"
+    "#PlumbingTips",
+    "#PlumbingEducation",
+    "#HomeMaintenance",
+    "#AngleStopValve",
+    "#ApprenticePlumber",
+    "#PlumbingBasics",
+    "#HomeownerTips"
   ],
   "reel_enabled": false,
   "reel_file": null
