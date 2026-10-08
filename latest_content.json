@@ -1,23 +1,23 @@
 {
-  "idea": "Basic plumbing maintenance every homeowner should know",
-  "title": "Prevent Seized Angle Stop Valves",
-  "description": "Emergency plumbing repairs often get delayed because the local shutoff valve under the sink is completely seized. Over time, dissolved minerals in your water supply settle around the internal stem and ball of angle stop valves. If a valve sits unmoved for years, these mineral deposits harden and lock the mechanism in place. To prevent this, gently close and reopen your under-sink angle stops twice a year. This simple maintenance habit breaks up early mineral buildup and ensures the valve will operate during a sudden leak or fixture replacement. If a valve resists heavy turning, do not force it—apply steady light pressure or seek professional assistance.",
-  "image_prompt": "A sharp, realistic close-up photograph of an under-sink plumbing environment in a clean, vertical 9:16 composition. In the central focus is a modern brass quarter-turn angle stop shutoff valve connected to a half-inch copper pipe stub-out extending from a light gray wall with a neat metal escutcheon plate. Connected to the top outlet of the valve is a braided stainless steel flexible water supply line extending upward. The brass surface has a clean satin finish, showing clear threaded connections and precise mechanical geometry. The background is slightly out of focus to keep the valve crisp and centered. High-contrast natural lighting highlights the metal textures. No text, no logos, no visual watermarks, no brand labels, no impossible fittings.",
-  "visual_story": "The visual focuses directly on a standard under-sink angle stop valve where the wall supply pipe meets the fixture flex line. Viewers can see the exact anatomical location of the shutoff valve, helping them identify the component that controls water flow to individual sinks and toilets before an emergency happens.",
+  "idea": "How to maintain a water tank",
+  "title": "Water Tank Maintenance: Controlling Bottom Sediment",
+  "description": "Over time, heavy particulates and silt from supply lines naturally settle at the floor of water storage tanks. If your main outlet pipe is installed flat against the tank base, this sludge gets drawn straight into your pumps, filters, and household taps. A professional installation places the distribution outlet roughly 50 to 100 mm above the base, creating a calm zone for sediment to settle. Paired with a dedicated bottom scour valve, you can easily drain accumulated silt during routine maintenance without emptying your clean water supply. How often do you flush out your storage tank floor?",
+  "image_prompt": "An educational cutaway technical illustration of a modern food-grade polyethylene water storage tank mounted on a solid concrete base, set in a clean, vertical 9:16 aspect ratio. The cross-section reveals clear water filling the tank with a thin, realistic layer of fine silt settled at the flat bottom floor. The main distribution outlet pipe, made of realistic grey Schedule 80 PVC with a solvent weld tank fitting, is mounted precisely 75mm above the bottom floor into the side wall. At the absolute bottom floor, a second smaller pipe with a brass ball valve acts as a drain outlet releasing murky water outward. CleanStudio illumination, realistic pipe geometry, accurate plastic and metallic textures. Bright, spacious background with ample clear space at the top third and bottom third for overlays. Photorealistic educational rendering, no text, no labels, no arrows, no watermarks, no logos.",
+  "visual_story": "The viewer observes a clear vertical cutaway of a water tank interior. The visual highlights the height difference between two outlets: the main house supply pipe elevated above the floor and the scour drain pipe flush with the very bottom. This contrast visibly explains why dirty sediment remains trapped at the bottom rather than entering household pipes, and demonstrates the physical necessity of a dedicated bottom flush line.",
   "on_image_text": {
-    "hook": "Why Under-Sink Shutoff Valves Seize",
-    "explanation": "Dissolved minerals settle inside idle valves, locking the internal stem over time.",
-    "callout": "Quarter-Turn Angle Stop Valve",
-    "takeaway": "Gently turn your shutoff valves off and on twice a year to keep them functional."
+    "hook": "Why Sediment Traps in Your Water Tank",
+    "explanation": "Elevating the supply outlet above the tank base prevents bottom sludge from entering household taps.",
+    "callout": "Raised Outlet vs. Bottom Scour Drain",
+    "takeaway": "Flush the bottom scour valve regularly to clear sediment before it reaches your supply."
   },
   "hashtags": [
-    "#PlumbingTips",
-    "#PlumbingEducation",
-    "#HomeMaintenance",
-    "#AngleStopValve",
-    "#ApprenticePlumber",
-    "#PlumbingBasics",
-    "#HomeownerTips"
+    "#plumbingeducation",
+    "#watertankmaintenance",
+    "#plumbingtips",
+    "#waterstorage",
+    "#plumbingbasics",
+    "#apprenticeplumber",
+    "#homebuilding"
   ],
   "reel_enabled": false,
   "reel_file": null
