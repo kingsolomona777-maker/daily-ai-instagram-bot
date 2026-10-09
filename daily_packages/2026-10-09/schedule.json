@@ -1,0 +1,130 @@
+{
+  "package_date": "2026-10-09",
+  "timezone": "Africa/Lagos",
+  "status": "ready",
+  "total_posts": 10,
+  "reels": 5,
+  "educational_visuals": 5,
+  "schedule": [
+    {
+      "slot": 1,
+      "lesson_number": 1,
+      "content_type": "reel",
+      "title": "Why Drainage Vents Cause Gurgling Pipes",
+      "schedule_time": "07:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_01",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 2,
+      "lesson_number": 2,
+      "content_type": "educational_visual",
+      "title": "How a Sink P-Trap Blocks Sewer Gas",
+      "schedule_time": "09:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_02",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 3,
+      "lesson_number": 3,
+      "content_type": "reel",
+      "title": "The Danger of Flat or Back-Pitched Waste Pipes",
+      "schedule_time": "11:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_03",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 4,
+      "lesson_number": 4,
+      "content_type": "educational_visual",
+      "title": "Maintaining Trap Seals to Block Sewer Gas",
+      "schedule_time": "13:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_04",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 5,
+      "lesson_number": 5,
+      "content_type": "reel",
+      "title": "Diagnosing Drainage Issues Through Vent Stacks",
+      "schedule_time": "15:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_05",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 6,
+      "lesson_number": 6,
+      "content_type": "educational_visual",
+      "title": "Understanding Pipe Slope in Drainage Systems",
+      "schedule_time": "17:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_06",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 7,
+      "lesson_number": 7,
+      "content_type": "reel",
+      "title": "Why You Never Use a Sanitary Tee on Its Side",
+      "schedule_time": "19:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_07",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 8,
+      "lesson_number": 8,
+      "content_type": "educational_visual",
+      "title": "Cast Iron vs. PVC in Drainage Systems",
+      "schedule_time": "21:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_08",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 9,
+      "lesson_number": 9,
+      "content_type": "reel",
+      "title": "Myth vs Fact: Pouring Boiling Water Down PVC Drains",
+      "schedule_time": "22:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_09",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 10,
+      "lesson_number": 10,
+      "content_type": "educational_visual",
+      "title": "The Goldilocks Principle of Drain Pipe Slope",
+      "schedule_time": "23:30",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_10",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    }
+  ]
+}
