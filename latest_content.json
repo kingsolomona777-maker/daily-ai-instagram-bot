@@ -1,23 +1,23 @@
 {
-  "idea": "How to maintain a water tank",
-  "title": "Water Tank Maintenance: Controlling Bottom Sediment",
-  "description": "Over time, heavy particulates and silt from supply lines naturally settle at the floor of water storage tanks. If your main outlet pipe is installed flat against the tank base, this sludge gets drawn straight into your pumps, filters, and household taps. A professional installation places the distribution outlet roughly 50 to 100 mm above the base, creating a calm zone for sediment to settle. Paired with a dedicated bottom scour valve, you can easily drain accumulated silt during routine maintenance without emptying your clean water supply. How often do you flush out your storage tank floor?",
-  "image_prompt": "An educational cutaway technical illustration of a modern food-grade polyethylene water storage tank mounted on a solid concrete base, set in a clean, vertical 9:16 aspect ratio. The cross-section reveals clear water filling the tank with a thin, realistic layer of fine silt settled at the flat bottom floor. The main distribution outlet pipe, made of realistic grey Schedule 80 PVC with a solvent weld tank fitting, is mounted precisely 75mm above the bottom floor into the side wall. At the absolute bottom floor, a second smaller pipe with a brass ball valve acts as a drain outlet releasing murky water outward. CleanStudio illumination, realistic pipe geometry, accurate plastic and metallic textures. Bright, spacious background with ample clear space at the top third and bottom third for overlays. Photorealistic educational rendering, no text, no labels, no arrows, no watermarks, no logos.",
-  "visual_story": "The viewer observes a clear vertical cutaway of a water tank interior. The visual highlights the height difference between two outlets: the main house supply pipe elevated above the floor and the scour drain pipe flush with the very bottom. This contrast visibly explains why dirty sediment remains trapped at the bottom rather than entering household pipes, and demonstrates the physical necessity of a dedicated bottom flush line.",
+  "idea": "How to save water at home",
+  "title": "Identifying Silent Toilet Tank Leaks",
+  "description": "Educational guide on identifying hidden water waste caused by degraded toilet tank flappers using a simple dye test.",
+  "image_prompt": "A clean, highly detailed educational visual of a standard two-piece toilet tank interior shown in a vertical 9:16 composition. Clear cutaway section revealing the flush valve mechanism, fill valve, float, overflow tube, and a flexible rubber flapper sitting on the flush valve seat at the bottom of the tank. Dark blue food dye tint is visible in the tank water, with a noticeable thin stream of blue water leaking past a slightly distorted rubber flapper down into the flush opening. Bright, professional neutral workshop lighting, photorealistic textures of porcelain, polished chrome flush handle, and flexible rubber valve components. Clean background space on the upper third and lower third left clear for text overlay placement. Crisp visual clarity, physical accuracy, zero text, zero logos, zero watermarks.",
+  "visual_story": "The visual focuses on the interior mechanics of a toilet tank to demonstrate how a simple seal failure causes continuous water loss. Viewers will observe the bright blue-dyed tank water slipping past a compromised rubber flapper into the flush outlet path. This clear cutaway visual connects the physical component (degraded rubber flapper) directly to the symptom (colored water leaking into the bowl), helping viewers instantly grasp why a silent leak occurs without needing to disassemble the system.",
   "on_image_text": {
-    "hook": "Why Sediment Traps in Your Water Tank",
-    "explanation": "Elevating the supply outlet above the tank base prevents bottom sludge from entering household taps.",
-    "callout": "Raised Outlet vs. Bottom Scour Drain",
-    "takeaway": "Flush the bottom scour valve regularly to clear sediment before it reaches your supply."
+    "hook": "Silent Toilet Leaks Waste Water Daily",
+    "explanation": "A warped flapper valve loses its watertight seal against the flush seat, letting tank water continuously trickle away.",
+    "callout": "Compromised Flapper Seal",
+    "takeaway": "Drop food dye in the tank; if color enters the bowl before flushing, swap the flapper."
   },
   "hashtags": [
-    "#plumbingeducation",
-    "#watertankmaintenance",
-    "#plumbingtips",
-    "#waterstorage",
-    "#plumbingbasics",
-    "#apprenticeplumber",
-    "#homebuilding"
+    "#PlumbingTips",
+    "#WaterConservation",
+    "#PlumbingEducation",
+    "#PlumbingApprentice",
+    "#HomePlumbing",
+    "#ToiletRepair",
+    "#PlumbingAdvice"
   ],
   "reel_enabled": false,
   "reel_file": null
