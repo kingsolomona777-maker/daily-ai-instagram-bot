@@ -1,23 +1,23 @@
 {
-  "idea": "Why proper pipe sizing matters",
-  "title": "Pipe Sizing Fundamentals: Trunk and Branch Balance",
-  "description": "Undersized water supply lines are one of the primary causes of severe pressure drop when multiple fixtures run at the same time. Plumbing supply systems rely on a balance between pipe diameter, flow rate, and friction loss. Using a larger main trunk line—such as 3/4-inch—to supply smaller 1/2-inch fixture branches maintains adequate water volume throughout the system. Undersizing main supply pipes forces water through at excessively high velocities, causing noisy operation, pipe erosion, and weak shower pressure. Sizing must always align with total Water Supply Fixture Units (WSFU) calculated under your local plumbing code. What pipe sizes do you typically see used for main supply trunks in your area?",
-  "image_prompt": "A professional vertical 9:16 educational photograph showing a clean, exposed residential water supply piping installation mounted against a smooth neutral workshop background. A prominent 3/4-inch high-quality PPR water trunk pipe cleanly transitions down to two 1/2-inch branch pipes using a realistic brass reducer tee fitting with clean, precise connections. An educational longitudinal cutaway view on a segment of the pipe cleanly reveals the internal diameter difference between the 3/4-inch trunk and the 1/2-inch branch. The lighting is soft studio illumination focused sharply on the pipe geometry, brass fitting textures, and mounting clamps. Clean visual composition with dedicated open space at the top and bottom. High detail, photorealistic visual, physically accurate plumbing fittings, no text, no visual labels, no watermarks, no logos.",
-  "visual_story": "The visual demonstrates the fundamental physical transition from a main water distribution pipe to smaller branch lines. By showing a detailed internal cutaway of the pipe wall and fittings, the viewer can immediately see how internal pipe diameter directly governs available water volume before it reaches individual fixtures.",
+  "idea": "Common causes of leaking taps",
+  "title": "Why Taps Drip From the Spout (Compression Valve Mechanics)",
+  "description": "When a traditional compression tap continues dripping after you turn it off, the problem lies inside the valve assembly. Water supply pressure constantly pushes against the valve. Turning the handle drives a rubber washer down onto a raised brass rim called the valve seat to block the flow. Over time, friction, mineral deposits, and over-tightening deform the washer or erode the brass seat. If you replace the rubber washer but the dripping continues, inspect the brass seat for pitting or corrosion. A seat dressing tool or replacement seat inserts can restore a smooth sealing surface. Have you encountered pitted tap seats during maintenance?",
+  "image_prompt": "A detailed technical cutaway illustration of a traditional brass compression tap valve body in a vertical 9:16 composition. The cross-section reveals the internal mechanical components: the threaded brass stem, the rubber sealing washer attached to the jumper valve, and the machined brass valve seat below. The rubber washer shows subtle wear and a small groove along its lower sealing edge. The surrounding brass body features realistic polished and cast metal textures. Neutral soft-lit studio backdrop with gentle shadow cast. Photorealistic studio render, clean geometry, physically accurate internal plumbing parts, macro perspective centered on the valve seat assembly. Upper and lower third of the frame left uncluttered with soft background blur. No text, no logos, no watermarks, no brand labels, no arrows.",
+  "visual_story": "The visual focuses on a cross-sectional cutaway of a compression tap valve assembly. Viewers can directly observe the mechanical relationship between the rubber washer and the internal brass valve seat. The visual demonstrates where the sealing failure occurs: a grooved rubber washer failing to make flush contact against the metal seat under water pressure. By showing the internal mechanics, the image enables viewers to understand why tightening a worn tap harder damages the washer further rather than stopping the leak.",
   "on_image_text": {
-    "hook": "Why Water Pressure Drops When Two Taps Run",
-    "explanation": "Undersized supply lines restrict total water volume, causing severe pressure drop across simultaneous fixtures.",
-    "callout": "Trunk-to-Branch Transition (3/4\" Main to 1/2\" Branch)",
-    "takeaway": "Size main supply lines for total fixture demand, not just single-tap convenience."
+    "hook": "A DRIPPING TAP IS USUALLY A SEALING ISSUE",
+    "explanation": "Water leaks past the spout when the washer can no longer form a flat seal against the internal valve seat.",
+    "callout": "Worn Rubber Washer vs Internal Valve Seat",
+    "takeaway": "Replace the washer first; if dripping persists, re-face or replace the valve seat."
   },
   "hashtags": [
-    "#plumbingeducation",
-    "#pipesizing",
-    "#plumbingsystem",
-    "#plumbingtips",
-    "#apprenticeplumber",
-    "#waterpressure",
-    "#plumbingtrade"
+    "#PlumbingEducation",
+    "#PlumbingTips",
+    "#TapRepair",
+    "#PlumbingApprentice",
+    "#HomeMaintenance",
+    "#PlumbingFacts",
+    "#OromPlan1"
   ],
   "reel_enabled": false,
   "reel_file": null
