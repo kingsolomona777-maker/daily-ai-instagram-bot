@@ -1,0 +1,29 @@
+{
+  "package_date": "2026-10-10",
+  "slot": 5,
+  "lesson_number": 5,
+  "content_type": "reel",
+  "role": "troubleshooting",
+  "lesson_type": "troubleshooting",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "drain ventilation",
+  "title": "Troubleshooting Gurgling Drains and Vent Line Blockages",
+  "description": "When a fixture gurgles or drains slowly despite a clear p-trap, a compromised drain vent is often the root cause. Drainage systems rely on atmospheric pressure to move wastewater smoothly without breaking trap seals. A clogged roof vent or blocked air admittance valve creates negative pressure, pulling air through trap seals instead of the vent path. To troubleshoot, inspect the roof vent terminal for debris like bird nests or ice buildup, and check secondary vent lines for physical obstructions. Restoring proper airflow stabilizes trap water levels, prevents sewer gas infiltration, and restores efficient gravity flow throughout the drainage system.",
+  "hashtags": [
+    "#PlumbingTroubleshooting",
+    "#DrainageSystem",
+    "#PlumbingEducation",
+    "#VentStack",
+    "#PlumbingLife"
+  ],
+  "caption": "Troubleshooting Gurgling Drains and Vent Line Blockages\n\nWhen a fixture gurgles or drains slowly despite a clear p-trap, a compromised drain vent is often the root cause. Drainage systems rely on atmospheric pressure to move wastewater smoothly without breaking trap seals. A clogged roof vent or blocked air admittance valve creates negative pressure, pulling air through trap seals instead of the vent path. To troubleshoot, inspect the roof vent terminal for debris like bird nests or ice buildup, and check secondary vent lines for physical obstructions. Restoring proper airflow stabilizes trap water levels, prevents sewer gas infiltration, and restores efficient gravity flow throughout the drainage system.\n\n#PlumbingTroubleshooting #DrainageSystem #PlumbingEducation #VentStack #PlumbingLife",
+  "schedule_time": "15:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-10-10/post_05/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-10-10/post_05/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}

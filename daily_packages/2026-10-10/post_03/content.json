@@ -1,0 +1,30 @@
+{
+  "package_date": "2026-10-10",
+  "slot": 3,
+  "lesson_number": 3,
+  "content_type": "reel",
+  "role": "common_mistake",
+  "lesson_type": "common_mistake",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "waste pipes",
+  "title": "Avoiding Back-Pitched Waste Pipes",
+  "description": "Horizontal waste pipes rely on gravity to transport both liquids and solids efficiently. A common installation error is failing to maintain a consistent pitch, resulting in flat or back-pitched pipe sections. When the slope is insufficient or sloped backward, water flow slows down or pools, allowing suspended organic solids to settle along the pipe invert. Over time, these deposited solids build up into persistent blockages. Always verify pitch along the entire horizontal run using a reliable torpedo level, ensuring continuous downward slope toward the main stack without mid-run sagging.",
+  "hashtags": [
+    "#plumbing",
+    "#drainage",
+    "#wastepipes",
+    "#plumbertips",
+    "#tradeknowledge",
+    "#plumbinglife"
+  ],
+  "caption": "Avoiding Back-Pitched Waste Pipes\n\nHorizontal waste pipes rely on gravity to transport both liquids and solids efficiently. A common installation error is failing to maintain a consistent pitch, resulting in flat or back-pitched pipe sections. When the slope is insufficient or sloped backward, water flow slows down or pools, allowing suspended organic solids to settle along the pipe invert. Over time, these deposited solids build up into persistent blockages. Always verify pitch along the entire horizontal run using a reliable torpedo level, ensuring continuous downward slope toward the main stack without mid-run sagging.\n\n#plumbing #drainage #wastepipes #plumbertips #tradeknowledge #plumbinglife",
+  "schedule_time": "11:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-10-10/post_03/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-10-10/post_03/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}

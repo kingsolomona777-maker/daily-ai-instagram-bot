@@ -1,0 +1,29 @@
+{
+  "package_date": "2026-10-10",
+  "slot": 1,
+  "lesson_number": 1,
+  "content_type": "reel",
+  "role": "problem_and_cause",
+  "lesson_type": "problem_and_cause",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "drainage systems",
+  "title": "Understanding Gurgling Drains and Venting Issues",
+  "description": "A gurgling sound in a drainage system usually indicates a venting issue rather than a simple clogged pipe. When wastewater flows through a pipe without adequate air supply, it creates a localized vacuum. This negative pressure pulls air through the nearest available trap, sucking away the standing water seal and producing a distinct gurgling noise. Without this liquid barrier, hazardous sewer gases can freely enter the living space. Inspecting vent stacks for roof-level blockages such as bird nests, debris, or ice dams is an essential diagnostic step to restore proper atmospheric balance.",
+  "hashtags": [
+    "PlumbingTips",
+    "DrainageSystems",
+    "PlumbingVents",
+    "SewerGas",
+    "PlumbingEducation"
+  ],
+  "caption": "Understanding Gurgling Drains and Venting Issues\n\nA gurgling sound in a drainage system usually indicates a venting issue rather than a simple clogged pipe. When wastewater flows through a pipe without adequate air supply, it creates a localized vacuum. This negative pressure pulls air through the nearest available trap, sucking away the standing water seal and producing a distinct gurgling noise. Without this liquid barrier, hazardous sewer gases can freely enter the living space. Inspecting vent stacks for roof-level blockages such as bird nests, debris, or ice dams is an essential diagnostic step to restore proper atmospheric balance.\n\nPlumbingTips DrainageSystems PlumbingVents SewerGas PlumbingEducation",
+  "schedule_time": "07:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-10-10/post_01/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-10-10/post_01/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}
