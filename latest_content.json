@@ -1,23 +1,23 @@
 {
-  "idea": "Why low water pressure happens",
-  "title": "Low Water Pressure? Check the Aerator First",
-  "description": "When low water pressure affects only one sink, the problem is usually a physical blockage at the fixture rather than a main supply issue. Faucet aerators contain small wire or plastic mesh screens designed to shape the water stream and reduce splashing. Over time, rust flakes, sediment, and mineral scale accumulate inside this mesh, restricting water flow. Before assuming you have clogged supply lines or a failing pressure-reducing valve, unscrew the aerator at the tip of the spout. Clean out trapped debris with vinegar and a brush, or replace the screen assembly. Is your low pressure isolated to one fixture or across your entire home?",
-  "image_prompt": "A macro photograph showing a disassembled chrome kitchen faucet spout tip held above a clean stainless steel sink, vertical 9:16 aspect ratio. The threaded metal aerator housing is partially unthreaded, revealing the small circular mesh aerator insert filled with visible off-white mineral scale deposits and small dark sediment flecks. Realistic brass interior threads, chrome reflections, tiny water droplets, and sharp focus on the clogged mesh screen. Soft indoor professional lighting in a modern working kitchen. Natural shallow depth of field with the background softly blurred. Photorealistic texture of polished metal and mineral scale. No text, no logos, no watermarks, no diagrams, no fake branding.",
-  "visual_story": "The visual focuses on a close-up shot of an unthreaded faucet aerator screen filled with mineral scale and fine sediment. The viewer immediately notices the physical debris blocking the water outlet point. This visual directly links localized low pressure at a single fixture to a simple, easily inspected component.",
+  "idea": "Why proper pipe sizing matters",
+  "title": "Pipe Sizing Fundamentals: Trunk and Branch Balance",
+  "description": "Undersized water supply lines are one of the primary causes of severe pressure drop when multiple fixtures run at the same time. Plumbing supply systems rely on a balance between pipe diameter, flow rate, and friction loss. Using a larger main trunk line—such as 3/4-inch—to supply smaller 1/2-inch fixture branches maintains adequate water volume throughout the system. Undersizing main supply pipes forces water through at excessively high velocities, causing noisy operation, pipe erosion, and weak shower pressure. Sizing must always align with total Water Supply Fixture Units (WSFU) calculated under your local plumbing code. What pipe sizes do you typically see used for main supply trunks in your area?",
+  "image_prompt": "A professional vertical 9:16 educational photograph showing a clean, exposed residential water supply piping installation mounted against a smooth neutral workshop background. A prominent 3/4-inch high-quality PPR water trunk pipe cleanly transitions down to two 1/2-inch branch pipes using a realistic brass reducer tee fitting with clean, precise connections. An educational longitudinal cutaway view on a segment of the pipe cleanly reveals the internal diameter difference between the 3/4-inch trunk and the 1/2-inch branch. The lighting is soft studio illumination focused sharply on the pipe geometry, brass fitting textures, and mounting clamps. Clean visual composition with dedicated open space at the top and bottom. High detail, photorealistic visual, physically accurate plumbing fittings, no text, no visual labels, no watermarks, no logos.",
+  "visual_story": "The visual demonstrates the fundamental physical transition from a main water distribution pipe to smaller branch lines. By showing a detailed internal cutaway of the pipe wall and fittings, the viewer can immediately see how internal pipe diameter directly governs available water volume before it reaches individual fixtures.",
   "on_image_text": {
-    "hook": "Low Pressure at Just One Faucet?",
-    "explanation": "Sediment and mineral scale collect inside the fine mesh screen of the faucet aerator, severely restricting water flow.",
-    "callout": "Clogged Aerator Screen",
-    "takeaway": "Unscrew and clean the aerator screen before replacing supply lines or valves."
+    "hook": "Why Water Pressure Drops When Two Taps Run",
+    "explanation": "Undersized supply lines restrict total water volume, causing severe pressure drop across simultaneous fixtures.",
+    "callout": "Trunk-to-Branch Transition (3/4\" Main to 1/2\" Branch)",
+    "takeaway": "Size main supply lines for total fixture demand, not just single-tap convenience."
   },
   "hashtags": [
-    "#PlumbingTips",
-    "#WaterPressure",
-    "#PlumbingEducation",
-    "#ApprenticePlumber",
-    "#HomeMaintenance",
-    "#PlumbingRepair",
-    "#DIYPlumbing"
+    "#plumbingeducation",
+    "#pipesizing",
+    "#plumbingsystem",
+    "#plumbingtips",
+    "#apprenticeplumber",
+    "#waterpressure",
+    "#plumbingtrade"
   ],
   "reel_enabled": false,
   "reel_file": null
