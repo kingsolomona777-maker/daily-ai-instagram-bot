@@ -1,23 +1,23 @@
 {
-  "idea": "How to save water at home",
-  "title": "Identifying Silent Toilet Tank Leaks",
-  "description": "Educational guide on identifying hidden water waste caused by degraded toilet tank flappers using a simple dye test.",
-  "image_prompt": "A clean, highly detailed educational visual of a standard two-piece toilet tank interior shown in a vertical 9:16 composition. Clear cutaway section revealing the flush valve mechanism, fill valve, float, overflow tube, and a flexible rubber flapper sitting on the flush valve seat at the bottom of the tank. Dark blue food dye tint is visible in the tank water, with a noticeable thin stream of blue water leaking past a slightly distorted rubber flapper down into the flush opening. Bright, professional neutral workshop lighting, photorealistic textures of porcelain, polished chrome flush handle, and flexible rubber valve components. Clean background space on the upper third and lower third left clear for text overlay placement. Crisp visual clarity, physical accuracy, zero text, zero logos, zero watermarks.",
-  "visual_story": "The visual focuses on the interior mechanics of a toilet tank to demonstrate how a simple seal failure causes continuous water loss. Viewers will observe the bright blue-dyed tank water slipping past a compromised rubber flapper into the flush outlet path. This clear cutaway visual connects the physical component (degraded rubber flapper) directly to the symptom (colored water leaking into the bowl), helping viewers instantly grasp why a silent leak occurs without needing to disassemble the system.",
+  "idea": "Why low water pressure happens",
+  "title": "Low Water Pressure? Check the Aerator First",
+  "description": "When low water pressure affects only one sink, the problem is usually a physical blockage at the fixture rather than a main supply issue. Faucet aerators contain small wire or plastic mesh screens designed to shape the water stream and reduce splashing. Over time, rust flakes, sediment, and mineral scale accumulate inside this mesh, restricting water flow. Before assuming you have clogged supply lines or a failing pressure-reducing valve, unscrew the aerator at the tip of the spout. Clean out trapped debris with vinegar and a brush, or replace the screen assembly. Is your low pressure isolated to one fixture or across your entire home?",
+  "image_prompt": "A macro photograph showing a disassembled chrome kitchen faucet spout tip held above a clean stainless steel sink, vertical 9:16 aspect ratio. The threaded metal aerator housing is partially unthreaded, revealing the small circular mesh aerator insert filled with visible off-white mineral scale deposits and small dark sediment flecks. Realistic brass interior threads, chrome reflections, tiny water droplets, and sharp focus on the clogged mesh screen. Soft indoor professional lighting in a modern working kitchen. Natural shallow depth of field with the background softly blurred. Photorealistic texture of polished metal and mineral scale. No text, no logos, no watermarks, no diagrams, no fake branding.",
+  "visual_story": "The visual focuses on a close-up shot of an unthreaded faucet aerator screen filled with mineral scale and fine sediment. The viewer immediately notices the physical debris blocking the water outlet point. This visual directly links localized low pressure at a single fixture to a simple, easily inspected component.",
   "on_image_text": {
-    "hook": "Silent Toilet Leaks Waste Water Daily",
-    "explanation": "A warped flapper valve loses its watertight seal against the flush seat, letting tank water continuously trickle away.",
-    "callout": "Compromised Flapper Seal",
-    "takeaway": "Drop food dye in the tank; if color enters the bowl before flushing, swap the flapper."
+    "hook": "Low Pressure at Just One Faucet?",
+    "explanation": "Sediment and mineral scale collect inside the fine mesh screen of the faucet aerator, severely restricting water flow.",
+    "callout": "Clogged Aerator Screen",
+    "takeaway": "Unscrew and clean the aerator screen before replacing supply lines or valves."
   },
   "hashtags": [
     "#PlumbingTips",
-    "#WaterConservation",
+    "#WaterPressure",
     "#PlumbingEducation",
-    "#PlumbingApprentice",
-    "#HomePlumbing",
-    "#ToiletRepair",
-    "#PlumbingAdvice"
+    "#ApprenticePlumber",
+    "#HomeMaintenance",
+    "#PlumbingRepair",
+    "#DIYPlumbing"
   ],
   "reel_enabled": false,
   "reel_file": null
