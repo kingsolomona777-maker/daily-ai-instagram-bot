@@ -1,0 +1,29 @@
+{
+  "package_date": "2026-10-11",
+  "slot": 1,
+  "lesson_number": 1,
+  "content_type": "reel",
+  "role": "problem_and_cause",
+  "lesson_type": "problem_and_cause",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "drainage systems",
+  "title": "Why Your Drains Are Gurgling: Trap Siphonage Explained",
+  "description": "When a fixture gurgles after draining, it often signals negative pressure pulling water out of the trap seal. This process, known as siphonage, occurs when a drainage line lacks adequate venting or experiences a partial restriction downstream. As water flows through the pipe, it creates a vacuum behind it. Without atmospheric air supplied by a vent stack or air admittance valve, the vacuum pulls water from adjacent traps. Breaking this water seal allows hazardous sewer gas to enter living spaces. Proper venting balances atmospheric pressure within the drainage network, ensuring wastewater moves freely while maintaining critical trap water seals.",
+  "hashtags": [
+    "#PlumbingEducation",
+    "#DrainageSystems",
+    "#PlumbingTips",
+    "#Tradeschool",
+    "#Piping"
+  ],
+  "caption": "Why Your Drains Are Gurgling: Trap Siphonage Explained\n\nWhen a fixture gurgles after draining, it often signals negative pressure pulling water out of the trap seal. This process, known as siphonage, occurs when a drainage line lacks adequate venting or experiences a partial restriction downstream. As water flows through the pipe, it creates a vacuum behind it. Without atmospheric air supplied by a vent stack or air admittance valve, the vacuum pulls water from adjacent traps. Breaking this water seal allows hazardous sewer gas to enter living spaces. Proper venting balances atmospheric pressure within the drainage network, ensuring wastewater moves freely while maintaining critical trap water seals.\n\n#PlumbingEducation #DrainageSystems #PlumbingTips #Tradeschool #Piping",
+  "schedule_time": "07:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-10-11/post_01/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-10-11/post_01/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}
