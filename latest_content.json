@@ -1,23 +1,23 @@
 {
-  "idea": "Common causes of leaking taps",
-  "title": "Why Taps Drip From the Spout (Compression Valve Mechanics)",
-  "description": "When a traditional compression tap continues dripping after you turn it off, the problem lies inside the valve assembly. Water supply pressure constantly pushes against the valve. Turning the handle drives a rubber washer down onto a raised brass rim called the valve seat to block the flow. Over time, friction, mineral deposits, and over-tightening deform the washer or erode the brass seat. If you replace the rubber washer but the dripping continues, inspect the brass seat for pitting or corrosion. A seat dressing tool or replacement seat inserts can restore a smooth sealing surface. Have you encountered pitted tap seats during maintenance?",
-  "image_prompt": "A detailed technical cutaway illustration of a traditional brass compression tap valve body in a vertical 9:16 composition. The cross-section reveals the internal mechanical components: the threaded brass stem, the rubber sealing washer attached to the jumper valve, and the machined brass valve seat below. The rubber washer shows subtle wear and a small groove along its lower sealing edge. The surrounding brass body features realistic polished and cast metal textures. Neutral soft-lit studio backdrop with gentle shadow cast. Photorealistic studio render, clean geometry, physically accurate internal plumbing parts, macro perspective centered on the valve seat assembly. Upper and lower third of the frame left uncluttered with soft background blur. No text, no logos, no watermarks, no brand labels, no arrows.",
-  "visual_story": "The visual focuses on a cross-sectional cutaway of a compression tap valve assembly. Viewers can directly observe the mechanical relationship between the rubber washer and the internal brass valve seat. The visual demonstrates where the sealing failure occurs: a grooved rubber washer failing to make flush contact against the metal seat under water pressure. By showing the internal mechanics, the image enables viewers to understand why tightening a worn tap harder damages the washer further rather than stopping the leak.",
+  "idea": "Why water pipes make unusual noises",
+  "title": "Understanding Water Hammer in Supply Pipes",
+  "description": "When a fast-closing valve shuts off, moving water abruptly stops, converting kinetic energy into a violent pressure wave known as water hammer. This shockwave travels back through the pipe, causing loose supply lines to bang against wall framing. Over time, repeated pressure spikes can strain joints, valves, and connected appliances. The solution involves properly anchoring loose pipes with plastic isolation clamps and installing water hammer arrestors near fast-acting valves like washing machines or dishwasher solenoids. Does your home experience pipe banging when appliances turn off?",
+  "image_prompt": "A professional educational cutaway illustration of a modern residential wall cavity showing exposed plumbing framing, vertical 9:16 aspect ratio. In the center, a cleanly installed half-inch rigid copper water supply line connects to a quarter-turn valve and brass water hammer arrestor. The copper pipe is anchored to wooden studs using modern plastic pipe isolation clamps. Photorealistic detail, realistic metallic textures of copper and brass, clean studio lighting with realistic shadows, wall studs and drywall cutaway framing visible. The composition is centered with ample clean visual space at the top and bottom third for text overlays. No text, no numbers, no labels, no arrows, no watermarks, no logos, no visual noise.",
+  "visual_story": "The viewer observes an exposed wall framing cavity with a clean water supply installation. The visual focuses on a brass water hammer arrestor fitted above a fast-acting shutoff valve, alongside a copper pipe firmly held by an isolation clamp against a wooden stud. This clearly shows how mechanical arrestors absorb hydraulic shock and how proper pipe strapping prevents physical movement against building framing.",
   "on_image_text": {
-    "hook": "A DRIPPING TAP IS USUALLY A SEALING ISSUE",
-    "explanation": "Water leaks past the spout when the washer can no longer form a flat seal against the internal valve seat.",
-    "callout": "Worn Rubber Washer vs Internal Valve Seat",
-    "takeaway": "Replace the washer first; if dripping persists, re-face or replace the valve seat."
+    "hook": "BANGING SOUNDS WHEN WATER SHUTS OFF?",
+    "explanation": "Stopping moving water instantly creates a high-pressure shockwave that shakes unanchored pipes.",
+    "callout": "HYDRAULIC SHOCK (WATER HAMMER)",
+    "takeaway": "Anchor loose pipes with isolation clamps and install water hammer arrestors at fast-acting valves."
   },
   "hashtags": [
-    "#PlumbingEducation",
-    "#PlumbingTips",
-    "#TapRepair",
-    "#PlumbingApprentice",
-    "#HomeMaintenance",
-    "#PlumbingFacts",
-    "#OromPlan1"
+    "#plumbingeducation",
+    "#waterhammer",
+    "#plumbingtips",
+    "#plumbingbasics",
+    "#homeownersafety",
+    "#apprenticeplumber",
+    "#piping"
   ],
   "reel_enabled": false,
   "reel_file": null
