@@ -1,23 +1,23 @@
 {
-  "idea": "Why professional plumbing installation matters",
-  "title": "Why Proper Drain Pipe Slope Matters",
-  "description": "Professional plumbing installation relies on proper fluid dynamics. In drain-waste-vent (DWV) systems, horizontal pipes require a continuous downward slope—typically 1/4 inch per foot (approx. 2% grade)—supported by rigid pipe hangers at code-compliant intervals. When pipes are installed flat or lack adequate support, they sag under the weight of water, creating low spots where waste settles. Over time, these bellies cause persistent clogs and foul odors. Proper slope and rigid support ensure wastewater and solids move together cleanly by gravity. Have you ever encountered a sagged drain line during a repair?",
-  "image_prompt": "A high-quality realistic photograph of a professional residential plumbing installation beneath floor joists, captured in vertical 9:16 composition. Centered in frame is a clean white PVC DWV horizontal drain pipe with neat solvent-welded fittings. A magnetic torpedo level rests on top of the pipe, showing the bubble aligned to indicate a precise 1/4 inch per foot downward slope towards a drainage stack. The pipe is held securely by clean metal pipe hangers attached to wooden structural framing to prevent sagging. Bright, professional lighting highlights realistic PVC textures, proper fitting geometry, and clean construction details. No text, no logos, no watermarks, no artificial diagrams, no fake branding.",
-  "visual_story": "The visual focuses on a correctly pitched horizontal PVC drain pipe supported beneath floor joists. A torpedo level resting on top of the pipe demonstrates the accurate pitch required for drainage. Clean pipe straps secure the pipe at regular intervals, preventing sagging. The image visually teaches that professional plumbing requires both exact slope and strong support to keep wastewater moving efficiently.",
+  "idea": "Common causes of blocked sinks",
+  "title": "Why Grease Blockages Form in Kitchen Sinks",
+  "description": "When liquid fats, oils, and grease (FOG) are poured down a kitchen sink, they flow easily while warm. However, as FOG moves into the drainage system, it cools rapidly upon contact with cold wastewater and pipe walls. Over time, solidified grease coats the interior of the P-trap and horizontal drain lines, trapping food particles and gradually restricting flow until a full blockage occurs. To prevent chronic drain issues, wipe greasy pans with paper towels before washing and dispose of cooled oils in solid waste bins. What is your go-to method for clearing grease-choked sink lines?",
+  "image_prompt": "Vertical 9:16 aspect ratio. A detailed 3D technical cutaway illustration of a kitchen sink drainage system inside a cabinet. The primary focus is a cut-open white PVC P-trap and horizontal waste pipe section. Inside the pipe cross-section, show a thick, solid layer of yellow-grey congealed grease coating the inner lower walls, narrowing the water flow passage. A small section shows warm water entering and cooling down as it hits the buildup. Realistic PVC material textures, realistic pipe geometry, stainless steel sink basin visible at the top, subtle background under-sink cabinet frame. Studio lighting, realistic pipe wall thickness, clear focus on the interior blockage mechanism. Vertical composition with empty visual space at top and bottom, main plumbing visual centered, photorealistic technical illustration style, no text, no visual labels, no logos, no watermarks, no fake product branding.",
+  "visual_story": "The visual uses a clear pipe cutaway to demonstrate what happens inside a drain when fats, oils, and grease enter the system. Viewers can see the congealed grease clinging to the bottom and side walls of the P-trap, demonstrating how liquid waste turns into a physical restriction as it cools. This visual reinforces why grease shouldn't go down the drain even if it appears completely liquid in the sink.",
   "on_image_text": {
-    "hook": "Flat Pipes Cause Chronic Clogs",
-    "explanation": "Drain lines require a continuous downward slope to keep water and solids moving together cleanly.",
-    "callout": "Standard 1/4\" Per Foot Slope",
-    "takeaway": "Proper pitch and rigid hangers prevent sagging and standing wastewater."
+    "hook": "Why Liquid Grease Still Blocks Sinks",
+    "explanation": "Warm fats cool inside pipes, solidifying into solid wall deposits that trap waste.",
+    "callout": "Congealed FOG Buildup in P-Trap",
+    "takeaway": "Scrape greasy cookware into solid trash before washing to prevent blockages."
   },
   "hashtags": [
     "#PlumbingEducation",
+    "#DrainageSystems",
     "#PlumbingTips",
-    "#DWVSystem",
-    "#PlumbingCode",
     "#ApprenticePlumber",
-    "#PlumbingInstallation",
-    "#DrainageSystem"
+    "#KitchenPlumbing",
+    "#DrainMaintenance",
+    "#PlumbingAdvice"
   ],
   "reel_enabled": false,
   "reel_file": null
