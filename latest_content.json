@@ -1,23 +1,23 @@
 {
-  "idea": "Common causes of blocked sinks",
-  "title": "Why Grease Blockages Form in Kitchen Sinks",
-  "description": "When liquid fats, oils, and grease (FOG) are poured down a kitchen sink, they flow easily while warm. However, as FOG moves into the drainage system, it cools rapidly upon contact with cold wastewater and pipe walls. Over time, solidified grease coats the interior of the P-trap and horizontal drain lines, trapping food particles and gradually restricting flow until a full blockage occurs. To prevent chronic drain issues, wipe greasy pans with paper towels before washing and dispose of cooled oils in solid waste bins. What is your go-to method for clearing grease-choked sink lines?",
-  "image_prompt": "Vertical 9:16 aspect ratio. A detailed 3D technical cutaway illustration of a kitchen sink drainage system inside a cabinet. The primary focus is a cut-open white PVC P-trap and horizontal waste pipe section. Inside the pipe cross-section, show a thick, solid layer of yellow-grey congealed grease coating the inner lower walls, narrowing the water flow passage. A small section shows warm water entering and cooling down as it hits the buildup. Realistic PVC material textures, realistic pipe geometry, stainless steel sink basin visible at the top, subtle background under-sink cabinet frame. Studio lighting, realistic pipe wall thickness, clear focus on the interior blockage mechanism. Vertical composition with empty visual space at top and bottom, main plumbing visual centered, photorealistic technical illustration style, no text, no visual labels, no logos, no watermarks, no fake product branding.",
-  "visual_story": "The visual uses a clear pipe cutaway to demonstrate what happens inside a drain when fats, oils, and grease enter the system. Viewers can see the congealed grease clinging to the bottom and side walls of the P-trap, demonstrating how liquid waste turns into a physical restriction as it cools. This visual reinforces why grease shouldn't go down the drain even if it appears completely liquid in the sink.",
+  "idea": "How to maintain kitchen drainage",
+  "title": "Why Fats Solidify in Kitchen P-Traps",
+  "description": "Fats, oils, and grease—collectively known as FOG—are the leading cause of kitchen sink blockages. When warm fats are rinsed down the drain, cold water rapidly lowers their temperature. This causes grease to congeal and cling to the inner walls of the P-trap and horizontal branch line. Over time, organic food debris becomes trapped in this sticky lining, gradually restricting wastewater flow until a complete blockage occurs. To protect your drainage system, scrape cookware into the solid trash before washing. Rinsing dishes with hot water and emulsifying dish detergent helps keep minor residual fats suspended long enough to clear the trap.",
+  "image_prompt": "A professional 9:16 vertical educational cutaway view under a modern kitchen sink, showing the PVC drainage system. The white PVC P-trap and horizontal wall arm are cleanly sectioned open in a realistic cross-section detail. Inside the curved lower section of the P-trap, a visible layer of pale yellowish-brown congealed grease adheres to the smooth inner pipe wall, reducing the flow diameter. Clear wastewater passes through the remaining upper channel of the trap. Above, the stainless steel sink basin strainer connects cleanly via a standard tailpiece. Bright, neutral laboratory lighting illuminates the interior of the pipe cutaway with crisp detail. Clean white tile background, soft shadows, realistic plumbing materials and fitting geometry, no text, no logos, no watermarks.",
+  "visual_story": "The visual focuses on a cross-section cutaway of a kitchen P-trap beneath a sink. Viewers immediately notice a thick layer of solidified grease clinging to the bottom dip of the trap, narrowing the water channel. This demonstrates how fats build up silently inside the plumbing fixture before a complete stoppage happens, reinforcing why grease should never be poured into the sink.",
   "on_image_text": {
-    "hook": "Why Liquid Grease Still Blocks Sinks",
-    "explanation": "Warm fats cool inside pipes, solidifying into solid wall deposits that trap waste.",
-    "callout": "Congealed FOG Buildup in P-Trap",
-    "takeaway": "Scrape greasy cookware into solid trash before washing to prevent blockages."
+    "hook": "Why Grease Hardens Inside Your Kitchen Trap",
+    "explanation": "Cold water cools liquid fats instantly, causing them to coat the inner walls of the P-trap.",
+    "callout": "Congealed Grease Layer inside P-Trap Dip",
+    "takeaway": "Scrape pans into the trash; use hot water and soap to flush minor residue."
   },
   "hashtags": [
-    "#PlumbingEducation",
-    "#DrainageSystems",
-    "#PlumbingTips",
-    "#ApprenticePlumber",
-    "#KitchenPlumbing",
-    "#DrainMaintenance",
-    "#PlumbingAdvice"
+    "#plumbingeducation",
+    "#drainmaintenance",
+    "#kitchenplumbing",
+    "#plumbingtips",
+    "#ptrap",
+    "#apprenticeplumber",
+    "#homeownereducation"
   ],
   "reel_enabled": false,
   "reel_file": null
