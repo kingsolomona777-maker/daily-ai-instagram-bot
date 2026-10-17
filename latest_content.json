@@ -1,23 +1,23 @@
 {
-  "idea": "How to prevent blocked drains",
-  "title": "Why Hot Grease Causes Solid Drain Blockages",
-  "description": "Educational tip explaining how liquid fats, oils, and grease (FOG) cool and solidify inside kitchen drain lines, causing severe blockages.",
-  "image_prompt": "A professional educational 3D cutaway illustration of a kitchen sink PVC drain pipe system in vertical 9:16 composition. The main focus is a detailed cross-section of a horizontal grey plastic waste pipe running under a sink cabinet. Inside the cutaway view of the pipe, a thick, realistic layer of solidified yellowish-white fat and grease coats the lower inner walls, narrowing the water passage. Clear, non-pressurized drainage water flows slowly over the buildup. Clean, realistic plumbing fittings including a P-trap and sanitary tee are correctly installed. Bright studio lighting illuminates the pipe interior. Clean composition with empty space at the top and bottom third for text overlays. Photorealistic textures, accurate pipe connections, no text, no logos, no watermarks, no labels, physically realistic geometry.",
-  "visual_story": "The visual uses a clear pipe cutaway to reveal what happens hidden inside drain lines. Viewers notice how hot grease, which enters the sink as a liquid, coats the interior pipe walls as it cools down farther along the line. This visual reinforces why flushing hot grease with running water does not prevent long-term buildup in underground or concealed drain pipes.",
+  "idea": "How to maintain a home water system",
+  "title": "Monitoring Home Static Water Pressure",
+  "description": "Educational guide on checking household static water pressure using a simple hose bibb gauge to prevent pipe stress and fixture failure.",
+  "image_prompt": "A sharp, realistic vertical 9:16 photograph showing a close-up view of a clean brass outdoor hose bibb mounted on a light-colored exterior masonry wall. A professional analog water pressure test gauge with a clear glass dial and brass fitting is securely threaded onto the hose bibb outlet. The needle on the white dial face points clearly to 60 PSI within a realistic dual scale showing PSI and bar. Natural daylight creates realistic soft highlights on the metallic brass texture. The main hose bibb and gauge are positioned in the lower two-thirds of the frame, leaving clean background space in the upper area. Photorealistic detail, accurate pipe and thread geometry, authentic plumbing installation, no text, no logos, no watermarks.",
+  "visual_story": "The image highlights a simple diagnostic method for home water maintenance: measuring static supply pressure at an exterior hose bibb. Viewers can see a standard brass hose spigot fitted with an analog pressure gauge threaded directly onto the male outlet. The gauge reading indicates 60 PSI, providing a realistic visual reference for acceptable household water pressure while demonstrating how accessible testing tools are properly attached.",
   "on_image_text": {
-    "hook": "Hot liquid grease solidifies inside cold pipes.",
-    "explanation": "As liquid fats travel into cooler drainage pipes, they solidify along the pipe walls and catch food scraps.",
-    "callout": "FOG Build-up (Fats, Oils & Grease)",
-    "takeaway": "Scrape grease into a container or trash before washing pans."
+    "hook": "High static pressure silently damages pipe joints and fixtures.",
+    "explanation": "Excessive supply pressure above 80 PSI places continuous mechanical stress on valve seals, appliance hoses, and pipe connections.",
+    "callout": "Static Pressure Diagnostic Test",
+    "takeaway": "Check pressure at a hose bibb; if static pressure exceeds 80 PSI, install or adjust a Pressure Reducing Valve."
   },
   "hashtags": [
     "#plumbingeducation",
-    "#draincleaning",
+    "#waterpressure",
+    "#homeplumbing",
+    "#plumbingsystem",
     "#plumbingtips",
-    "#homeowneradvice",
-    "#apprenticeplumber",
-    "#plumbinglife",
-    "#drainage"
+    "#plumbingapprentice",
+    "#homemaintenance"
   ],
   "reel_enabled": false,
   "reel_file": null
