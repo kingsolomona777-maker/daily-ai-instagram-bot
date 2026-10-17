@@ -1,0 +1,29 @@
+{
+  "package_date": "2026-10-17",
+  "slot": 1,
+  "lesson_number": 1,
+  "content_type": "reel",
+  "role": "problem_and_cause",
+  "lesson_type": "problem_and_cause",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "drainage systems",
+  "title": "Why Drains Gurgle: Understanding Airflow and Venting Issues",
+  "description": "When fixture drains make a distinct gurgling sound, it usually signals a negative pressure imbalance within the drainage system. As water travels down the pipe, it creates a vacuum behind it. If the plumbing vent is clogged by debris, ice, or bird nests, air is pulled through nearby P-traps instead of the vent stack. This displacement breaks the water seal in the trap, allowing sewer gases to enter living spaces. Alternatively, a partial blockage down the main line restricts air movement, forcing air bubbles back up through the trap water. Identifying vent obstructions versus main drain line blockages is essential for accurate troubleshooting.",
+  "hashtags": [
+    "#PlumbingTips",
+    "#DrainageSystems",
+    "#PlumbingEducation",
+    "#ApprenticePlumber",
+    "#DrainCleaning"
+  ],
+  "caption": "Why Drains Gurgle: Understanding Airflow and Venting Issues\n\nWhen fixture drains make a distinct gurgling sound, it usually signals a negative pressure imbalance within the drainage system. As water travels down the pipe, it creates a vacuum behind it. If the plumbing vent is clogged by debris, ice, or bird nests, air is pulled through nearby P-traps instead of the vent stack. This displacement breaks the water seal in the trap, allowing sewer gases to enter living spaces. Alternatively, a partial blockage down the main line restricts air movement, forcing air bubbles back up through the trap water. Identifying vent obstructions versus main drain line blockages is essential for accurate troubleshooting.\n\n#PlumbingTips #DrainageSystems #PlumbingEducation #ApprenticePlumber #DrainCleaning",
+  "schedule_time": "07:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-10-17/post_01/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-10-17/post_01/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}
