@@ -1,23 +1,23 @@
 {
-  "idea": "How to maintain kitchen drainage",
-  "title": "Why Fats Solidify in Kitchen P-Traps",
-  "description": "Fats, oils, and grease—collectively known as FOG—are the leading cause of kitchen sink blockages. When warm fats are rinsed down the drain, cold water rapidly lowers their temperature. This causes grease to congeal and cling to the inner walls of the P-trap and horizontal branch line. Over time, organic food debris becomes trapped in this sticky lining, gradually restricting wastewater flow until a complete blockage occurs. To protect your drainage system, scrape cookware into the solid trash before washing. Rinsing dishes with hot water and emulsifying dish detergent helps keep minor residual fats suspended long enough to clear the trap.",
-  "image_prompt": "A professional 9:16 vertical educational cutaway view under a modern kitchen sink, showing the PVC drainage system. The white PVC P-trap and horizontal wall arm are cleanly sectioned open in a realistic cross-section detail. Inside the curved lower section of the P-trap, a visible layer of pale yellowish-brown congealed grease adheres to the smooth inner pipe wall, reducing the flow diameter. Clear wastewater passes through the remaining upper channel of the trap. Above, the stainless steel sink basin strainer connects cleanly via a standard tailpiece. Bright, neutral laboratory lighting illuminates the interior of the pipe cutaway with crisp detail. Clean white tile background, soft shadows, realistic plumbing materials and fitting geometry, no text, no logos, no watermarks.",
-  "visual_story": "The visual focuses on a cross-section cutaway of a kitchen P-trap beneath a sink. Viewers immediately notice a thick layer of solidified grease clinging to the bottom dip of the trap, narrowing the water channel. This demonstrates how fats build up silently inside the plumbing fixture before a complete stoppage happens, reinforcing why grease should never be poured into the sink.",
+  "idea": "When to replace old plumbing pipes",
+  "title": "Identifying Internal Pipe Corrosion for Replacement",
+  "description": "Low water pressure is not always caused by a clogged aerator or main supply drop. In older installations with galvanized steel water lines, oxygen and dissolved minerals react with the metal over time, causing internal rust buildup known as tuberculation. These rough iron oxide deposits accumulate inside the pipe, drastically narrowing the inner flow diameter while weakening the pipe wall from the inside out. Because this deterioration happens internally, an old pipe may look intact on the exterior while offering severely degraded performance. When flow capacity is choked by internal scale, full replacement with modern piping materials is required.",
+  "image_prompt": "A macro technical photograph of a cutaway section of an old 3/4-inch galvanized steel water pipe, displayed vertically in a 9:16 aspect ratio. The cross-section clearly reveals severe internal tuberculation with heavy, crusty reddish-brown rust nodules and mineral scale chokepoints reducing the internal water flow opening to a fraction of its original size. The cut edges of the pipe show realistic metal grain and wall thickness. The pipe rests on a neutral grey workbench in a brightly lit professional workshop environment with soft directional lighting to emphasize the rough texture of the rust buildup inside the pipe. Photorealistic texture, sharp focus on the internal pipe chamber, clean visual space around the subject, no text, no logos, no watermarks, no artificial annotations.",
+  "visual_story": "The visual presents a clear cross-sectional cutaway of an aging metal water pipe. The viewer immediately notices that while the outer surface appears solid, the internal waterway is nearly blocked by jagged, crusty rust deposits (tuberculation). This directly demonstrates why visual inspection of external pipe surfaces alone is insufficient to evaluate old plumbing supply lines.",
   "on_image_text": {
-    "hook": "Why Grease Hardens Inside Your Kitchen Trap",
-    "explanation": "Cold water cools liquid fats instantly, causing them to coat the inner walls of the P-trap.",
-    "callout": "Congealed Grease Layer inside P-Trap Dip",
-    "takeaway": "Scrape pans into the trash; use hot water and soap to flush minor residue."
+    "hook": "Pipes corrode from the inside out.",
+    "explanation": "Internal rust nodules (tuberculation) choke water volume long before external leaks appear.",
+    "callout": "Internal Flow Restriction",
+    "takeaway": "Persistent multi-fixture pressure drops signal it is time to replace aging metallic lines."
   },
   "hashtags": [
     "#plumbingeducation",
-    "#drainmaintenance",
-    "#kitchenplumbing",
+    "#pipereplacement",
+    "#galvanizedpipe",
     "#plumbingtips",
-    "#ptrap",
-    "#apprenticeplumber",
-    "#homeownereducation"
+    "#plumbingapprentice",
+    "#plumbingmaintenance",
+    "#watersupply"
   ],
   "reel_enabled": false,
   "reel_file": null
