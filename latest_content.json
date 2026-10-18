@@ -1,23 +1,23 @@
 {
-  "idea": "How to maintain a home water system",
-  "title": "Monitoring Home Static Water Pressure",
-  "description": "Educational guide on checking household static water pressure using a simple hose bibb gauge to prevent pipe stress and fixture failure.",
-  "image_prompt": "A sharp, realistic vertical 9:16 photograph showing a close-up view of a clean brass outdoor hose bibb mounted on a light-colored exterior masonry wall. A professional analog water pressure test gauge with a clear glass dial and brass fitting is securely threaded onto the hose bibb outlet. The needle on the white dial face points clearly to 60 PSI within a realistic dual scale showing PSI and bar. Natural daylight creates realistic soft highlights on the metallic brass texture. The main hose bibb and gauge are positioned in the lower two-thirds of the frame, leaving clean background space in the upper area. Photorealistic detail, accurate pipe and thread geometry, authentic plumbing installation, no text, no logos, no watermarks.",
-  "visual_story": "The image highlights a simple diagnostic method for home water maintenance: measuring static supply pressure at an exterior hose bibb. Viewers can see a standard brass hose spigot fitted with an analog pressure gauge threaded directly onto the male outlet. The gauge reading indicates 60 PSI, providing a realistic visual reference for acceptable household water pressure while demonstrating how accessible testing tools are properly attached.",
+  "idea": "How to prevent bad smells from drains",
+  "title": "Preventing Sewer Odors: The P-Trap Water Seal",
+  "description": "Bad smells coming from sink, floor, or shower drains are often caused by a dried-out P-trap. The curved pipe beneath your plumbing fixture holds a standing water seal that acts as a physical barrier against sewer gas. When a drain goes unused for several weeks, this water seal gradually evaporates, leaving an open channel for sewer gases to rise into your room. To prevent this, regularly pour a few cups of water down infrequently used drains to maintain the trap seal. If a drain smells despite regular use, the issue might be improper venting causing siphonage. Have you encountered a smelly drain in an unused bathroom recently?",
+  "image_prompt": "A clean, educational 3D cross-sectional technical illustration of a white PVC P-trap assembly installed under a modern bathroom sink, vertical 9:16 aspect ratio. The cross-section clearly reveals the interior of the curved pipe holding a standing pool of clean water forming a solid trap seal. On the wall-outlet side of the trap, subtle gray vapor indicates sewer gas contained behind the water seal, while the sink side above the water remains clear and clean. Realistic mechanical geometry showing slip-joint nuts, sanitary tee connection in wall, matte white plastic textures, and clear water. Studio lighting with clean offset neutral background, leaving ample space at top and bottom for text placement. Photorealistic materials, vertical composition, no text, no logos, no watermarks, no artificial annotations.",
+  "visual_story": "The visual presents a clear cross-sectional view of a P-trap installed beneath a drain. Viewers notice the dip in the pipe holding clean standing water, which forms the trap seal. On the wall side leading to the drainage stack, sewer gas is shown reaching the water barrier but failing to pass through to the sink opening above. This visual demonstrates the physical mechanism of the trap seal, making it instantly clear why an empty or dried-out trap allows odors to enter the room.",
   "on_image_text": {
-    "hook": "High static pressure silently damages pipe joints and fixtures.",
-    "explanation": "Excessive supply pressure above 80 PSI places continuous mechanical stress on valve seals, appliance hoses, and pipe connections.",
-    "callout": "Static Pressure Diagnostic Test",
-    "takeaway": "Check pressure at a hose bibb; if static pressure exceeds 80 PSI, install or adjust a Pressure Reducing Valve."
+    "hook": "Why Unused Drains Start To Smell",
+    "explanation": "The standing water in a P-trap creates a physical seal that blocks sewer gases from entering your home.",
+    "callout": "P-Trap Water Seal Evaporation",
+    "takeaway": "Pour water into infrequently used drains weekly to keep the trap seal filled and block odors."
   },
   "hashtags": [
-    "#plumbingeducation",
-    "#waterpressure",
-    "#homeplumbing",
-    "#plumbingsystem",
-    "#plumbingtips",
-    "#plumbingapprentice",
-    "#homemaintenance"
+    "#PlumbingEducation",
+    "#PlumbingTips",
+    "#DrainageSystem",
+    "#PTrap",
+    "#HomeMaintenance",
+    "#ApprenticePlumber",
+    "#PlumbingBasics"
   ],
   "reel_enabled": false,
   "reel_file": null
