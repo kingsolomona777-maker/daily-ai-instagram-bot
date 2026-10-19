@@ -1,23 +1,23 @@
 {
-  "idea": "Signs of a hidden water leak",
-  "title": "Detecting Hidden Water Leaks Using the Water Meter Indicator",
-  "description": "An educational guide explaining how to use a water meter's low-flow indicator dial to confirm active, hidden leaks in pressurized supply piping.",
-  "image_prompt": "A sharp, professional vertical 9:16 high-detail photograph of a clean brass analog water meter installed on an exposed domestic supply line. The camera focuses closely at a 45-degree overhead angle onto the clear glass face of the meter register. Visible on the meter face are clear black numbers, a primary red sweep hand, and a small, distinct red triangular low-flow indicator wheel in the center. The meter is connected via heavy brass threaded fittings to clean copper piping. The background is a soft-focus clean concrete utility wall with smooth ambient lighting. The top and bottom thirds of the vertical composition are clean and uncluttered. No text, no visual overlays, no logos, no watermarks, realistic plumbing geometry and physical details.",
-  "visual_story": "The visual focuses on the register face of a physical water meter, specifically highlighting the small low-flow indicator wheel (often shaped like a triangle or star). By providing a clean, realistic view of the meter's internal dial setup, the visual teaches viewers what specific component to observe when diagnosing an invisible leak. The clear space around the meter allows key educational points to be placed without obscuring the brass fittings or dial display.",
+  "idea": "Common plumbing mistakes homeowners make",
+  "title": "Stop Using Thread Tape on Flexible Supply Lines",
+  "description": "Educational tip explaining why PTFE thread tape should not be applied to flexible hose connector nuts or compression fittings that rely on internal rubber washers.",
+  "image_prompt": "A professional high-detail close-up cutaway section of a braided stainless steel faucet flexible supply hose nut threaded onto a brass shut-off valve outlet shank under a sink. The cutaway visual clearly shows the interior black rubber washer compressed flat against the smooth rim of the brass fitting to form the seal. The threads are clean, shiny metal-on-metal without any white PTFE thread tape. Photorealistic educational visual, macro focus on the brass threads and rubber washer interface, clean background under a sink with soft realistic lighting, vertical 9:16 aspect ratio composition, main subject centered, no text, no logos, no watermarks, no arrows, no labels, physically realistic plumbing components.",
+  "visual_story": "The visual uses a clear educational cutaway to reveal how a flexible supply line actually seals water. Viewers will notice the internal rubber washer pressed against the flat top face of the brass pipe shank. This highlights that the seal happens at the rubber gasket interface, while the metal threads only exist to pull the gasket tight. Showing clean, tape-free threads helps the viewer visualize why adding thread tape is unnecessary and counterproductive for this connection type.",
   "on_image_text": {
-    "hook": "Confirm Hidden Leaks Without Opening Walls",
-    "explanation": "The small triangular wheel on your water meter spins whenever water moves through the main line.",
-    "callout": "Low-Flow Leak Indicator Dial",
-    "takeaway": "Shut off all fixtures. If this indicator still rotates, you have an active supply leak."
+    "hook": "Stop Wrapping Thread Tape on Flex Hose Nuts",
+    "explanation": "Flexible supply lines seal using an internal rubber washer against a flat surface, not through the threads.",
+    "callout": "Gasket Seal vs. Thread Seal",
+    "takeaway": "Use tape only on tapered pipe threads (NPT). Keep flex line nuts clean and hand-tighten plus a quarter turn."
   },
   "hashtags": [
-    "#plumbingeducation",
-    "#waterleakdetection",
-    "#plumbingtips",
-    "#apprenticeplumber",
-    "#homemaintenance",
-    "#plumbinglife",
-    "#watermeter"
+    "#PlumbingTips",
+    "#PlumbingEducation",
+    "#DIYPlumbing",
+    "#PlumbingMistakes",
+    "#ApprenticePlumber",
+    "#HomeownerTips",
+    "#PlumbingAdvice"
   ],
   "reel_enabled": false,
   "reel_file": null
