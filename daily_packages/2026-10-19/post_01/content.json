@@ -1,0 +1,29 @@
+{
+  "package_date": "2026-10-19",
+  "slot": 1,
+  "lesson_number": 1,
+  "content_type": "reel",
+  "role": "problem_and_cause",
+  "lesson_type": "problem_and_cause",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "drainage systems",
+  "title": "Understanding Drain Gurgling: The Role of Venting",
+  "description": "When a plumbing fixture gurgles as it drains, the underlying issue is often related to air pressure rather than a simple clog inside the sink pipe. Plumbing drainage systems require air displacement to function properly. As water flows down the pipe, it creates negative pressure behind it. If the atmospheric vent pipe is blocked or missing, the system pulls air through the nearest trap, causing a distinct gurgling sound and siphonage. Inspecting the vent stack roof terminal or checking for bird nests, ice buildup, or debris is a crucial troubleshooting step to restore smooth, quiet drainage.",
+  "hashtags": [
+    "#plumbing",
+    "#drainage",
+    "#plumbinglife",
+    "#tradeschool",
+    "#plumbertips"
+  ],
+  "caption": "Understanding Drain Gurgling: The Role of Venting\n\nWhen a plumbing fixture gurgles as it drains, the underlying issue is often related to air pressure rather than a simple clog inside the sink pipe. Plumbing drainage systems require air displacement to function properly. As water flows down the pipe, it creates negative pressure behind it. If the atmospheric vent pipe is blocked or missing, the system pulls air through the nearest trap, causing a distinct gurgling sound and siphonage. Inspecting the vent stack roof terminal or checking for bird nests, ice buildup, or debris is a crucial troubleshooting step to restore smooth, quiet drainage.\n\n#plumbing #drainage #plumbinglife #tradeschool #plumbertips",
+  "schedule_time": "07:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-10-19/post_01/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-10-19/post_01/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}
