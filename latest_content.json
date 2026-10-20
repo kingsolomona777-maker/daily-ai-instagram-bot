@@ -1,23 +1,23 @@
 {
-  "idea": "Common plumbing mistakes homeowners make",
-  "title": "Stop Using Thread Tape on Flexible Supply Lines",
-  "description": "Educational tip explaining why PTFE thread tape should not be applied to flexible hose connector nuts or compression fittings that rely on internal rubber washers.",
-  "image_prompt": "A professional high-detail close-up cutaway section of a braided stainless steel faucet flexible supply hose nut threaded onto a brass shut-off valve outlet shank under a sink. The cutaway visual clearly shows the interior black rubber washer compressed flat against the smooth rim of the brass fitting to form the seal. The threads are clean, shiny metal-on-metal without any white PTFE thread tape. Photorealistic educational visual, macro focus on the brass threads and rubber washer interface, clean background under a sink with soft realistic lighting, vertical 9:16 aspect ratio composition, main subject centered, no text, no logos, no watermarks, no arrows, no labels, physically realistic plumbing components.",
-  "visual_story": "The visual uses a clear educational cutaway to reveal how a flexible supply line actually seals water. Viewers will notice the internal rubber washer pressed against the flat top face of the brass pipe shank. This highlights that the seal happens at the rubber gasket interface, while the metal threads only exist to pull the gasket tight. Showing clean, tape-free threads helps the viewer visualize why adding thread tape is unnecessary and counterproductive for this connection type.",
+  "idea": "Why a toilet may keep running",
+  "title": "Diagnosing a Continuously Running Toilet",
+  "description": "A toilet that runs continuously wastes hundreds of liters of water daily. The most frequent cause is a faulty flapper valve at the bottom of the tank. Over time, mineral deposits or chlorine deterioration prevent the flexible rubber flapper from forming a watertight seal against the flush valve seat. This allows water to constantly seep into the bowl, triggering the fill valve to run continuously to maintain tank water levels. Inspecting the flapper for rigidity, warped edges, or mineral buildup is the essential first step. Replacing a degraded flapper restores the seal and stops water loss immediately. What plumbing topic should we cover next?",
+  "image_prompt": "A detailed educational cutaway technical rendering of a porcelain toilet tank interior, visual vertical 9:16 aspect ratio. Photorealistic presentation showing internal working components clearly: a flexible rubber flapper valve sitting on a flush valve seat at the bottom of the tank, a vertical overflow tube, a modern fill valve with float cup on the left side, and clean water filled to the indicated water line. Realistic water physics, clean white vitreous china interior, soft studio illumination focusing on the lower flapper and flush valve connection. Center-focused composition with ample clean space at the top and bottom. No text, no labels, no arrows, no logos, no watermarks, no brand names.",
+  "visual_story": "The visual provides a clear internal sectional view of a toilet tank, directing focus directly to the flapper valve at the flush valve opening. Viewers immediately see how the rubber flapper acts as the primary seal holding water in the tank, demonstrating why material breakdown at this exact contact point allows water to escape continuously into the bowl.",
   "on_image_text": {
-    "hook": "Stop Wrapping Thread Tape on Flex Hose Nuts",
-    "explanation": "Flexible supply lines seal using an internal rubber washer against a flat surface, not through the threads.",
-    "callout": "Gasket Seal vs. Thread Seal",
-    "takeaway": "Use tape only on tapered pipe threads (NPT). Keep flex line nuts clean and hand-tighten plus a quarter turn."
+    "hook": "Why Your Toilet Keeps Running",
+    "explanation": "A worn or distorted flapper fails to seal against the flush valve seat, letting water escape into the bowl.",
+    "callout": "Flapper Valve Seal Failure",
+    "takeaway": "Inspect the rubber flapper for stiffness or warping before replacing the entire fill mechanism."
   },
   "hashtags": [
-    "#PlumbingTips",
     "#PlumbingEducation",
-    "#DIYPlumbing",
-    "#PlumbingMistakes",
+    "#ToiletRepair",
+    "#PlumbingTips",
+    "#HomeMaintenance",
     "#ApprenticePlumber",
-    "#HomeownerTips",
-    "#PlumbingAdvice"
+    "#PlumbingBasics",
+    "#WaterConservation"
   ],
   "reel_enabled": false,
   "reel_file": null
