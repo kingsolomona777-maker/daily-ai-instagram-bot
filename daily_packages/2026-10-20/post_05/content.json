@@ -1,0 +1,30 @@
+{
+  "package_date": "2026-10-20",
+  "slot": 5,
+  "lesson_number": 5,
+  "content_type": "reel",
+  "role": "troubleshooting",
+  "lesson_type": "troubleshooting",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "drain ventilation",
+  "title": "Troubleshooting Siphonage and Gurgling Drains",
+  "description": "When fixture traps gurgle or dry out, the root cause is frequently improper or blocked drain ventilation rather than a main line clog. Water flowing rapidly down a branch pipe creates negative pressure behind it. Without a functioning vent stack to supply air, that atmospheric vacuum pulls water out of adjacent P-traps. This siphoning action breaks the liquid seal, allowing sewer gases to enter living spaces. Plumbers should inspect vent terminals on the roof for obstructions like leaves, bird nests, or ice build-up, and verify that mechanical air admittance valves operate freely without sticking closed.",
+  "hashtags": [
+    "plumbing",
+    "drainage",
+    "plumber",
+    "troubleshooting",
+    "plumbinglife",
+    "trades"
+  ],
+  "caption": "Troubleshooting Siphonage and Gurgling Drains\n\nWhen fixture traps gurgle or dry out, the root cause is frequently improper or blocked drain ventilation rather than a main line clog. Water flowing rapidly down a branch pipe creates negative pressure behind it. Without a functioning vent stack to supply air, that atmospheric vacuum pulls water out of adjacent P-traps. This siphoning action breaks the liquid seal, allowing sewer gases to enter living spaces. Plumbers should inspect vent terminals on the roof for obstructions like leaves, bird nests, or ice build-up, and verify that mechanical air admittance valves operate freely without sticking closed.\n\nplumbing drainage plumber troubleshooting plumbinglife trades",
+  "schedule_time": "15:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-10-20/post_05/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-10-20/post_05/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}
