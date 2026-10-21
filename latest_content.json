@@ -1,23 +1,23 @@
 {
-  "idea": "Why a toilet may keep running",
-  "title": "Diagnosing a Continuously Running Toilet",
-  "description": "A toilet that runs continuously wastes hundreds of liters of water daily. The most frequent cause is a faulty flapper valve at the bottom of the tank. Over time, mineral deposits or chlorine deterioration prevent the flexible rubber flapper from forming a watertight seal against the flush valve seat. This allows water to constantly seep into the bowl, triggering the fill valve to run continuously to maintain tank water levels. Inspecting the flapper for rigidity, warped edges, or mineral buildup is the essential first step. Replacing a degraded flapper restores the seal and stops water loss immediately. What plumbing topic should we cover next?",
-  "image_prompt": "A detailed educational cutaway technical rendering of a porcelain toilet tank interior, visual vertical 9:16 aspect ratio. Photorealistic presentation showing internal working components clearly: a flexible rubber flapper valve sitting on a flush valve seat at the bottom of the tank, a vertical overflow tube, a modern fill valve with float cup on the left side, and clean water filled to the indicated water line. Realistic water physics, clean white vitreous china interior, soft studio illumination focusing on the lower flapper and flush valve connection. Center-focused composition with ample clean space at the top and bottom. No text, no labels, no arrows, no logos, no watermarks, no brand names.",
-  "visual_story": "The visual provides a clear internal sectional view of a toilet tank, directing focus directly to the flapper valve at the flush valve opening. Viewers immediately see how the rubber flapper acts as the primary seal holding water in the tank, demonstrating why material breakdown at this exact contact point allows water to escape continuously into the bowl.",
+  "idea": "How to save water at home",
+  "title": "Saving Household Water with Faucet Aerators",
+  "description": "A simple way to reduce household water consumption without sacrificing rinsing pressure is by inspecting your faucet aerators. Standard older faucets often discharge up to 2.2 gallons per minute (GPM), whereas high-efficiency aerators limit flow to 1.5 or 1.0 GPM. They achieve this by introducing air directly into the water stream, creating a full, soft spray while utilizing significantly less volume per second. Over time, sediment buildup inside the internal mesh can reduce performance or distort flow. Cleaning or upgrading these inexpensive inserts is a quick, practical fix for any property owner. What flow rate are your home faucets currently running?",
+  "image_prompt": "A detailed professional plumbing photograph in 9:16 vertical orientation showing an extreme close-up of a modern polished chrome basin faucet spout. The faucet aerator housing is unscrewed and neatly aligned next to the spout tip, displaying its internal components: a black rubber sealing washer, a fine stainless steel mesh screen, and a color-coded plastic flow restrictor core. Clean, realistic bathroom background with natural soft daylight, crisp focus on the threaded connection and aerator parts. Realistic mechanical precision, high clarity, clear visual framing with ample clean space at top and bottom. No text, no logos, no watermarks, no diagrams, no fake branding.",
+  "visual_story": "The visual clearly highlights the internal structure of a faucet aerator, showing the exact components responsible for controlling water output—the sealing washer, fine screen mesh, and flow restrictor. Viewers immediately see how this small assembly attaches to the end of a spout, making the hardware approachable and easy to understand for maintenance.",
   "on_image_text": {
-    "hook": "Why Your Toilet Keeps Running",
-    "explanation": "A worn or distorted flapper fails to seal against the flush valve seat, letting water escape into the bowl.",
-    "callout": "Flapper Valve Seal Failure",
-    "takeaway": "Inspect the rubber flapper for stiffness or warping before replacing the entire fill mechanism."
+    "hook": "Cut Household Water Volume Without Losing Pressure",
+    "explanation": "Aerators introduce air into the water stream to maintain spray force while using up to 30% less water.",
+    "callout": "Aerator Core & Flow Restrictor Mesh",
+    "takeaway": "Inspect and replace 2.2 GPM aerators with efficient 1.5 GPM models."
   },
   "hashtags": [
-    "#PlumbingEducation",
-    "#ToiletRepair",
-    "#PlumbingTips",
-    "#HomeMaintenance",
-    "#ApprenticePlumber",
-    "#PlumbingBasics",
-    "#WaterConservation"
+    "#plumbingeducation",
+    "#watersavingtips",
+    "#faucetaerator",
+    "#plumbingtips",
+    "#homeplumbing",
+    "#apprenticeplumber",
+    "#oromplan1"
   ],
   "reel_enabled": false,
   "reel_file": null
