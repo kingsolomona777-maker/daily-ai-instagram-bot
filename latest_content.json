@@ -1,23 +1,23 @@
 {
-  "idea": "How to save water at home",
-  "title": "Saving Household Water with Faucet Aerators",
-  "description": "A simple way to reduce household water consumption without sacrificing rinsing pressure is by inspecting your faucet aerators. Standard older faucets often discharge up to 2.2 gallons per minute (GPM), whereas high-efficiency aerators limit flow to 1.5 or 1.0 GPM. They achieve this by introducing air directly into the water stream, creating a full, soft spray while utilizing significantly less volume per second. Over time, sediment buildup inside the internal mesh can reduce performance or distort flow. Cleaning or upgrading these inexpensive inserts is a quick, practical fix for any property owner. What flow rate are your home faucets currently running?",
-  "image_prompt": "A detailed professional plumbing photograph in 9:16 vertical orientation showing an extreme close-up of a modern polished chrome basin faucet spout. The faucet aerator housing is unscrewed and neatly aligned next to the spout tip, displaying its internal components: a black rubber sealing washer, a fine stainless steel mesh screen, and a color-coded plastic flow restrictor core. Clean, realistic bathroom background with natural soft daylight, crisp focus on the threaded connection and aerator parts. Realistic mechanical precision, high clarity, clear visual framing with ample clean space at top and bottom. No text, no logos, no watermarks, no diagrams, no fake branding.",
-  "visual_story": "The visual clearly highlights the internal structure of a faucet aerator, showing the exact components responsible for controlling water output—the sealing washer, fine screen mesh, and flow restrictor. Viewers immediately see how this small assembly attaches to the end of a spout, making the hardware approachable and easy to understand for maintenance.",
+  "idea": "How to maintain a water tank",
+  "title": "Water Tank Maintenance: Sediment Flushes",
+  "description": "A practical educational lesson demonstrating how water tank sediment isolation works and why routine bottom flushing prevents pipe blockages.",
+  "image_prompt": "A realistic educational vertical cutaway view showing the lower section of a dark blue polyethylene water storage tank installed on a clean concrete pad outdoors. Inside the tank, clear water reveals a distinct layer of fine brown sediment settled flat along the very bottom surface. A supply outlet pipe fitted with a PVC ball valve penetrates the tank wall 10 centimeters above the floor, safely drawing clear water above the sediment layer. At the lowest point of the tank base, a separate scour drain pipe with a red handle ball valve is shown, showing the correct plumbing layout for cleaning out sludge. Professional plumbing photography style, sharp focus on fittings and tank floor, clean natural light, realistic pipe geometry, 9:16 vertical composition. No text, no logos, no watermarks, no graphical arrows or text panels.",
+  "visual_story": "The visual uses a clear cutaway cross-section of a water tank base to highlight the vertical separation between the supply outlet and the drain valve. Viewers can see how mineral sediment naturally drops to the tank floor over time. By placing the primary supply pipe slightly above the tank floor and a dedicated drain pipe at the bottom, sediment remains trapped below the supply line until flushed.",
   "on_image_text": {
-    "hook": "Cut Household Water Volume Without Losing Pressure",
-    "explanation": "Aerators introduce air into the water stream to maintain spray force while using up to 30% less water.",
-    "callout": "Aerator Core & Flow Restrictor Mesh",
-    "takeaway": "Inspect and replace 2.2 GPM aerators with efficient 1.5 GPM models."
+    "hook": "Prevent Tank Sludge From Clogging Household Pipes",
+    "explanation": "Supply pipes draw clean water above the floor while sediment settles to the bottom.",
+    "callout": "Raised Outlet vs. Bottom Scour Valve",
+    "takeaway": "Open the bottom scour valve every 6 months to flush out settled debris."
   },
   "hashtags": [
     "#plumbingeducation",
-    "#watersavingtips",
-    "#faucetaerator",
+    "#watertankmaintenance",
     "#plumbingtips",
-    "#homeplumbing",
     "#apprenticeplumber",
-    "#oromplan1"
+    "#plumbingsystems",
+    "#homeowneradvice",
+    "#waterstorage"
   ],
   "reel_enabled": false,
   "reel_file": null
