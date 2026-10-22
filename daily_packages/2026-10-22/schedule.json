@@ -1,0 +1,130 @@
+{
+  "package_date": "2026-10-22",
+  "timezone": "Africa/Lagos",
+  "status": "ready",
+  "total_posts": 10,
+  "reels": 5,
+  "educational_visuals": 5,
+  "schedule": [
+    {
+      "slot": 1,
+      "lesson_number": 1,
+      "content_type": "reel",
+      "title": "Why Slow Drains Happen: The Root Cause in Drainage Systems",
+      "schedule_time": "07:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_01",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 2,
+      "lesson_number": 2,
+      "content_type": "educational_visual",
+      "title": "Inside Sink Drainage: How the Trap Protects Your Home",
+      "schedule_time": "09:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_02",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 3,
+      "lesson_number": 3,
+      "content_type": "reel",
+      "title": "Sanitary Tee on Horizontal Drain Lines",
+      "schedule_time": "11:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_03",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 4,
+      "lesson_number": 4,
+      "content_type": "educational_visual",
+      "title": "Protecting the P-Trap Water Seal",
+      "schedule_time": "13:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_04",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 5,
+      "lesson_number": 5,
+      "content_type": "reel",
+      "title": "Diagnosing Drain Ventilation Failures",
+      "schedule_time": "15:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_05",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 6,
+      "lesson_number": 6,
+      "content_type": "educational_visual",
+      "title": "The Role of Pipe Slope in Gravity Drainage",
+      "schedule_time": "17:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_06",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 7,
+      "lesson_number": 7,
+      "content_type": "reel",
+      "title": "Why Sanitary Tees Fail on Horizontal Drainage",
+      "schedule_time": "19:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_07",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 8,
+      "lesson_number": 8,
+      "content_type": "educational_visual",
+      "title": "DWV Fittings vs. Pressure Fittings: Crucial Differences",
+      "schedule_time": "21:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_08",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 9,
+      "lesson_number": 9,
+      "content_type": "reel",
+      "title": "Myth vs Fact: Is Steeper Always Better for Drain Slope?",
+      "schedule_time": "22:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_09",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 10,
+      "lesson_number": 10,
+      "content_type": "educational_visual",
+      "title": "Pro Tip: Strategic Cleanout Placement for Long-Term Maintenance",
+      "schedule_time": "23:30",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_10",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    }
+  ]
+}
