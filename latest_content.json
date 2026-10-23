@@ -1,23 +1,23 @@
 {
-  "idea": "Simple ways to protect plumbing during renovation",
-  "title": "Protect Drains During Renovation",
-  "description": "Simple ways to prevent construction debris from setting inside drain pipes during home remodel work.",
-  "image_prompt": "Vertical 9:16 photographic view of a bathroom floor under active renovation. In the visual center, a clean 2-inch PVC drain pipe stub-out projects vertically through a concrete subfloor surrounded by unfinished floor tile layout. A bright red mechanical expansion test plug with a metal wing nut is securely inserted and tightened inside the top open end of the PVC pipe to completely seal it shut. Fine dust, dry tile adhesive, and small cement crumbs are scattered on the surrounding rough floor, but the interior of the sealed pipe remains entirely clean and protected. Clean ambient job-site lighting, crisp visual details on the plastic pipe surface and mechanical plug, photorealistic jobsite environment, photorealistic finish, no text, no visual labels, no watermarks, no logos.",
-  "visual_story": "The visual highlights an open PVC drain stub-out on an active renovation site, securely fitted with a temporary mechanical expansion plug. The viewer notices mortar and drywall dust scattered across the unfinished floor, while the interior of the drain line remains completely clean and isolated. This visually demonstrates how capping exposed pipes prevents heavy, setting construction materials from dropping into the drainage system and causing severe obstructions.",
+  "idea": "Why low water pressure happens",
+  "title": "Understanding Low Water Pressure: Mineral Scale Restricting Pipe Flow",
+  "description": "An educational breakdown of how internal mineral scale accumulation reduces pipe diameter and restricts dynamic water flow to fixtures.",
+  "image_prompt": "A professional educational cross-section cutaway shot of an aging metal water supply pipe, vertical 9:16 aspect ratio. The interior cutaway clearly shows heavy white mineral scale and corrosion tuberculation built up along the pipe walls, significantly narrowing the internal diameter. The background is a clean neutral mechanical workshop setting with studio lighting highlighting the contrast between the clean pipe exterior and the restricted interior pathway. Pipe fittings are visible on the ends. Clean spatial composition with empty space at the top and bottom third for text overlays. Photorealistic depth of field, sharp focus on the mineral blockage, no text, no graphics, no logos, no watermarks, physically accurate plumbing geometry.",
+  "visual_story": "The visual focuses on a physical cross-section of a water line choked by hard water minerals. Viewers immediately observe how scale buildup restricts the internal pathway of the pipe. This illustrates why static pressure may seem normal when fixtures are off, but dynamic pressure drops significantly once water begins moving through narrowed lines or aerators.",
   "on_image_text": {
-    "hook": "Protect Open Pipes During Renovation",
-    "explanation": "Unsealed drain stub-outs collect mortar and drywall dust that harden inside traps into solid blockages.",
-    "callout": "Mechanical Expansion Test Plug",
-    "takeaway": "Seal all exposed pipe openings before demolition or tiling begins."
+    "hook": "Low pressure at your faucet?",
+    "explanation": "Mineral scale reduces internal pipe diameter, restricting active water flow.",
+    "callout": "Internal Scale Buildup",
+    "takeaway": "Check aerators first before assuming municipal supply issues."
   },
   "hashtags": [
-    "#PlumbingTips",
-    "#RenovationAdvice",
-    "#DrainProtection",
-    "#PlumbingEducation",
-    "#ApprenticePlumber",
-    "#HomeRenovation",
-    "#PlumbingMaintenance"
+    "#plumbingeducation",
+    "#waterpressure",
+    "#plumbingtips",
+    "#apprenticeplumber",
+    "#plumbingrepair",
+    "#homeownerguide",
+    "#pipesandfittings"
   ],
   "reel_enabled": false,
   "reel_file": null
