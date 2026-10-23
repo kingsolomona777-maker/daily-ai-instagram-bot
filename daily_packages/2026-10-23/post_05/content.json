@@ -1,0 +1,29 @@
+{
+  "package_date": "2026-10-23",
+  "slot": 5,
+  "lesson_number": 5,
+  "content_type": "reel",
+  "role": "troubleshooting",
+  "lesson_type": "troubleshooting",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "drain ventilation",
+  "title": "Troubleshooting Gurgling Drains and Vent Blockages",
+  "description": "When a fixture gurgles while draining, the root cause is often a restricted Drain-Waste-Vent (DWV) line rather than a clogged branch line. Plumbing vents maintain atmospheric pressure inside drainage systems, preventing negative pressure from pulling water out of fixture P-traps. If a vent stack is obstructed by debris, bird nests, or ice, draining water creates a siphon that pulls air through the nearest trap. This produces a distinctive gurgling sound and exposes living spaces to sewer gas odors. Inspecting roof terminals and clearing vent obstructions restores necessary airflow and protects the fixture trap seals throughout the building.",
+  "hashtags": [
+    "#plumbing",
+    "#drainage",
+    "#venting",
+    "#troubleshooting",
+    "#plumbingskills"
+  ],
+  "caption": "Troubleshooting Gurgling Drains and Vent Blockages\n\nWhen a fixture gurgles while draining, the root cause is often a restricted Drain-Waste-Vent (DWV) line rather than a clogged branch line. Plumbing vents maintain atmospheric pressure inside drainage systems, preventing negative pressure from pulling water out of fixture P-traps. If a vent stack is obstructed by debris, bird nests, or ice, draining water creates a siphon that pulls air through the nearest trap. This produces a distinctive gurgling sound and exposes living spaces to sewer gas odors. Inspecting roof terminals and clearing vent obstructions restores necessary airflow and protects the fixture trap seals throughout the building.\n\n#plumbing #drainage #venting #troubleshooting #plumbingskills",
+  "schedule_time": "15:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-10-23/post_05/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-10-23/post_05/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}
