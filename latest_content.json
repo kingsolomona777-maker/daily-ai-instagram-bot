@@ -1,23 +1,23 @@
 {
-  "idea": "How to detect a leaking toilet",
-  "title": "How to Detect a Silent Toilet Leak",
-  "description": "Many toilet leaks are completely silent, wasting hundreds of liters of clean water every day. The most common culprit is a degraded flapper or flush valve seal at the bottom of the tank. Over time, mineral buildup or chemical degradation causes the rubber seal to warp, allowing a continuous trickle of water to pass directly into the bowl. To test for this, place a few drops of food coloring or liquid dye into the tank water and wait 15 minutes without flushing. If colored water appears in the bowl, the flapper seal is failing and requires replacement. Have you checked your toilet tank for silent leaks recently?",
-  "image_prompt": "Vertical 9:16 ratio educational visual showing a clean cross-section diagrammatic cutaway of a standard porcelain toilet tank and bowl in a bright, modern bathroom setting. Deep blue dyed water fills the upper porcelain tank. At the bottom flush valve opening, a slightly warped black rubber flapper seal allows thin blue streams of water to trail down past the valve seat into the clear water of the toilet bowl below. Professional studio lighting, crisp focus on the rubber flapper valve mechanism, realistic materials and physically accurate internal components. Clean background with subtle visual negative space at top and bottom for text placement. Absolute photorealistic educational style, no text, no captions, no logos, no labels, no watermarks.",
-  "visual_story": "The visual uses a clear educational cutaway of a toilet tank to demonstrate how water escapes unnoticed. The strong contrast of blue-dyed water moving past a compromised flapper seal directly illustrates the mechanical failure point, allowing viewers to immediately understand how a silent leak functions mechanically without needing complex diagrams.",
+  "idea": "Simple ways to protect plumbing during renovation",
+  "title": "Protect Drains During Renovation",
+  "description": "Simple ways to prevent construction debris from setting inside drain pipes during home remodel work.",
+  "image_prompt": "Vertical 9:16 photographic view of a bathroom floor under active renovation. In the visual center, a clean 2-inch PVC drain pipe stub-out projects vertically through a concrete subfloor surrounded by unfinished floor tile layout. A bright red mechanical expansion test plug with a metal wing nut is securely inserted and tightened inside the top open end of the PVC pipe to completely seal it shut. Fine dust, dry tile adhesive, and small cement crumbs are scattered on the surrounding rough floor, but the interior of the sealed pipe remains entirely clean and protected. Clean ambient job-site lighting, crisp visual details on the plastic pipe surface and mechanical plug, photorealistic jobsite environment, photorealistic finish, no text, no visual labels, no watermarks, no logos.",
+  "visual_story": "The visual highlights an open PVC drain stub-out on an active renovation site, securely fitted with a temporary mechanical expansion plug. The viewer notices mortar and drywall dust scattered across the unfinished floor, while the interior of the drain line remains completely clean and isolated. This visually demonstrates how capping exposed pipes prevents heavy, setting construction materials from dropping into the drainage system and causing severe obstructions.",
   "on_image_text": {
-    "hook": "Is Your Toilet Leaking Without Making a Sound?",
-    "explanation": "A worn flapper seal allows tank water to constantly trickle into the bowl unnoticed.",
-    "callout": "The Dye Test Method",
-    "takeaway": "Drop food coloring in the tank; if color enters the bowl without flushing, replace the flapper."
+    "hook": "Protect Open Pipes During Renovation",
+    "explanation": "Unsealed drain stub-outs collect mortar and drywall dust that harden inside traps into solid blockages.",
+    "callout": "Mechanical Expansion Test Plug",
+    "takeaway": "Seal all exposed pipe openings before demolition or tiling begins."
   },
   "hashtags": [
-    "#PlumbingEducation",
-    "#ToiletRepair",
     "#PlumbingTips",
-    "#HomeMaintenance",
-    "#WaterConservation",
-    "#PlumbingApprentice",
-    "#OromPlan1"
+    "#RenovationAdvice",
+    "#DrainProtection",
+    "#PlumbingEducation",
+    "#ApprenticePlumber",
+    "#HomeRenovation",
+    "#PlumbingMaintenance"
   ],
   "reel_enabled": false,
   "reel_file": null
