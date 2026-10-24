@@ -1,23 +1,23 @@
 {
-  "idea": "Basic plumbing maintenance every homeowner should know",
-  "title": "Understanding and Maintaining the P-Trap Water Seal",
-  "description": "The P-trap beneath your sink does more than catch lost rings—its primary job is holding a standing pocket of water that seals out sewer gases. When a fixture goes unused for weeks, this water seal evaporates, allowing foul odors into your living space. Additionally, slow drains are often caused by hair and debris trapped right in this curved section. Before reaching for aggressive chemical drain cleaners, place a small bucket beneath the trap and unscrew the slip nuts by hand to clean it mechanically. What plumbing maintenance task do you check first when a sink starts to smell?",
-  "image_prompt": "A high-resolution, photorealistic educational cutaway illustration of a standard residential under-sink P-trap drainage assembly in a vertical 9:16 composition. The scene shows a clean modern under-sink cabinet environment. The tubular white polypropylene P-trap is depicted in a clear longitudinal cross-section cutaway, revealing the standing water trap seal perfectly occupying the dip of the U-bend. The incoming wall pipe and vertical tailpiece connecting to a stainless steel sink drain strainer are clearly visible with realistic slip-nut fittings and rubber washer details. Bright, neutral studio lighting highlights the internal water level and clean pipe walls. Central composition with ample neutral background space at the top and bottom. Physically accurate geometry, no text, no captions, no labels, no logos, no watermarks.",
-  "visual_story": "The visual uses a clear sectional cutaway of a white plastic under-sink P-trap to show the standing water level inside the curve. Viewers can immediately see how the retained water forms a liquid plug between the household side and the main drainage network. The clear geometry highlights the slip-nut joints, making it easy to understand where the trap can be disconnected for routine cleaning.",
+  "idea": "How to prevent bathroom pipe problems",
+  "title": "Preventing Bathroom Sink Pipe Clogs at the Source",
+  "description": "An educational breakdown showing how soap scum and hair accumulate in bathroom sink drainage lines, and how proactive manual maintenance prevents full pipe blockages.",
+  "image_prompt": "A detailed vertical 9:16 technical cross-section diagram of a modern bathroom lavatory sink drain assembly. Photorealistic presentation with clean architectural lighting. The cutaway visual shows the porcelain sink basin, the pop-up drain stopper with pivot rod, the vertical tailpiece, slip-joint nuts, and the curved P-trap leading to the wall drain pipe. Inside the cross-section of the pipe, show a realistic visual accumulation of soap scum and hair catching around the pivot rod mechanism and settling in the bottom bend of the P-trap, narrowing the water passage. Clear water seal is visible in the P-trap curve. Neutral tile background, highly detailed materials including stainless steel tailpiece and white PVC or chrome P-trap fittings. Ample clean visual space at top and bottom for text placement. Centered composition, crisp focus, hyper-realistic render, no text, no labels, no watermarks, no logos.",
+  "visual_story": "The image provides a clear sectional view under a bathroom sink to show the internal geometry of a lavatory drain line. Viewers can see exactly where restrictors exist: at the pop-up stopper pivot rod and the bottom of the P-trap water seal. By visually demonstrating how debris builds up over time and constricts flow inside these specific fittings, the viewer understands why drains slow down before they fail completely, and where physical cleaning needs to happen.",
   "on_image_text": {
-    "hook": "Why Your Sink Smell Isn't Always a Main Clog",
-    "explanation": "A standing water seal inside the P-trap blocks sewer gas from rising up your drain line.",
-    "callout": "P-Trap Water Seal Depth",
-    "takeaway": "Run unused sinks regularly to keep the seal full, or clear clogs mechanically by removing the slip nuts."
+    "hook": "Why Bathroom Sinks Drain Slowly Before Blocking Completely",
+    "explanation": "Soap fat and hair catch on the pop-up pivot rod and P-trap bend, steadily constricting the internal pipe diameter.",
+    "callout": "Buildup Point: Pivot Rod & P-Trap Bend",
+    "takeaway": "Manually clear the pop-up stopper and P-trap rather than pouring corrosive chemical cleaners down a restricted line."
   },
   "hashtags": [
-    "#plumbingeducation",
-    "#ptrap",
-    "#homeownerskills",
-    "#plumbingtips",
-    "#drainage",
-    "#apprenticeplumber",
-    "#plumbingmaintenance"
+    "#PlumbingEducation",
+    "#BathroomPlumbing",
+    "#PTrap",
+    "#PlumbingTips",
+    "#DrainMaintenance",
+    "#PlumbingApprentice",
+    "#HomeMaintenance"
   ],
   "reel_enabled": false,
   "reel_file": null
