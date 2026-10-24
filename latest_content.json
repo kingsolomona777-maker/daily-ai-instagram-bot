@@ -1,23 +1,23 @@
 {
-  "idea": "Why low water pressure happens",
-  "title": "Understanding Low Water Pressure: Mineral Scale Restricting Pipe Flow",
-  "description": "An educational breakdown of how internal mineral scale accumulation reduces pipe diameter and restricts dynamic water flow to fixtures.",
-  "image_prompt": "A professional educational cross-section cutaway shot of an aging metal water supply pipe, vertical 9:16 aspect ratio. The interior cutaway clearly shows heavy white mineral scale and corrosion tuberculation built up along the pipe walls, significantly narrowing the internal diameter. The background is a clean neutral mechanical workshop setting with studio lighting highlighting the contrast between the clean pipe exterior and the restricted interior pathway. Pipe fittings are visible on the ends. Clean spatial composition with empty space at the top and bottom third for text overlays. Photorealistic depth of field, sharp focus on the mineral blockage, no text, no graphics, no logos, no watermarks, physically accurate plumbing geometry.",
-  "visual_story": "The visual focuses on a physical cross-section of a water line choked by hard water minerals. Viewers immediately observe how scale buildup restricts the internal pathway of the pipe. This illustrates why static pressure may seem normal when fixtures are off, but dynamic pressure drops significantly once water begins moving through narrowed lines or aerators.",
+  "idea": "Basic plumbing maintenance every homeowner should know",
+  "title": "Understanding and Maintaining the P-Trap Water Seal",
+  "description": "The P-trap beneath your sink does more than catch lost rings—its primary job is holding a standing pocket of water that seals out sewer gases. When a fixture goes unused for weeks, this water seal evaporates, allowing foul odors into your living space. Additionally, slow drains are often caused by hair and debris trapped right in this curved section. Before reaching for aggressive chemical drain cleaners, place a small bucket beneath the trap and unscrew the slip nuts by hand to clean it mechanically. What plumbing maintenance task do you check first when a sink starts to smell?",
+  "image_prompt": "A high-resolution, photorealistic educational cutaway illustration of a standard residential under-sink P-trap drainage assembly in a vertical 9:16 composition. The scene shows a clean modern under-sink cabinet environment. The tubular white polypropylene P-trap is depicted in a clear longitudinal cross-section cutaway, revealing the standing water trap seal perfectly occupying the dip of the U-bend. The incoming wall pipe and vertical tailpiece connecting to a stainless steel sink drain strainer are clearly visible with realistic slip-nut fittings and rubber washer details. Bright, neutral studio lighting highlights the internal water level and clean pipe walls. Central composition with ample neutral background space at the top and bottom. Physically accurate geometry, no text, no captions, no labels, no logos, no watermarks.",
+  "visual_story": "The visual uses a clear sectional cutaway of a white plastic under-sink P-trap to show the standing water level inside the curve. Viewers can immediately see how the retained water forms a liquid plug between the household side and the main drainage network. The clear geometry highlights the slip-nut joints, making it easy to understand where the trap can be disconnected for routine cleaning.",
   "on_image_text": {
-    "hook": "Low pressure at your faucet?",
-    "explanation": "Mineral scale reduces internal pipe diameter, restricting active water flow.",
-    "callout": "Internal Scale Buildup",
-    "takeaway": "Check aerators first before assuming municipal supply issues."
+    "hook": "Why Your Sink Smell Isn't Always a Main Clog",
+    "explanation": "A standing water seal inside the P-trap blocks sewer gas from rising up your drain line.",
+    "callout": "P-Trap Water Seal Depth",
+    "takeaway": "Run unused sinks regularly to keep the seal full, or clear clogs mechanically by removing the slip nuts."
   },
   "hashtags": [
     "#plumbingeducation",
-    "#waterpressure",
+    "#ptrap",
+    "#homeownerskills",
     "#plumbingtips",
+    "#drainage",
     "#apprenticeplumber",
-    "#plumbingrepair",
-    "#homeownerguide",
-    "#pipesandfittings"
+    "#plumbingmaintenance"
   ],
   "reel_enabled": false,
   "reel_file": null
