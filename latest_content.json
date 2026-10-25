@@ -1,23 +1,23 @@
 {
-  "idea": "How to prevent bathroom pipe problems",
-  "title": "Preventing Bathroom Sink Pipe Clogs at the Source",
-  "description": "An educational breakdown showing how soap scum and hair accumulate in bathroom sink drainage lines, and how proactive manual maintenance prevents full pipe blockages.",
-  "image_prompt": "A detailed vertical 9:16 technical cross-section diagram of a modern bathroom lavatory sink drain assembly. Photorealistic presentation with clean architectural lighting. The cutaway visual shows the porcelain sink basin, the pop-up drain stopper with pivot rod, the vertical tailpiece, slip-joint nuts, and the curved P-trap leading to the wall drain pipe. Inside the cross-section of the pipe, show a realistic visual accumulation of soap scum and hair catching around the pivot rod mechanism and settling in the bottom bend of the P-trap, narrowing the water passage. Clear water seal is visible in the P-trap curve. Neutral tile background, highly detailed materials including stainless steel tailpiece and white PVC or chrome P-trap fittings. Ample clean visual space at top and bottom for text placement. Centered composition, crisp focus, hyper-realistic render, no text, no labels, no watermarks, no logos.",
-  "visual_story": "The image provides a clear sectional view under a bathroom sink to show the internal geometry of a lavatory drain line. Viewers can see exactly where restrictors exist: at the pop-up stopper pivot rod and the bottom of the P-trap water seal. By visually demonstrating how debris builds up over time and constricts flow inside these specific fittings, the viewer understands why drains slow down before they fail completely, and where physical cleaning needs to happen.",
+  "idea": "When to replace old plumbing pipes",
+  "title": "Galvanized Steel Pipes: Internal Corrosion Limits Flow",
+  "description": "Galvanized steel pipes installed decades ago often fail from the inside out. Over time, reacting minerals and oxygen create internal rust buildup known as tuberculation. This corrosion layer thickens, severely restricting internal pipe diameter and reducing water pressure long before a visible leak occurs on the exterior. Furthermore, flaking rust causes discolored water at fixture outlets. If your property still relies on aging galvanized supply lines and experiences chronic pressure drop, inspect exposed pipe ends or cut sections. Replacing corroded galvanized sections with modern code-compliant materials restores volume and protects water quality.",
+  "image_prompt": "A vertical 9:16 high-detail macro photograph showing a close-up cross-section cut of an old 3/4-inch galvanized steel water pipe held in a vise inside a realistic workshop setting. The cross-section clearly reveals heavy internal tuberculation and rust build-up inside the pipe bore, leaving only a tiny central opening for water flow, while the outer galvanized zinc shell remains largely intact. Clean neutral lighting, shallow depth of field, focused sharply on the inner corroded pipe profile. Clear visual negative space provided at the top third and bottom third for technical text overlays. Photorealistic texture, physically accurate metal wall thickness, no text, no logos, no watermarks, no artificial visual clutter.",
+  "visual_story": "The viewer immediately notices the stark contrast between the intact exterior metal of the galvanized pipe and its severely choked interior bore. This visual demonstrates how internal tuberculation restricts water volume without obvious outer warning signs, teaching the viewer why pipe age and water performance matter more than exterior pipe appearance.",
   "on_image_text": {
-    "hook": "Why Bathroom Sinks Drain Slowly Before Blocking Completely",
-    "explanation": "Soap fat and hair catch on the pop-up pivot rod and P-trap bend, steadily constricting the internal pipe diameter.",
-    "callout": "Buildup Point: Pivot Rod & P-Trap Bend",
-    "takeaway": "Manually clear the pop-up stopper and P-trap rather than pouring corrosive chemical cleaners down a restricted line."
+    "hook": "Old Pipe Looks Fine Outside?",
+    "explanation": "Galvanized steel corrodes from the inside out, choking water volume over time.",
+    "callout": "Internal Corrosion (Tuberculation)",
+    "takeaway": "Test pressure and inspect inner pipe walls, not just the exterior shell."
   },
   "hashtags": [
     "#PlumbingEducation",
-    "#BathroomPlumbing",
-    "#PTrap",
+    "#PipeReplacement",
     "#PlumbingTips",
-    "#DrainMaintenance",
-    "#PlumbingApprentice",
-    "#HomeMaintenance"
+    "#GalvanizedPipes",
+    "#ApprenticePlumber",
+    "#PlumbingMaintenance",
+    "#WaterPressure"
   ],
   "reel_enabled": false,
   "reel_file": null
