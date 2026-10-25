@@ -1,0 +1,29 @@
+{
+  "package_date": "2026-10-25",
+  "slot": 1,
+  "lesson_number": 1,
+  "content_type": "reel",
+  "role": "problem_and_cause",
+  "lesson_type": "problem_and_cause",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "drainage systems",
+  "title": "Why Your Drainage System Is Gurgling",
+  "description": "Gurgling noises from plumbing fixtures usually indicate an air pressure imbalance within the drainage system. When wastewater flows down a pipe, it creates a negative pressure siphon behind it. If the plumbing vent is clogged, restricted, or improperly installed, the flowing water pulls air through the nearest P-trap instead of the vent stack. This siphonage pulls water out of the trap seal, resulting in distinctive gurgling sounds and potential sewer gas entry. Understanding vent airflow prevents siphonage and keeps trap seals intact. Always inspect vent terminals for leaves, debris, or bird nests when troubleshooting recurring drain noises.",
+  "hashtags": [
+    "#plumbing",
+    "#drainage",
+    "#plumbingtips",
+    "#tradeschool",
+    "#plumbingsystem"
+  ],
+  "caption": "Why Your Drainage System Is Gurgling\n\nGurgling noises from plumbing fixtures usually indicate an air pressure imbalance within the drainage system. When wastewater flows down a pipe, it creates a negative pressure siphon behind it. If the plumbing vent is clogged, restricted, or improperly installed, the flowing water pulls air through the nearest P-trap instead of the vent stack. This siphonage pulls water out of the trap seal, resulting in distinctive gurgling sounds and potential sewer gas entry. Understanding vent airflow prevents siphonage and keeps trap seals intact. Always inspect vent terminals for leaves, debris, or bird nests when troubleshooting recurring drain noises.\n\n#plumbing #drainage #plumbingtips #tradeschool #plumbingsystem",
+  "schedule_time": "07:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-10-25/post_01/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-10-25/post_01/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}
