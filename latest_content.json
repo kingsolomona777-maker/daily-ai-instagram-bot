@@ -1,23 +1,23 @@
 {
-  "idea": "When to replace old plumbing pipes",
-  "title": "Galvanized Steel Pipes: Internal Corrosion Limits Flow",
-  "description": "Galvanized steel pipes installed decades ago often fail from the inside out. Over time, reacting minerals and oxygen create internal rust buildup known as tuberculation. This corrosion layer thickens, severely restricting internal pipe diameter and reducing water pressure long before a visible leak occurs on the exterior. Furthermore, flaking rust causes discolored water at fixture outlets. If your property still relies on aging galvanized supply lines and experiences chronic pressure drop, inspect exposed pipe ends or cut sections. Replacing corroded galvanized sections with modern code-compliant materials restores volume and protects water quality.",
-  "image_prompt": "A vertical 9:16 high-detail macro photograph showing a close-up cross-section cut of an old 3/4-inch galvanized steel water pipe held in a vise inside a realistic workshop setting. The cross-section clearly reveals heavy internal tuberculation and rust build-up inside the pipe bore, leaving only a tiny central opening for water flow, while the outer galvanized zinc shell remains largely intact. Clean neutral lighting, shallow depth of field, focused sharply on the inner corroded pipe profile. Clear visual negative space provided at the top third and bottom third for technical text overlays. Photorealistic texture, physically accurate metal wall thickness, no text, no logos, no watermarks, no artificial visual clutter.",
-  "visual_story": "The viewer immediately notices the stark contrast between the intact exterior metal of the galvanized pipe and its severely choked interior bore. This visual demonstrates how internal tuberculation restricts water volume without obvious outer warning signs, teaching the viewer why pipe age and water performance matter more than exterior pipe appearance.",
+  "idea": "How to prevent blocked drains",
+  "title": "Why Liquid Grease Solidifies Inside Kitchen Drain Pipes",
+  "description": "An educational breakdown showing how warm liquid fats and oils cool down and accumulate inside kitchen drain pipes and P-traps.",
+  "image_prompt": "A detailed 3D technical cutaway illustration of a kitchen sink drainage assembly in a vertical 9:16 composition. A clean stainless steel sink strainer sits at the top, connecting to a standard white plastic P-trap beneath the counter. A clean longitudinal cross-section cutaway reveals the interior of the horizontal and curved pipe section. Inside the pipe, a visible layer of off-white, solidified grease and fat buildup coats the inner pipe walls, significantly narrowing the internal diameter where wastewater flows. studio lighting, realistic pipe wall thickness, physically accurate plumbing geometry, photorealistic textures. The main plumbing visual is centrally located with generous clean background space at the top and bottom. No text, no logos, no watermarks, no arrows, no labels.",
+  "visual_story": "The visual focuses on the interior of a kitchen P-trap cutaway section. The viewer can see how liquid grease, which appears fluid at the sink level, cools down as it travels through the pipework. The cutaway highlights the layer of solidified fat clinging to the pipe walls, clearly demonstrating how the inner diameter of the drain pipe is reduced over time even before a total blockage occurs.",
   "on_image_text": {
-    "hook": "Old Pipe Looks Fine Outside?",
-    "explanation": "Galvanized steel corrodes from the inside out, choking water volume over time.",
-    "callout": "Internal Corrosion (Tuberculation)",
-    "takeaway": "Test pressure and inspect inner pipe walls, not just the exterior shell."
+    "hook": "Why Pouring Liquid Fat Clogs Kitchen Pipes",
+    "explanation": "Hot grease washes down easily as a liquid, but cools rapidly inside cold drain pipes, sticking to the pipe walls.",
+    "callout": "Solidified Fat Buildup Inside P-Trap",
+    "takeaway": "Wipe greasy pans with paper towels or collect oil in a container before washing."
   },
   "hashtags": [
     "#PlumbingEducation",
-    "#PipeReplacement",
+    "#DrainMaintenance",
     "#PlumbingTips",
-    "#GalvanizedPipes",
     "#ApprenticePlumber",
-    "#PlumbingMaintenance",
-    "#WaterPressure"
+    "#HomeownerTips",
+    "#PlumbingAdvice",
+    "#Drainage"
   ],
   "reel_enabled": false,
   "reel_file": null
