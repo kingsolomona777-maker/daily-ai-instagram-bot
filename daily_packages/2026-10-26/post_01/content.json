@@ -1,0 +1,29 @@
+{
+  "package_date": "2026-10-26",
+  "slot": 1,
+  "lesson_number": 1,
+  "content_type": "reel",
+  "role": "problem_and_cause",
+  "lesson_type": "problem_and_cause",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "drainage systems",
+  "title": "Why Sewer Gas Escapes Drainage Systems",
+  "description": "Sewer gas entering a building is frequently caused by trap seal loss within the drainage system. When fixtures lack adequate venting or experience sudden air pressure shifts, negative pressure siphons the protective water seal out of the P-trap. Without this liquid barrier, sewer gases like hydrogen sulfide travel unimpeded into living spaces. Dry traps can also result from evaporation in infrequently used fixtures. Plumbers diagnose these issues by checking vent lines for blockages, ensuring correct trap configuration, and replacing unvented S-traps with code-compliant vented P-trap assemblies to restore safe, gas-tight operation.",
+  "hashtags": [
+    "PlumbingFundamentals",
+    "DrainageSystems",
+    "PlumbingTips",
+    "P-Trap",
+    "PlumbingEducation"
+  ],
+  "caption": "Why Sewer Gas Escapes Drainage Systems\n\nSewer gas entering a building is frequently caused by trap seal loss within the drainage system. When fixtures lack adequate venting or experience sudden air pressure shifts, negative pressure siphons the protective water seal out of the P-trap. Without this liquid barrier, sewer gases like hydrogen sulfide travel unimpeded into living spaces. Dry traps can also result from evaporation in infrequently used fixtures. Plumbers diagnose these issues by checking vent lines for blockages, ensuring correct trap configuration, and replacing unvented S-traps with code-compliant vented P-trap assemblies to restore safe, gas-tight operation.\n\nPlumbingFundamentals DrainageSystems PlumbingTips P-Trap PlumbingEducation",
+  "schedule_time": "07:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-10-26/post_01/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-10-26/post_01/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}
