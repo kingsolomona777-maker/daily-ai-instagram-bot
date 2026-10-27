@@ -1,23 +1,23 @@
 {
-  "idea": "Common plumbing mistakes homeowners make",
-  "title": "Correct PTFE Tape Wrapping Direction",
-  "description": "When sealing threaded pipe joints, the direction you wrap PTFE tape directly impacts whether the joint seals or leaks. Wrap the tape clockwise around the male threads while facing the open pipe end. Because standard pipe threads tighten in a clockwise direction, this alignment allows the female fitting to glide smoothly over the tape, pulling it deeper into the thread root. If wrapped counter-clockwise, the rotating edge of the fitting catches the tape boundary, unraveling and bunching it up into a lump that creates leak paths. Apply two to three taut, even wraps, leaving the very first thread bare to prevent tape fragments from entering the waterway. Have you ever encountered a leak caused by unraveled thread tape?",
-  "image_prompt": "A crisp, photorealistic macro photograph of a brass male threaded pipe nipple held in a professional plumbing context. A plumber's gloved hand holds a roll of white PTFE thread sealant tape, wrapping it clockwise around the clean brass NPT threads while facing the open end of the pipe. The white tape is pulled taut, laying flat and flush within the precise metal thread roots. High-detail macro focus on the metallic thread geometry and smooth tape texture, shot in a well-lit workshop with soft depth of field background. Vertical 9:16 aspect ratio, central composition leaving clean visual space at top and bottom, professional lighting, photorealistic details. No text, no labels, no watermarks, no logos, no graphic overlays.",
-  "visual_story": "The viewer immediately sees a high-detail close-up of brass male threads being wrapped with white thread sealant tape. The image highlights the precise direction of the wrap relative to the thread direction, showing the tape pulled smooth and tight across the brass grooves. This visually demonstrates the physical tension required and the exact alignment needed before screwing on a female fitting.",
+  "idea": "Common causes of blocked sinks",
+  "title": "Fats, Oils, and Grease (FOG) in Sink Drain Traps",
+  "description": "An educational breakdown explaining how liquid cooking fats cool and congeal inside a sink P-trap, gradually restricting drainage flow.",
+  "image_prompt": "A professional 9:16 vertical educational technical cutaway diagram of a kitchen sink drainage assembly under a residential countertop. High resolution, photo-realistic textures. The visual clearly shows a stainless steel sink bowl at the top connecting down through a vertical tailpiece into a white PVC tubular P-trap. A clean, cross-sectional cutaway reveals the interior of the P-trap. Inside the lower bend of the trap, a thick layer of solidified, yellowish congealed grease and trapped food particles coat the inner pipe wall, significantly restricting the water channel. Clear water is visible above the blockage, demonstrating restricted flow. Crisp indoor workshop ambient lighting, clean background, focus centered on the cutaway P-trap fitting. Physically accurate pipe wall thickness and slip-nut connections. No text, no logos, no watermarks, no annotations, no arrows, vertical 9:16 ratio.",
+  "visual_story": "The visual directs attention to the internal dip of a kitchen P-trap using a longitudinal sectional cutaway. Viewers observe how liquid fats do not stay fluid; upon reaching the cooler standing water inside the trap, they solidify along the pipe walls. This visual clearly demonstrates the exact mechanism of a FOG buildup, helping the viewer understand why liquid grease creates hard blockages over time.",
   "on_image_text": {
-    "hook": "WRONG TAPE DIRECTION CAUSES LEAKS",
-    "explanation": "Tightening a fitting over counter-clockwise tape catches the edge, unraveling the seal.",
-    "callout": "Male Thread & PTFE Tape Alignment",
-    "takeaway": "Wrap tape clockwise facing the pipe opening so fitting rotation pulls the tape tight."
+    "hook": "Why Liquid Cooking Grease Blocks Sink Drains",
+    "explanation": "Warm fats liquefy when cooking, but rapidly solidify when contacting the cold water seal in the trap.",
+    "callout": "Congealed FOG layer narrowing internal pipe diameter",
+    "takeaway": "Wipe pans with paper towels into the trash before washing to keep traps clear."
   },
   "hashtags": [
     "#PlumbingEducation",
-    "#PTFETape",
-    "#ThreadSealing",
+    "#SinkBlockage",
     "#PlumbingTips",
-    "#HomeownerGuide",
-    "#ApprenticePlumber",
-    "#PlumbingRepair"
+    "#DrainCleaning",
+    "#KitchenPlumbing",
+    "#PlumbingApprentice",
+    "#HomeMaintenance"
   ],
   "reel_enabled": false,
   "reel_file": null
