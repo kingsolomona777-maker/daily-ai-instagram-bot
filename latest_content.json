@@ -1,23 +1,23 @@
 {
-  "idea": "Simple ways to protect plumbing during renovation",
-  "title": "Protecting Drain Stub-Outs During Renovation",
-  "description": "During a bathroom or kitchen renovation, open drain pipes are vulnerable to heavy construction waste. Fine particles like drywall dust, tile grout, and cement mortar easily fall into uncapped waste stubs. When water is later introduced, this slurry hydrates and cures into a concrete-hard obstruction deep inside traps or branch lines, which standard drain cables struggle to clear. Before any demolition, plastering, or tiling begins, install temporary mechanical expansion plugs or push-fit plastic test caps on every exposed pipe stub. What methods do you use to shield open waste lines on your job sites?",
-  "image_prompt": "A professional vertical 9:16 interior photography shot of a bathroom floor undergoing tile renovation. In the lower center of the frame, a clean 2-inch white PVC waste drain pipe stub-out extends vertically from a bare concrete subfloor. Securely installed inside the top of the open pipe is a bright orange mechanical rubber expansion plug with a metallic top wing nut, sealing the opening completely. The surrounding background shows subtle construction elements like a trowel, uninstalled porcelain tiles, and exposed wall studs, all kept neatly in soft focus. Natural lighting shines down, highlighting the glossy PVC texture and the sealed rubber gasket. Clean visual space at the top and bottom of the frame. Photorealistic style, physically accurate pipe geometry, no text, no logos, no watermarks, no brand labels.",
-  "visual_story": "The visual focuses on a clean PVC waste pipe stub-out in an active bathroom construction site. A mechanical expansion test plug is tightened into the pipe opening. This demonstrates how a simple, inexpensive physical barrier stops tile adhesive, grout, and sanding dust from falling down into the drainage system during rough-in and finishing phases.",
+  "idea": "How to save water at home",
+  "title": "Identifying Silent Toilet Tank Leaks to Save Water",
+  "description": "Educational breakdown of how degraded flapper seals cause continuous, unnoticed water loss from toilet tanks into the bowl, and how to test for it.",
+  "image_prompt": "A professional 9:16 vertical educational technical illustration showing a clean cross-section cutaway of a residential toilet tank mechanism. The main focus is centered at the bottom of the tank, showing a flush valve body, overflow tube, fill valve, and a flexible rubber flapper seal resting over the flush valve seat. The rubber flapper shows slight edge deformation from mineral buildup, allowing a faint, realistic trickle of clear water to escape past the seal down into the flush valve outlet and bowl throat. Clean studio lighting illuminates the translucent water inside the tank and the porcelain cross-section. Photorealistic visual style with precise engineering proportions. Vertical composition with clear negative space at the top and bottom for text overlays. No text, no labels, no arrows, no watermarks, no logos, no fake branding, no impossible fittings.",
+  "visual_story": "The visual uses a clear cutaway section of a toilet tank interior to highlight the interaction between the rubber flapper valve and the flush valve seat. Viewers can see how minor warping or mineral buildup on the underside of the flapper creates a micro-gap. This demonstrates visually why a toilet can leak continuously into the bowl without leaking water onto the bathroom floor, making the waste invisible during normal observation.",
   "on_image_text": {
-    "hook": "Renovation Debris Ruins Unprotected Waste Pipes",
-    "explanation": "Mortar and drywall dust fall into open drain lines, setting hard into severe obstructions when mixed with water.",
-    "callout": "Mechanical Expansion Drain Plug",
-    "takeaway": "Seal all exposed pipe stub-outs with expansion plugs or test caps before starting construction work."
+    "hook": "A Silent Tank Leak Can Waste Hundreds of Liters Daily",
+    "explanation": "A degraded rubber flapper fails to seal flush against the valve seat, causing tank water to constantly trickle into the bowl.",
+    "callout": "Warped Flapper Seal & Valve Seat",
+    "takeaway": "Place a few drops of food coloring in the tank. If color appears in the bowl before flushing, replace the flapper."
   },
   "hashtags": [
     "#plumbingeducation",
+    "#waterconservation",
     "#plumbingtips",
-    "#renovationtips",
-    "#plumberlife",
-    "#drainprotection",
-    "#siteprep",
-    "#plumbingapprenticeship"
+    "#leakdetection",
+    "#homeplumbing",
+    "#plumbingapprentice",
+    "#oromplan1"
   ],
   "reel_enabled": false,
   "reel_file": null
