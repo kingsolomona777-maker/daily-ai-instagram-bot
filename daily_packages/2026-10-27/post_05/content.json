@@ -1,0 +1,30 @@
+{
+  "package_date": "2026-10-27",
+  "slot": 5,
+  "lesson_number": 5,
+  "content_type": "reel",
+  "role": "troubleshooting",
+  "lesson_type": "troubleshooting",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "drain ventilation",
+  "title": "Diagnosing Gurgling Drains and Trap Siphonage",
+  "description": "When a fixture gurgles as water drains, it is often a sign of negative air pressure within the drainage network. Proper drain ventilation allows air to enter the system, balancing atmospheric pressure and preventing wastewater flow from pulling the water seal out of nearby P-traps. Without adequate airflow, discharging water acts like a piston, sucking trap seals dry and allowing dangerous sewer gases to escape into living spaces. Troubleshooting involves checking vent stack terminals for debris, inspecting air admittance valves, and verifying vent pipe routing before blaming the main drain line.",
+  "hashtags": [
+    "#Plumbing",
+    "#Drainage",
+    "#PlumbingTroubleshooting",
+    "#DrainVentilation",
+    "#PTrap",
+    "#PlumbingTips"
+  ],
+  "caption": "Diagnosing Gurgling Drains and Trap Siphonage\n\nWhen a fixture gurgles as water drains, it is often a sign of negative air pressure within the drainage network. Proper drain ventilation allows air to enter the system, balancing atmospheric pressure and preventing wastewater flow from pulling the water seal out of nearby P-traps. Without adequate airflow, discharging water acts like a piston, sucking trap seals dry and allowing dangerous sewer gases to escape into living spaces. Troubleshooting involves checking vent stack terminals for debris, inspecting air admittance valves, and verifying vent pipe routing before blaming the main drain line.\n\n#Plumbing #Drainage #PlumbingTroubleshooting #DrainVentilation #PTrap #PlumbingTips",
+  "schedule_time": "15:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-10-27/post_05/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-10-27/post_05/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}
