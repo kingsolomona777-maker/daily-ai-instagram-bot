@@ -1,23 +1,23 @@
 {
-  "idea": "How to save water at home",
-  "title": "Identifying Silent Toilet Tank Leaks to Save Water",
-  "description": "Educational breakdown of how degraded flapper seals cause continuous, unnoticed water loss from toilet tanks into the bowl, and how to test for it.",
-  "image_prompt": "A professional 9:16 vertical educational technical illustration showing a clean cross-section cutaway of a residential toilet tank mechanism. The main focus is centered at the bottom of the tank, showing a flush valve body, overflow tube, fill valve, and a flexible rubber flapper seal resting over the flush valve seat. The rubber flapper shows slight edge deformation from mineral buildup, allowing a faint, realistic trickle of clear water to escape past the seal down into the flush valve outlet and bowl throat. Clean studio lighting illuminates the translucent water inside the tank and the porcelain cross-section. Photorealistic visual style with precise engineering proportions. Vertical composition with clear negative space at the top and bottom for text overlays. No text, no labels, no arrows, no watermarks, no logos, no fake branding, no impossible fittings.",
-  "visual_story": "The visual uses a clear cutaway section of a toilet tank interior to highlight the interaction between the rubber flapper valve and the flush valve seat. Viewers can see how minor warping or mineral buildup on the underside of the flapper creates a micro-gap. This demonstrates visually why a toilet can leak continuously into the bowl without leaking water onto the bathroom floor, making the waste invisible during normal observation.",
+  "idea": "Common plumbing mistakes homeowners make",
+  "title": "Correct PTFE Tape Wrapping Direction",
+  "description": "When sealing threaded pipe joints, the direction you wrap PTFE tape directly impacts whether the joint seals or leaks. Wrap the tape clockwise around the male threads while facing the open pipe end. Because standard pipe threads tighten in a clockwise direction, this alignment allows the female fitting to glide smoothly over the tape, pulling it deeper into the thread root. If wrapped counter-clockwise, the rotating edge of the fitting catches the tape boundary, unraveling and bunching it up into a lump that creates leak paths. Apply two to three taut, even wraps, leaving the very first thread bare to prevent tape fragments from entering the waterway. Have you ever encountered a leak caused by unraveled thread tape?",
+  "image_prompt": "A crisp, photorealistic macro photograph of a brass male threaded pipe nipple held in a professional plumbing context. A plumber's gloved hand holds a roll of white PTFE thread sealant tape, wrapping it clockwise around the clean brass NPT threads while facing the open end of the pipe. The white tape is pulled taut, laying flat and flush within the precise metal thread roots. High-detail macro focus on the metallic thread geometry and smooth tape texture, shot in a well-lit workshop with soft depth of field background. Vertical 9:16 aspect ratio, central composition leaving clean visual space at top and bottom, professional lighting, photorealistic details. No text, no labels, no watermarks, no logos, no graphic overlays.",
+  "visual_story": "The viewer immediately sees a high-detail close-up of brass male threads being wrapped with white thread sealant tape. The image highlights the precise direction of the wrap relative to the thread direction, showing the tape pulled smooth and tight across the brass grooves. This visually demonstrates the physical tension required and the exact alignment needed before screwing on a female fitting.",
   "on_image_text": {
-    "hook": "A Silent Tank Leak Can Waste Hundreds of Liters Daily",
-    "explanation": "A degraded rubber flapper fails to seal flush against the valve seat, causing tank water to constantly trickle into the bowl.",
-    "callout": "Warped Flapper Seal & Valve Seat",
-    "takeaway": "Place a few drops of food coloring in the tank. If color appears in the bowl before flushing, replace the flapper."
+    "hook": "WRONG TAPE DIRECTION CAUSES LEAKS",
+    "explanation": "Tightening a fitting over counter-clockwise tape catches the edge, unraveling the seal.",
+    "callout": "Male Thread & PTFE Tape Alignment",
+    "takeaway": "Wrap tape clockwise facing the pipe opening so fitting rotation pulls the tape tight."
   },
   "hashtags": [
-    "#plumbingeducation",
-    "#waterconservation",
-    "#plumbingtips",
-    "#leakdetection",
-    "#homeplumbing",
-    "#plumbingapprentice",
-    "#oromplan1"
+    "#PlumbingEducation",
+    "#PTFETape",
+    "#ThreadSealing",
+    "#PlumbingTips",
+    "#HomeownerGuide",
+    "#ApprenticePlumber",
+    "#PlumbingRepair"
   ],
   "reel_enabled": false,
   "reel_file": null
