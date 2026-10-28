@@ -1,23 +1,23 @@
 {
-  "idea": "Common causes of blocked sinks",
-  "title": "Fats, Oils, and Grease (FOG) in Sink Drain Traps",
-  "description": "An educational breakdown explaining how liquid cooking fats cool and congeal inside a sink P-trap, gradually restricting drainage flow.",
-  "image_prompt": "A professional 9:16 vertical educational technical cutaway diagram of a kitchen sink drainage assembly under a residential countertop. High resolution, photo-realistic textures. The visual clearly shows a stainless steel sink bowl at the top connecting down through a vertical tailpiece into a white PVC tubular P-trap. A clean, cross-sectional cutaway reveals the interior of the P-trap. Inside the lower bend of the trap, a thick layer of solidified, yellowish congealed grease and trapped food particles coat the inner pipe wall, significantly restricting the water channel. Clear water is visible above the blockage, demonstrating restricted flow. Crisp indoor workshop ambient lighting, clean background, focus centered on the cutaway P-trap fitting. Physically accurate pipe wall thickness and slip-nut connections. No text, no logos, no watermarks, no annotations, no arrows, vertical 9:16 ratio.",
-  "visual_story": "The visual directs attention to the internal dip of a kitchen P-trap using a longitudinal sectional cutaway. Viewers observe how liquid fats do not stay fluid; upon reaching the cooler standing water inside the trap, they solidify along the pipe walls. This visual clearly demonstrates the exact mechanism of a FOG buildup, helping the viewer understand why liquid grease creates hard blockages over time.",
+  "idea": "How to maintain a water tank",
+  "title": "Preventing Sediment Build-Up in Water Tanks",
+  "description": "An educational guide explaining how sediment settles in storage tanks and why flushing the bottom scour valve protects household plumbing.",
+  "image_prompt": "Educational technical cutaway illustration of a vertical blue polyethylene water storage tank mounted on a clean outdoor concrete platform, 9:16 vertical composition. The cutaway reveals clear water inside with a distinct layer of dark silt and fine sand settled on the tank floor. Show physically realistic PPR and PVC pipe connections: an inlet pipe at the top, an overflow line near the upper rim, a main water supply outlet exiting the side wall 10 centimeters above the bottom floor, and a dedicated scour drain pipe with a brass ball valve positioned flush with the very bottom floor. Professional studio lighting, clean engineering rendering, realistic textures, empty space reserved at top and bottom for text overlay. No text, no logos, no watermarks, no fake brand labels, no impossible pipe joints.",
+  "visual_story": "The viewer observes a clear sectional view of a water tank interior. The key feature is the height difference between the main water supply line (raised off the floor) and the bottom scour drain valve (flush with the floor). Settled silt sits safely below the supply line, visualising how regular bottom flushing prevents sediment from traveling into household taps.",
   "on_image_text": {
-    "hook": "Why Liquid Cooking Grease Blocks Sink Drains",
-    "explanation": "Warm fats liquefy when cooking, but rapidly solidify when contacting the cold water seal in the trap.",
-    "callout": "Congealed FOG layer narrowing internal pipe diameter",
-    "takeaway": "Wipe pans with paper towels into the trash before washing to keep traps clear."
+    "hook": "Why Sediment Accumulates in Water Tanks",
+    "explanation": "Heavy solids settle to the tank floor, below the raised main supply outlet.",
+    "callout": "Dedicated Scour / Drain Valve",
+    "takeaway": "Flush the bottom drain valve periodically to clear sediment before it reaches your supply pipes."
   },
   "hashtags": [
-    "#PlumbingEducation",
-    "#SinkBlockage",
-    "#PlumbingTips",
-    "#DrainCleaning",
-    "#KitchenPlumbing",
-    "#PlumbingApprentice",
-    "#HomeMaintenance"
+    "#plumbingeducation",
+    "#watertank",
+    "#plumbingtips",
+    "#waterstorage",
+    "#apprenticeplumber",
+    "#homebuilding",
+    "#plumbinglife"
   ],
   "reel_enabled": false,
   "reel_file": null
