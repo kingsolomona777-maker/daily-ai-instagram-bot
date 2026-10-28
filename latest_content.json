@@ -1,23 +1,23 @@
 {
-  "idea": "How to maintain a water tank",
-  "title": "Preventing Sediment Build-Up in Water Tanks",
-  "description": "An educational guide explaining how sediment settles in storage tanks and why flushing the bottom scour valve protects household plumbing.",
-  "image_prompt": "Educational technical cutaway illustration of a vertical blue polyethylene water storage tank mounted on a clean outdoor concrete platform, 9:16 vertical composition. The cutaway reveals clear water inside with a distinct layer of dark silt and fine sand settled on the tank floor. Show physically realistic PPR and PVC pipe connections: an inlet pipe at the top, an overflow line near the upper rim, a main water supply outlet exiting the side wall 10 centimeters above the bottom floor, and a dedicated scour drain pipe with a brass ball valve positioned flush with the very bottom floor. Professional studio lighting, clean engineering rendering, realistic textures, empty space reserved at top and bottom for text overlay. No text, no logos, no watermarks, no fake brand labels, no impossible pipe joints.",
-  "visual_story": "The viewer observes a clear sectional view of a water tank interior. The key feature is the height difference between the main water supply line (raised off the floor) and the bottom scour drain valve (flush with the floor). Settled silt sits safely below the supply line, visualising how regular bottom flushing prevents sediment from traveling into household taps.",
+  "idea": "Common causes of leaking taps",
+  "title": "Why Taps Drip: Worn Washers and Valve Seats",
+  "description": "An educational guide explaining the mechanical cause behind spout leaks in compression taps and how to address them correctly.",
+  "image_prompt": "A detailed educational macro cross-section cutaway illustration of a brass compression tap stem assembly, vertical 9:16 aspect ratio. The image cleanly reveals the internal mechanism of a dual-handle brass faucet body. Inside the valve chamber, a threaded stem holds a black rubber washer at its base against a circular brass valve seat. The rubber washer displays realistic wear with micro-cracks and flattened edges along the sealing surface. Tiny water droplets are shown leaking past the compromised seal down through the spout outlet channel. Neutral studio lighting, clean gray-toned background, ultra-sharp focus on the internal brass geometry and washer interface. No text, no visual labels, no logos, no watermarks, no impossible plumbing connections.",
+  "visual_story": "The visual focuses on the interior seal of a compression tap valve. The viewer can clearly see the relationship between the threaded brass stem, the black rubber washer, and the valve seat. By highlighting the flattened and cracked edge of the washer where it meets the metal seat, the visual demonstrates why water under pressure bypasses the seal and flows down into the spout.",
   "on_image_text": {
-    "hook": "Why Sediment Accumulates in Water Tanks",
-    "explanation": "Heavy solids settle to the tank floor, below the raised main supply outlet.",
-    "callout": "Dedicated Scour / Drain Valve",
-    "takeaway": "Flush the bottom drain valve periodically to clear sediment before it reaches your supply pipes."
+    "hook": "Dripping Tap Spout?",
+    "explanation": "Spout drips occur when the washer degrades or the brass valve seat becomes pitted.",
+    "callout": "Worn Washer & Valve Seat Interface",
+    "takeaway": "Replace the washer and inspect the seat—don't just force the handle tighter."
   },
   "hashtags": [
-    "#plumbingeducation",
-    "#watertank",
-    "#plumbingtips",
-    "#waterstorage",
-    "#apprenticeplumber",
-    "#homebuilding",
-    "#plumbinglife"
+    "#PlumbingEducation",
+    "#LeakingTap",
+    "#PlumbingTips",
+    "#PlumbingApprentice",
+    "#HomeMaintenance",
+    "#PlumbingBasics",
+    "#TradesmanTips"
   ],
   "reel_enabled": false,
   "reel_file": null
