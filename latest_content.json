@@ -1,23 +1,23 @@
 {
-  "idea": "How to prevent bad smells from drains",
-  "title": "Maintaining the P-Trap Water Seal to Block Sewer Odors",
-  "description": "When a drain starts emitting foul sewer smells, the most common culprit isn't organic build-up—it's a dry P-trap. The curved pipe section beneath sinks, showers, and floor drains holds a standing water barrier known as the trap seal. This liquid barrier physically blocks sewer gas from traveling up the drainage system into your living space. If a fixture remains unused for extended periods, dry air evaporates this water barrier, leaving an open path for odor. Running fresh water down rarely used drains for 15 seconds replenishes the trap seal and immediately stops sewer gas infiltration.",
-  "image_prompt": "A vertical 9:16 educational technical cross-section diagram of a clean white PVC P-trap assembly beneath a modern bathroom fixture. The image shows a precise cutaway view of the lower U-bend fitting. Clear standing water fills the lower curve of the trap, forming a continuous liquid seal across the entire interior pipe diameter. The left side (drain inlet) is filled with clean air, while the right side (downstream drain pipe) shows a subtle representation of sewer gas safely blocked by the water barrier. Realistic white PVC material, threaded slip-joint nuts, smooth rubber seals, neutral workshop background, crisp professional lighting, clear educational illustration, vertical composition, no text, no labels, no logos, no arrows, no watermarks.",
-  "visual_story": "The visual uses a clear educational cutaway of a P-trap to show the standing water barrier at the bottom of the curve. Viewers can immediately see how the trapped water blocks air movement from the waste pipe back up through the drain inlet. This visual reinforces why dry drains smell and demonstrates the physical barrier concept without relying on abstract diagrams.",
+  "idea": "Why a toilet may keep running",
+  "title": "Why a Toilet Keeps Running: Flapper Seal vs. Overflow Line",
+  "description": "When a toilet runs continuously, water is escaping the tank through one of two primary pathways. Most commonly, the rubber flapper at the bottom of the tank has hardened, warped, or accumulated mineral buildup, preventing a complete seal against the flush valve seat. As water leaks past the flapper into the bowl, the tank level drops, forcing the fill valve to run indefinitely. Alternatively, if the fill valve float is set too high, water will continuously spill over the top of the overflow tube. Inspecting whether water is trickling past the flapper or rising over the overflow tube immediately identifies the failed component.",
+  "image_prompt": "A clean 9:16 vertical educational cutaway illustration of a modern ceramic toilet tank showing its internal components in crisp detail. Inside the clear cutaway view, highlight the fill valve, overflow tube, floating cup mechanism, and the rubber flapper sitting on the flush valve seat at the bottom of the tank. Show a subtle blue water flow trickling past a slightly lifted flapper edge into the drain channel below. Bright neutral studio lighting, realistic ceramic, plastic, and rubber material textures. Professional plumbing textbook visual, vertical composition with uncluttered top and bottom areas for text overlay. No text, no labels, no arrows, no logos, no watermarks.",
+  "visual_story": "The visual uses a clear cutaway of a toilet tank to isolate the two main mechanical failure points causing continuous water flow. Viewers immediately see the relationship between the flapper seal at the bottom and the overflow tube in the center. Visualizing the water escaping beneath the flapper helps apprentices and homeowners understand why the fill valve never turns off.",
   "on_image_text": {
-    "hook": "Why Unused Drains Start to Smell",
-    "explanation": "The standing water barrier in the P-trap evaporates, opening a direct path for sewer gas.",
-    "callout": "P-Trap Water Seal",
-    "takeaway": "Run water down rarely used drains weekly to keep the liquid trap seal filled."
+    "hook": "Why Your Toilet Won't Stop Running",
+    "explanation": "A degraded flapper seal constantly leaks water into the bowl, preventing the tank from staying full.",
+    "callout": "Flapper Seal Failure",
+    "takeaway": "Check if water is seeping past the flapper before replacing the fill valve."
   },
   "hashtags": [
     "#plumbingeducation",
-    "#ptrap",
-    "#drainage",
+    "#toiletrepair",
     "#plumbingtips",
-    "#homeownershiptips",
+    "#plumbingservice",
     "#apprenticeplumber",
-    "#sewergas"
+    "#homehygiene",
+    "#waterconservation"
   ],
   "reel_enabled": false,
   "reel_file": null
