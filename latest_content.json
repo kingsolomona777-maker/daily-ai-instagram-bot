@@ -1,23 +1,23 @@
 {
-  "idea": "Why a toilet may keep running",
-  "title": "Why a Toilet Keeps Running: Flapper Seal vs. Overflow Line",
-  "description": "When a toilet runs continuously, water is escaping the tank through one of two primary pathways. Most commonly, the rubber flapper at the bottom of the tank has hardened, warped, or accumulated mineral buildup, preventing a complete seal against the flush valve seat. As water leaks past the flapper into the bowl, the tank level drops, forcing the fill valve to run indefinitely. Alternatively, if the fill valve float is set too high, water will continuously spill over the top of the overflow tube. Inspecting whether water is trickling past the flapper or rising over the overflow tube immediately identifies the failed component.",
-  "image_prompt": "A clean 9:16 vertical educational cutaway illustration of a modern ceramic toilet tank showing its internal components in crisp detail. Inside the clear cutaway view, highlight the fill valve, overflow tube, floating cup mechanism, and the rubber flapper sitting on the flush valve seat at the bottom of the tank. Show a subtle blue water flow trickling past a slightly lifted flapper edge into the drain channel below. Bright neutral studio lighting, realistic ceramic, plastic, and rubber material textures. Professional plumbing textbook visual, vertical composition with uncluttered top and bottom areas for text overlay. No text, no labels, no arrows, no logos, no watermarks.",
-  "visual_story": "The visual uses a clear cutaway of a toilet tank to isolate the two main mechanical failure points causing continuous water flow. Viewers immediately see the relationship between the flapper seal at the bottom and the overflow tube in the center. Visualizing the water escaping beneath the flapper helps apprentices and homeowners understand why the fill valve never turns off.",
+  "idea": "Why proper pipe sizing matters",
+  "title": "Why Proper Water Pipe Sizing Matters",
+  "description": "Pipe diameter directly controls water volume and flow velocity throughout your plumbing system. When main supply lines are undersized—such as running a long 1/2-inch (15mm) pipe to feed multiple high-demand fixtures—friction loss increases significantly. This leads to drastic pressure drops when multiple taps are opened simultaneously and can cause noisy water velocity issues. A correctly designed system uses a larger main trunk line (typically 3/4-inch or 22mm) to maintain adequate volume, stepping down to smaller branch lines at individual fixtures. What pipe sizing issues have you encountered during system upgrades?",
+  "image_prompt": "A clean, detailed photorealistic vertical 9:16 photograph of a professional indoor water distribution setup on a light gray back wall. A horizontal 3/4-inch copper main trunk pipe is secured with metal pipe clamps, featuring reducing tee fittings that step down to 1/2-inch vertical branch lines leading to quarter-turn ball valves. The pipe geometry, sweat solder joints, and fitting proportions are physically accurate and neat. Clean, realistic lighting highlights the copper texture and brass valves, leaving clear uncluttered space at the top and bottom of the frame for text overlays. High-resolution technical photograph, photorealistic, no text, no visual labels, no logos, no watermarks, no impossible pipe connections.",
+  "visual_story": "The visual illustrates a properly proportioned main-and-branch pipe system. Viewers notice the distinct size difference between the larger 3/4-inch main line that maintains system volume and the smaller 1/2-inch branch lines going to individual fixtures. This visual reinforces the concept of maintaining adequate pipe diameter before distribution.",
   "on_image_text": {
-    "hook": "Why Your Toilet Won't Stop Running",
-    "explanation": "A degraded flapper seal constantly leaks water into the bowl, preventing the tank from staying full.",
-    "callout": "Flapper Seal Failure",
-    "takeaway": "Check if water is seeping past the flapper before replacing the fill valve."
+    "hook": "UNDERSIZED PIPES CAUSE PRESSURE DROPS",
+    "explanation": "Main supply lines must carry sufficient water volume before stepping down to individual fixture branches.",
+    "callout": "3/4\" Main Line to 1/2\" Fixture Branches",
+    "takeaway": "Size main distribution lines correctly to prevent simultaneous flow restriction and excessive friction loss."
   },
   "hashtags": [
-    "#plumbingeducation",
-    "#toiletrepair",
-    "#plumbingtips",
-    "#plumbingservice",
-    "#apprenticeplumber",
-    "#homehygiene",
-    "#waterconservation"
+    "#PlumbingEducation",
+    "#PipeSizing",
+    "#PlumbingTips",
+    "#PlumbingApprentice",
+    "#WaterPressure",
+    "#PlumbingDesign",
+    "#TradeSkills"
   ],
   "reel_enabled": false,
   "reel_file": null
