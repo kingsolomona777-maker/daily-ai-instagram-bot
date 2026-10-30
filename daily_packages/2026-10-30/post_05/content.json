@@ -1,0 +1,29 @@
+{
+  "package_date": "2026-10-30",
+  "slot": 5,
+  "lesson_number": 5,
+  "content_type": "reel",
+  "role": "troubleshooting",
+  "lesson_type": "troubleshooting",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "drain ventilation",
+  "title": "Troubleshooting Siphonage and Gurgling Drains",
+  "description": "When a sink or fixture gurgles after flushing or draining, the root cause is frequently a ventilation defect rather than a simple clog. Atmospheric air must enter the drainage system to balance pressure changes created by flowing water. Without adequate venting, moving wastewater creates a negative pressure siphon that pulls water out of nearby P-traps. This allows sewer gas to escape into occupied spaces. Inspect roof vents for obstructions like leaves or bird nests, and verify proper air admittance valve operation where applicable. Always check code requirements before modifying plumbing vent lines.",
+  "hashtags": [
+    "#plumbing",
+    "#plumbinglife",
+    "#troubleshooting",
+    "#drainage",
+    "#plumbingeducation"
+  ],
+  "caption": "Troubleshooting Siphonage and Gurgling Drains\n\nWhen a sink or fixture gurgles after flushing or draining, the root cause is frequently a ventilation defect rather than a simple clog. Atmospheric air must enter the drainage system to balance pressure changes created by flowing water. Without adequate venting, moving wastewater creates a negative pressure siphon that pulls water out of nearby P-traps. This allows sewer gas to escape into occupied spaces. Inspect roof vents for obstructions like leaves or bird nests, and verify proper air admittance valve operation where applicable. Always check code requirements before modifying plumbing vent lines.\n\n#plumbing #plumbinglife #troubleshooting #drainage #plumbingeducation",
+  "schedule_time": "15:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-10-30/post_05/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-10-30/post_05/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}
