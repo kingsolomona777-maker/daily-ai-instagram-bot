@@ -1,23 +1,23 @@
 {
-  "idea": "Why proper pipe sizing matters",
-  "title": "Why Proper Water Pipe Sizing Matters",
-  "description": "Pipe diameter directly controls water volume and flow velocity throughout your plumbing system. When main supply lines are undersized—such as running a long 1/2-inch (15mm) pipe to feed multiple high-demand fixtures—friction loss increases significantly. This leads to drastic pressure drops when multiple taps are opened simultaneously and can cause noisy water velocity issues. A correctly designed system uses a larger main trunk line (typically 3/4-inch or 22mm) to maintain adequate volume, stepping down to smaller branch lines at individual fixtures. What pipe sizing issues have you encountered during system upgrades?",
-  "image_prompt": "A clean, detailed photorealistic vertical 9:16 photograph of a professional indoor water distribution setup on a light gray back wall. A horizontal 3/4-inch copper main trunk pipe is secured with metal pipe clamps, featuring reducing tee fittings that step down to 1/2-inch vertical branch lines leading to quarter-turn ball valves. The pipe geometry, sweat solder joints, and fitting proportions are physically accurate and neat. Clean, realistic lighting highlights the copper texture and brass valves, leaving clear uncluttered space at the top and bottom of the frame for text overlays. High-resolution technical photograph, photorealistic, no text, no visual labels, no logos, no watermarks, no impossible pipe connections.",
-  "visual_story": "The visual illustrates a properly proportioned main-and-branch pipe system. Viewers notice the distinct size difference between the larger 3/4-inch main line that maintains system volume and the smaller 1/2-inch branch lines going to individual fixtures. This visual reinforces the concept of maintaining adequate pipe diameter before distribution.",
+  "idea": "How to detect a leaking toilet",
+  "title": "Detecting a Silent Toilet Leak with the Dye Test",
+  "description": "A silent toilet leak can waste over 200 liters of water daily without making a noticeable sound. The most common culprit is a worn or warped rubber flapper at the base of the toilet tank. Over time, water treatment chemicals and mineral deposits degrade the flapper seal, allowing water to trickle continuously into the bowl. To test for this leak, place a few drops of food coloring or a dye tablet into the tank water and wait 15 minutes without flushing. If colored water seeps into the bowl, the flapper or flush valve seal needs replacement. Have you checked your toilet flappers recently?",
+  "image_prompt": "A detailed 9:16 vertical cross-section educational illustration of a standard ceramic gravity-flush toilet tank and bowl assembly. The upper ceramic tank lid is removed, showing the internal flush mechanism with a black rubber flapper resting over the flush valve seat. Deep blue dyed water fills the tank. A clear, magnified cutaway view shows a thin streak of the blue water escaping beneath a slightly warped flapper edge, trickling down through the flush valve channel and seeping into the clear water of the toilet bowl below. Photorealistic visual style with sharp realistic lighting, accurate porcelain gloss, matte rubber flapper texture, clear water refractions, neutral background with ample clean space at top and bottom for text placement, strictly no text, no labels, no logos, no watermarks.",
+  "visual_story": "The visual uses a clear vertical sectional cutaway of a toilet tank and bowl. The viewer immediately notices dark blue dyed water inside the tank escaping past an imperfectly seated flapper valve, forming a visible stream into the clean bowl water below. This demonstrates how a silent leak occurs without a full flush cycle, highlighting the flapper seal as the primary point of failure.",
   "on_image_text": {
-    "hook": "UNDERSIZED PIPES CAUSE PRESSURE DROPS",
-    "explanation": "Main supply lines must carry sufficient water volume before stepping down to individual fixture branches.",
-    "callout": "3/4\" Main Line to 1/2\" Fixture Branches",
-    "takeaway": "Size main distribution lines correctly to prevent simultaneous flow restriction and excessive friction loss."
+    "hook": "Is Your Toilet Leaking Water Silently?",
+    "explanation": "A degraded flapper seal allows tank water to seep continuously into the bowl.",
+    "callout": "The Tank Dye Test",
+    "takeaway": "Add dye to the tank. If color enters the bowl without flushing, replace the flapper."
   },
   "hashtags": [
-    "#PlumbingEducation",
-    "#PipeSizing",
-    "#PlumbingTips",
-    "#PlumbingApprentice",
-    "#WaterPressure",
-    "#PlumbingDesign",
-    "#TradeSkills"
+    "#plumbingeducation",
+    "#leakdetection",
+    "#toiletrepair",
+    "#plumbingtips",
+    "#homeowneradvice",
+    "#apprenticeplumber",
+    "#waterconservation"
   ],
   "reel_enabled": false,
   "reel_file": null
