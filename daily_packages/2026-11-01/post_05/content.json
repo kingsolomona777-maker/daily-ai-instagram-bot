@@ -1,0 +1,29 @@
+{
+  "package_date": "2026-11-01",
+  "slot": 5,
+  "lesson_number": 5,
+  "content_type": "reel",
+  "role": "troubleshooting",
+  "lesson_type": "troubleshooting",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "drain ventilation",
+  "title": "Troubleshooting Drain Venting Issues",
+  "description": "When a sink gurgles or drains slowly despite clear drain lines, the root cause is often inadequate vent stack airflow. Plumbing vents introduce atmospheric pressure into the drainage system, allowing water to flow smoothly. Without proper ventilation, rushing wastewater creates a partial vacuum inside the pipe. This negative pressure pulls water directly out of P-traps, breaking the hydraulic seal and allowing foul sewer gases to enter living spaces. Inspecting vent terminals on the roof for obstructions like bird nests or leaf debris is a crucial first step in troubleshooting persistent drainage noise and sewer gas odors.",
+  "hashtags": [
+    "PlumbingTips",
+    "DrainVenting",
+    "PlumbingTroubleshooting",
+    "PTrap",
+    "SewerGas"
+  ],
+  "caption": "Troubleshooting Drain Venting Issues\n\nWhen a sink gurgles or drains slowly despite clear drain lines, the root cause is often inadequate vent stack airflow. Plumbing vents introduce atmospheric pressure into the drainage system, allowing water to flow smoothly. Without proper ventilation, rushing wastewater creates a partial vacuum inside the pipe. This negative pressure pulls water directly out of P-traps, breaking the hydraulic seal and allowing foul sewer gases to enter living spaces. Inspecting vent terminals on the roof for obstructions like bird nests or leaf debris is a crucial first step in troubleshooting persistent drainage noise and sewer gas odors.\n\nPlumbingTips DrainVenting PlumbingTroubleshooting PTrap SewerGas",
+  "schedule_time": "15:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-11-01/post_05/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-11-01/post_05/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}
