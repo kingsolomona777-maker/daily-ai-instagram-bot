@@ -1,23 +1,23 @@
 {
-  "idea": "How to maintain a home water system",
-  "title": "Exercising Your Main Water Shut-Off Valve",
-  "description": "In a plumbing emergency, your main water shut-off valve is your primary defense against major property damage. However, metallic valves—especially older gate valves—frequently seize due to mineral scale buildup and stem corrosion when left unmoved for long periods. Exercising your shut-off valve twice a year keeps internal threads free of mineral crust and verifies valve integrity. Turn the handle slowly clockwise until closed, then open it fully, backing it off a quarter-turn to prevent mechanical binding. If a valve stem leaks or fails to isolate flow completely, plan a professional replacement with a full-port ball valve before an emergency occurs.",
-  "image_prompt": "A crisp, photorealistic visual of a residential main water supply pipe entry point in a well-lit utility space. Vertical 9:16 composition. The primary focus is a high-quality 3/4-inch copper pipe featuring a solid brass full-port ball shut-off valve with a bright red handle, positioned near the vertical center. Clean solder joints and realistic copper pipe texture are clearly visible alongside wall-mounting pipe clamps. Clean visual negative space at the top and bottom for text placement. Professional lighting with shallow depth of field. Physically accurate pipe routing and connections. No text, no logos, no watermarks, no annotations, no fake branding.",
-  "visual_story": "The visual draws immediate focus to the main incoming water line and its main shut-off valve. By displaying a clean, realistic brass valve installation on a copper line, viewers instantly identify the specific visual target in their own homes or job sites. The clean composition emphasizes the critical junction where manual water isolation happens, supporting the lesson on routine valve operation and inspection.",
+  "idea": "Why low water pressure happens",
+  "title": "Diagnosing Localized Low Water Pressure: Clogged Aerator Screen",
+  "description": "Before assuming your main supply line has lost pressure, check whether the issue affects one fixture or the entire building. When low flow is limited to a single sink, the cause is usually a clogged aerator rather than a main pressure failure. Mineral scale and fine sediment accumulate inside the aerator mesh screen, drastically reducing the cross-sectional area available for water flow. Removing the aerator, cleaning the sediment, and soaking the mesh stack in vinegar to dissolve calcium deposits typically restores normal volume immediately. Always check aerator screens first during initial diagnostic calls. What fixture in your home currently has low flow?",
+  "image_prompt": "High-detail educational macro photograph showing a cutaway view of a modern brass faucet spout tip in a professional plumbing workshop setting. Vertical 9:16 composition. The metal spout wall is visually sliced to reveal the interior aerator assembly, including the rubber sealing washer, perforated plastic flow restrictor disc, and fine stainless steel mesh screens. White calcium mineral scale buildup and dark sand sediment are visible lodged on top of the upper mesh layer, blocking the water passages. Micro-droplets of water trail beneath the screen. Realistic metallic textures, sharp macro focus, neutral workshop lighting, clean composition centered in frame with ample clean background space at the top and bottom thirds. No text, no logos, no watermarks, no diagrams.",
+  "visual_story": "The visual focuses on a cross-sectional view of a faucet nozzle to demonstrate how debris restricts dynamic flow. The viewer notices how fine mineral scale and grit collect right above the aerator screen stack inside the spout. This visually proves that high pressure can exist behind the restriction, but physical blockage limits water flow rate at the outlet. This helps learners distinguish between systemic water pressure loss and localized physical flow restrictions.",
   "on_image_text": {
-    "hook": "Is Your Emergency Valve Seized?",
-    "explanation": "Unused shut-off valves accumulate mineral deposits over time, causing them to lock up when an emergency occurs.",
-    "callout": "Main Water Isolation Valve",
-    "takeaway": "Gently operate your shut-off valve twice a year to keep internal components working smoothly."
+    "hook": "Low Water Pressure at Just One Faucet?",
+    "explanation": "Trapped sediment and scale inside the aerator mesh restrict water flow without affecting main supply pressure.",
+    "callout": "Clogged Aerator Mesh Stack",
+    "takeaway": "Inspect and clean aerator screens before altering pressure valves or main lines."
   },
   "hashtags": [
     "#plumbingeducation",
-    "#plumbingmaintenance",
-    "#waterpipes",
+    "#waterpressure",
     "#plumbingtips",
-    "#homeplumbing",
-    "#plumbingapprentice",
-    "#shutoffvalve"
+    "#apprenticeplumber",
+    "#plumbingdiagnostics",
+    "#faucetaerator",
+    "#plumbingrepair"
   ],
   "reel_enabled": false,
   "reel_file": null
