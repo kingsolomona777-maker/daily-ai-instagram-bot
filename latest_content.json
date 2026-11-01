@@ -1,23 +1,23 @@
 {
-  "idea": "How to detect a leaking toilet",
-  "title": "Detecting a Silent Toilet Leak with the Dye Test",
-  "description": "A silent toilet leak can waste over 200 liters of water daily without making a noticeable sound. The most common culprit is a worn or warped rubber flapper at the base of the toilet tank. Over time, water treatment chemicals and mineral deposits degrade the flapper seal, allowing water to trickle continuously into the bowl. To test for this leak, place a few drops of food coloring or a dye tablet into the tank water and wait 15 minutes without flushing. If colored water seeps into the bowl, the flapper or flush valve seal needs replacement. Have you checked your toilet flappers recently?",
-  "image_prompt": "A detailed 9:16 vertical cross-section educational illustration of a standard ceramic gravity-flush toilet tank and bowl assembly. The upper ceramic tank lid is removed, showing the internal flush mechanism with a black rubber flapper resting over the flush valve seat. Deep blue dyed water fills the tank. A clear, magnified cutaway view shows a thin streak of the blue water escaping beneath a slightly warped flapper edge, trickling down through the flush valve channel and seeping into the clear water of the toilet bowl below. Photorealistic visual style with sharp realistic lighting, accurate porcelain gloss, matte rubber flapper texture, clear water refractions, neutral background with ample clean space at top and bottom for text placement, strictly no text, no labels, no logos, no watermarks.",
-  "visual_story": "The visual uses a clear vertical sectional cutaway of a toilet tank and bowl. The viewer immediately notices dark blue dyed water inside the tank escaping past an imperfectly seated flapper valve, forming a visible stream into the clean bowl water below. This demonstrates how a silent leak occurs without a full flush cycle, highlighting the flapper seal as the primary point of failure.",
+  "idea": "How to maintain a home water system",
+  "title": "Exercising Your Main Water Shut-Off Valve",
+  "description": "In a plumbing emergency, your main water shut-off valve is your primary defense against major property damage. However, metallic valves—especially older gate valves—frequently seize due to mineral scale buildup and stem corrosion when left unmoved for long periods. Exercising your shut-off valve twice a year keeps internal threads free of mineral crust and verifies valve integrity. Turn the handle slowly clockwise until closed, then open it fully, backing it off a quarter-turn to prevent mechanical binding. If a valve stem leaks or fails to isolate flow completely, plan a professional replacement with a full-port ball valve before an emergency occurs.",
+  "image_prompt": "A crisp, photorealistic visual of a residential main water supply pipe entry point in a well-lit utility space. Vertical 9:16 composition. The primary focus is a high-quality 3/4-inch copper pipe featuring a solid brass full-port ball shut-off valve with a bright red handle, positioned near the vertical center. Clean solder joints and realistic copper pipe texture are clearly visible alongside wall-mounting pipe clamps. Clean visual negative space at the top and bottom for text placement. Professional lighting with shallow depth of field. Physically accurate pipe routing and connections. No text, no logos, no watermarks, no annotations, no fake branding.",
+  "visual_story": "The visual draws immediate focus to the main incoming water line and its main shut-off valve. By displaying a clean, realistic brass valve installation on a copper line, viewers instantly identify the specific visual target in their own homes or job sites. The clean composition emphasizes the critical junction where manual water isolation happens, supporting the lesson on routine valve operation and inspection.",
   "on_image_text": {
-    "hook": "Is Your Toilet Leaking Water Silently?",
-    "explanation": "A degraded flapper seal allows tank water to seep continuously into the bowl.",
-    "callout": "The Tank Dye Test",
-    "takeaway": "Add dye to the tank. If color enters the bowl without flushing, replace the flapper."
+    "hook": "Is Your Emergency Valve Seized?",
+    "explanation": "Unused shut-off valves accumulate mineral deposits over time, causing them to lock up when an emergency occurs.",
+    "callout": "Main Water Isolation Valve",
+    "takeaway": "Gently operate your shut-off valve twice a year to keep internal components working smoothly."
   },
   "hashtags": [
     "#plumbingeducation",
-    "#leakdetection",
-    "#toiletrepair",
+    "#plumbingmaintenance",
+    "#waterpipes",
     "#plumbingtips",
-    "#homeowneradvice",
-    "#apprenticeplumber",
-    "#waterconservation"
+    "#homeplumbing",
+    "#plumbingapprentice",
+    "#shutoffvalve"
   ],
   "reel_enabled": false,
   "reel_file": null
