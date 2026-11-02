@@ -1,23 +1,23 @@
 {
-  "idea": "Why low water pressure happens",
-  "title": "Diagnosing Localized Low Water Pressure: Clogged Aerator Screen",
-  "description": "Before assuming your main supply line has lost pressure, check whether the issue affects one fixture or the entire building. When low flow is limited to a single sink, the cause is usually a clogged aerator rather than a main pressure failure. Mineral scale and fine sediment accumulate inside the aerator mesh screen, drastically reducing the cross-sectional area available for water flow. Removing the aerator, cleaning the sediment, and soaking the mesh stack in vinegar to dissolve calcium deposits typically restores normal volume immediately. Always check aerator screens first during initial diagnostic calls. What fixture in your home currently has low flow?",
-  "image_prompt": "High-detail educational macro photograph showing a cutaway view of a modern brass faucet spout tip in a professional plumbing workshop setting. Vertical 9:16 composition. The metal spout wall is visually sliced to reveal the interior aerator assembly, including the rubber sealing washer, perforated plastic flow restrictor disc, and fine stainless steel mesh screens. White calcium mineral scale buildup and dark sand sediment are visible lodged on top of the upper mesh layer, blocking the water passages. Micro-droplets of water trail beneath the screen. Realistic metallic textures, sharp macro focus, neutral workshop lighting, clean composition centered in frame with ample clean background space at the top and bottom thirds. No text, no logos, no watermarks, no diagrams.",
-  "visual_story": "The visual focuses on a cross-sectional view of a faucet nozzle to demonstrate how debris restricts dynamic flow. The viewer notices how fine mineral scale and grit collect right above the aerator screen stack inside the spout. This visually proves that high pressure can exist behind the restriction, but physical blockage limits water flow rate at the outlet. This helps learners distinguish between systemic water pressure loss and localized physical flow restrictions.",
+  "idea": "Why water pipes make unusual noises",
+  "title": "Understanding Water Hammer: Why Water Pipes Bang",
+  "description": "When a fast-acting valve—such as those in washing machines or quarter-turn faucets—slams shut, flowing water stops instantly. Because water has mass and momentum, this sudden stoppage converts kinetic energy into a severe pressure spike known as water hammer. This shockwave travels back through the pipe at high speed, causing unanchored supply lines to violently flex and bang against wooden wall studs. Over time, repeated hydraulic shock can strain soldered joints, loosen fittings, and cause leaks. Securing loose pipe clamps and installing mechanical water hammer arrestors near fast-closing appliances absorbs this shock energy safely.",
+  "image_prompt": "A crisp, photorealistic educational cutaway view of a residential wall interior in a vertical 9:16 composition. The exposed wooden wall studs house neat copper water supply lines. A brass quarter-turn ball valve is installed on the rigid copper line. The image features clean cinematic studio lighting focused on the main copper pipe in the center frame, showing realistic solder joints, clean pipe straps attached to wooden framing, and authentic texture on the metallic surfaces. The upper and lower thirds of the composition have clean, uncluttered visual space. Strictly photo-style technical illustration, no text, no logos, no watermarks, no arrows, no floating symbols, no fake branding.",
+  "visual_story": "The visual uses a clear wall cutaway to draw the viewer's eye to copper water pipes inside a timber-framed wall. It highlights the direct physical relationship between a rigid water line, a shut-off valve, and adjacent wooden framing studs. The realistic installation view lets viewers instantly recognize how pressurized water lines run through building walls and why missing pipe supports allow pipes to strike wall framing when pressure spikes occur.",
   "on_image_text": {
-    "hook": "Low Water Pressure at Just One Faucet?",
-    "explanation": "Trapped sediment and scale inside the aerator mesh restrict water flow without affecting main supply pressure.",
-    "callout": "Clogged Aerator Mesh Stack",
-    "takeaway": "Inspect and clean aerator screens before altering pressure valves or main lines."
+    "hook": "LOUD BANG WHEN THE WATER SHUTS OFF?",
+    "explanation": "Sudden valve closure creates a high-pressure kinetic shockwave called water hammer.",
+    "callout": "HYDRAULIC SHOCK",
+    "takeaway": "Anchor loose pipe straps and install mechanical water hammer arrestors near fast-closing valves."
   },
   "hashtags": [
     "#plumbingeducation",
-    "#waterpressure",
+    "#waterhammer",
     "#plumbingtips",
-    "#apprenticeplumber",
-    "#plumbingdiagnostics",
-    "#faucetaerator",
-    "#plumbingrepair"
+    "#plumbinglife",
+    "#homeownerguide",
+    "#pipingdesign",
+    "#tradeschool"
   ],
   "reel_enabled": false,
   "reel_file": null
