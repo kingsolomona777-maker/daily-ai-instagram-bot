@@ -1,23 +1,23 @@
 {
-  "idea": "Why water pipes make unusual noises",
-  "title": "Understanding Water Hammer: Why Water Pipes Bang",
-  "description": "When a fast-acting valve—such as those in washing machines or quarter-turn faucets—slams shut, flowing water stops instantly. Because water has mass and momentum, this sudden stoppage converts kinetic energy into a severe pressure spike known as water hammer. This shockwave travels back through the pipe at high speed, causing unanchored supply lines to violently flex and bang against wooden wall studs. Over time, repeated hydraulic shock can strain soldered joints, loosen fittings, and cause leaks. Securing loose pipe clamps and installing mechanical water hammer arrestors near fast-closing appliances absorbs this shock energy safely.",
-  "image_prompt": "A crisp, photorealistic educational cutaway view of a residential wall interior in a vertical 9:16 composition. The exposed wooden wall studs house neat copper water supply lines. A brass quarter-turn ball valve is installed on the rigid copper line. The image features clean cinematic studio lighting focused on the main copper pipe in the center frame, showing realistic solder joints, clean pipe straps attached to wooden framing, and authentic texture on the metallic surfaces. The upper and lower thirds of the composition have clean, uncluttered visual space. Strictly photo-style technical illustration, no text, no logos, no watermarks, no arrows, no floating symbols, no fake branding.",
-  "visual_story": "The visual uses a clear wall cutaway to draw the viewer's eye to copper water pipes inside a timber-framed wall. It highlights the direct physical relationship between a rigid water line, a shut-off valve, and adjacent wooden framing studs. The realistic installation view lets viewers instantly recognize how pressurized water lines run through building walls and why missing pipe supports allow pipes to strike wall framing when pressure spikes occur.",
+  "idea": "Basic plumbing maintenance every homeowner should know",
+  "title": "Understanding and Cleaning Your Sink P-Trap",
+  "description": "Every sink in your home relies on a P-trap—the curved section of pipe located directly beneath the drain outlet. Its primary function is to maintain a standing water seal that prevents foul sewer gases from backing up into your living room or kitchen. Because of its shape, heavy debris like hair, soap scum, and food particles naturally settle in the lower bend. Instead of pouring corrosive drain-cleaning chemicals that can weaken PVC or corrode metal threads over time, manually cleaning the P-trap is safer and far more effective. Place a bucket underneath, unscrew the slip nuts by hand or with pliers, clear the blockage, inspect the seals, and reassemble.",
+  "image_prompt": "A crisp 9:16 vertical educational cutaway illustration of a standard residential white PVC P-trap plumbing assembly beneath a sink basin. The lighting is clean and realistic inside a well-lit cabinet interior. The image presents a transparent sectional view of the curved P-trap pipe, showing standing water filling the lower bend up to the trap weir height to demonstrate the sewer gas barrier. A small amount of dark organic sediment rests at the bottom curve of the dip. Realistic threaded slip nuts, rubber bevel washers, and smooth pipe connections are shown with accurate physical geometry. Central composition, photorealistic textures, ample clean background space at top and bottom for text overlays, no text, no arrows, no watermarks, no logos.",
+  "visual_story": "The visual uses a clear cutaway section of an under-sink P-trap to show the standing water seal and where sediment gathers. Viewers instantly see why sinks clog at this exact point and understand that the dip serves a deliberate physical purpose: trapping both water (to block sewer gases) and solids (preventing deeper mainline blockages). This makes manual cleaning an obvious and practical maintenance step.",
   "on_image_text": {
-    "hook": "LOUD BANG WHEN THE WATER SHUTS OFF?",
-    "explanation": "Sudden valve closure creates a high-pressure kinetic shockwave called water hammer.",
-    "callout": "HYDRAULIC SHOCK",
-    "takeaway": "Anchor loose pipe straps and install mechanical water hammer arrestors near fast-closing valves."
+    "hook": "Stop Pouring Chemicals Down Slow Sinks",
+    "explanation": "The P-trap holds standing water to block sewer gases while capturing heavy debris in its lower curve.",
+    "callout": "Sediment collects in the U-bend dip",
+    "takeaway": "Unscrew the slip nuts and manually clean the trap for a safe, instant fix."
   },
   "hashtags": [
-    "#plumbingeducation",
-    "#waterhammer",
-    "#plumbingtips",
-    "#plumbinglife",
-    "#homeownerguide",
-    "#pipingdesign",
-    "#tradeschool"
+    "#PlumbingEducation",
+    "#HomeMaintenance",
+    "#PlumbingBasics",
+    "#DrainCleaning",
+    "#ApprenticePlumber",
+    "#PlumbingTips",
+    "#OromPlan1"
   ],
   "reel_enabled": false,
   "reel_file": null
