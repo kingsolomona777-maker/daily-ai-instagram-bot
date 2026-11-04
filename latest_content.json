@@ -1,23 +1,22 @@
 {
-  "idea": "Basic plumbing maintenance every homeowner should know",
-  "title": "Understanding and Cleaning Your Sink P-Trap",
-  "description": "Every sink in your home relies on a P-trap—the curved section of pipe located directly beneath the drain outlet. Its primary function is to maintain a standing water seal that prevents foul sewer gases from backing up into your living room or kitchen. Because of its shape, heavy debris like hair, soap scum, and food particles naturally settle in the lower bend. Instead of pouring corrosive drain-cleaning chemicals that can weaken PVC or corrode metal threads over time, manually cleaning the P-trap is safer and far more effective. Place a bucket underneath, unscrew the slip nuts by hand or with pliers, clear the blockage, inspect the seals, and reassemble.",
-  "image_prompt": "A crisp 9:16 vertical educational cutaway illustration of a standard residential white PVC P-trap plumbing assembly beneath a sink basin. The lighting is clean and realistic inside a well-lit cabinet interior. The image presents a transparent sectional view of the curved P-trap pipe, showing standing water filling the lower bend up to the trap weir height to demonstrate the sewer gas barrier. A small amount of dark organic sediment rests at the bottom curve of the dip. Realistic threaded slip nuts, rubber bevel washers, and smooth pipe connections are shown with accurate physical geometry. Central composition, photorealistic textures, ample clean background space at top and bottom for text overlays, no text, no arrows, no watermarks, no logos.",
-  "visual_story": "The visual uses a clear cutaway section of an under-sink P-trap to show the standing water seal and where sediment gathers. Viewers instantly see why sinks clog at this exact point and understand that the dip serves a deliberate physical purpose: trapping both water (to block sewer gases) and solids (preventing deeper mainline blockages). This makes manual cleaning an obvious and practical maintenance step.",
+  "idea": "Why professional plumbing installation matters",
+  "title": "Pipe Alignment and Stress Prevention",
+  "description": "An educational tip demonstrating how professional pipe alignment and proper support brackets prevent stress-induced joint failure in water supply piping.",
+  "image_prompt": "A crisp, photorealistic macro photograph showing a clean vertical PVC pressure pipe seamlessly aligned and joined into a socket elbow fitting within an open stud bay during rough-in plumbing. A rubber-lined steel pipe clamp is securely mounted to a wooden stud just inches below the fitting, demonstrating proper structural support. Bright, realistic construction lighting highlights the clean alignment and fitting depth. Vertical 9:16 composition with clear, uncluttered spaces at the top and bottom for graphic overlays. Completely clean image with no visible text, no labels, no logos, no watermarks, and no artificial visual effects.",
+  "visual_story": "The visual focuses on the physical relationship between a rigid pipe fitting and its nearby support clamp. Viewers notice that the pipe enters the fitting in absolute straight alignment without flex or strain, while the rubber-lined clamp transfers structural weight directly to the wall framework. This visually demonstrates how proper support prevents continuous leverage stress on the solvent-welded joint.",
   "on_image_text": {
-    "hook": "Stop Pouring Chemicals Down Slow Sinks",
-    "explanation": "The P-trap holds standing water to block sewer gases while capturing heavy debris in its lower curve.",
-    "callout": "Sediment collects in the U-bend dip",
-    "takeaway": "Unscrew the slip nuts and manually clean the trap for a safe, instant fix."
+    "hook": "Alignment Protects Pipe Joints",
+    "explanation": "Forcing misaligned pipes creates constant mechanical tension, weakening joints under pressure.",
+    "callout": "Stress-Free Fitting Joint",
+    "takeaway": "Dry-fit to ensure exact alignment and secure support clips before final joining."
   },
   "hashtags": [
-    "#PlumbingEducation",
-    "#HomeMaintenance",
-    "#PlumbingBasics",
-    "#DrainCleaning",
-    "#ApprenticePlumber",
     "#PlumbingTips",
-    "#OromPlan1"
+    "#PlumbingEducation",
+    "#PlumbingApprentice",
+    "#PipingInstallation",
+    "#PlumbingMaintenance",
+    "#HomeownerTips"
   ],
   "reel_enabled": false,
   "reel_file": null
