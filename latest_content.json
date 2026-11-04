@@ -1,22 +1,23 @@
 {
-  "idea": "Why professional plumbing installation matters",
-  "title": "Pipe Alignment and Stress Prevention",
-  "description": "An educational tip demonstrating how professional pipe alignment and proper support brackets prevent stress-induced joint failure in water supply piping.",
-  "image_prompt": "A crisp, photorealistic macro photograph showing a clean vertical PVC pressure pipe seamlessly aligned and joined into a socket elbow fitting within an open stud bay during rough-in plumbing. A rubber-lined steel pipe clamp is securely mounted to a wooden stud just inches below the fitting, demonstrating proper structural support. Bright, realistic construction lighting highlights the clean alignment and fitting depth. Vertical 9:16 composition with clear, uncluttered spaces at the top and bottom for graphic overlays. Completely clean image with no visible text, no labels, no logos, no watermarks, and no artificial visual effects.",
-  "visual_story": "The visual focuses on the physical relationship between a rigid pipe fitting and its nearby support clamp. Viewers notice that the pipe enters the fitting in absolute straight alignment without flex or strain, while the rubber-lined clamp transfers structural weight directly to the wall framework. This visually demonstrates how proper support prevents continuous leverage stress on the solvent-welded joint.",
+  "idea": "How to prevent bathroom pipe problems",
+  "title": "Preventing Bathroom Blockages at the P-Trap",
+  "description": "Educational guide on how bathroom P-traps collect debris and how maintaining them prevents deep drain line blockages.",
+  "image_prompt": "A detailed, professional educational technical cutaway photograph of a white PVC P-trap assembly beneath a clean bathroom vanity sink, vertical 9:16 aspect ratio. The image clearly demonstrates a cross-section of the trap bend: standing water forms a proper water seal inside the curve, while visual organic debris such as hair and soap film rests concentrated at the lowest point of the U-bend. Clean interior, realistic pipe thickness, threaded slip nuts, wall arm extension, realistic pipe geometry and water physics. Professional natural indoor lighting, crisp focus on the cutaway section, shallow depth of field highlighting the fitting. Clean plumber work area environment. No text, no labels, no logos, no watermarks, no diagrams, no extra overlay graphics.",
+  "visual_story": "The visual shows a clear cross-sectional cutaway of a standard PVC P-trap under a bathroom sink. It highlights where hair and soap scum accumulate at the lowest point of the trap bend while water maintains the seal. This visual illustrates that the trap is designed to catch debris early before it reaches unexposed wall piping, teaching viewers the physical mechanism of drain restriction.",
   "on_image_text": {
-    "hook": "Alignment Protects Pipe Joints",
-    "explanation": "Forcing misaligned pipes creates constant mechanical tension, weakening joints under pressure.",
-    "callout": "Stress-Free Fitting Joint",
-    "takeaway": "Dry-fit to ensure exact alignment and secure support clips before final joining."
+    "hook": "Stop Bathroom Clogs Before They Reach Your Main Line",
+    "explanation": "Hair and soap scum settle at the bottom bend of the P-trap, restricting water flow over time.",
+    "callout": "P-Trap Debris Collection Point",
+    "takeaway": "Clean the removable trap bend regularly to protect branch drainage pipes."
   },
   "hashtags": [
     "#PlumbingTips",
+    "#PTrapMaintenance",
     "#PlumbingEducation",
-    "#PlumbingApprentice",
-    "#PipingInstallation",
-    "#PlumbingMaintenance",
-    "#HomeownerTips"
+    "#DrainCleaning",
+    "#HomeownerTips",
+    "#ApprenticePlumber",
+    "#BathroomPlumbing"
   ],
   "reel_enabled": false,
   "reel_file": null
