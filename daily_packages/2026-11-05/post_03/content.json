@@ -1,0 +1,29 @@
+{
+  "package_date": "2026-11-05",
+  "slot": 3,
+  "lesson_number": 3,
+  "content_type": "reel",
+  "role": "common_mistake",
+  "lesson_type": "common_mistake",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "waste pipes",
+  "title": "Horizontal Sanitary Tee Mistake",
+  "description": "Using a standard sanitary tee on a horizontal-to-horizontal waste line transition is a common mistake that leads to frequent drain clogs. Sanitary tees are designed primarily for vertical-to-horizontal transitions where gravity helps direct flow. On horizontal runs, the sweep of a sanitary tee is too short, causing solids to accumulate and slow down flow velocity. To maintain self-scouring velocity and prevent blockages, plumbing codes require a wye with a 1/8 bend or a combination wye and 1/8 bend for horizontal changes of direction. Always verify local plumbing codes for approved fitting sweeps.",
+  "hashtags": [
+    "#plumbing",
+    "#drainage",
+    "#plumbinglife",
+    "#wastepipes",
+    "#plumberstips"
+  ],
+  "caption": "Horizontal Sanitary Tee Mistake\n\nUsing a standard sanitary tee on a horizontal-to-horizontal waste line transition is a common mistake that leads to frequent drain clogs. Sanitary tees are designed primarily for vertical-to-horizontal transitions where gravity helps direct flow. On horizontal runs, the sweep of a sanitary tee is too short, causing solids to accumulate and slow down flow velocity. To maintain self-scouring velocity and prevent blockages, plumbing codes require a wye with a 1/8 bend or a combination wye and 1/8 bend for horizontal changes of direction. Always verify local plumbing codes for approved fitting sweeps.\n\n#plumbing #drainage #plumbinglife #wastepipes #plumberstips",
+  "schedule_time": "11:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-11-05/post_03/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-11-05/post_03/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}
