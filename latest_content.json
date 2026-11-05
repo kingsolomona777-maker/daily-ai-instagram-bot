@@ -1,23 +1,23 @@
 {
-  "idea": "Signs of a hidden water leak",
-  "title": "Using a Water Meter to Confirm Hidden Leaks",
-  "description": "Learn how to use the low-flow indicator dial on a water meter to diagnose concealed water supply leaks.",
-  "image_prompt": "Photorealistic vertical 9:16 photograph of a brass mechanical water meter connected to a clean copper water main line in a basement utility space. Crisp focus on the clear glass dial face of the water meter, displaying mechanical register numbers and a bright red triangular low-flow leak detector dial. Clean metallic pipe textures, realistic brass threaded fittings, and directional flow markings on the meter body. Softly blurred wall background with neutral overhead lighting, leaving clear open space in the upper and lower thirds of the frame for text overlays. No text, no watermarks, no logos, no fake brand names, no graphics.",
-  "visual_story": "The visual focuses directly on the face of a standard mechanical water meter, highlighting the low-flow indicator spinner. The image teaches viewers where to inspect on the meter dial to verify whether water is actively flowing through the pressurized supply line when no taps are open.",
+  "idea": "When to replace old plumbing pipes",
+  "title": "Internal Corrosion Signs in Galvanized Pipes",
+  "description": "Galvanized steel pipes corrode from the inside out through a process called tuberculation. Over decades, rust and mineral deposits accumulate along the inner pipe walls, drastically restricting internal diameter. While the exterior of the pipe may still look structural and intact, internal tuberculation starves fixtures of water volume and flow rate. Pressure loss across multiple fixtures in older systems often indicates advanced internal scaling rather than a simple valve issue. When internal cross-sectional area is heavily choked by rust, localized cleaning is ineffective and total pipe replacement becomes necessary. What pipe material supplies your property?",
+  "image_prompt": "Photorealistic educational studio cutaway view of an aged 3/4-inch galvanized steel water pipe section. The cross-sectional slice clearly shows severe internal rust scaling and thick orange-brown mineral tuberculation heavily clogging the inside diameter of the pipe, leaving only a tiny central opening for water. The outer metal wall remains grey and solid, demonstrating internal corrosion. The pipe is centered vertically on a clean neutral background. Professional directional studio lighting highlights the texture of the internal rust. Vertical 9:16 portrait composition, sharp focus, clean space at top and bottom for visual balance. No text, no logos, no watermarks, no diagrams, realistic plumbing details.",
+  "visual_story": "The visual uses a clear physical cutaway of an old galvanized supply pipe to reveal what cannot be seen from the outside. The viewer observes how severe internal rust scaling (tuberculation) dramatically chokes the water channel while the exterior wall appears intact. This directly supports the lesson by demonstrating why low water volume in aging steel plumbing systems requires pipe replacement rather than superficial valve adjustments.",
   "on_image_text": {
-    "hook": "How to Confirm a Hidden Water Leak",
-    "explanation": "If all fixtures are off and this dial rotates, water is escaping the pressurized line.",
-    "callout": "Low-Flow Leak Indicator Dial",
-    "takeaway": "Isolate individual branch valves to locate the leaking section."
+    "hook": "Galvanized Pipes Corrode from the Inside Out",
+    "explanation": "Internal rust buildup (tuberculation) shrinks water volume long before the pipe develops an external leak.",
+    "callout": "Internal Tuberculation",
+    "takeaway": "Persistent low flow in old steel pipes signals internal choking—plan for pipe replacement."
   },
   "hashtags": [
     "#plumbingeducation",
+    "#galvanizedpipes",
     "#plumbingtips",
-    "#leakdetection",
-    "#apprenticeplumber",
-    "#plumbingbasics",
-    "#watermeter",
-    "#homeplumbing"
+    "#pipereplacement",
+    "#plumbingsystem",
+    "#homeownerguide",
+    "#apprenticeplumber"
   ],
   "reel_enabled": false,
   "reel_file": null
