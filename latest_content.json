@@ -1,23 +1,23 @@
 {
-  "idea": "When to replace old plumbing pipes",
-  "title": "Internal Corrosion Signs in Galvanized Pipes",
-  "description": "Galvanized steel pipes corrode from the inside out through a process called tuberculation. Over decades, rust and mineral deposits accumulate along the inner pipe walls, drastically restricting internal diameter. While the exterior of the pipe may still look structural and intact, internal tuberculation starves fixtures of water volume and flow rate. Pressure loss across multiple fixtures in older systems often indicates advanced internal scaling rather than a simple valve issue. When internal cross-sectional area is heavily choked by rust, localized cleaning is ineffective and total pipe replacement becomes necessary. What pipe material supplies your property?",
-  "image_prompt": "Photorealistic educational studio cutaway view of an aged 3/4-inch galvanized steel water pipe section. The cross-sectional slice clearly shows severe internal rust scaling and thick orange-brown mineral tuberculation heavily clogging the inside diameter of the pipe, leaving only a tiny central opening for water. The outer metal wall remains grey and solid, demonstrating internal corrosion. The pipe is centered vertically on a clean neutral background. Professional directional studio lighting highlights the texture of the internal rust. Vertical 9:16 portrait composition, sharp focus, clean space at top and bottom for visual balance. No text, no logos, no watermarks, no diagrams, realistic plumbing details.",
-  "visual_story": "The visual uses a clear physical cutaway of an old galvanized supply pipe to reveal what cannot be seen from the outside. The viewer observes how severe internal rust scaling (tuberculation) dramatically chokes the water channel while the exterior wall appears intact. This directly supports the lesson by demonstrating why low water volume in aging steel plumbing systems requires pipe replacement rather than superficial valve adjustments.",
+  "idea": "Common causes of leaking taps",
+  "title": "Understanding Compression Tap Leaks: The Worn Washer",
+  "description": "An educational breakdown explaining how a degraded rubber washer causes continuous dripping from a traditional compression tap spout.",
+  "image_prompt": "A detailed vertical 9:16 educational cutaway technical illustration of a brass compression tap valve stem inside a clean chrome faucet body. The cross-section clearly reveals the internal mechanism: a threaded brass stem and an aged black rubber washer with visible flattened edges and small cracks, resting against an internal brass valve seat. A single clear drop of water is shown slowly seeping past the damaged rubber seal down toward the spout channel. Professional neutral lighting with soft studio contrast focused sharply on the central valve assembly. Adequate clear visual space provided at the top third and bottom third of the vertical frame. High technical detail, realistic metal and rubber textures, realistic geometry. Strictly no text, no labels, no diagrams, no arrows, no watermarks, no logos.",
+  "visual_story": "The visual uses a clear cutaway view of a compression tap to show what happens inside the valve body when a tap is turned off. Viewers can see the exact interaction between the internal brass seat and the black rubber washer. By displaying tiny cracks and deformation on the washer alongside a droplet bypassing the seal, the visual demonstrates why tightening the handle harder will not stop the leak and actually accelerates seal damage.",
   "on_image_text": {
-    "hook": "Galvanized Pipes Corrode from the Inside Out",
-    "explanation": "Internal rust buildup (tuberculation) shrinks water volume long before the pipe develops an external leak.",
-    "callout": "Internal Tuberculation",
-    "takeaway": "Persistent low flow in old steel pipes signals internal choking—plan for pipe replacement."
+    "hook": "Why Does Your Tap Keep Dripping?",
+    "explanation": "A deformed or cracked rubber washer fails to form a complete water barrier against the valve seat.",
+    "callout": "Degraded Rubber Washer",
+    "takeaway": "Replace damaged soft seals promptly to protect the brass valve seat from water scoring."
   },
   "hashtags": [
-    "#plumbingeducation",
-    "#galvanizedpipes",
-    "#plumbingtips",
-    "#pipereplacement",
-    "#plumbingsystem",
-    "#homeownerguide",
-    "#apprenticeplumber"
+    "#PlumbingEducation",
+    "#PlumbingTips",
+    "#TapRepair",
+    "#PlumbingApprentice",
+    "#HomeMaintenance",
+    "#PlumbingBasics",
+    "#OromPlan1"
   ],
   "reel_enabled": false,
   "reel_file": null
