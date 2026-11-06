@@ -1,22 +1,22 @@
 {
-  "idea": "Why a toilet may keep running",
-  "title": "Why Your Toilet Keeps Running: The Flapper Seal Failure",
-  "description": "A continuously running toilet is most commonly caused by a faulty flapper seal at the base of the tank. Over time, chloramines in municipal water, drop-in tank cleaners, or mineral deposits degrade the rubber flapper. When it warps or hardens, it fails to form a watertight seal against the flush valve seat, allowing water to trickle continuously into the bowl. As the tank water level drops, the float lowers, triggering the fill valve to run repeatedly. Before replacing the entire fill valve mechanism, check the flapper for warping, mineral crust, or improper chain tension. Have you inspected your tank flapper lately?",
-  "image_prompt": "A clean educational 3D cross-section cutaway illustration of a standard ceramic gravity-flush toilet tank, 9:16 vertical composition. The primary focus is near the bottom center of the tank, showing the flush valve assembly and a flexible rubber flapper seal. The flapper is slightly lifted on one edge, illustrating a tiny gap between the rubber seal and the plastic flush valve seat where water escapes into the flush opening below. The fill valve, overflow tube, and float cup are visible inside the tank in realistic detail. Clean bright lighting, studio background, soft shadows, realistic plumbing materials including ceramic, molded plastic, and rubber. Completely free of text, numbers, arrows, visual labels, brand names, logos, or watermarks. Ample empty visual space at top and bottom for text placement.",
-  "visual_story": "The visual uses a clear cutaway view of a toilet tank to highlight the flapper valve at the bottom of the tank. Viewers can see how a warped or improperly seated flapper creates a small gap at the flush valve seat, demonstrating visually why water leaks continuously from the tank into the bowl and forces the fill valve to stay open.",
+  "idea": "Why low water pressure happens",
+  "title": "Understanding Localized Low Water Pressure",
+  "description": "Educational breakdown explaining how mineral sediment and scale restrict flow inside faucet aerators, causing localized low water pressure.",
+  "image_prompt": "A professional high-detail close-up photograph of a modern polished chrome basin faucet spout with its disassembled aerator resting neatly beside it on a clean granite countertop. The aerator insert clearly shows fine calcified white mineral deposits and tiny rust sediment particles clogging its stainless steel mesh screen. Photorealistic lighting, sharp depth of field focusing on the internal mesh geometry, vertical 9:16 aspect ratio. Clear workspace background with ample empty visual space at the top and bottom. No text, no logos, no watermarks, no artificial diagrams, physically accurate plumbing components.",
+  "visual_story": "The visual focuses on the disassembled components of a faucet aerator resting next to a chrome spout. Viewers immediately notice the physical build-up of mineral scale and fine sediment trapped inside the wire mesh screen. This visually demonstrates how a simple physical obstruction severely reduces the available surface area for water flow, explaining why localized pressure drops without complex systemic failure.",
   "on_image_text": {
-    "hook": "Toilet Running Non-Stop?",
-    "explanation": "A hardened or warped rubber flapper prevents a watertight seal at the flush valve seat.",
-    "callout": "Worn Flapper Seal",
-    "takeaway": "Inspect and clean or replace the flapper before buying a new fill valve assembly."
+    "hook": "Low pressure at just one faucet?",
+    "explanation": "Mineral scale and pipe sediment trap inside the aerator mesh screen, severely restricting physical water flow.",
+    "callout": "Trapped Sediment & Mineral Scale",
+    "takeaway": "Unscrew and clean the aerator screen before replacing valves or assuming main line failure."
   },
   "hashtags": [
-    "#PlumbingEducation",
-    "#ToiletRepair",
-    "#PlumbingTips",
-    "#ApprenticePlumber",
-    "#PlumbingMaintenance",
-    "#HomeImprovementTips"
+    "#plumbingeducation",
+    "#waterpressure",
+    "#plumbingtips",
+    "#apprenticeplumber",
+    "#plumbingrepair",
+    "#homeownerguide"
   ],
   "reel_enabled": false,
   "reel_file": null
