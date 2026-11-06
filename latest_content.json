@@ -1,23 +1,22 @@
 {
-  "idea": "Common causes of leaking taps",
-  "title": "Understanding Compression Tap Leaks: The Worn Washer",
-  "description": "An educational breakdown explaining how a degraded rubber washer causes continuous dripping from a traditional compression tap spout.",
-  "image_prompt": "A detailed vertical 9:16 educational cutaway technical illustration of a brass compression tap valve stem inside a clean chrome faucet body. The cross-section clearly reveals the internal mechanism: a threaded brass stem and an aged black rubber washer with visible flattened edges and small cracks, resting against an internal brass valve seat. A single clear drop of water is shown slowly seeping past the damaged rubber seal down toward the spout channel. Professional neutral lighting with soft studio contrast focused sharply on the central valve assembly. Adequate clear visual space provided at the top third and bottom third of the vertical frame. High technical detail, realistic metal and rubber textures, realistic geometry. Strictly no text, no labels, no diagrams, no arrows, no watermarks, no logos.",
-  "visual_story": "The visual uses a clear cutaway view of a compression tap to show what happens inside the valve body when a tap is turned off. Viewers can see the exact interaction between the internal brass seat and the black rubber washer. By displaying tiny cracks and deformation on the washer alongside a droplet bypassing the seal, the visual demonstrates why tightening the handle harder will not stop the leak and actually accelerates seal damage.",
+  "idea": "Why a toilet may keep running",
+  "title": "Why Your Toilet Keeps Running: The Flapper Seal Failure",
+  "description": "A continuously running toilet is most commonly caused by a faulty flapper seal at the base of the tank. Over time, chloramines in municipal water, drop-in tank cleaners, or mineral deposits degrade the rubber flapper. When it warps or hardens, it fails to form a watertight seal against the flush valve seat, allowing water to trickle continuously into the bowl. As the tank water level drops, the float lowers, triggering the fill valve to run repeatedly. Before replacing the entire fill valve mechanism, check the flapper for warping, mineral crust, or improper chain tension. Have you inspected your tank flapper lately?",
+  "image_prompt": "A clean educational 3D cross-section cutaway illustration of a standard ceramic gravity-flush toilet tank, 9:16 vertical composition. The primary focus is near the bottom center of the tank, showing the flush valve assembly and a flexible rubber flapper seal. The flapper is slightly lifted on one edge, illustrating a tiny gap between the rubber seal and the plastic flush valve seat where water escapes into the flush opening below. The fill valve, overflow tube, and float cup are visible inside the tank in realistic detail. Clean bright lighting, studio background, soft shadows, realistic plumbing materials including ceramic, molded plastic, and rubber. Completely free of text, numbers, arrows, visual labels, brand names, logos, or watermarks. Ample empty visual space at top and bottom for text placement.",
+  "visual_story": "The visual uses a clear cutaway view of a toilet tank to highlight the flapper valve at the bottom of the tank. Viewers can see how a warped or improperly seated flapper creates a small gap at the flush valve seat, demonstrating visually why water leaks continuously from the tank into the bowl and forces the fill valve to stay open.",
   "on_image_text": {
-    "hook": "Why Does Your Tap Keep Dripping?",
-    "explanation": "A deformed or cracked rubber washer fails to form a complete water barrier against the valve seat.",
-    "callout": "Degraded Rubber Washer",
-    "takeaway": "Replace damaged soft seals promptly to protect the brass valve seat from water scoring."
+    "hook": "Toilet Running Non-Stop?",
+    "explanation": "A hardened or warped rubber flapper prevents a watertight seal at the flush valve seat.",
+    "callout": "Worn Flapper Seal",
+    "takeaway": "Inspect and clean or replace the flapper before buying a new fill valve assembly."
   },
   "hashtags": [
     "#PlumbingEducation",
+    "#ToiletRepair",
     "#PlumbingTips",
-    "#TapRepair",
-    "#PlumbingApprentice",
-    "#HomeMaintenance",
-    "#PlumbingBasics",
-    "#OromPlan1"
+    "#ApprenticePlumber",
+    "#PlumbingMaintenance",
+    "#HomeImprovementTips"
   ],
   "reel_enabled": false,
   "reel_file": null
