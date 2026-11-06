@@ -1,0 +1,29 @@
+{
+  "package_date": "2026-11-06",
+  "slot": 1,
+  "lesson_number": 1,
+  "content_type": "reel",
+  "role": "problem_and_cause",
+  "lesson_type": "problem_and_cause",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "drainage systems",
+  "title": "Why Drains Gurgle and Lose Their Water Seal",
+  "description": "Gurgling noises in a drainage system often point to venting issues rather than simple clogs. When wastewater travels down an unvented or blocked drain pipe, it creates a partial vacuum behind the flowing column of water. This negative air pressure pulls air through the path of least resistance, which is frequently the water seal inside a nearby P-trap. As air bubbles break through the trap seal, it creates a distinct gurgling sound and depletes the water volume. Without a complete water seal, foul sewer gases can freely enter living spaces. Proper venting balances atmospheric pressure and prevents trap siphoning.",
+  "hashtags": [
+    "#PlumbingEducation",
+    "#DrainageSystems",
+    "#PlumbingTips",
+    "#PTrap",
+    "#PlumbingVents"
+  ],
+  "caption": "Why Drains Gurgle and Lose Their Water Seal\n\nGurgling noises in a drainage system often point to venting issues rather than simple clogs. When wastewater travels down an unvented or blocked drain pipe, it creates a partial vacuum behind the flowing column of water. This negative air pressure pulls air through the path of least resistance, which is frequently the water seal inside a nearby P-trap. As air bubbles break through the trap seal, it creates a distinct gurgling sound and depletes the water volume. Without a complete water seal, foul sewer gases can freely enter living spaces. Proper venting balances atmospheric pressure and prevents trap siphoning.\n\n#PlumbingEducation #DrainageSystems #PlumbingTips #PTrap #PlumbingVents",
+  "schedule_time": "07:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-11-06/post_01/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-11-06/post_01/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}
