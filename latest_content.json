@@ -1,22 +1,23 @@
 {
-  "idea": "Why low water pressure happens",
-  "title": "Understanding Localized Low Water Pressure",
-  "description": "Educational breakdown explaining how mineral sediment and scale restrict flow inside faucet aerators, causing localized low water pressure.",
-  "image_prompt": "A professional high-detail close-up photograph of a modern polished chrome basin faucet spout with its disassembled aerator resting neatly beside it on a clean granite countertop. The aerator insert clearly shows fine calcified white mineral deposits and tiny rust sediment particles clogging its stainless steel mesh screen. Photorealistic lighting, sharp depth of field focusing on the internal mesh geometry, vertical 9:16 aspect ratio. Clear workspace background with ample empty visual space at the top and bottom. No text, no logos, no watermarks, no artificial diagrams, physically accurate plumbing components.",
-  "visual_story": "The visual focuses on the disassembled components of a faucet aerator resting next to a chrome spout. Viewers immediately notice the physical build-up of mineral scale and fine sediment trapped inside the wire mesh screen. This visually demonstrates how a simple physical obstruction severely reduces the available surface area for water flow, explaining why localized pressure drops without complex systemic failure.",
+  "idea": "How to save water at home",
+  "title": "Identifying Silent Flapper Leaks",
+  "description": "A running toilet isn't always noisy. A degraded rubber flapper valve can allow a constant, silent trickle of water to pass from the tank directly into the bowl and down the drain. Over time, in-tank chemical cleaners or hard water minerals harden or warp the rubber, breaking the watertight seal against the flush valve seat. Testing is simple: place a few drops of food coloring into the tank without flushing. If color appears in the bowl within 15 minutes, the seal has failed. Replacing a hardened or warped flapper is an inexpensive repair that prevents hundreds of gallons of daily water waste.",
+  "image_prompt": "A vertical 9:16 technical cross-section cutaway illustration of a vitreous china toilet tank in a clean, modern plumbing workshop setting. The visual focus is centered on the bottom flush valve assembly inside the tank. A flexible rubber flapper valve sits over the circular flush valve seat, showing a micro-gap along its hardened edge where a thin, clear stream of water trickles past into the drain opening below. The surrounding components—fill valve, overflow pipe, and brass chain—are clearly rendered with accurate mechanical connections and physically realistic water fluid dynamics. Neutral lighting, clean background visual space, high technical detail, no text, no labels, no arrows, no logos, no watermarks.",
+  "visual_story": "The visual uses a cutaway cross-section of a toilet tank to expose the hidden inner mechanics that cause silent leaks. Viewers can see how an imperfect seal between the rubber flapper and the flush valve seat allows water to continuously drain into the bowl. This cutaway visual helps the audience understand that a leak doesn't require a visible overflow or a loud running sound to waste significant amounts of water.",
   "on_image_text": {
-    "hook": "Low pressure at just one faucet?",
-    "explanation": "Mineral scale and pipe sediment trap inside the aerator mesh screen, severely restricting physical water flow.",
-    "callout": "Trapped Sediment & Mineral Scale",
-    "takeaway": "Unscrew and clean the aerator screen before replacing valves or assuming main line failure."
+    "hook": "Is your toilet leaking without making a sound?",
+    "explanation": "A warped or hardened flapper valve fails to form a tight seal, letting water bleed into the bowl.",
+    "callout": "Degraded Flapper Seal",
+    "takeaway": "Drop dye in the tank to test; replace stiff flappers to stop hidden water waste."
   },
   "hashtags": [
     "#plumbingeducation",
-    "#waterpressure",
+    "#watersavingtips",
+    "#toiletrepair",
     "#plumbingtips",
+    "#homeplumbing",
     "#apprenticeplumber",
-    "#plumbingrepair",
-    "#homeownerguide"
+    "#oromplan1"
   ],
   "reel_enabled": false,
   "reel_file": null
