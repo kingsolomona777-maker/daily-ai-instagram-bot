@@ -1,23 +1,23 @@
 {
-  "idea": "Common plumbing mistakes homeowners make",
-  "title": "Over-Tightening Threaded Plastic Fittings",
-  "description": "Educational breakdown showing how excessive PTFE tape and wrench force split tapered plastic pipe fittings due to internal hoop stress.",
-  "image_prompt": "A detailed, crisp professional close-up visual of a white schedule 40 PVC female threaded adapter connected to a male threaded fitting. A visible longitudinal hairline crack runs down the collar of the female fitting caused by stress expansion. Flakes of white PTFE tape are neatly visible around the exposed threads. The background is an authentic clean residential plumbing workspace under a sink with realistic lighting, soft depth of field, focused sharply on the threaded fitting assembly. Vertical 9:16 aspect ratio composition, photorealistic texture of plastic, realistic pipe geometry, clear educational detail. No text, no labels, no logos, no watermarks, no brand names, no fake badges.",
-  "visual_story": "The visual focuses directly on the point of failure: a cracked female plastic adapter socket. Viewers can see how excess thread sealant tape built up inside the tapered NPT joint, acting as a wedge. As the fitting was turned deeper, outward expansion pressure split the plastic collar along its stress axis.",
+  "idea": "How to detect a leaking toilet",
+  "title": "Detecting Silent Toilet Leaks with a Dye Test",
+  "description": "A practical guide showing how a simple dye test reveals hidden flapper valve leaks between the toilet tank and bowl.",
+  "image_prompt": "A detailed 9:16 vertical realistic cutaway illustration of a vitreous china ceramic toilet flush tank and bowl in a clean, modern bathroom setting. The cross-section shows dark blue dyed water inside the upper tank. A close-up focus reveals a worn rubber flapper valve at the bottom of the tank with a subtle gap, allowing a steady stream of blue-dyed water to seep through the flush valve channel down into the clear water of the toilet bowl below without the flush handle being activated. Clean professional lighting, physically realistic internal brass and plastic fill valve assembly, detailed ceramic geometry, vertical composition with clear open space at the top and bottom for graphic overlays. Photorealistic style, no text, no visual watermarks, no logos, no fake brand labels.",
+  "visual_story": "The visual illustrates the internal pathway of a silent toilet leak. By highlighting blue-dyed water seeping past a faulty rubber flapper valve into clear bowl water, viewers immediately understand how water escapes unnoticed without flushing. It emphasizes the direct relationship between tank seal integrity and bowl water migration.",
   "on_image_text": {
-    "hook": "Over-Tightening Plastic Threads Causes Hidden Cracks",
-    "explanation": "Tapered threads wedge outward; excessive tape and leverage create hoop stress that splits female plastic fittings.",
-    "callout": "Socket Split From Outward Radial Pressure",
-    "takeaway": "Hand-tighten plastic NPT joints, then turn 1 to 2 full turns with a wrench using plastic-safe thread sealant."
+    "hook": "Is Your Toilet Leaking Silently?",
+    "explanation": "Dye dropped in the tank seeps into the bowl if the flapper seal fails.",
+    "callout": "Worn Flapper Valve Seal",
+    "takeaway": "Test with food coloring: if dye enters the bowl without flushing, replace the flapper."
   },
   "hashtags": [
     "#PlumbingTips",
+    "#ToiletRepair",
     "#PlumbingEducation",
-    "#HomeownerMistakes",
-    "#PlumbingApprentice",
-    "#PipeFittings",
-    "#PVCPlumbing",
-    "#PlumbingRepair"
+    "#WaterConservation",
+    "#HomeMaintenance",
+    "#ApprenticePlumber",
+    "#PlumbingDiagnostics"
   ],
   "reel_enabled": false,
   "reel_file": null
