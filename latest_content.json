@@ -1,23 +1,23 @@
 {
-  "idea": "How to save water at home",
-  "title": "Identifying Silent Flapper Leaks",
-  "description": "A running toilet isn't always noisy. A degraded rubber flapper valve can allow a constant, silent trickle of water to pass from the tank directly into the bowl and down the drain. Over time, in-tank chemical cleaners or hard water minerals harden or warp the rubber, breaking the watertight seal against the flush valve seat. Testing is simple: place a few drops of food coloring into the tank without flushing. If color appears in the bowl within 15 minutes, the seal has failed. Replacing a hardened or warped flapper is an inexpensive repair that prevents hundreds of gallons of daily water waste.",
-  "image_prompt": "A vertical 9:16 technical cross-section cutaway illustration of a vitreous china toilet tank in a clean, modern plumbing workshop setting. The visual focus is centered on the bottom flush valve assembly inside the tank. A flexible rubber flapper valve sits over the circular flush valve seat, showing a micro-gap along its hardened edge where a thin, clear stream of water trickles past into the drain opening below. The surrounding components—fill valve, overflow pipe, and brass chain—are clearly rendered with accurate mechanical connections and physically realistic water fluid dynamics. Neutral lighting, clean background visual space, high technical detail, no text, no labels, no arrows, no logos, no watermarks.",
-  "visual_story": "The visual uses a cutaway cross-section of a toilet tank to expose the hidden inner mechanics that cause silent leaks. Viewers can see how an imperfect seal between the rubber flapper and the flush valve seat allows water to continuously drain into the bowl. This cutaway visual helps the audience understand that a leak doesn't require a visible overflow or a loud running sound to waste significant amounts of water.",
+  "idea": "Common plumbing mistakes homeowners make",
+  "title": "Over-Tightening Threaded Plastic Fittings",
+  "description": "Educational breakdown showing how excessive PTFE tape and wrench force split tapered plastic pipe fittings due to internal hoop stress.",
+  "image_prompt": "A detailed, crisp professional close-up visual of a white schedule 40 PVC female threaded adapter connected to a male threaded fitting. A visible longitudinal hairline crack runs down the collar of the female fitting caused by stress expansion. Flakes of white PTFE tape are neatly visible around the exposed threads. The background is an authentic clean residential plumbing workspace under a sink with realistic lighting, soft depth of field, focused sharply on the threaded fitting assembly. Vertical 9:16 aspect ratio composition, photorealistic texture of plastic, realistic pipe geometry, clear educational detail. No text, no labels, no logos, no watermarks, no brand names, no fake badges.",
+  "visual_story": "The visual focuses directly on the point of failure: a cracked female plastic adapter socket. Viewers can see how excess thread sealant tape built up inside the tapered NPT joint, acting as a wedge. As the fitting was turned deeper, outward expansion pressure split the plastic collar along its stress axis.",
   "on_image_text": {
-    "hook": "Is your toilet leaking without making a sound?",
-    "explanation": "A warped or hardened flapper valve fails to form a tight seal, letting water bleed into the bowl.",
-    "callout": "Degraded Flapper Seal",
-    "takeaway": "Drop dye in the tank to test; replace stiff flappers to stop hidden water waste."
+    "hook": "Over-Tightening Plastic Threads Causes Hidden Cracks",
+    "explanation": "Tapered threads wedge outward; excessive tape and leverage create hoop stress that splits female plastic fittings.",
+    "callout": "Socket Split From Outward Radial Pressure",
+    "takeaway": "Hand-tighten plastic NPT joints, then turn 1 to 2 full turns with a wrench using plastic-safe thread sealant."
   },
   "hashtags": [
-    "#plumbingeducation",
-    "#watersavingtips",
-    "#toiletrepair",
-    "#plumbingtips",
-    "#homeplumbing",
-    "#apprenticeplumber",
-    "#oromplan1"
+    "#PlumbingTips",
+    "#PlumbingEducation",
+    "#HomeownerMistakes",
+    "#PlumbingApprentice",
+    "#PipeFittings",
+    "#PVCPlumbing",
+    "#PlumbingRepair"
   ],
   "reel_enabled": false,
   "reel_file": null
