@@ -1,23 +1,23 @@
 {
-  "idea": "How to detect a leaking toilet",
-  "title": "Detecting Silent Toilet Leaks with a Dye Test",
-  "description": "A practical guide showing how a simple dye test reveals hidden flapper valve leaks between the toilet tank and bowl.",
-  "image_prompt": "A detailed 9:16 vertical realistic cutaway illustration of a vitreous china ceramic toilet flush tank and bowl in a clean, modern bathroom setting. The cross-section shows dark blue dyed water inside the upper tank. A close-up focus reveals a worn rubber flapper valve at the bottom of the tank with a subtle gap, allowing a steady stream of blue-dyed water to seep through the flush valve channel down into the clear water of the toilet bowl below without the flush handle being activated. Clean professional lighting, physically realistic internal brass and plastic fill valve assembly, detailed ceramic geometry, vertical composition with clear open space at the top and bottom for graphic overlays. Photorealistic style, no text, no visual watermarks, no logos, no fake brand labels.",
-  "visual_story": "The visual illustrates the internal pathway of a silent toilet leak. By highlighting blue-dyed water seeping past a faulty rubber flapper valve into clear bowl water, viewers immediately understand how water escapes unnoticed without flushing. It emphasizes the direct relationship between tank seal integrity and bowl water migration.",
+  "idea": "Why water pipes make unusual noises",
+  "title": "Understanding Water Hammer in Supply Pipes",
+  "description": "An educational guide explaining the physical mechanism behind loud pipe banging (water hammer) caused by sudden valve closures and how shock arrestors resolve the issue.",
+  "image_prompt": "A professional 9:16 vertical educational cutaway illustration of a copper domestic water supply line. The image shows a detailed sectional view of a brass quarter-turn valve in the closed position on a 3/4-inch rigid copper pipe. Inside the pipe, flowing water meets the closed valve gate, depicting physical hydraulic shock waves traveling backward along the line. Connected above the valve branch tee is a mechanical water hammer arrestor shown in cutaway, revealing its internal stainless steel piston and compressed air chamber. Set in a clean, modern mechanical utility background with soft studio lighting. Realistic metal textures on copper, brass, and pipe support clamps. Ample clean visual space at the top and bottom third of the vertical 9:16 frame for overlay text. Photorealistic details, strictly no text, no captions, no logos, no watermarks, no artificial annotations.",
+  "visual_story": "The visual uses a clear mechanical cross-section to show why water pipes bang when a valve shuts quickly. Viewers can see the moving water column hitting the closed valve face, creating a shockwave inside the copper pipe. Right next to the valve, a cutaway of a mechanical water hammer arrestor shows an internal piston compressing against a sealed air chamber, visually demonstrating how the device absorbs hydraulic energy before it vibrates the plumbing system.",
   "on_image_text": {
-    "hook": "Is Your Toilet Leaking Silently?",
-    "explanation": "Dye dropped in the tank seeps into the bowl if the flapper seal fails.",
-    "callout": "Worn Flapper Valve Seal",
-    "takeaway": "Test with food coloring: if dye enters the bowl without flushing, replace the flapper."
+    "hook": "Loud Banging Noise When a Tap Closes?",
+    "explanation": "Stopping flowing water instantly converts kinetic energy into a high-pressure shockwave inside rigid supply lines.",
+    "callout": "Hydraulic Shock (Water Hammer)",
+    "takeaway": "Installing a mechanical water hammer arrestor absorbs pressure spikes and protects joint connections."
   },
   "hashtags": [
-    "#PlumbingTips",
-    "#ToiletRepair",
-    "#PlumbingEducation",
-    "#WaterConservation",
-    "#HomeMaintenance",
-    "#ApprenticePlumber",
-    "#PlumbingDiagnostics"
+    "#plumbingeducation",
+    "#waterhammer",
+    "#plumbingtips",
+    "#plumbingapprentice",
+    "#pipefitting",
+    "#plumbersofinstagram",
+    "#homebuilding"
   ],
   "reel_enabled": false,
   "reel_file": null
