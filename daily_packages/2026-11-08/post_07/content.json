@@ -1,0 +1,30 @@
+{
+  "package_date": "2026-11-08",
+  "slot": 7,
+  "lesson_number": 7,
+  "content_type": "reel",
+  "role": "installation_principle",
+  "lesson_type": "installation_principle",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "common plumbing mistakes",
+  "title": "Why S-Traps Fail: Understanding Trap Siphonage",
+  "description": "An unvented S-trap creates a self-siphonage effect when water discharges rapidly down the vertical drop. As liquid rushes through the vertical pipe, it creates a negative pressure zone that pulls the protective water seal out of the trap dip. Without air introduced by a vent, sewer gases can freely enter the living space. Replacing legacy S-traps with a properly vented P-trap maintains the liquid barrier by allowing atmospheric air pressure to equalize during discharge. Always consult local plumbing codes for minimum fixture drain arm lengths before dropping vertically into a stack.",
+  "hashtags": [
+    "plumbing",
+    "plumbinglife",
+    "drainage",
+    "plumbingeducation",
+    "tradeschool",
+    "buildingcodes"
+  ],
+  "caption": "Why S-Traps Fail: Understanding Trap Siphonage\n\nAn unvented S-trap creates a self-siphonage effect when water discharges rapidly down the vertical drop. As liquid rushes through the vertical pipe, it creates a negative pressure zone that pulls the protective water seal out of the trap dip. Without air introduced by a vent, sewer gases can freely enter the living space. Replacing legacy S-traps with a properly vented P-trap maintains the liquid barrier by allowing atmospheric air pressure to equalize during discharge. Always consult local plumbing codes for minimum fixture drain arm lengths before dropping vertically into a stack.\n\nplumbing plumbinglife drainage plumbingeducation tradeschool buildingcodes",
+  "schedule_time": "19:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-11-08/post_07/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-11-08/post_07/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}

@@ -1,0 +1,29 @@
+{
+  "package_date": "2026-11-08",
+  "slot": 5,
+  "lesson_number": 5,
+  "content_type": "reel",
+  "role": "troubleshooting",
+  "lesson_type": "troubleshooting",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "drain ventilation",
+  "title": "Troubleshooting Drain Ventilation and Gurgling",
+  "description": "When fixtures gurgle during drainage, the root cause is frequently an air pressure imbalance rather than a simple drain clog. Draining water creates a vacuum in unvented or restricted lines, pulling air through the nearest P-trap and breaking its water seal. This siphonage permits sewer gas to enter living spaces. Troubleshooting requires inspecting the roof vent terminal for debris, bird nests, or ice buildup, and testing air admittance valves for mechanical failure. Restoring proper venting equalizes pressure, eliminates siphon noise, and maintains safe P-trap seals.",
+  "hashtags": [
+    "plumbing",
+    "plumbingtroubleshooting",
+    "drainage",
+    "ventilation",
+    "tradeschool"
+  ],
+  "caption": "Troubleshooting Drain Ventilation and Gurgling\n\nWhen fixtures gurgle during drainage, the root cause is frequently an air pressure imbalance rather than a simple drain clog. Draining water creates a vacuum in unvented or restricted lines, pulling air through the nearest P-trap and breaking its water seal. This siphonage permits sewer gas to enter living spaces. Troubleshooting requires inspecting the roof vent terminal for debris, bird nests, or ice buildup, and testing air admittance valves for mechanical failure. Restoring proper venting equalizes pressure, eliminates siphon noise, and maintains safe P-trap seals.\n\nplumbing plumbingtroubleshooting drainage ventilation tradeschool",
+  "schedule_time": "15:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-11-08/post_05/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-11-08/post_05/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}
