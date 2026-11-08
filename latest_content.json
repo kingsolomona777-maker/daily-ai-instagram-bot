@@ -1,23 +1,23 @@
 {
-  "idea": "Why water pipes make unusual noises",
-  "title": "Understanding Water Hammer in Supply Pipes",
-  "description": "An educational guide explaining the physical mechanism behind loud pipe banging (water hammer) caused by sudden valve closures and how shock arrestors resolve the issue.",
-  "image_prompt": "A professional 9:16 vertical educational cutaway illustration of a copper domestic water supply line. The image shows a detailed sectional view of a brass quarter-turn valve in the closed position on a 3/4-inch rigid copper pipe. Inside the pipe, flowing water meets the closed valve gate, depicting physical hydraulic shock waves traveling backward along the line. Connected above the valve branch tee is a mechanical water hammer arrestor shown in cutaway, revealing its internal stainless steel piston and compressed air chamber. Set in a clean, modern mechanical utility background with soft studio lighting. Realistic metal textures on copper, brass, and pipe support clamps. Ample clean visual space at the top and bottom third of the vertical 9:16 frame for overlay text. Photorealistic details, strictly no text, no captions, no logos, no watermarks, no artificial annotations.",
-  "visual_story": "The visual uses a clear mechanical cross-section to show why water pipes bang when a valve shuts quickly. Viewers can see the moving water column hitting the closed valve face, creating a shockwave inside the copper pipe. Right next to the valve, a cutaway of a mechanical water hammer arrestor shows an internal piston compressing against a sealed air chamber, visually demonstrating how the device absorbs hydraulic energy before it vibrates the plumbing system.",
+  "idea": "Simple ways to protect plumbing during renovation",
+  "title": "Protecting Drain Stub-Outs During Renovation",
+  "description": "Educational guide on preventing mortar and construction debris from clogging drainage systems during bathroom and kitchen remodels using mechanical expansion plugs.",
+  "image_prompt": "A professional, high-detail vertical 9:16 photograph showing a close-up of a white PVC drain pipe stub-out protruding from a raw concrete bathroom floor during a renovation. Inside the open PVC pipe opening, a red rubber mechanical expansion test plug with a clean wing-nut handle is tightly installed, forming an airtight seal. The surrounding floor shows minor cement dust, tile spacers, and rough screed work, indicating active masonry construction, but the pipe opening is completely sealed and protected. Shot at a 45-degree angle with natural light, clean composition, crisp focus on the pipe and expansion plug, with generous uncluttered space at the top and bottom third for text overlays. Realistic plumbing materials, no text, no visual watermarks, no logos, no fake branding.",
+  "visual_story": "The visual draws direct focus to an open PVC drain pipe sealed with a temporary mechanical expansion plug amidst a dusty construction environment. Viewers immediately notice the visual contrast between the messy tile prep environment and the clean, protected pipe interior. The plug prevents tile adhesive, grout, and concrete dust from dropping into the drain. This visual emphasizes that site preparation and pipe protection are standard professional practices, demonstrating how simple tools prevent catastrophic drain blockages before fixtures are installed.",
   "on_image_text": {
-    "hook": "Loud Banging Noise When a Tap Closes?",
-    "explanation": "Stopping flowing water instantly converts kinetic energy into a high-pressure shockwave inside rigid supply lines.",
-    "callout": "Hydraulic Shock (Water Hammer)",
-    "takeaway": "Installing a mechanical water hammer arrestor absorbs pressure spikes and protects joint connections."
+    "hook": "Stop Mortar From Ruining Open Drains",
+    "explanation": "Tile mortar and grout settle in water-filled P-traps and harden into solid obstruction.",
+    "callout": "Mechanical Expansion Test Plug",
+    "takeaway": "Seal all exposed drain stubs with plugs before masonry work begins."
   },
   "hashtags": [
     "#plumbingeducation",
-    "#waterhammer",
     "#plumbingtips",
-    "#plumbingapprentice",
-    "#pipefitting",
-    "#plumbersofinstagram",
-    "#homebuilding"
+    "#plumbingrenovation",
+    "#drainprotection",
+    "#apprenticeplumber",
+    "#plumbingtools",
+    "#siteprep"
   ],
   "reel_enabled": false,
   "reel_file": null
