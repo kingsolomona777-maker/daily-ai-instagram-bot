@@ -1,23 +1,23 @@
 {
-  "idea": "Simple ways to protect plumbing during renovation",
-  "title": "Protecting Drain Stub-Outs During Renovation",
-  "description": "Educational guide on preventing mortar and construction debris from clogging drainage systems during bathroom and kitchen remodels using mechanical expansion plugs.",
-  "image_prompt": "A professional, high-detail vertical 9:16 photograph showing a close-up of a white PVC drain pipe stub-out protruding from a raw concrete bathroom floor during a renovation. Inside the open PVC pipe opening, a red rubber mechanical expansion test plug with a clean wing-nut handle is tightly installed, forming an airtight seal. The surrounding floor shows minor cement dust, tile spacers, and rough screed work, indicating active masonry construction, but the pipe opening is completely sealed and protected. Shot at a 45-degree angle with natural light, clean composition, crisp focus on the pipe and expansion plug, with generous uncluttered space at the top and bottom third for text overlays. Realistic plumbing materials, no text, no visual watermarks, no logos, no fake branding.",
-  "visual_story": "The visual draws direct focus to an open PVC drain pipe sealed with a temporary mechanical expansion plug amidst a dusty construction environment. Viewers immediately notice the visual contrast between the messy tile prep environment and the clean, protected pipe interior. The plug prevents tile adhesive, grout, and concrete dust from dropping into the drain. This visual emphasizes that site preparation and pipe protection are standard professional practices, demonstrating how simple tools prevent catastrophic drain blockages before fixtures are installed.",
+  "idea": "How to prevent bad smells from drains",
+  "title": "Understanding the P-Trap Water Seal to Prevent Drain Odours",
+  "description": "Every fixture in your home relies on a P-trap—the curved pipe located underneath sinks, showers, and floor drains. This curve holds a small standing reservoir of water that creates a continuous liquid seal between the main drainage system and your living space. If a drain goes unused for several weeks, this trapped water slowly evaporates. Once the water level drops below the trap dip, sewer gases flow freely into the room. If a rarely used room smells like sewage, run water down every drain for 30 seconds to restore the water barrier before assuming there is a major plumbing failure.",
+  "image_prompt": "A detailed 3D technical cutaway illustration of a standard white PVC P-trap assembly installed beneath a sink cabinet, vertical 9:16 aspect ratio. The P-trap is rendered in a realistic cross-section view showing clean standing water filling the lower curved bend up to the weir level. The water forms a complete physical seal, separating the dry upper tailpiece from the downstream waste pipe. The background is a clean, neutral studio workshop environment with soft professional lighting highlighting the pipe wall thickness and water boundary. Photorealistic textures, realistic pipe geometry, center-focused composition, no text, no visual annotations, no visual overlays, no logos, no watermarks.",
+  "visual_story": "The visual displays a realistic cross-section of a P-trap underneath a sink. Viewers can see how standing water rests in the curved dip of the pipe. The water fills the dip completely, forming an airtight barrier that prevents air from the downstream sewer pipe from passing through to the open sink drain above.",
   "on_image_text": {
-    "hook": "Stop Mortar From Ruining Open Drains",
-    "explanation": "Tile mortar and grout settle in water-filled P-traps and harden into solid obstruction.",
-    "callout": "Mechanical Expansion Test Plug",
-    "takeaway": "Seal all exposed drain stubs with plugs before masonry work begins."
+    "hook": "Why Unused Drains Start to Smell Bad",
+    "explanation": "Standing water in the P-trap forms an airtight liquid seal that blocks sewer gases from entering your home.",
+    "callout": "P-Trap Water Seal",
+    "takeaway": "Periodically run water down rarely used drains to keep the water barrier intact."
   },
   "hashtags": [
     "#plumbingeducation",
+    "#ptrap",
+    "#drainmaintenance",
     "#plumbingtips",
-    "#plumbingrenovation",
-    "#drainprotection",
-    "#apprenticeplumber",
-    "#plumbingtools",
-    "#siteprep"
+    "#homeowneradvice",
+    "#plumbingapprentice",
+    "#buildingmaintenance"
   ],
   "reel_enabled": false,
   "reel_file": null
