@@ -1,0 +1,29 @@
+{
+  "package_date": "2026-11-09",
+  "slot": 5,
+  "lesson_number": 5,
+  "content_type": "reel",
+  "role": "troubleshooting",
+  "lesson_type": "troubleshooting",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "drain ventilation",
+  "title": "Troubleshooting Gurgling Drains and Vent Line Blockages",
+  "description": "Gurgling sounds coming from fixtures when draining nearby sinks or flushing toilets often indicate a ventilation issue rather than a standard branch line clog. When wastewater rushes through a drain without adequate air supply, it generates negative atmospheric pressure. This vacuum action pulls water directly out of nearby P-traps to equalize pressure, leaving the trap seal dry and permitting sewer gases to enter living spaces. Inspecting roof vent stacks for bird nests, leaf buildup, or ice cap formation is a primary troubleshooting step. Restoring full atmospheric airflow restores balanced pressure and stops trap siphonage.",
+  "hashtags": [
+    "#plumbing",
+    "#drainage",
+    "#plumbingtroubleshooting",
+    "#plumbingeducation",
+    "#drainventing"
+  ],
+  "caption": "Troubleshooting Gurgling Drains and Vent Line Blockages\n\nGurgling sounds coming from fixtures when draining nearby sinks or flushing toilets often indicate a ventilation issue rather than a standard branch line clog. When wastewater rushes through a drain without adequate air supply, it generates negative atmospheric pressure. This vacuum action pulls water directly out of nearby P-traps to equalize pressure, leaving the trap seal dry and permitting sewer gases to enter living spaces. Inspecting roof vent stacks for bird nests, leaf buildup, or ice cap formation is a primary troubleshooting step. Restoring full atmospheric airflow restores balanced pressure and stops trap siphonage.\n\n#plumbing #drainage #plumbingtroubleshooting #plumbingeducation #drainventing",
+  "schedule_time": "15:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-11-09/post_05/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-11-09/post_05/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}

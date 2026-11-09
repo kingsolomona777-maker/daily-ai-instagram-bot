@@ -1,0 +1,130 @@
+{
+  "package_date": "2026-11-09",
+  "timezone": "Africa/Lagos",
+  "status": "ready",
+  "total_posts": 10,
+  "reels": 5,
+  "educational_visuals": 5,
+  "schedule": [
+    {
+      "slot": 1,
+      "lesson_number": 1,
+      "content_type": "reel",
+      "title": "Why Drainage Lines Gurgle and Lose Their Water Seal",
+      "schedule_time": "07:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_01",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 2,
+      "lesson_number": 2,
+      "content_type": "educational_visual",
+      "title": "How a Sink P-Trap Seals Out Sewer Gas",
+      "schedule_time": "09:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_02",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 3,
+      "lesson_number": 3,
+      "content_type": "reel",
+      "title": "Incorrect Waste Pipe Slope Causes Chronic Clogs",
+      "schedule_time": "11:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_03",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 4,
+      "lesson_number": 4,
+      "content_type": "educational_visual",
+      "title": "Preventing Trap Seal Loss in Unused Drains",
+      "schedule_time": "13:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_04",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 5,
+      "lesson_number": 5,
+      "content_type": "reel",
+      "title": "Troubleshooting Gurgling Drains and Vent Line Blockages",
+      "schedule_time": "15:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_05",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 6,
+      "lesson_number": 6,
+      "content_type": "educational_visual",
+      "title": "Inspecting Drain Pipe Slope for Long-Term Maintenance",
+      "schedule_time": "17:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_06",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 7,
+      "lesson_number": 7,
+      "content_type": "reel",
+      "title": "Why Sanitary Tees Fail on Horizontal Drainage",
+      "schedule_time": "19:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_07",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 8,
+      "lesson_number": 8,
+      "content_type": "educational_visual",
+      "title": "Cast Iron vs. PVC in Drainage Applications",
+      "schedule_time": "21:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_08",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 9,
+      "lesson_number": 9,
+      "content_type": "reel",
+      "title": "Chemical Drain Cleaners vs. Mechanical Clearing",
+      "schedule_time": "22:00",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_09",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    },
+    {
+      "slot": 10,
+      "lesson_number": 10,
+      "content_type": "educational_visual",
+      "title": "Maintaining Proper Drainage Slope for Self-Scouring Flow",
+      "schedule_time": "23:30",
+      "timezone": "Africa/Lagos",
+      "post_directory": "post_10",
+      "publication_status": "pending",
+      "instagram_media_id": null,
+      "published_at": null
+    }
+  ]
+}

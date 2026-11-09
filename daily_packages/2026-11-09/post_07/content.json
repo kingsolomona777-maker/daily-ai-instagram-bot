@@ -1,0 +1,29 @@
+{
+  "package_date": "2026-11-09",
+  "slot": 7,
+  "lesson_number": 7,
+  "content_type": "reel",
+  "role": "installation_principle",
+  "lesson_type": "installation_principle",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "common plumbing mistakes",
+  "title": "Why Sanitary Tees Fail on Horizontal Drainage",
+  "description": "A common installation mistake in DWV (Drain, Waste, Vent) systems is using a standard sanitary tee to connect horizontal drainage branches. Sanitary tees are engineered specifically for vertical-to-horizontal transitions or vent line connections. When installed horizontally, the short radius curve does not direct wastewater smoothly, leading to solid buildup, frequent clogs, and improper drainage flow. To ensure proper self-scouring velocity and smooth waste movement along horizontal lines, plumbers should use a combination wye and 1/8 bend or a long-sweep wye fitting. Always consult local plumbing codes for approved fitting orientations.",
+  "hashtags": [
+    "plumbing",
+    "dwv",
+    "plumbingtips",
+    "drainage",
+    "tradeschool"
+  ],
+  "caption": "Why Sanitary Tees Fail on Horizontal Drainage\n\nA common installation mistake in DWV (Drain, Waste, Vent) systems is using a standard sanitary tee to connect horizontal drainage branches. Sanitary tees are engineered specifically for vertical-to-horizontal transitions or vent line connections. When installed horizontally, the short radius curve does not direct wastewater smoothly, leading to solid buildup, frequent clogs, and improper drainage flow. To ensure proper self-scouring velocity and smooth waste movement along horizontal lines, plumbers should use a combination wye and 1/8 bend or a long-sweep wye fitting. Always consult local plumbing codes for approved fitting orientations.\n\nplumbing dwv plumbingtips drainage tradeschool",
+  "schedule_time": "19:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-11-09/post_07/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-11-09/post_07/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}

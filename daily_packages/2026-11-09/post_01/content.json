@@ -1,0 +1,29 @@
+{
+  "package_date": "2026-11-09",
+  "slot": 1,
+  "lesson_number": 1,
+  "content_type": "reel",
+  "role": "problem_and_cause",
+  "lesson_type": "problem_and_cause",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "drainage systems",
+  "title": "Why Drainage Lines Gurgle and Lose Their Water Seal",
+  "description": "When a plumbing fixture drains rapidly, the water moving through the pipe can act like a piston, creating a low-pressure vacuum behind it. Without adequate venting to supply air, this suction pulls air through the nearest P-trap, pulling out the liquid seal. Known as self-siphonage, this issue leaves the trap empty and allows sewer gases to enter the building. Gurgling noises during drainage are a key warning sign of venting problems or partial blockages downstream. Fixing this requires maintaining proper vent piping or installing approved air admittance valves according to local code.",
+  "hashtags": [
+    "PlumbingTips",
+    "DrainageSystems",
+    "PlumbingEducation",
+    "PTrap",
+    "PlumbingApprentice"
+  ],
+  "caption": "Why Drainage Lines Gurgle and Lose Their Water Seal\n\nWhen a plumbing fixture drains rapidly, the water moving through the pipe can act like a piston, creating a low-pressure vacuum behind it. Without adequate venting to supply air, this suction pulls air through the nearest P-trap, pulling out the liquid seal. Known as self-siphonage, this issue leaves the trap empty and allows sewer gases to enter the building. Gurgling noises during drainage are a key warning sign of venting problems or partial blockages downstream. Fixing this requires maintaining proper vent piping or installing approved air admittance valves according to local code.\n\nPlumbingTips DrainageSystems PlumbingEducation PTrap PlumbingApprentice",
+  "schedule_time": "07:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-11-09/post_01/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-11-09/post_01/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}
