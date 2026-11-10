@@ -1,22 +1,21 @@
 {
-  "idea": "How to prevent bathroom pipe problems",
-  "title": "Preventing Bathroom Drain Clogs at the P-Trap",
-  "description": "An educational breakdown showing how hair and soap scum collect inside a bathroom P-trap, demonstrating why mechanical prevention and manual trap maintenance are superior to aggressive chemical treatments.",
-  "image_prompt": "Vertical 9:16 photorealistic educational cutaway section beneath a residential bathroom sink vanity. The image shows a realistic cross-section view of standard white PVC drain piping: a chrome drain assembly in the sink basin, leading down through a smooth vertical tailpiece into a curved P-trap fitting, which connects to a horizontal waste pipe entering the wall. Inside the curved trap water seal, a clear physical build-up of hair strands and soap residue is shown contained within the dip of the trap. Bright, clean natural lighting inside a realistic cabinet interior. Centered composition with clean visual space in the top third and bottom third. No text, no arrows, no labels, no logos, no watermarks, photorealistic detail, physically realistic plumbing connections.",
-  "visual_story": "The viewer observes a detailed cutaway of the drain system under a bathroom vanity. The visual highlights the standard P-trap section where water rests to seal sewer gases, showing how hair and organic debris naturally gather in the trap loop before reaching the main branch drain. This visual establishes that most bathroom blockages are accessible and preventable at the fixture level.",
+  "idea": "How to prevent blocked drains",
+  "title": "Understanding Grease Buildup in Kitchen Drains",
+  "description": "An educational breakdown of how liquid fats and grease solidify inside drain lines, creating stubborn downstream blockages.",
+  "image_prompt": "A detailed 3D technical cutaway illustration of a standard 1.5-inch white PVC drain pipe underneath a kitchen sink, vertical 9:16 aspect ratio. The cross-section shows the interior of the pipe where a thick, yellow-white layer of congealed grease and oil adheres to the lower and side inner walls, restricting the pipe inner diameter. Clear wastewater flows through the remaining narrowed center channel. Photorealistic plastic textures, realistic wall thickness, clean uncluttered light gray background beneath a sink cabinet, soft studio lighting focused on the interior pipe cross-section. Clean composition with empty space at the top and bottom third for text overlays. No text, no letters, no logos, no watermarks, no arrows, no diagrams on the image.",
+  "visual_story": "The visual uses a clear cutaway view of a horizontal kitchen drain pipe to highlight what happens inside an unseen drainage line. Viewers can see how hot liquid fats cool down, adhere to cold pipe walls, and build up in layers, reducing the effective diameter of the pipe and catching debris.",
   "on_image_text": {
-    "hook": "Stop Bathroom Clogs Before They Reach Your Wall",
-    "explanation": "Hair and soap scum settle inside the P-trap dip before reaching the main branch drain.",
-    "callout": "Accessible trap collection area",
-    "takeaway": "Use surface strainers and clean the P-trap manually to protect downstream piping."
+    "hook": "Why Hot Water Doesn't Stop Grease Clogs",
+    "explanation": "Liquid fats travel down the drain, cool against cold pipe walls, and solidify downstream where water temperature drops.",
+    "callout": "Congealed fat layer narrowing the 1.5-inch PVC pipe interior",
+    "takeaway": "Wipe greasy pans into the trash before washing—never pour liquid fats down the sink."
   },
   "hashtags": [
-    "#PlumbingTips",
     "#PlumbingEducation",
-    "#PTrap",
     "#DrainMaintenance",
-    "#PlumbingApprentice",
-    "#HomeMaintenance",
+    "#PlumbingTips",
+    "#ApprenticePlumber",
+    "#KitchenPlumbing",
     "#PlumbingAdvice"
   ],
   "reel_enabled": false,
