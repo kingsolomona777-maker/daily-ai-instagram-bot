@@ -1,23 +1,23 @@
 {
-  "idea": "How to maintain kitchen drainage",
-  "title": "Kitchen Drainage Maintenance: Preventing Grease Buildup in P-Traps",
-  "description": "Educational guide explaining how grease solidifies inside kitchen sink P-traps and how routine maintenance prevents drain restrictions.",
-  "image_prompt": "A clean, professional 9:16 vertical educational cutaway illustration of a residential kitchen sink drain assembly under an open cabinet. The image shows a realistic white PVC P-trap connected to a stainless steel sink drain assembly at the top and a wall drain pipe at the back. The lower bend of the P-trap is rendered in a clear cross-section, revealing the interior of the pipe. Inside the trap dip, a visible layer of yellowish grease residue is shown sticking to the lower interior pipe walls beneath standing water, while clear water attempts to pass through. The piping geometry is physically realistic with correct slip-nut fittings, wall escutcheon, and standard 1.5-inch tubular drainage proportions. Professional studio lighting under the cabinet, crisp focus, photorealistic textures for PVC and stainless steel. No text, no labels, no arrows, no watermarks, no logos, no fake branding.",
-  "visual_story": "The visual uses a clear sectional view of an under-sink P-trap to show where kitchen waste settles. Viewers can see how liquid fats and cooking oils cool down when they hit the standing water trapped inside the P-trap bend. As the grease cools, it attaches to the PVC interior walls, gradually narrowing the drainage path. This visual directly links unseen pipe blockages to daily kitchen habits.",
+  "idea": "How to prevent bathroom pipe problems",
+  "title": "Preventing Bathroom Drain Clogs at the P-Trap",
+  "description": "An educational breakdown showing how hair and soap scum collect inside a bathroom P-trap, demonstrating why mechanical prevention and manual trap maintenance are superior to aggressive chemical treatments.",
+  "image_prompt": "Vertical 9:16 photorealistic educational cutaway section beneath a residential bathroom sink vanity. The image shows a realistic cross-section view of standard white PVC drain piping: a chrome drain assembly in the sink basin, leading down through a smooth vertical tailpiece into a curved P-trap fitting, which connects to a horizontal waste pipe entering the wall. Inside the curved trap water seal, a clear physical build-up of hair strands and soap residue is shown contained within the dip of the trap. Bright, clean natural lighting inside a realistic cabinet interior. Centered composition with clean visual space in the top third and bottom third. No text, no arrows, no labels, no logos, no watermarks, photorealistic detail, physically realistic plumbing connections.",
+  "visual_story": "The viewer observes a detailed cutaway of the drain system under a bathroom vanity. The visual highlights the standard P-trap section where water rests to seal sewer gases, showing how hair and organic debris naturally gather in the trap loop before reaching the main branch drain. This visual establishes that most bathroom blockages are accessible and preventable at the fixture level.",
   "on_image_text": {
-    "hook": "Why Kitchen Drains Slow Down",
-    "explanation": "Warm fats and oils cool down upon entering standing trap water, adhering to interior pipe walls.",
-    "callout": "Grease Coagulation inside P-Trap Bend",
-    "takeaway": "Scrape fats into the trash and flush drains routinely with hot water and dish detergent."
+    "hook": "Stop Bathroom Clogs Before They Reach Your Wall",
+    "explanation": "Hair and soap scum settle inside the P-trap dip before reaching the main branch drain.",
+    "callout": "Accessible trap collection area",
+    "takeaway": "Use surface strainers and clean the P-trap manually to protect downstream piping."
   },
   "hashtags": [
-    "#PlumbingEducation",
-    "#KitchenPlumbing",
-    "#DrainMaintenance",
     "#PlumbingTips",
-    "#ApprenticePlumber",
+    "#PlumbingEducation",
+    "#PTrap",
+    "#DrainMaintenance",
+    "#PlumbingApprentice",
     "#HomeMaintenance",
-    "#PlumbingSystem"
+    "#PlumbingAdvice"
   ],
   "reel_enabled": false,
   "reel_file": null
