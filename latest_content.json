@@ -1,23 +1,23 @@
 {
-  "idea": "How to maintain a water tank",
-  "title": "Why Storage Tanks Need Regular Sediment Flushing",
-  "description": "An educational guide on how sediment builds up at the bottom of a water storage tank and why periodic flushing via the low-level drain valve protects household supply lines.",
-  "image_prompt": "A clean, professional vertical 9:16 technical cutaway diagram of a dark blue polyethylene overhead water storage tank mounted on an outdoor concrete platform under soft natural daylight. The cutaway reveals clear water inside the tank. At the floor of the tank, a distinct layer of fine brown sediment and silt has settled. A threaded UPVC supply outlet pipe penetrates the side wall positioned several inches above the tank floor, drawing clean water from above the sediment line. At the absolute lowest point of the tank floor, a dedicated drain outlet connects to a brass ball valve designed for sediment flushing. Pipe connections, solvent-weld joints, and mechanical fittings are physically accurate, realistic, and proportioned correctly. Photorealistic lighting, clear focus, high technical detail, no text, no visual annotations, no labels, no logos, no watermarks.",
-  "visual_story": "The visual uses a clear cutaway of an overhead storage tank to show why water outlets are placed above the tank floor. Viewers will notice the brown sediment settled at the base, remaining safely below the elevated outlet pipe. A dedicated bottom washout valve is clearly shown at the floor level. This illustrates how the design isolates heavy particles and why opening the bottom flush valve regularly clears trapped silt before it reaches household fixtures.",
+  "idea": "Common causes of blocked sinks",
+  "title": "Why Kitchen Sinks Block: The Grease Trap Effect",
+  "description": "Educational breakdown showing how fats, oils, and grease cool and solidify inside drain P-traps, restricting wastewater flow.",
+  "image_prompt": "A detailed educational 3D cross-sectional cutaway illustration of a residential kitchen sink drain assembly under a cabinet, vertical 9:16 composition. The main focus is centered on a clean white PVC P-trap fitting. The cutaway section reveals a realistic layer of yellowish-brown solidified grease and fine food debris adhering to the inner curved walls of the trap bend, visibly reducing the internal pipe diameter. Clean water fills the trap seal above the build-up. Background shows a clean, illuminated under-sink cabinet environment with photorealistic textures and natural lighting. No text, no arrows, no watermarks, no logos, no fake branding.",
+  "visual_story": "The visual uses a clear cutaway view of a standard kitchen P-trap to show the exact point where drain blockages typically begin. Viewers can see how warm grease, which enters the sink as a liquid, cools down upon contacting standing water in the trap dip. The visual highlights the physical restriction inside the pipe, demonstrating why grease does not simply wash away down the sewer line.",
   "on_image_text": {
-    "hook": "Prevent Sediment In Your Supply Lines",
-    "explanation": "Heavy silt settles at the tank floor, below the raised outlet supply fitting.",
-    "callout": "Bottom Drain / Washout Valve",
-    "takeaway": "Flush the tank bottom drain every 6–12 months to stop debris from entering taps."
+    "hook": "Why Hot Grease Causes Cold Drain Blockages",
+    "explanation": "Liquid fats cool rapidly inside wastewater traps, adhering to pipe walls and catching solid debris.",
+    "callout": "Grease Accumulation in P-Trap",
+    "takeaway": "Wipe greasy cookware with paper towels before washing to protect your drain line."
   },
   "hashtags": [
-    "#plumbingeducation",
-    "#watertankmaintenance",
-    "#plumbingtips",
-    "#plumbingapprentice",
-    "#watertank",
-    "#homeplumbing",
-    "#plumbingwork"
+    "#PlumbingEducation",
+    "#PlumbingTips",
+    "#DrainCleaning",
+    "#PlumbingApprentice",
+    "#HomeMaintenance",
+    "#KitchenPlumbing",
+    "#PlumbingAdvice"
   ],
   "reel_enabled": false,
   "reel_file": null
