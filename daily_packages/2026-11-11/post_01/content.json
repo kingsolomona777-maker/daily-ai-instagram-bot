@@ -1,0 +1,29 @@
+{
+  "package_date": "2026-11-11",
+  "slot": 1,
+  "lesson_number": 1,
+  "content_type": "reel",
+  "role": "problem_and_cause",
+  "lesson_type": "problem_and_cause",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "drainage systems",
+  "title": "Why Sink Drains Gurgle and Drain Slowly",
+  "description": "When a sink gurgles or drains slowly, plumbers often blame a pipe blockage first. However, restricted ventilation is another primary culprit. A DWV (Drain-Waste-Vent) system requires air to flow freely behind discharging water to prevent atmospheric vacuum formation. If the vent line is obstructed by debris, leaves, or improper slope, the falling water pulls air through the trap seal instead. This creates the characteristic gurgling noise and slows water movement. Inspecting vent roof terminals and checking horizontal vent runs for blockages is an essential diagnostic step before cabling main drain lines.",
+  "hashtags": [
+    "#plumbing",
+    "#drainage",
+    "#plumbingtips",
+    "#apprentice",
+    "#tradesman"
+  ],
+  "caption": "Why Sink Drains Gurgle and Drain Slowly\n\nWhen a sink gurgles or drains slowly, plumbers often blame a pipe blockage first. However, restricted ventilation is another primary culprit. A DWV (Drain-Waste-Vent) system requires air to flow freely behind discharging water to prevent atmospheric vacuum formation. If the vent line is obstructed by debris, leaves, or improper slope, the falling water pulls air through the trap seal instead. This creates the characteristic gurgling noise and slows water movement. Inspecting vent roof terminals and checking horizontal vent runs for blockages is an essential diagnostic step before cabling main drain lines.\n\n#plumbing #drainage #plumbingtips #apprentice #tradesman",
+  "schedule_time": "07:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-11-11/post_01/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-11-11/post_01/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}
