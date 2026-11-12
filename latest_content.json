@@ -1,23 +1,23 @@
 {
-  "idea": "Basic plumbing maintenance every homeowner should know",
-  "title": "Clearing Clogged Faucet Aerators",
-  "description": "When water pressure suddenly drops at just one faucet, the issue is rarely inside your main water line. In most cases, mineral scale and pipe debris have collected inside the faucet aerator—the small screen assembly threaded onto the tip of the spout. To restore full flow, unscrew the aerator housing counterclockwise, disassemble the mesh screens, and flush away trapped particles. For stubborn mineral scale, soak the components in household vinegar. Cleaning your aerators twice a year prevents localized pressure loss and extends component life. What maintenance task do you check first when flow drops?",
-  "image_prompt": "A high-definition, photorealistic detailed macro photograph of a modern brushed stainless steel faucet spout tip in a clean residential setting. The faucet aerator assembly is cleanly unthreaded from the spout, showing its physical components in precise alignment: the threaded outer brass housing, a black rubber sealing gasket, and a layered fine mesh aerator screen stack with minor visible mineral sediment trapped inside. Clean natural window lighting, shot from a 45-degree angle with a soft blurred background. Vertical 9:16 aspect ratio. Ample clean negative space in the upper and lower third. No text, no logos, no watermarks, no fake product branding, photorealistic plumbing geometry.",
-  "visual_story": "The visual displays a close-up disassembly of a standard faucet aerator from the spout tip. Viewers can see how mineral particles become trapped against the screen stack, blocking water flow. This clearly illustrates that localized low pressure is caused by physical debris restriction at the terminal outlet rather than a main pipe breakdown.",
+  "idea": "Signs of a hidden water leak",
+  "title": "Using the Water Meter to Detect Hidden Supply Leaks",
+  "description": "Educational guide demonstrating how to use a water meter's low-flow leak indicator to confirm hidden pressurized water leaks before structural damage occurs.",
+  "image_prompt": "A crisp, photorealistic macro photograph of an analog brass water meter installed on a domestic supply line, vertical 9:16 format. The camera is focused sharply on the clear glass dial face, showcasing the detailed mechanical register with volumetric markings and a distinct small red low-flow leak indicator gear wheel near the center. The meter features authentic heavy brass threaded couplings connected to clean copper supply lines. Professional utility room lighting with clear directional light emphasizing the glass face and brass metal textures. Balanced vertical composition with clean background space left open in the upper and lower thirds for text layout. Physically accurate plumbing fittings, clean realistic installation, no digital text overlays, no extra graphic labels, no watermarks, no logos, no fake brand names.",
+  "visual_story": "The visual directs attention directly onto the mechanical register of a standard water meter, specifically focusing on the low-flow leak indicator dial. By establishing a clear view of the physical meter face integrated into realistic supply piping, the visual grounds the lesson in basic mechanical principles: any unmetered movement when fixtures are isolated confirms continuous fluid displacement within the pressurized line.",
   "on_image_text": {
-    "hook": "Low water pressure at just one fixture?",
-    "explanation": "Mineral scale and pipe sediment collect inside the aerator screen stack, restricting localized outlet flow.",
-    "callout": "Aerator Mesh Assembly",
-    "takeaway": "Unscrew and rinse aerator screens before assuming a main line plumbing fault."
+    "hook": "Confirming a Hidden Leak",
+    "explanation": "If all fixtures are shut off, movement on the meter dial confirms water escaping the pressurized line.",
+    "callout": "Low-Flow Leak Indicator Dial",
+    "takeaway": "Shut the main indoor valve to determine if the leak is inside the structure or underground."
   },
   "hashtags": [
-    "#plumbingeducation",
-    "#plumbingmaintenance",
-    "#homeownereducation",
-    "#plumbingtips",
-    "#diyplumbing",
-    "#waterpressure",
-    "#apprenticeplumber"
+    "PlumbingEducation",
+    "LeakDetection",
+    "WaterMeter",
+    "PlumbingTips",
+    "ApprenticePlumber",
+    "PlumbingDiagnostics",
+    "WaterSupply"
   ],
   "reel_enabled": false,
   "reel_file": null
