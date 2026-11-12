@@ -1,21 +1,22 @@
 {
-  "idea": "How to maintain a home water system",
-  "title": "Maintaining Main Water Shut-Off Valves",
-  "description": "Learn why residential main water isolation valves seize over time and how simple periodic maintenance prevents emergency shut-off failures.",
-  "image_prompt": "A professional cutaway visual photograph of a brass gate valve installed on a clean copper residential main water supply pipe. The valve is shown in a clean, brightly lit technical studio setting inside a utility space. The cutaway section exposes the internal valve stem threads, wedge gate, and packing gland, showing realistic slight white calcium mineral deposit buildup along the internal stem threads. The pipe section shows realistic brass, copper solder joints, and clean mechanical geometry. Vertical 9:16 composition, centered subject, sharp visual focus, realistic material textures. No text, no logos, no watermarks, no annotations, no arrows, no visual noise.",
-  "visual_story": "The visual uses a clear educational cutaway of a brass isolation valve to show the interior mechanical parts that viewers rarely see. It highlights the valve stem and internal gate mechanism where dissolved minerals in domestic water accumulate over time. By seeing how scale binds the stem threads inside the valve body, the viewer understands why a valve that has not been operated in years suddenly seizes or leaks when forced during an emergency.",
+  "idea": "Basic plumbing maintenance every homeowner should know",
+  "title": "Clearing Clogged Faucet Aerators",
+  "description": "When water pressure suddenly drops at just one faucet, the issue is rarely inside your main water line. In most cases, mineral scale and pipe debris have collected inside the faucet aerator—the small screen assembly threaded onto the tip of the spout. To restore full flow, unscrew the aerator housing counterclockwise, disassemble the mesh screens, and flush away trapped particles. For stubborn mineral scale, soak the components in household vinegar. Cleaning your aerators twice a year prevents localized pressure loss and extends component life. What maintenance task do you check first when flow drops?",
+  "image_prompt": "A high-definition, photorealistic detailed macro photograph of a modern brushed stainless steel faucet spout tip in a clean residential setting. The faucet aerator assembly is cleanly unthreaded from the spout, showing its physical components in precise alignment: the threaded outer brass housing, a black rubber sealing gasket, and a layered fine mesh aerator screen stack with minor visible mineral sediment trapped inside. Clean natural window lighting, shot from a 45-degree angle with a soft blurred background. Vertical 9:16 aspect ratio. Ample clean negative space in the upper and lower third. No text, no logos, no watermarks, no fake product branding, photorealistic plumbing geometry.",
+  "visual_story": "The visual displays a close-up disassembly of a standard faucet aerator from the spout tip. Viewers can see how mineral particles become trapped against the screen stack, blocking water flow. This clearly illustrates that localized low pressure is caused by physical debris restriction at the terminal outlet rather than a main pipe breakdown.",
   "on_image_text": {
-    "hook": "Why Main Shut-Off Valves Seize",
-    "explanation": "Dissolved minerals settle on internal valve stem threads, locking unoperated valves over time.",
-    "callout": "Mineral Scale on Stem Threads",
-    "takeaway": "Fully close and reopen isolation valves twice a year to keep threads clear and operational."
+    "hook": "Low water pressure at just one fixture?",
+    "explanation": "Mineral scale and pipe sediment collect inside the aerator screen stack, restricting localized outlet flow.",
+    "callout": "Aerator Mesh Assembly",
+    "takeaway": "Unscrew and rinse aerator screens before assuming a main line plumbing fault."
   },
   "hashtags": [
     "#plumbingeducation",
-    "#plumbingtips",
-    "#homeplumbing",
     "#plumbingmaintenance",
-    "#watermain",
+    "#homeownereducation",
+    "#plumbingtips",
+    "#diyplumbing",
+    "#waterpressure",
     "#apprenticeplumber"
   ],
   "reel_enabled": false,
