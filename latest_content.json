@@ -1,23 +1,23 @@
 {
-  "idea": "How to maintain a home water system",
-  "title": "Maintaining Your Water Heater Sacrificial Anode Rod",
-  "description": "Storage tank water heaters rely on a sacrificial anode rod to prevent inner steel tank corrosion. Made of magnesium or aluminum around a steel core wire, this rod attracts corrosive elements through sacrificial galvanic action. Over time, aggressive minerals deplete the rod material completely, leaving the tank vulnerable to rust and leaks. Inspecting your anode rod every 2 to 3 years—and replacing it when more than 6 inches of the inner steel wire is exposed—can double the lifespan of your water heating unit. Have you ever checked the condition of your anode rod during regular routine maintenance?",
-  "image_prompt": "A clear educational split-view visual of a water heater sacrificial anode rod maintenance. On the left side, a brand-new smooth magnesium sacrificial anode rod attached to a brass hex-head plug. On the right side, a severely depleted, corroded anode rod showing extensive pitting and an exposed central steel core wire. The background is a clean, modern mechanical space featuring realistic copper piping, brass isolation valves, and a storage water heater unit. High-detail photorealistic image, realistic metal textures, balanced studio lighting, vertical 9:16 aspect ratio. Main subject centered with visual breathing room at the top and bottom. No text, no words, no arrows, no logos, no watermarks, no fake brand labels.",
-  "visual_story": "The visual presents a direct comparison between a fresh sacrificial anode rod and a depleted one removed from service. The viewer sees the dramatic reduction of protective metal on the corroded rod, illustrating how galvanic action consumes the sacrificial metal over time to protect the tank structure.",
+  "idea": "How to prevent blocked drains",
+  "title": "Preventing Kitchen Drain Blockages: Understanding FOG Accumulation",
+  "description": "Warm fats, oils, and grease (FOG) pour smoothly when hot, but as they travel into cool underground or in-wall drainage pipes, they rapidly cool and solidify against the pipe walls. Over time, this waxy layer thickens, catching passing food particles and gradually choking off water flow. Running hot water down the drain only relocates the grease further down the line where it eventually cools anyway. To protect your drainage system, scrape cookware into the waste bin and wipe heavy grease with paper towels before washing. How do you handle leftover cooking oils in your home or shop?",
+  "image_prompt": "A professional 9:16 vertical high-detail cutaway technical illustration of a residential kitchen P-trap drain assembly beneath a sink. The cross-section clearly reveals the inside of a white PVC drain pipe where a thick, realistic yellow-white layer of solidified grease and fat lines the bottom and sides of the internal pipe wall, significantly reducing the internal diameter for water flow. Clean, bright studio lighting highlights the contrast between the clean upper pipe and the constricted lower channel. Soft neutral background, realistic plumbing fittings and wall connection. Space left clean at the top and bottom for visual balance. Photorealistic textures, no text, no labels, no arrows, no logos, no watermarks, no fake branding.",
+  "visual_story": "The visual uses a clear pipe cross-section to show what happens inside a drain when warm grease is poured down a sink. Viewers can see how liquid fat turns into a solid, sticky coating on the interior pipe walls, narrowing the channel and trapping debris. This visual directly reinforces the lesson that liquid grease does not stay liquid inside cold drain lines.",
   "on_image_text": {
-    "hook": "Prevent Tank Corrosion Before It Starts",
-    "explanation": "The sacrificial anode corrodes first to protect your steel tank from rusting.",
-    "callout": "New vs. Depleted Anode Rod",
-    "takeaway": "Inspect your anode rod every 2 years and replace it when the core wire is exposed."
+    "hook": "Why Hot Water Doesn't Stop Grease Clogs",
+    "explanation": "Melted fats cool inside your drain pipes, coating the inner walls and narrowing water flow.",
+    "callout": "Solidified grease buildup inside drain pipe",
+    "takeaway": "Scrape pans into the trash and wipe off oil before washing."
   },
   "hashtags": [
-    "#PlumbingTips",
-    "#WaterHeaterMaintenance",
-    "#PlumbingEducation",
-    "#AnodeRod",
-    "#HomeMaintenance",
-    "#PlumbingApprentice",
-    "#PlumbingService"
+    "#plumbingeducation",
+    "#drainmaintenance",
+    "#plumbingtips",
+    "#homeowneradvice",
+    "#apprenticeplumber",
+    "#kitchenplumbing",
+    "#preventativemaintenance"
   ],
   "reel_enabled": false,
   "reel_file": null
