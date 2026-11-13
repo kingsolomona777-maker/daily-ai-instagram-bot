@@ -1,23 +1,23 @@
 {
-  "idea": "Why professional plumbing installation matters",
-  "title": "Proper Drain Pitch & Pipe Support",
-  "description": "A proper drainage system relies on gravity and rigid structural support to move wastewater effectively. When horizontal DWV (Drain-Waste-Vent) pipes lack correct hanger spacing, the weight of standing water causes the pipe to sag over time—creating a pipe belly. Solid waste and sediment collect in these low sections, causing recurring blockages and placing stress on solvent-welded joints. Professional plumbing installation ensures a consistent downward slope—typically 1/4 inch per foot for pipes under 3 inches—and code-compliant hanger support. Check accessible drain lines in crawlspaces or basements to confirm continuous support.",
-  "image_prompt": "A professional photorealistic vertical 9:16 educational visual showing an exposed horizontal PVC waste pipe installed beneath wooden floor joists in a clean basement setting. The central focus is on a section of white Schedule 40 PVC DWV pipe suspended by adjustable galvanized steel teardrop pipe hangers attached to the joists. The pipe shows realistic solvent weld joint details, clean glue lines, and a smooth continuous downward slope. Natural soft realistic workspace lighting illuminates the clean plumbing components. Main pipe section is positioned near the visual center with neutral wall space surrounding it. Vertical 9:16 composition, highly detailed, realistic materials, no text, no visual overlays, no graphic labels, no logos, no watermarks.",
-  "visual_story": "The visual highlights the physical relationship between drain pipe support and proper line slope. Viewers observe a realistic horizontal PVC waste line secured to floor joists with metal hangers. The image visually demonstrates correct alignment, showing how proper hanger placement prevents sagging (pipe belly) and ensures waste moves continuously by gravity without pooling.",
+  "idea": "How to maintain a home water system",
+  "title": "Maintaining Your Water Heater Sacrificial Anode Rod",
+  "description": "Storage tank water heaters rely on a sacrificial anode rod to prevent inner steel tank corrosion. Made of magnesium or aluminum around a steel core wire, this rod attracts corrosive elements through sacrificial galvanic action. Over time, aggressive minerals deplete the rod material completely, leaving the tank vulnerable to rust and leaks. Inspecting your anode rod every 2 to 3 years—and replacing it when more than 6 inches of the inner steel wire is exposed—can double the lifespan of your water heating unit. Have you ever checked the condition of your anode rod during regular routine maintenance?",
+  "image_prompt": "A clear educational split-view visual of a water heater sacrificial anode rod maintenance. On the left side, a brand-new smooth magnesium sacrificial anode rod attached to a brass hex-head plug. On the right side, a severely depleted, corroded anode rod showing extensive pitting and an exposed central steel core wire. The background is a clean, modern mechanical space featuring realistic copper piping, brass isolation valves, and a storage water heater unit. High-detail photorealistic image, realistic metal textures, balanced studio lighting, vertical 9:16 aspect ratio. Main subject centered with visual breathing room at the top and bottom. No text, no words, no arrows, no logos, no watermarks, no fake brand labels.",
+  "visual_story": "The visual presents a direct comparison between a fresh sacrificial anode rod and a depleted one removed from service. The viewer sees the dramatic reduction of protective metal on the corroded rod, illustrating how galvanic action consumes the sacrificial metal over time to protect the tank structure.",
   "on_image_text": {
-    "hook": "Sagging Drain Lines Cause Silent Clogs",
-    "explanation": "Inadequate pipe hanger spacing creates low spots where wastewater settles and solid debris collects.",
-    "callout": "Pipe Support & Pitch Alignment",
-    "takeaway": "Maintain code-compliant hanger spacing and consistent downward slope on all horizontal drains."
+    "hook": "Prevent Tank Corrosion Before It Starts",
+    "explanation": "The sacrificial anode corrodes first to protect your steel tank from rusting.",
+    "callout": "New vs. Depleted Anode Rod",
+    "takeaway": "Inspect your anode rod every 2 years and replace it when the core wire is exposed."
   },
   "hashtags": [
-    "#plumbingeducation",
-    "#plumbingtips",
-    "#drainage",
-    "#plumbingapprentice",
-    "#tradeschool",
-    "#homeowneradvice",
-    "#oromplan1"
+    "#PlumbingTips",
+    "#WaterHeaterMaintenance",
+    "#PlumbingEducation",
+    "#AnodeRod",
+    "#HomeMaintenance",
+    "#PlumbingApprentice",
+    "#PlumbingService"
   ],
   "reel_enabled": false,
   "reel_file": null
