@@ -1,0 +1,29 @@
+{
+  "package_date": "2026-11-13",
+  "slot": 5,
+  "lesson_number": 5,
+  "content_type": "reel",
+  "role": "troubleshooting",
+  "lesson_type": "troubleshooting",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "drain ventilation",
+  "title": "Troubleshooting Siphonage and Gurgling Drains",
+  "description": "When a fixture gurgles or drains slowly while another fixture is in use, the underlying cause is often a vent restriction rather than a main line blockage. Plumbing vents introduce atmospheric pressure into the drainage system, preventing negative pressure build-up. Without adequate airflow, discharging water creates a vacuum that pulls water out of nearby P-traps. This leaves the trap seal dry, allowing sewer gases to enter the building. Inspecting vent terminals for bird nests, ice, or debris is a critical troubleshooting step before attempting aggressive line clearing.",
+  "hashtags": [
+    "#PlumbingTroubleshooting",
+    "#DrainVentilation",
+    "#PlumbingTips",
+    "#Tradesman",
+    "#OromPlan1"
+  ],
+  "caption": "Troubleshooting Siphonage and Gurgling Drains\n\nWhen a fixture gurgles or drains slowly while another fixture is in use, the underlying cause is often a vent restriction rather than a main line blockage. Plumbing vents introduce atmospheric pressure into the drainage system, preventing negative pressure build-up. Without adequate airflow, discharging water creates a vacuum that pulls water out of nearby P-traps. This leaves the trap seal dry, allowing sewer gases to enter the building. Inspecting vent terminals for bird nests, ice, or debris is a critical troubleshooting step before attempting aggressive line clearing.\n\n#PlumbingTroubleshooting #DrainVentilation #PlumbingTips #Tradesman #OromPlan1",
+  "schedule_time": "15:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-11-13/post_05/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-11-13/post_05/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}

@@ -1,0 +1,29 @@
+{
+  "package_date": "2026-11-13",
+  "slot": 1,
+  "lesson_number": 1,
+  "content_type": "reel",
+  "role": "problem_and_cause",
+  "lesson_type": "problem_and_cause",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "drainage systems",
+  "title": "Why Drains Gurgle: Understanding Trap Siphonage",
+  "description": "A gurgling drain is rarely just a minor clog—it is often a sign of negative air pressure in the drainage system pulling water out of your trap. When a fixture discharges without adequate venting, the rushing water acts like a piston, creating a vacuum downstream. This suction pulls air through the nearest connected P-trap, displacing its protective water seal and producing a distinct gurgling sound. Without a full water seal, sewer gases can freely enter the living space. Identifying whether air is being pulled in due to a blocked vent stack or an unvented branch is essential for quiet and safe operation.",
+  "hashtags": [
+    "#PlumbingTips",
+    "#DrainageSystems",
+    "#PlumbingEducation",
+    "#ApprenticePlumber",
+    "#BuildingCode"
+  ],
+  "caption": "Why Drains Gurgle: Understanding Trap Siphonage\n\nA gurgling drain is rarely just a minor clog—it is often a sign of negative air pressure in the drainage system pulling water out of your trap. When a fixture discharges without adequate venting, the rushing water acts like a piston, creating a vacuum downstream. This suction pulls air through the nearest connected P-trap, displacing its protective water seal and producing a distinct gurgling sound. Without a full water seal, sewer gases can freely enter the living space. Identifying whether air is being pulled in due to a blocked vent stack or an unvented branch is essential for quiet and safe operation.\n\n#PlumbingTips #DrainageSystems #PlumbingEducation #ApprenticePlumber #BuildingCode",
+  "schedule_time": "07:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-11-13/post_01/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-11-13/post_01/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}
