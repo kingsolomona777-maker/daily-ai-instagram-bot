@@ -1,23 +1,23 @@
 {
-  "idea": "How to prevent blocked drains",
-  "title": "Preventing Kitchen Drain Blockages: Understanding FOG Accumulation",
-  "description": "Warm fats, oils, and grease (FOG) pour smoothly when hot, but as they travel into cool underground or in-wall drainage pipes, they rapidly cool and solidify against the pipe walls. Over time, this waxy layer thickens, catching passing food particles and gradually choking off water flow. Running hot water down the drain only relocates the grease further down the line where it eventually cools anyway. To protect your drainage system, scrape cookware into the waste bin and wipe heavy grease with paper towels before washing. How do you handle leftover cooking oils in your home or shop?",
-  "image_prompt": "A professional 9:16 vertical high-detail cutaway technical illustration of a residential kitchen P-trap drain assembly beneath a sink. The cross-section clearly reveals the inside of a white PVC drain pipe where a thick, realistic yellow-white layer of solidified grease and fat lines the bottom and sides of the internal pipe wall, significantly reducing the internal diameter for water flow. Clean, bright studio lighting highlights the contrast between the clean upper pipe and the constricted lower channel. Soft neutral background, realistic plumbing fittings and wall connection. Space left clean at the top and bottom for visual balance. Photorealistic textures, no text, no labels, no arrows, no logos, no watermarks, no fake branding.",
-  "visual_story": "The visual uses a clear pipe cross-section to show what happens inside a drain when warm grease is poured down a sink. Viewers can see how liquid fat turns into a solid, sticky coating on the interior pipe walls, narrowing the channel and trapping debris. This visual directly reinforces the lesson that liquid grease does not stay liquid inside cold drain lines.",
+  "idea": "How to prevent bad smells from drains",
+  "title": "Why Unused Drains Smell (And How to Fix It)",
+  "description": "Sewer gases enter living spaces primarily when the water seal inside a drain trap evaporates or is siphoned out. Standard fixtures utilize a U-shaped pipe fitting called a P-trap beneath the drain outlet. Standing water resting in this curved section creates a continuous physical barrier that blocks foul sewer gases from flowing back up into the room. When a sink, floor drain, or guest shower remains unused for extended periods, this trap water gradually evaporates, breaking the seal. Pouring water down dry drains routinely restores the protective barrier and stops bad smells immediately.",
+  "image_prompt": "A clean, detailed educational cutaway visual of a modern under-sink PVC P-trap assembly. Vertical 9:16 portrait orientation. The image shows a realistic cross-section view of the curved U-bend fitting beneath a bathroom vanity drain pipe. Inside the U-bend, clean standing water is visibly filling the curve to form a proper liquid trap seal. The upper pipe connecting to the sink strainer and the horizontal drain branch leaving into the wall are clearly depicted with physically accurate geometry and threaded slip-nut connections. Neutral, clean bright lighting in a professional installation setting, centered composition with ample clean background space at the top and bottom. Photorealistic technical quality, clean piping surfaces, no text, no visual labels, no arrows, no logos, no watermarks, no fake brand names.",
+  "visual_story": "The visual focuses on a cross-section cutaway of a standard P-trap beneath a drain outlet. Viewers can see how standing water rests naturally in the lowest curve of the pipe. This illustrates how liquid creates an airtight seal between the room above and the drainage system beyond the trap.",
   "on_image_text": {
-    "hook": "Why Hot Water Doesn't Stop Grease Clogs",
-    "explanation": "Melted fats cool inside your drain pipes, coating the inner walls and narrowing water flow.",
-    "callout": "Solidified grease buildup inside drain pipe",
-    "takeaway": "Scrape pans into the trash and wipe off oil before washing."
+    "hook": "Why Unused Drains Smell Bad",
+    "explanation": "Standing water inside the P-trap blocks sewer gas from entering your living space.",
+    "callout": "Dry Trap Seal Evaporation",
+    "takeaway": "Run water down rarely used drains periodically to maintain the liquid trap seal."
   },
   "hashtags": [
-    "#plumbingeducation",
-    "#drainmaintenance",
-    "#plumbingtips",
-    "#homeowneradvice",
-    "#apprenticeplumber",
-    "#kitchenplumbing",
-    "#preventativemaintenance"
+    "#PlumbingEducation",
+    "#PlumbingTips",
+    "#PTrap",
+    "#DrainSmells",
+    "#PlumbingAdvice",
+    "#HomeMaintenance",
+    "#ApprenticePlumber"
   ],
   "reel_enabled": false,
   "reel_file": null
