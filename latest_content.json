@@ -1,23 +1,23 @@
 {
-  "idea": "How to maintain kitchen drainage",
-  "title": "Understanding Grease Build-Up in Kitchen P-Traps",
-  "description": "Liquid cooking oils and melted fats may flow smoothly down the sink while hot, but as they hit cold standing water in the P-trap and uninsulated drain lines, they cool and solidify. Over time, this fat layer coats the inner pipe walls, capturing micro food particles and gradually restricting wastewater flow. Chemical cleaners often fail to break down thick grease coats entirely and can damage pipe seals if misused. To maintain proper kitchen drainage, wipe greasy cookware with paper towels before washing, and periodically run hot tap water down the drain to keep light residues moving.",
-  "image_prompt": "Vertical 9:16 aspect ratio educational detail showing a photorealistic clean cutaway cross-section of a residential under-sink kitchen drainage assembly. Focus on a white polypropylene P-trap connected to a horizontal drain arm beneath a stainless steel sink bowl. The pipe is illustrated with an exposed longitudinal cross-section, revealing the interior waterway. Inside the lower curve of the trap and along the horizontal arm, a realistic layer of semi-solidified yellow-white grease residue clings to the inner wall surface, narrowing the pipe diameter. Clean soft daylighting, realistic plastic textures, accurate slip-nut compression fittings, and true-to-life pipe geometry. No text, no logos, no watermarks, no artificial symbols.",
-  "visual_story": "The visual provides a clear, realistic cross-section cutaway of a kitchen P-trap beneath a sink. Viewers can immediately notice how liquid fat hardens along the lower bend of the trap and horizontal arm, physically constricting the interior diameter of the pipe. This illustrates why kitchen sinks slow down over time even when large food scraps are avoided.",
+  "idea": "How to maintain a water tank",
+  "title": "Preventing Sediment Accumulation in Water Tanks",
+  "description": "Water storage tanks naturally collect suspended solids and silt over time. As incoming water sits still inside the tank, heavy particles settle to the bottom, forming a layer of sediment. If your main distribution line draws directly from the tank floor, this debris gets pulled straight into your home plumbing system, clogging strainers, showerheads, and tap cartridges. Proper tank design requires placing the main supply outlet a few inches above the bottom to draw clear water, alongside a dedicated washout valve at the very lowest point. Opening this bottom valve periodically flushes out accumulated sludge before it enters your building's supply line.",
+  "image_prompt": "A professional 9:16 vertical visual diagram showing a cutaway cross-section view of a clean blue polyethylene water storage tank mounted on a concrete base. Inside the tank, clear water fills the vessel, with a visible, realistic thin layer of fine brown silt sediment resting undisturbed on the flat bottom floor. Two distinct PVC pipe connections are visible on the tank wall: an upper distribution outlet pipe connected 7 centimeters above the tank floor drawing clear water, and a dedicated washout drain pipe installed flush at the absolute bottom fitted with a brass ball valve. Realistic physical geometry, clear clean water highlights, realistic daylighting in an exterior utility yard, clear central focus, ample negative space at the top and bottom for text placement. Photorealistic technical illustration render, no text, no overlay labels, no logos, no watermarks, no impossible fittings.",
+  "visual_story": "The visual demonstrates the interior mechanics of a water storage tank through a vertical cutaway. The viewer sees why sediment settles at the bottom and how proper pipe height separation prevents contaminated water from entering the building supply line. The visual clearly distinguishes between the elevated clean-water supply line and the lower dedicated flushing drain line.",
   "on_image_text": {
-    "hook": "WHY LIQUID GREASE CLOGS DRAINS",
-    "explanation": "Warm fats solidify as they cool inside the trap, coating pipe walls and narrowing the drainage path.",
-    "callout": "FOG Accumulation inside P-Trap",
-    "takeaway": "Scrape fats into trash containers before washing cookware; keep grease out of the drainage line."
+    "hook": "Why Water Tank Debris Enters Your House Pipes",
+    "explanation": "Settled sediment accumulates at the tank floor and enters your plumbing if the supply pipe is installed too low.",
+    "callout": "Elevated Supply Pipe vs. Low Bottom Drain Valve",
+    "takeaway": "Flush the bottom drain valve every 6 months to keep clean water flowing into your home."
   },
   "hashtags": [
+    "#watertankmaintenance",
     "#plumbingeducation",
-    "#kitchenplumbing",
-    "#drainmaintenance",
-    "#ptrap",
+    "#waterstorage",
     "#plumbingtips",
-    "#plumbingapprentice",
-    "#homecaretips"
+    "#homeplumbing",
+    "#plumbingskills",
+    "#waterquality"
   ],
   "reel_enabled": false,
   "reel_file": null
