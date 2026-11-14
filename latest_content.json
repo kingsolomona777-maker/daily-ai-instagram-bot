@@ -1,23 +1,23 @@
 {
-  "idea": "Basic plumbing maintenance every homeowner should know",
-  "title": "Servicing a Clogged Faucet Aerator",
-  "description": "Learn how faucet aerators trap debris, why water flow drops while static pipe pressure remains unchanged, and how to safely disassemble and clean the screen assembly to restore proper fixture volume.",
-  "image_prompt": "Photorealistic vertical 9:16 macro photograph of a modern chrome basin faucet with its front aerator assembly unscrewed and neatly laid out in sequence on a clean countertop near the sink rim. The components are displayed clearly in disassembly order: the chrome threaded housing, a black rubber flat sealing washer, a fine stainless steel mesh screen with light mineral debris, and a plastic flow restrictor core. Natural morning window lighting highlights the metal threads and internal components. The scene is clean and professional. The main subject is centered in the middle and lower portion of the image, leaving clean negative space at the top. Physically accurate thread geometry and realistic plumbing materials. No text, no logos, no watermarks, no labels, no fake product branding.",
-  "visual_story": "The visual displays the internal component sequence of a standard faucet aerator immediately after removal from the spout tip. Viewers can see how mineral flakes and pipe debris settle on top of the fine mesh screen, restricting water flow volume while static water pressure in the branch line remains unaffected. Seeing the exact layering—housing, rubber washer, mesh screen, flow regulator—helps homeowners and apprentices understand how to disassemble, clean, and reassemble the unit without damaging fine brass threads.",
+  "idea": "How to maintain kitchen drainage",
+  "title": "Understanding Grease Build-Up in Kitchen P-Traps",
+  "description": "Liquid cooking oils and melted fats may flow smoothly down the sink while hot, but as they hit cold standing water in the P-trap and uninsulated drain lines, they cool and solidify. Over time, this fat layer coats the inner pipe walls, capturing micro food particles and gradually restricting wastewater flow. Chemical cleaners often fail to break down thick grease coats entirely and can damage pipe seals if misused. To maintain proper kitchen drainage, wipe greasy cookware with paper towels before washing, and periodically run hot tap water down the drain to keep light residues moving.",
+  "image_prompt": "Vertical 9:16 aspect ratio educational detail showing a photorealistic clean cutaway cross-section of a residential under-sink kitchen drainage assembly. Focus on a white polypropylene P-trap connected to a horizontal drain arm beneath a stainless steel sink bowl. The pipe is illustrated with an exposed longitudinal cross-section, revealing the interior waterway. Inside the lower curve of the trap and along the horizontal arm, a realistic layer of semi-solidified yellow-white grease residue clings to the inner wall surface, narrowing the pipe diameter. Clean soft daylighting, realistic plastic textures, accurate slip-nut compression fittings, and true-to-life pipe geometry. No text, no logos, no watermarks, no artificial symbols.",
+  "visual_story": "The visual provides a clear, realistic cross-section cutaway of a kitchen P-trap beneath a sink. Viewers can immediately notice how liquid fat hardens along the lower bend of the trap and horizontal arm, physically constricting the interior diameter of the pipe. This illustrates why kitchen sinks slow down over time even when large food scraps are avoided.",
   "on_image_text": {
-    "hook": "Low Faucet Flow? Check the Aerator First",
-    "explanation": "Sediment collects at the spout screen, choking flow volume even when pipe pressure is normal.",
-    "callout": "Aerator Mesh Stack & Sealing Washer",
-    "takeaway": "Unscrew counter-clockwise, rinse internal screens clean, and hand-tighten to restore volume."
+    "hook": "WHY LIQUID GREASE CLOGS DRAINS",
+    "explanation": "Warm fats solidify as they cool inside the trap, coating pipe walls and narrowing the drainage path.",
+    "callout": "FOG Accumulation inside P-Trap",
+    "takeaway": "Scrape fats into trash containers before washing cookware; keep grease out of the drainage line."
   },
   "hashtags": [
-    "#PlumbingBasics",
-    "#PlumbingTips",
-    "#HomeMaintenance",
-    "#PlumbingEducation",
-    "#ApprenticePlumber",
-    "#PlumbingRepair",
-    "#OromPlan1"
+    "#plumbingeducation",
+    "#kitchenplumbing",
+    "#drainmaintenance",
+    "#ptrap",
+    "#plumbingtips",
+    "#plumbingapprentice",
+    "#homecaretips"
   ],
   "reel_enabled": false,
   "reel_file": null
