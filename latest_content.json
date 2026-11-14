@@ -1,23 +1,23 @@
 {
-  "idea": "How to maintain a water tank",
-  "title": "Preventing Sediment Accumulation in Water Tanks",
-  "description": "Water storage tanks naturally collect suspended solids and silt over time. As incoming water sits still inside the tank, heavy particles settle to the bottom, forming a layer of sediment. If your main distribution line draws directly from the tank floor, this debris gets pulled straight into your home plumbing system, clogging strainers, showerheads, and tap cartridges. Proper tank design requires placing the main supply outlet a few inches above the bottom to draw clear water, alongside a dedicated washout valve at the very lowest point. Opening this bottom valve periodically flushes out accumulated sludge before it enters your building's supply line.",
-  "image_prompt": "A professional 9:16 vertical visual diagram showing a cutaway cross-section view of a clean blue polyethylene water storage tank mounted on a concrete base. Inside the tank, clear water fills the vessel, with a visible, realistic thin layer of fine brown silt sediment resting undisturbed on the flat bottom floor. Two distinct PVC pipe connections are visible on the tank wall: an upper distribution outlet pipe connected 7 centimeters above the tank floor drawing clear water, and a dedicated washout drain pipe installed flush at the absolute bottom fitted with a brass ball valve. Realistic physical geometry, clear clean water highlights, realistic daylighting in an exterior utility yard, clear central focus, ample negative space at the top and bottom for text placement. Photorealistic technical illustration render, no text, no overlay labels, no logos, no watermarks, no impossible fittings.",
-  "visual_story": "The visual demonstrates the interior mechanics of a water storage tank through a vertical cutaway. The viewer sees why sediment settles at the bottom and how proper pipe height separation prevents contaminated water from entering the building supply line. The visual clearly distinguishes between the elevated clean-water supply line and the lower dedicated flushing drain line.",
+  "idea": "Common plumbing mistakes homeowners make",
+  "title": "Why Over-Tightening Plastic Threaded Fittings Causes Leaks",
+  "description": "When joining threaded plastic fittings, applying extra torque does not guarantee a better seal. Standard National Pipe Taper (NPT) threads are tapered, meaning the diameter increases as the pipe enters the fitting. As you thread a male adapter into a female plastic socket, the tapered design acts as a wedge, placing constant outward stress on the plastic collar. Over-tightening stretches the material beyond its tensile limit, creating hairline stress cracks that often fail hours or days later. For plastic threaded joints, hand-tighten the fitting first, then turn it only 1 to 2 times with a wrench to secure the seal.",
+  "image_prompt": "A macro photograph of an exposed residential plumbing assembly showing a clean white PVC female threaded adapter connected to a male fitting wrapped in white PTFE thread tape. A clear, realistic hairline stress crack runs longitudinally along the collar of the female plastic socket where outward pressure concentrated. A single tiny droplet of clean water is forming near the crack. The background is a clean, well-lit utility space with soft neutral depth of field. Clean lighting highlights the matte texture of the plastic and the mechanical split. Vertical 9:16 aspect ratio, central composition with generous negative space at the top and bottom. Photorealistic finish, crisp focus, no text, no logos, no visual watermarks, no labels, no artificial diagrams.",
+  "visual_story": "The viewer immediately notices a close-up view of a threaded PVC connection with a visible hairline split along the female adapter collar. The visual highlights the physical consequence of mechanical over-torquing on tapered threads. It proves to the viewer that plastic fittings do not simply deform under high torque—they experience structural expansion failure, demonstrating why mechanical moderation is required during assembly.",
   "on_image_text": {
-    "hook": "Why Water Tank Debris Enters Your House Pipes",
-    "explanation": "Settled sediment accumulates at the tank floor and enters your plumbing if the supply pipe is installed too low.",
-    "callout": "Elevated Supply Pipe vs. Low Bottom Drain Valve",
-    "takeaway": "Flush the bottom drain valve every 6 months to keep clean water flowing into your home."
+    "hook": "Over-tightening plastic fittings creates hidden cracks.",
+    "explanation": "Tapered threads act like a wedge, creating constant outward tension against female plastic sockets.",
+    "callout": "Stress Cracking from Excessive Torque",
+    "takeaway": "Hand-tighten plastic threaded joints, then add only 1 to 2 turns with a wrench."
   },
   "hashtags": [
-    "#watertankmaintenance",
-    "#plumbingeducation",
-    "#waterstorage",
     "#plumbingtips",
-    "#homeplumbing",
-    "#plumbingskills",
-    "#waterquality"
+    "#plumbingeducation",
+    "#plumberapprentice",
+    "#homeowneradvice",
+    "#plumbingrepair",
+    "#pvcfittings",
+    "#tradecraft"
   ],
   "reel_enabled": false,
   "reel_file": null
