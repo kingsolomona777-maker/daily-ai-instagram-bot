@@ -1,0 +1,29 @@
+{
+  "package_date": "2026-11-14",
+  "slot": 1,
+  "lesson_number": 1,
+  "content_type": "reel",
+  "role": "problem_and_cause",
+  "lesson_type": "problem_and_cause",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "drainage systems",
+  "title": "Why Sewer Gas Escapes: The Unvented Drain Problem",
+  "description": "When a drainage system lacks proper venting or experiences a blocked vent stack, water rushing down the waste pipe creates a negative pressure siphon. This suction pulls water directly out of the fixture's P-trap, removing the protective liquid seal. Without this water barrier, toxic and foul-smelling sewer gases flow freely into living spaces. Proper vent sizing and placement ensure atmospheric pressure equilibrium inside the piping, allowing wastewater to flow smoothly while preserving the trap seal across all connected fixtures.",
+  "hashtags": [
+    "#plumbing",
+    "#drainage",
+    "#plumbingeducation",
+    "#ptrap",
+    "#plumbinglife"
+  ],
+  "caption": "Why Sewer Gas Escapes: The Unvented Drain Problem\n\nWhen a drainage system lacks proper venting or experiences a blocked vent stack, water rushing down the waste pipe creates a negative pressure siphon. This suction pulls water directly out of the fixture's P-trap, removing the protective liquid seal. Without this water barrier, toxic and foul-smelling sewer gases flow freely into living spaces. Proper vent sizing and placement ensure atmospheric pressure equilibrium inside the piping, allowing wastewater to flow smoothly while preserving the trap seal across all connected fixtures.\n\n#plumbing #drainage #plumbingeducation #ptrap #plumbinglife",
+  "schedule_time": "07:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-11-14/post_01/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-11-14/post_01/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}
