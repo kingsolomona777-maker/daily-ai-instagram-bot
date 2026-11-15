@@ -1,23 +1,23 @@
 {
-  "idea": "How to save water at home",
-  "title": "Identifying Silent Toilet Flapper Leaks",
-  "description": "A worn toilet flapper or misadjusted fill valve is one of the most common causes of hidden water waste in residential plumbing. Water slowly trickles from the tank into the bowl through a degraded rubber flapper seal or down an overflow tube set below the proper water line. Because this flow is silent and drains directly down the bowl trapway, thousands of liters can be lost monthly without any visual pooling on the floor. Testing is simple: place a few drops of food coloring into the toilet tank without flushing. If color appears in the bowl after 15 minutes, the seal is leaking. Replacing a hardened flapper restores a watertight seal immediately.",
-  "image_prompt": "A clean, photorealistic educational cutaway visual of a modern gravity-flush toilet tank in a professional bathroom setting. The porcelain wall of the tank is rendered in a clean sectional view to expose the inner mechanism clearly. The camera is positioned at eye level, focused on the lower flush valve outlet and rubber flapper seal. Visible components include the vertical overflow pipe, brass or plastic fill valve, and a black flexible rubber flapper sitting on the flush valve seat. Water inside the tank is clear, showing tiny stream lines seeping under the edge of the flapper down into the flush opening. Professional lighting highlights realistic material textures of wet porcelain, rubber, and plastic fittings. Vertical 9:16 composition, no text, no arrows, no labels, no logos, no watermarks, realistic plumbing geometry.",
-  "visual_story": "The visual uses a clear sectional view of a toilet tank mechanism to show viewers where water escapes internally. Instead of showing a wet floor, the image directs attention to the interface between the rubber flapper and the flush valve seat. This helps the viewer understand that water loss often occurs entirely within the fixture without creating an obvious external mess.",
+  "idea": "Why water pipes make unusual noises",
+  "title": "Understanding Water Hammer in Supply Pipes",
+  "description": "A practical technical breakdown of hydraulic shock (water hammer), explaining why unsecured water pipes bang against structural framing when fast-closing valves shut off.",
+  "image_prompt": "A realistic professional plumbing educational cutaway diagram in a vertical 9:16 aspect ratio, illustrating a clean residential wall cavity with exposed plumbing. In the center, a 1/2-inch rigid copper water supply pipe runs vertically, connected to a solid brass quarter-turn ball valve and realistic soldered copper elbow fittings. The copper pipe is anchored against clean wooden wall studs using standard metal pipe straps, with one strap intentionally showing a visible gap where the pipe can move. Photorealistic textures on copper, brass, and wood framing, studio lighting, crisp focus, uncluttered composition with generous clean space at the top and bottom for text placement. No text, no labels, no arrows, no watermarks, no logos, no fake branding.",
+  "visual_story": "The visual focuses on a cross-section of a wall cavity holding a pressurized copper water line. By showing the pipe mounted against wooden studs with a loose pipe strap, the viewer immediately sees the physical mechanism: when flow stops abruptly, the unanchored section of pipe flexes and strikes the surrounding wood frame.",
   "on_image_text": {
-    "hook": "The Silent Water Drain in Your Tank",
-    "explanation": "A hardened or distorted flapper valve allows tank water to continuously trickle into the bowl without making a sound.",
-    "callout": "Degraded Flapper Valve Seal",
-    "takeaway": "Drop food dye in the tank; if color enters the bowl without flushing, replace the flapper."
+    "hook": "Why Water Pipes Bang When Valves Shut",
+    "explanation": "Abruptly stopping flowing water creates a hydraulic shockwave that flexes unsecured pipe runs.",
+    "callout": "Primary Cause: Hydraulic Shock & Loose Straps",
+    "takeaway": "Secure loose pipe clips and ensure water pressure stays within code limits."
   },
   "hashtags": [
-    "#PlumbingEducation",
-    "#WaterConservation",
-    "#ToiletRepair",
-    "#PlumbingTips",
-    "#HomeMaintenance",
-    "#PlumbingApprentice",
-    "#OromPlan1"
+    "#plumbingeducation",
+    "#waterhammer",
+    "#plumbingtips",
+    "#plumbingapprentice",
+    "#pipesystem",
+    "#homebuilding",
+    "#plumbingmaintenance"
   ],
   "reel_enabled": false,
   "reel_file": null
