@@ -1,0 +1,29 @@
+{
+  "package_date": "2026-11-15",
+  "slot": 5,
+  "lesson_number": 5,
+  "content_type": "reel",
+  "role": "troubleshooting",
+  "lesson_type": "troubleshooting",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "drain ventilation",
+  "title": "Troubleshooting Gurgling Drains and Vent Stack Blockages",
+  "description": "When fixtures gurgle during drainage, the issue often stems from a compromised drain ventilation system rather than a clog in the main trap line. Drain vents supply atmospheric pressure to equalize airflow within the drainage system. Without proper ventilation, flowing wastewater creates a negative pressure vacuum that pulls water out of nearby P-traps. This loss of trap seal permits sewer gas to enter living spaces. Troubleshooting involves inspecting roof vent terminals for obstructions like leaves or ice, and checking air admittance valves for mechanical failure. Restoring airflow eliminates negative pressure and stops fixture gurgling.",
+  "hashtags": [
+    "#PlumbingTroubleshooting",
+    "#DrainVentilation",
+    "#PlumbingTips",
+    "#ApprenticePlumber",
+    "#P Trap"
+  ],
+  "caption": "Troubleshooting Gurgling Drains and Vent Stack Blockages\n\nWhen fixtures gurgle during drainage, the issue often stems from a compromised drain ventilation system rather than a clog in the main trap line. Drain vents supply atmospheric pressure to equalize airflow within the drainage system. Without proper ventilation, flowing wastewater creates a negative pressure vacuum that pulls water out of nearby P-traps. This loss of trap seal permits sewer gas to enter living spaces. Troubleshooting involves inspecting roof vent terminals for obstructions like leaves or ice, and checking air admittance valves for mechanical failure. Restoring airflow eliminates negative pressure and stops fixture gurgling.\n\n#PlumbingTroubleshooting #DrainVentilation #PlumbingTips #ApprenticePlumber #P Trap",
+  "schedule_time": "15:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-11-15/post_05/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-11-15/post_05/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}
