@@ -1,23 +1,23 @@
 {
-  "idea": "Common plumbing mistakes homeowners make",
-  "title": "Why Over-Tightening Plastic Threaded Fittings Causes Leaks",
-  "description": "When joining threaded plastic fittings, applying extra torque does not guarantee a better seal. Standard National Pipe Taper (NPT) threads are tapered, meaning the diameter increases as the pipe enters the fitting. As you thread a male adapter into a female plastic socket, the tapered design acts as a wedge, placing constant outward stress on the plastic collar. Over-tightening stretches the material beyond its tensile limit, creating hairline stress cracks that often fail hours or days later. For plastic threaded joints, hand-tighten the fitting first, then turn it only 1 to 2 times with a wrench to secure the seal.",
-  "image_prompt": "A macro photograph of an exposed residential plumbing assembly showing a clean white PVC female threaded adapter connected to a male fitting wrapped in white PTFE thread tape. A clear, realistic hairline stress crack runs longitudinally along the collar of the female plastic socket where outward pressure concentrated. A single tiny droplet of clean water is forming near the crack. The background is a clean, well-lit utility space with soft neutral depth of field. Clean lighting highlights the matte texture of the plastic and the mechanical split. Vertical 9:16 aspect ratio, central composition with generous negative space at the top and bottom. Photorealistic finish, crisp focus, no text, no logos, no visual watermarks, no labels, no artificial diagrams.",
-  "visual_story": "The viewer immediately notices a close-up view of a threaded PVC connection with a visible hairline split along the female adapter collar. The visual highlights the physical consequence of mechanical over-torquing on tapered threads. It proves to the viewer that plastic fittings do not simply deform under high torque—they experience structural expansion failure, demonstrating why mechanical moderation is required during assembly.",
+  "idea": "How to save water at home",
+  "title": "Identifying Silent Toilet Flapper Leaks",
+  "description": "A worn toilet flapper or misadjusted fill valve is one of the most common causes of hidden water waste in residential plumbing. Water slowly trickles from the tank into the bowl through a degraded rubber flapper seal or down an overflow tube set below the proper water line. Because this flow is silent and drains directly down the bowl trapway, thousands of liters can be lost monthly without any visual pooling on the floor. Testing is simple: place a few drops of food coloring into the toilet tank without flushing. If color appears in the bowl after 15 minutes, the seal is leaking. Replacing a hardened flapper restores a watertight seal immediately.",
+  "image_prompt": "A clean, photorealistic educational cutaway visual of a modern gravity-flush toilet tank in a professional bathroom setting. The porcelain wall of the tank is rendered in a clean sectional view to expose the inner mechanism clearly. The camera is positioned at eye level, focused on the lower flush valve outlet and rubber flapper seal. Visible components include the vertical overflow pipe, brass or plastic fill valve, and a black flexible rubber flapper sitting on the flush valve seat. Water inside the tank is clear, showing tiny stream lines seeping under the edge of the flapper down into the flush opening. Professional lighting highlights realistic material textures of wet porcelain, rubber, and plastic fittings. Vertical 9:16 composition, no text, no arrows, no labels, no logos, no watermarks, realistic plumbing geometry.",
+  "visual_story": "The visual uses a clear sectional view of a toilet tank mechanism to show viewers where water escapes internally. Instead of showing a wet floor, the image directs attention to the interface between the rubber flapper and the flush valve seat. This helps the viewer understand that water loss often occurs entirely within the fixture without creating an obvious external mess.",
   "on_image_text": {
-    "hook": "Over-tightening plastic fittings creates hidden cracks.",
-    "explanation": "Tapered threads act like a wedge, creating constant outward tension against female plastic sockets.",
-    "callout": "Stress Cracking from Excessive Torque",
-    "takeaway": "Hand-tighten plastic threaded joints, then add only 1 to 2 turns with a wrench."
+    "hook": "The Silent Water Drain in Your Tank",
+    "explanation": "A hardened or distorted flapper valve allows tank water to continuously trickle into the bowl without making a sound.",
+    "callout": "Degraded Flapper Valve Seal",
+    "takeaway": "Drop food dye in the tank; if color enters the bowl without flushing, replace the flapper."
   },
   "hashtags": [
-    "#plumbingtips",
-    "#plumbingeducation",
-    "#plumberapprentice",
-    "#homeowneradvice",
-    "#plumbingrepair",
-    "#pvcfittings",
-    "#tradecraft"
+    "#PlumbingEducation",
+    "#WaterConservation",
+    "#ToiletRepair",
+    "#PlumbingTips",
+    "#HomeMaintenance",
+    "#PlumbingApprentice",
+    "#OromPlan1"
   ],
   "reel_enabled": false,
   "reel_file": null
