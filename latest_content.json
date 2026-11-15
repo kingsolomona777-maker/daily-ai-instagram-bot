@@ -1,23 +1,23 @@
 {
-  "idea": "Why water pipes make unusual noises",
-  "title": "Understanding Water Hammer in Supply Pipes",
-  "description": "A practical technical breakdown of hydraulic shock (water hammer), explaining why unsecured water pipes bang against structural framing when fast-closing valves shut off.",
-  "image_prompt": "A realistic professional plumbing educational cutaway diagram in a vertical 9:16 aspect ratio, illustrating a clean residential wall cavity with exposed plumbing. In the center, a 1/2-inch rigid copper water supply pipe runs vertically, connected to a solid brass quarter-turn ball valve and realistic soldered copper elbow fittings. The copper pipe is anchored against clean wooden wall studs using standard metal pipe straps, with one strap intentionally showing a visible gap where the pipe can move. Photorealistic textures on copper, brass, and wood framing, studio lighting, crisp focus, uncluttered composition with generous clean space at the top and bottom for text placement. No text, no labels, no arrows, no watermarks, no logos, no fake branding.",
-  "visual_story": "The visual focuses on a cross-section of a wall cavity holding a pressurized copper water line. By showing the pipe mounted against wooden studs with a loose pipe strap, the viewer immediately sees the physical mechanism: when flow stops abruptly, the unanchored section of pipe flexes and strikes the surrounding wood frame.",
+  "idea": "Why low water pressure happens",
+  "title": "Understanding Low Water Pressure: Check the Aerator First",
+  "description": "When water pressure suddenly drops at a single faucet, the issue is often isolated rather than system-wide. Over time, mineral deposits and pipe sediment accumulate on the fine mesh screen of the aerator at the spout tip. This trapped debris restricts water flow, significantly reducing volume and pressure at that specific fixture. Before assuming main supply line failure or major pipe corrosion, unscrew the aerator mesh screen, clean out the grit, and retest the flow. Checking the simplest restriction point first saves time and unnecessary component teardown. What is the most common cause of pressure loss you encounter on site?",
+  "image_prompt": "Macro photorealistic photograph of a polished chrome faucet spout with its aerator partially unscrewed, exposing the inner fine stainless steel mesh screen. Coarse mineral scale particles and dark sediment grit are clearly visible trapped on top of the mesh screen, restricting the internal flow path. Water droplets cling to the clean chrome threads and spout edge. The background is a crisp, softly blurred modern bathroom tile wall. Bright studio lighting highlights the detail of the metal threads, mesh texture, and mineral buildup. Vertical 9:16 composition with clear visual space at the top and bottom. No text, no logos, no watermarks, no annotations, no fake branding, physically accurate plumbing geometry.",
+  "visual_story": "The visual focuses on a specific, common cause of localized low water pressure: mineral debris trapped inside a faucet aerator screen. The close-up detail shows how solid particles accumulate on the intake side of the fine mesh, physically obstructing the water pathway. By illustrating the unscrewed aerator assembly next to the spout threads, the image clearly demonstrates why flow drops at an individual fixture even when municipal or system pressure remains normal.",
   "on_image_text": {
-    "hook": "Why Water Pipes Bang When Valves Shut",
-    "explanation": "Abruptly stopping flowing water creates a hydraulic shockwave that flexes unsecured pipe runs.",
-    "callout": "Primary Cause: Hydraulic Shock & Loose Straps",
-    "takeaway": "Secure loose pipe clips and ensure water pressure stays within code limits."
+    "hook": "Sudden Drop in Faucet Pressure?",
+    "explanation": "Sediment trapped inside the aerator mesh screen physically restricts water flow at individual fixtures.",
+    "callout": "Sediment Accumulation on Aerator Screen",
+    "takeaway": "Inspect and clean fixture aerators before assuming main line supply failure."
   },
   "hashtags": [
     "#plumbingeducation",
-    "#waterhammer",
+    "#waterpressure",
     "#plumbingtips",
     "#plumbingapprentice",
-    "#pipesystem",
-    "#homebuilding",
-    "#plumbingmaintenance"
+    "#homeownersguide",
+    "#plumbingrepair",
+    "#tradetips"
   ],
   "reel_enabled": false,
   "reel_file": null
