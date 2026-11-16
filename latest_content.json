@@ -1,23 +1,23 @@
 {
-  "idea": "Why low water pressure happens",
-  "title": "Understanding Low Water Pressure: Check the Aerator First",
-  "description": "When water pressure suddenly drops at a single faucet, the issue is often isolated rather than system-wide. Over time, mineral deposits and pipe sediment accumulate on the fine mesh screen of the aerator at the spout tip. This trapped debris restricts water flow, significantly reducing volume and pressure at that specific fixture. Before assuming main supply line failure or major pipe corrosion, unscrew the aerator mesh screen, clean out the grit, and retest the flow. Checking the simplest restriction point first saves time and unnecessary component teardown. What is the most common cause of pressure loss you encounter on site?",
-  "image_prompt": "Macro photorealistic photograph of a polished chrome faucet spout with its aerator partially unscrewed, exposing the inner fine stainless steel mesh screen. Coarse mineral scale particles and dark sediment grit are clearly visible trapped on top of the mesh screen, restricting the internal flow path. Water droplets cling to the clean chrome threads and spout edge. The background is a crisp, softly blurred modern bathroom tile wall. Bright studio lighting highlights the detail of the metal threads, mesh texture, and mineral buildup. Vertical 9:16 composition with clear visual space at the top and bottom. No text, no logos, no watermarks, no annotations, no fake branding, physically accurate plumbing geometry.",
-  "visual_story": "The visual focuses on a specific, common cause of localized low water pressure: mineral debris trapped inside a faucet aerator screen. The close-up detail shows how solid particles accumulate on the intake side of the fine mesh, physically obstructing the water pathway. By illustrating the unscrewed aerator assembly next to the spout threads, the image clearly demonstrates why flow drops at an individual fixture even when municipal or system pressure remains normal.",
+  "idea": "Why proper pipe sizing matters",
+  "title": "Why Proper Pipe Sizing Matters in Water Supply Systems",
+  "description": "An educational guide explaining how undersized supply pipes lead to dynamic pressure loss, friction buildup, and reduced fixture performance.",
+  "image_prompt": "A professional 9:16 vertical educational technical illustration showing a longitudinal cross-section cutaway of two water supply pipes side-by-side against a clean studio background. The left pipe is a 1/2-inch copper pipe showing narrow internal volume with dense fluid flow lines indicating high friction resistance. The right pipe is a 3/4-inch copper pipe showing spacious internal volume with balanced flow lines representing smooth water volume distribution. Realistic metal textures, clean brass connections, photorealistic rendering, neutral lighting, soft shadows. Main plumbing components centered visually with clean space at top and bottom for text overlays. No text, no arrows, no watermarks, no logos, no fake labels.",
+  "visual_story": "The visual compares an undersized supply pipe cutaway against a correctly sized trunk line cutaway. Viewers notice how internal pipe diameter directly affects physical water volume space and friction resistance inside the line. This demonstrates why opening a tap elsewhere in a building drops pressure if the main feeding pipe lacks sufficient volumetric capacity.",
   "on_image_text": {
-    "hook": "Sudden Drop in Faucet Pressure?",
-    "explanation": "Sediment trapped inside the aerator mesh screen physically restricts water flow at individual fixtures.",
-    "callout": "Sediment Accumulation on Aerator Screen",
-    "takeaway": "Inspect and clean fixture aerators before assuming main line supply failure."
+    "hook": "UNDERSIZED PIPES KILL WATER PRESSURE",
+    "explanation": "Pipes sized too small create high internal friction loss, severely restricting water flow volume during peak demand.",
+    "callout": "Dynamic Pressure Loss",
+    "takeaway": "Size main supply trunks based on total fixture units before branching to individual lines."
   },
   "hashtags": [
     "#plumbingeducation",
-    "#waterpressure",
+    "#pipesizing",
     "#plumbingtips",
-    "#plumbingapprentice",
-    "#homeownersguide",
-    "#plumbingrepair",
-    "#tradetips"
+    "#plumbinglife",
+    "#plumbingcode",
+    "#waterdistribution",
+    "#plumbingapprentice"
   ],
   "reel_enabled": false,
   "reel_file": null
