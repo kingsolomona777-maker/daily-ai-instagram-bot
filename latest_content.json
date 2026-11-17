@@ -1,23 +1,23 @@
 {
-  "idea": "When to replace old plumbing pipes",
-  "title": "Internal Corrosion in Galvanized Iron Water Pipes",
-  "description": "Old galvanized steel water pipes often look intact from the outside while failing internally. Over years of service, oxygen and dissolved minerals react with steel to form heavy internal rust deposits, a process called tuberculation. This build-up severely restricts water flow, lowering fixture pressure and causing periodic water discoloration. Because tuberculation eats away at the pipe wall material itself, chemical flushing or descaling cannot restore the pipe and often triggers pinhole leaks. When internal diameter restriction reaches this level, replacing the affected run with modern code-compliant piping like PPR, PEX, or copper is the correct solution.",
-  "image_prompt": "A professional vertical 9:16 macro photograph of an old 3/4-inch galvanized iron water pipe cut open to reveal its cross-section. The internal bore of the pipe is heavily choked with real rust, mineral scale, and tuberculation layer, drastically reducing the inner diameter while the outer pipe wall shows minor surface oxidation. The pipe is held in a professional plumber's gloved hand at a bright, clean residential utility work area. The background is softly blurred showing organized hand tools on a workbench. High detail on metal rust texture and pipe wall cross-section. Realistic physical geometry, photorealistic style, crisp focus on the pipe core, uncluttered top and bottom areas for text overlay. No text, no visual overlays, no logos, no watermarks, no fake labels.",
-  "visual_story": "The visual visualizes why old pipes must be replaced even when they aren't visibly leaking on the outside. Viewers immediately see a cross-section of an old galvanized pipe where internal rust build-up (tuberculation) has choked off over 70% of the internal flow path. This directly connects the physical reality inside the pipe to common symptoms like persistent low water pressure and rusty water.",
+  "idea": "Simple ways to protect plumbing during renovation",
+  "title": "Protect Open Drains During Renovation",
+  "description": "During bathroom or kitchen renovations, exposed drain pipes are extremely vulnerable to site debris. Tile grout, mortar slurry, and plaster frequently get washed into open stub-outs during daily cleanup. Unlike organic clogs, cement-based materials quickly settle in P-traps and horizontal branch lines, setting hard underwater and creating dense obstructions that standard drain snakes cannot easily clear. Stuffing a rag into the pipe is a common mistake because liquid slurry seeps right through it. Installing an expanding mechanical test plug or a temporary plastic cap provides a reliable seal until final fixture trim-out.",
+  "image_prompt": "A professional vertical 9:16 photograph of a white PVC drain pipe stub-out protruding vertically from a concrete subfloor during a bathroom renovation. The top of the open PVC pipe is sealed tightly with a heavy-duty mechanical expansion test plug featuring a black rubber ring and a metal wing-nut handle. On the unfinished concrete floor around the pipe base are clear traces of grey tile mortar, dust, and plaster, visually highlighting the protection provided by the plug. Bright daylight coming from an off-camera window illuminates the scene clearly. The main plumbing component is positioned in the center-lower frame with clean space above for overlay integration. Realistic textures, physically accurate DWV pipe dimensions, neutral clean environment, photorealistic detailing, no text, no logos, no watermarks, no fake branding.",
+  "visual_story": "The visual focuses on an open drain stub-out sitting in the middle of an active masonry work area. The viewer immediately notices the mechanical test plug securely closing off the top of the white PVC pipe while tile mortar and dust cover the surrounding floor. This visually proves how a temporary mechanical seal prevents wet cement slurry and heavy dust from falling directly into the drainage line.",
   "on_image_text": {
-    "hook": "Low water pressure isn't always a faulty valve.",
-    "explanation": "Galvanized steel pipes corrode internally over time, creating rust build-up that chokes water flow.",
-    "callout": "Internal Pipe Tuberculation",
-    "takeaway": "When internal rust restricts pipe volume, flushing won't fix it—replacement is necessary."
+    "hook": "PREVENT RENOVATION DRAIN CLOGS",
+    "explanation": "Tile grout and plaster sink into drain traps and harden underwater during renovation work.",
+    "callout": "Mechanical Expansion Test Plug",
+    "takeaway": "Seal open drain stub-outs with test plugs before tiling or plastering begins."
   },
   "hashtags": [
     "#plumbingeducation",
-    "#pipereplacement",
     "#plumbingtips",
-    "#galvanizedpipes",
-    "#plumbingapprentice",
-    "#homeplumbing",
-    "#waterpipes"
+    "#renovationtips",
+    "#drainage",
+    "#plumbingwork",
+    "#homebuilder",
+    "#plumbingapprentice"
   ],
   "reel_enabled": false,
   "reel_file": null
