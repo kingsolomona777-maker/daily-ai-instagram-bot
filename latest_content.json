@@ -1,23 +1,23 @@
 {
-  "idea": "Simple ways to protect plumbing during renovation",
-  "title": "Protect Open Drains During Renovation",
-  "description": "During bathroom or kitchen renovations, exposed drain pipes are extremely vulnerable to site debris. Tile grout, mortar slurry, and plaster frequently get washed into open stub-outs during daily cleanup. Unlike organic clogs, cement-based materials quickly settle in P-traps and horizontal branch lines, setting hard underwater and creating dense obstructions that standard drain snakes cannot easily clear. Stuffing a rag into the pipe is a common mistake because liquid slurry seeps right through it. Installing an expanding mechanical test plug or a temporary plastic cap provides a reliable seal until final fixture trim-out.",
-  "image_prompt": "A professional vertical 9:16 photograph of a white PVC drain pipe stub-out protruding vertically from a concrete subfloor during a bathroom renovation. The top of the open PVC pipe is sealed tightly with a heavy-duty mechanical expansion test plug featuring a black rubber ring and a metal wing-nut handle. On the unfinished concrete floor around the pipe base are clear traces of grey tile mortar, dust, and plaster, visually highlighting the protection provided by the plug. Bright daylight coming from an off-camera window illuminates the scene clearly. The main plumbing component is positioned in the center-lower frame with clean space above for overlay integration. Realistic textures, physically accurate DWV pipe dimensions, neutral clean environment, photorealistic detailing, no text, no logos, no watermarks, no fake branding.",
-  "visual_story": "The visual focuses on an open drain stub-out sitting in the middle of an active masonry work area. The viewer immediately notices the mechanical test plug securely closing off the top of the white PVC pipe while tile mortar and dust cover the surrounding floor. This visually proves how a temporary mechanical seal prevents wet cement slurry and heavy dust from falling directly into the drainage line.",
+  "idea": "Common causes of leaking taps",
+  "title": "Understanding Compression Tap Leaks: Worn Valve Washers",
+  "description": "When a compression tap drips, the instinct is often to crank the handle tighter. However, over-tightening is actually a primary cause of tap leaks. Inside the valve assembly, a rubber washer presses against a smooth brass valve seat to stop water flow. Forcing the handle down squashes and splits this rubber seal over time, creating small pathways for pressurized water to escape through the spout. If your tap continues to drip after light pressure is applied, cranking it harder will only ruin the washer completely. The proper fix is isolating the water supply, dismantling the valve stem, and replacing the degraded washer.",
+  "image_prompt": "A detailed 3D technical cutaway illustration of a traditional brass compression tap valve assembly, vertical 9:16 aspect ratio. Photorealistic metal rendering showing the internal mechanism: threaded valve stem, internal chamber, brass valve seat, and a worn, flattened rubber washer sitting at the base of the stem. Micro-detail showing water droplets escaping past the damaged rubber seal under water pressure. Studio illumination with soft directional lighting. Centered subject with clean negative space at the top and bottom. Physically accurate plumbing construction, educational cross-section visual, no text, no visual annotations, no arrows, no logos, no watermarks.",
+  "visual_story": "The visual provides a cross-sectional educational diagram of a compression tap valve assembly. Viewers notice the precise point where the rubber washer makes contact with the brass valve seat. The illustration highlights a compressed, cracked washer to visually explain why turning the handle harder fails to stop water flow once the rubber seal degrades.",
   "on_image_text": {
-    "hook": "PREVENT RENOVATION DRAIN CLOGS",
-    "explanation": "Tile grout and plaster sink into drain traps and harden underwater during renovation work.",
-    "callout": "Mechanical Expansion Test Plug",
-    "takeaway": "Seal open drain stub-outs with test plugs before tiling or plastering begins."
+    "hook": "Why Cranking a Dripping Tap Makes It Worse",
+    "explanation": "Over-tightening squashes and splits the internal rubber washer against the valve seat.",
+    "callout": "Degraded Rubber Seal",
+    "takeaway": "Replace the internal washer instead of forcing the handle closed."
   },
   "hashtags": [
     "#plumbingeducation",
+    "#leakingtap",
+    "#taprepair",
     "#plumbingtips",
-    "#renovationtips",
-    "#drainage",
-    "#plumbingwork",
-    "#homebuilder",
-    "#plumbingapprentice"
+    "#plumbingapprentice",
+    "#homeownerguide",
+    "#plumbingmaintenance"
   ],
   "reel_enabled": false,
   "reel_file": null
