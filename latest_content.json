@@ -1,23 +1,23 @@
 {
-  "idea": "Common causes of leaking taps",
-  "title": "Understanding Compression Tap Leaks: Worn Valve Washers",
-  "description": "When a compression tap drips, the instinct is often to crank the handle tighter. However, over-tightening is actually a primary cause of tap leaks. Inside the valve assembly, a rubber washer presses against a smooth brass valve seat to stop water flow. Forcing the handle down squashes and splits this rubber seal over time, creating small pathways for pressurized water to escape through the spout. If your tap continues to drip after light pressure is applied, cranking it harder will only ruin the washer completely. The proper fix is isolating the water supply, dismantling the valve stem, and replacing the degraded washer.",
-  "image_prompt": "A detailed 3D technical cutaway illustration of a traditional brass compression tap valve assembly, vertical 9:16 aspect ratio. Photorealistic metal rendering showing the internal mechanism: threaded valve stem, internal chamber, brass valve seat, and a worn, flattened rubber washer sitting at the base of the stem. Micro-detail showing water droplets escaping past the damaged rubber seal under water pressure. Studio illumination with soft directional lighting. Centered subject with clean negative space at the top and bottom. Physically accurate plumbing construction, educational cross-section visual, no text, no visual annotations, no arrows, no logos, no watermarks.",
-  "visual_story": "The visual provides a cross-sectional educational diagram of a compression tap valve assembly. Viewers notice the precise point where the rubber washer makes contact with the brass valve seat. The illustration highlights a compressed, cracked washer to visually explain why turning the handle harder fails to stop water flow once the rubber seal degrades.",
+  "idea": "Why professional plumbing installation matters",
+  "title": "Preventing Galvanic Corrosion with Dielectric Unions",
+  "description": "An educational guide explaining why copper and galvanized steel pipes must be isolated using dielectric fittings to prevent rapid corrosion and pipe failure.",
+  "image_prompt": "A professional educational 3D sectional cutaway visual of a water supply pipe connection. In the visual center, a copper pipe transitions to a threaded galvanized steel pipe through a dielectric union. The cutaway clearly shows the interior construction of the dielectric union, including the internal rubber gasket and plastic insulating sleeve separating the brass tailpiece from the steel housing. Realistic metallic textures, smooth copper, textured zinc-coated galvanized steel, and clean water flow inside. Clean neutral grey studio backdrop with warm ambient lighting. Vertical 9:16 composition with open space at top and bottom for text overlays. No text, no logos, no watermarks, no artificial arrows or graphics.",
+  "visual_story": "The visual focuses on the interior structure of a dielectric union joining copper and galvanized steel pipes. Viewers can see how the plastic insulating collar and rubber washer physically prevent direct contact between the two different metals while maintaining a watertight seal.",
   "on_image_text": {
-    "hook": "Why Cranking a Dripping Tap Makes It Worse",
-    "explanation": "Over-tightening squashes and splits the internal rubber washer against the valve seat.",
-    "callout": "Degraded Rubber Seal",
-    "takeaway": "Replace the internal washer instead of forcing the handle closed."
+    "hook": "Why Copper and Steel Pipes Should Never Touch Directly",
+    "explanation": "Direct contact between copper and steel in water creates an electrical cell that rapidly corrodes the steel.",
+    "callout": "Dielectric Union Insulating Bushing",
+    "takeaway": "Always install a dielectric fitting or brass spacer when connecting dissimilar supply metals."
   },
   "hashtags": [
-    "#plumbingeducation",
-    "#leakingtap",
-    "#taprepair",
-    "#plumbingtips",
-    "#plumbingapprentice",
-    "#homeownerguide",
-    "#plumbingmaintenance"
+    "#PlumbingEducation",
+    "#PlumbingTips",
+    "#ApprenticePlumber",
+    "#DielectricUnion",
+    "#PlumbingCode",
+    "#GalvanicCorrosion",
+    "#PlumbingAdvice"
   ],
   "reel_enabled": false,
   "reel_file": null
