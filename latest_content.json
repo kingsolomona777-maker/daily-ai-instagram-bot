@@ -1,23 +1,23 @@
 {
-  "idea": "Why professional plumbing installation matters",
-  "title": "Preventing Galvanic Corrosion with Dielectric Unions",
-  "description": "An educational guide explaining why copper and galvanized steel pipes must be isolated using dielectric fittings to prevent rapid corrosion and pipe failure.",
-  "image_prompt": "A professional educational 3D sectional cutaway visual of a water supply pipe connection. In the visual center, a copper pipe transitions to a threaded galvanized steel pipe through a dielectric union. The cutaway clearly shows the interior construction of the dielectric union, including the internal rubber gasket and plastic insulating sleeve separating the brass tailpiece from the steel housing. Realistic metallic textures, smooth copper, textured zinc-coated galvanized steel, and clean water flow inside. Clean neutral grey studio backdrop with warm ambient lighting. Vertical 9:16 composition with open space at top and bottom for text overlays. No text, no logos, no watermarks, no artificial arrows or graphics.",
-  "visual_story": "The visual focuses on the interior structure of a dielectric union joining copper and galvanized steel pipes. Viewers can see how the plastic insulating collar and rubber washer physically prevent direct contact between the two different metals while maintaining a watertight seal.",
+  "idea": "How to detect a leaking toilet",
+  "title": "How to Detect a Silent Toilet Leak",
+  "description": "A leaking toilet flapper can waste hundreds of liters of water daily without making a sound. To check for a silent flush valve leak, remove the tank lid and drop a few drops of food coloring or a dye tablet into the tank water. Do not flush. Wait 15 to 20 minutes. If colored water appears in the toilet bowl, water is escaping past the rubber flapper seal or flush valve seat. This usually indicates a degraded rubber flapper or mineral buildup on the seating surface. Identifying this simple leak saves water and prevents unnecessary utility expenses. Have you tested your toilet tanks for silent leaks recently?",
+  "image_prompt": "A realistic professional 3D educational cutaway illustration of a modern white ceramic toilet tank and bowl assembly, presented in a vertical 9:16 aspect ratio. The interior of the tank is visible, showing a accurately modeled fill valve, overflow tube, float, and a black rubber flapper seal at the bottom outlet. Dark blue dye is dissolved in the tank water. A clear line of blue-tinted water is shown slowly trickling past the edge of the flapper seal and running down into the clean bowl water below. Professional Studio lighting, crisp mechanical details, neutral background, centered visual focus, vertical framing with empty visual space at top and bottom for layout overlays. No text, no logos, no watermarks, no annotations, no fake branding.",
+  "visual_story": "The visual demonstrates how a silent flapper leak occurs inside a toilet flush system. Viewers can see the tank water tinted with blue food dye slowly seeping past the rubber flapper seal down into the toilet bowl. This visual cutaway highlights the exact path water takes during an unseen flush valve leak, helping homeowners and apprentices connect the dye test procedure directly to internal mechanical failure.",
   "on_image_text": {
-    "hook": "Why Copper and Steel Pipes Should Never Touch Directly",
-    "explanation": "Direct contact between copper and steel in water creates an electrical cell that rapidly corrodes the steel.",
-    "callout": "Dielectric Union Insulating Bushing",
-    "takeaway": "Always install a dielectric fitting or brass spacer when connecting dissimilar supply metals."
+    "hook": "Silent Toilet Leaks Waste Gallons Daily",
+    "explanation": "Worn flapper seals allow tank water to continuously trickle into the bowl without making noise.",
+    "callout": "Rubber Flapper & Flush Valve Seat",
+    "takeaway": "Drop food dye in the tank; if color reaches the bowl without flushing, replace the seal."
   },
   "hashtags": [
-    "#PlumbingEducation",
     "#PlumbingTips",
-    "#ApprenticePlumber",
-    "#DielectricUnion",
-    "#PlumbingCode",
-    "#GalvanicCorrosion",
-    "#PlumbingAdvice"
+    "#PlumbingEducation",
+    "#ToiletRepair",
+    "#LeakDetection",
+    "#WaterConservation",
+    "#PlumbingApprentice",
+    "#HomeMaintenance"
   ],
   "reel_enabled": false,
   "reel_file": null
