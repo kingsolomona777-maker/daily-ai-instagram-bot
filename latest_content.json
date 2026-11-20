@@ -1,23 +1,23 @@
 {
-  "idea": "Common causes of blocked sinks",
-  "title": "Why Kitchen Sinks Block: Grease in the P-Trap",
-  "description": "When liquid cooking fats and oils enter your kitchen drain, they flow easily while warm. However, once they reach the standing water seal inside the cool P-trap, they rapidly cool and solidify into a sticky coating along the pipe walls. Over time, this grease layer catches fine food scraps, gradually reducing the internal pipe diameter until drainage slows or stops entirely. Rinsing with hot water often only pushes liquified grease slightly deeper down the line. To protect your drainage pipes, always wipe greasy cookware with paper towels into the trash before washing. What method do you use to manage kitchen grease?",
-  "image_prompt": "A detailed educational technical visual cutaway of a kitchen sink drainage assembly beneath a clean modern countertop, shot in a vertical 9:16 composition. The main focus is centered on a standard white polypropylene P-trap connected to a vertical drain tailpiece. A clean sectional cutaway view of the P-trap's lower curve clearly shows a dense layer of solidified yellow-brown grease and tiny trapped organic debris lining the interior pipe wall, noticeably constricting the liquid flow channel. Realistic plastic pipe texture, accurate threaded trap nuts, and realistic water level inside the trap bend. Clean surrounding environment inside an under-sink cabinet with soft, professional studio lighting highlighting the internal cross-section. Ample clean visual space at the top and bottom for text placement. Photorealistic style, visually accurate plumbing geometry, no text, no logos, no watermarks, no fake labels, no arrows.",
-  "visual_story": "The visual uses a clear, realistic cross-sectional cutaway of a kitchen P-trap beneath the sink. Viewers can immediately see the interior of the pipe bend where standing water normally resides, highlighting a thick build-up of solidified fat and debris restricting the pipe's internal diameter. This visual clearly demonstrates where the majority of kitchen sink clogs originate and how grease physically accumulates inside drain fittings.",
+  "idea": "Signs of a hidden water leak",
+  "title": "Checking the Water Meter Leak Indicator",
+  "description": "Hidden supply line leaks can waste thousands of liters before visible dampness appears. To test your system without specialized equipment, isolate all water fixtures in the house, including ice makers and filling valves. Locate your main municipal or private water meter register face. Most mechanical water meters feature a small triangular, star-shaped, or circular low-flow indicator dial designed to rotate during minute flow rates. If all fixtures are fully shut and this low-flow gear is turning, water is actively escaping somewhere downstream of the meter. Have you used this meter check to troubleshoot suspect piping systems?",
+  "image_prompt": "A crisp, photorealistic close-up photo of a clean brass mechanical water meter installed on a residential copper water supply line. The meter dial face is clearly visible in the center of the frame, showing a clear glass cover, a digital reading counter, and a distinct small red triangular low-flow leak indicator dial. A polished brass ball valve with a blue handle is connected upstream of the meter with realistic soldered fittings. Clean indoor utility basement environment with realistic soft overhead lighting. Vertical 9:16 aspect ratio composition, clear space at the top and bottom third for visual layout balance. High detail on brass texture, pipe geometry, and glass transparency. No text, no logos, no watermarks, no fake brand labels.",
+  "visual_story": "The viewer immediately sees a realistic residential water meter assembly. The focal point is the meter register face, specifically highlighting the small red low-flow indicator wheel. By showing the mechanical connection between the main shutoff valve, copper line, and meter face, the visual teaches viewers exactly where to look on a real water meter to verify active, unrecorded water movement in a building.",
   "on_image_text": {
-    "hook": "Why Kitchen Sinks Block",
-    "explanation": "Liquid fats cool down and solidify inside the cold water seal of the P-trap, narrowing the drain.",
-    "callout": "Grease Build-Up in P-Trap",
-    "takeaway": "Scrape fats into the trash—never pour liquid oil or pan drippings down the drain."
+    "hook": "Spotting Hidden Water Leaks",
+    "explanation": "If all home fixtures are off and the meter indicator wheel spins, water is actively escaping.",
+    "callout": "Low-Flow Leak Indicator Dial",
+    "takeaway": "Test your meter before hunting through walls for concealed supply leaks."
   },
   "hashtags": [
-    "#PlumbingTips",
-    "#PlumbingEducation",
-    "#DrainCleaning",
-    "#ApprenticePlumber",
-    "#HomeMaintenance",
-    "#KitchenPlumbing",
-    "#PTrap"
+    "#plumbingeducation",
+    "#leakdetection",
+    "#watermeter",
+    "#plumbingtips",
+    "#plumbingapprentice",
+    "#homeplumbing",
+    "#pipeleak"
   ],
   "reel_enabled": false,
   "reel_file": null
