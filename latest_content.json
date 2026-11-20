@@ -1,23 +1,23 @@
 {
-  "idea": "How to detect a leaking toilet",
-  "title": "How to Detect a Silent Toilet Leak",
-  "description": "A leaking toilet flapper can waste hundreds of liters of water daily without making a sound. To check for a silent flush valve leak, remove the tank lid and drop a few drops of food coloring or a dye tablet into the tank water. Do not flush. Wait 15 to 20 minutes. If colored water appears in the toilet bowl, water is escaping past the rubber flapper seal or flush valve seat. This usually indicates a degraded rubber flapper or mineral buildup on the seating surface. Identifying this simple leak saves water and prevents unnecessary utility expenses. Have you tested your toilet tanks for silent leaks recently?",
-  "image_prompt": "A realistic professional 3D educational cutaway illustration of a modern white ceramic toilet tank and bowl assembly, presented in a vertical 9:16 aspect ratio. The interior of the tank is visible, showing a accurately modeled fill valve, overflow tube, float, and a black rubber flapper seal at the bottom outlet. Dark blue dye is dissolved in the tank water. A clear line of blue-tinted water is shown slowly trickling past the edge of the flapper seal and running down into the clean bowl water below. Professional Studio lighting, crisp mechanical details, neutral background, centered visual focus, vertical framing with empty visual space at top and bottom for layout overlays. No text, no logos, no watermarks, no annotations, no fake branding.",
-  "visual_story": "The visual demonstrates how a silent flapper leak occurs inside a toilet flush system. Viewers can see the tank water tinted with blue food dye slowly seeping past the rubber flapper seal down into the toilet bowl. This visual cutaway highlights the exact path water takes during an unseen flush valve leak, helping homeowners and apprentices connect the dye test procedure directly to internal mechanical failure.",
+  "idea": "How to prevent bathroom pipe problems",
+  "title": "Preventing Bathroom Sink Clogs at the Pivot Rod",
+  "description": "Educational tip demonstrating how bathroom sink pop-up stopper pivot rods catch hair and soap scum, causing slow drains above the P-trap, and how manual cleaning prevents severe pipe clogs.",
+  "image_prompt": "A professional educational 3D technical cutaway illustration of a residential bathroom sink drain assembly, designed in a vertical 9:16 aspect ratio. The cross-section reveals a ceramic sink basin with a chrome pop-up drain stopper extending down into a standard drain tailpiece. Inside the tailpiece, a metallic horizontal pivot rod is clearly visible. A realistic accumulation of hair strands and soap scum is tangled around the pivot rod mechanism, showing how it catches debris and restricts water flow before it reaches the P-trap. Beneath the tailpiece, a standard white PVC P-trap with slip-joint nuts is correctly attached, holding a clean water seal. Clean neutral background, neutral lighting, soft shadows, visually centered plumbing components with clean visual space at the top and bottom. Photorealistic texture on ceramic, metal, and PVC. No text, no labels, no arrows, no watermarks, no logos.",
+  "visual_story": "The visual uses a clean cutaway view of a bathroom sink drain assembly to show the hidden cause of slow drains. Viewers can see that before wastewater reaches the P-trap, it passes the pop-up stopper's horizontal pivot rod. The illustration highlights how hair wraps around this rod, creating a physical screen that collects soap scum and restricts water velocity. This visual helps viewers understand that slow drainage in bathroom sinks is often a mechanical obstruction at the stopper assembly rather than a blockage deep inside the wall pipes.",
   "on_image_text": {
-    "hook": "Silent Toilet Leaks Waste Gallons Daily",
-    "explanation": "Worn flapper seals allow tank water to continuously trickle into the bowl without making noise.",
-    "callout": "Rubber Flapper & Flush Valve Seat",
-    "takeaway": "Drop food dye in the tank; if color reaches the bowl without flushing, replace the seal."
+    "hook": "Why Bathroom Sinks Drain Slowly Before The Trap",
+    "explanation": "Hair wraps around the horizontal pivot rod, creating a mesh that catches soap scum above the P-trap.",
+    "callout": "Pivot Rod Debris Accumulation",
+    "takeaway": "Remove and clean the stopper rod manually before using chemical cleaners."
   },
   "hashtags": [
-    "#PlumbingTips",
     "#PlumbingEducation",
-    "#ToiletRepair",
-    "#LeakDetection",
-    "#WaterConservation",
-    "#PlumbingApprentice",
-    "#HomeMaintenance"
+    "#BathroomPlumbing",
+    "#DrainMaintenance",
+    "#PlumbingTips",
+    "#ApprenticePlumber",
+    "#HomeMaintenance",
+    "#PTrap"
   ],
   "reel_enabled": false,
   "reel_file": null
