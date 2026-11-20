@@ -1,0 +1,29 @@
+{
+  "package_date": "2026-11-20",
+  "slot": 1,
+  "lesson_number": 1,
+  "content_type": "reel",
+  "role": "problem_and_cause",
+  "lesson_type": "problem_and_cause",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "drainage systems",
+  "title": "Why Drainage Lines Gurgle and Run Slow",
+  "description": "When a plumbing fixture gurgles as water drains, the underlying issue is frequently inadequate venting rather than a simple obstruction. Drainage systems rely on continuous airflow to equalize pressure as wastewater travels through the pipe network. Without a functional vent stack or air admittance valve, flowing water creates negative atmospheric pressure behind it. This vacuum effect pulls air through nearby fixture P-traps, causing the characteristic gurgling noise and siphoning out the protective water seal. Correcting the venting system restores neutral pressure, permitting smooth gravity flow and preventing sewer gas entry.",
+  "hashtags": [
+    "#plumbing",
+    "#drainage",
+    "#plumbingeducation",
+    "#tradeschool",
+    "#plumberlife"
+  ],
+  "caption": "Why Drainage Lines Gurgle and Run Slow\n\nWhen a plumbing fixture gurgles as water drains, the underlying issue is frequently inadequate venting rather than a simple obstruction. Drainage systems rely on continuous airflow to equalize pressure as wastewater travels through the pipe network. Without a functional vent stack or air admittance valve, flowing water creates negative atmospheric pressure behind it. This vacuum effect pulls air through nearby fixture P-traps, causing the characteristic gurgling noise and siphoning out the protective water seal. Correcting the venting system restores neutral pressure, permitting smooth gravity flow and preventing sewer gas entry.\n\n#plumbing #drainage #plumbingeducation #tradeschool #plumberlife",
+  "schedule_time": "07:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-11-20/post_01/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-11-20/post_01/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}
