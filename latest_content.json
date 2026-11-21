@@ -1,23 +1,23 @@
 {
-  "idea": "Signs of a hidden water leak",
-  "title": "Checking the Water Meter Leak Indicator",
-  "description": "Hidden supply line leaks can waste thousands of liters before visible dampness appears. To test your system without specialized equipment, isolate all water fixtures in the house, including ice makers and filling valves. Locate your main municipal or private water meter register face. Most mechanical water meters feature a small triangular, star-shaped, or circular low-flow indicator dial designed to rotate during minute flow rates. If all fixtures are fully shut and this low-flow gear is turning, water is actively escaping somewhere downstream of the meter. Have you used this meter check to troubleshoot suspect piping systems?",
-  "image_prompt": "A crisp, photorealistic close-up photo of a clean brass mechanical water meter installed on a residential copper water supply line. The meter dial face is clearly visible in the center of the frame, showing a clear glass cover, a digital reading counter, and a distinct small red triangular low-flow leak indicator dial. A polished brass ball valve with a blue handle is connected upstream of the meter with realistic soldered fittings. Clean indoor utility basement environment with realistic soft overhead lighting. Vertical 9:16 aspect ratio composition, clear space at the top and bottom third for visual layout balance. High detail on brass texture, pipe geometry, and glass transparency. No text, no logos, no watermarks, no fake brand labels.",
-  "visual_story": "The viewer immediately sees a realistic residential water meter assembly. The focal point is the meter register face, specifically highlighting the small red low-flow indicator wheel. By showing the mechanical connection between the main shutoff valve, copper line, and meter face, the visual teaches viewers exactly where to look on a real water meter to verify active, unrecorded water movement in a building.",
+  "idea": "Why a toilet may keep running",
+  "title": "Why a Toilet Keeps Running: The Flapper Seal",
+  "description": "A constantly running toilet is usually caused by water continuously escaping the tank, preventing the float from signaling the fill valve to shut off. In most cases, the culprit is a degraded flapper valve seal at the base of the tank. Over time, in-tank chemical cleaners and hard water minerals cause the rubber flapper to harden, warp, or accumulate scale, preventing a watertight seal against the flush valve seat. As water leaks into the bowl, the fill valve stays open to replenish it. Inspecting and replacing a compromised flapper is the most practical first step in troubleshooting a running toilet.",
+  "image_prompt": "A detailed vertical 9:16 cutaway educational photography shot of the inside of a residential toilet tank filled with clean water. The camera focuses on the bottom section showing a black rubber flapper valve seated over the flush valve opening. A subtle gap is visible where water leaks past a slightly warped edge of the rubber flapper down into the bowl drain path. Realistic ceramic porcelain tank texture, plastic overflow tube, stainless steel chain, and fill valve float arm visible. Soft neutral studio lighting, crystal-clear water with realistic refractions, professional technical textbook quality, centered composition with clean background space at top and bottom for text placement. Photorealistic, no text, no logos, no watermarks, physically accurate plumbing geometry.",
+  "visual_story": "The visual features a cutaway view of a toilet tank interior focusing on the rubber flapper valve at the bottom of the tank. Viewers can clearly observe how a warped rubber seal creates a gap against the flush valve seat, allowing tank water to leak continuously into the bowl. This visual helps viewers connect the sound of running water to the exact mechanical seal failure taking place inside the tank.",
   "on_image_text": {
-    "hook": "Spotting Hidden Water Leaks",
-    "explanation": "If all home fixtures are off and the meter indicator wheel spins, water is actively escaping.",
-    "callout": "Low-Flow Leak Indicator Dial",
-    "takeaway": "Test your meter before hunting through walls for concealed supply leaks."
+    "hook": "Why Your Toilet Won't Stop Running",
+    "explanation": "A warped or degraded flapper fails to seal the flush valve, letting water constantly leak into the bowl.",
+    "callout": "Faulty Flapper Valve Seal",
+    "takeaway": "Inspect and clean the rubber flapper seal before replacing the entire fill valve assembly."
   },
   "hashtags": [
     "#plumbingeducation",
-    "#leakdetection",
-    "#watermeter",
+    "#toiletrepair",
     "#plumbingtips",
-    "#plumbingapprentice",
-    "#homeplumbing",
-    "#pipeleak"
+    "#plumbingskills",
+    "#apprenticeplumber",
+    "#homeownerguide",
+    "#oromplan1"
   ],
   "reel_enabled": false,
   "reel_file": null
