@@ -1,23 +1,23 @@
 {
-  "idea": "Simple ways to protect plumbing during renovation",
-  "title": "Protecting Drain Stub-Outs During Wall Renovation",
-  "description": "During bathroom or kitchen renovations, exposed drain stub-outs easily collect mortar, tile adhesive, and drywall compound. When construction debris enters an open pipe, it settles in the P-trap or horizontal branch line. Once mixed with water, setting compounds harden into dense obstructions that standard augers cannot easily clear. Sealing open drain lines with temporary expansion plugs or threaded test caps—rather than loosely stuffed rags—prevents heavy solids from contaminating the drainage system. Securing pipe openings before drywalling or tiling saves hours of destructive drain cleaning later. How do you seal open pipe stubs on your job sites?",
-  "image_prompt": "A professional vertical 9:16 photograph of a plumbing rough-in during a bathroom renovation. In the center frame, a clean 2-inch schedule 40 white PVC drain pipe stub-out protrudes horizontally from an unfinished drywall opening. The open mouth of the PVC pipe is securely sealed with a yellow plastic mechanical expansion plug with a metal wing nut screwed tight against the rim. The surrounding wall texture shows exposed joint compound dust and rough tile backing board. Realistic construction lighting highlights the crisp details of the pipe fitting and surrounding workspace. Clear visual space is maintained at the top and bottom third. Photorealistic, clean focus on the sealed pipe opening, physically accurate plumbing connections, no text, no visual logos, no watermarks, no artificial annotations.",
-  "visual_story": "The visual visualizes an active bathroom renovation site where tile and drywall work are underway. The central focus is an exposed PVC drain pipe coming out of the wall. Instead of being left open or stuffed with a loose rag, the pipe end is properly sealed with a bright, visible mechanical expansion test plug. Fine drywall dust and tile adhesive are visible on the surrounding unfinished wall, demonstrating the exact debris that would otherwise fall into an open pipe and cause severe blockage in the branch drain.",
+  "idea": "Why low water pressure happens",
+  "title": "Identifying Localized Pressure Loss: Clogged Faucet Aerator",
+  "description": "When low water pressure occurs at a single faucet while the rest of the building has normal flow, the problem is usually isolated to that specific fixture. Water supply lines carry small particles of mineral scale and sediment over time. These particles become trapped behind the fine mesh screen of the faucet aerator attached to the spout tip. As debris accumulates, it restricts water flow rate without affecting system pressure elsewhere. Unscrewing the aerator housing, rinsing the screen, and checking the rubber washer often restores full flow quickly. Does your building experience localized or system-wide pressure loss?",
+  "image_prompt": "A macro educational photograph in a vertical 9:16 aspect ratio, focusing on a disassembled kitchen faucet spout tip resting on a clean countertop near a sink. The chrome-plated brass aerator housing is unscrewed, clearly displaying the fine stainless steel mesh screen filled with realistic calcium sediment, mineral grit, and tiny rust particles blocking the mesh openings. Beside the metal housing, the dark rubber sealing washer and internal plastic flow restrictor core are neatly laid out in physical order. Clean professional lighting from the side highlights the texture of the sediment particles and metallic threads. The central plumbing assembly is sharp and centered, leaving clean blurred background area at the top and bottom third for text overlays. No text, no logos, no watermarks, photorealistic detail, physically realistic plumbing components.",
+  "visual_story": "The visual focuses on the physical mechanism of localized flow restriction. By showing the disassembled aerator components and highlighting the mineral sediment trapped directly against the fine mesh screen, the viewer immediately sees why water flow drops at a single fixture. The clear separation of parts (housing, screen, washer) visually demonstrates how easy it is to inspect this point of restriction before assuming there is a main line issue.",
   "on_image_text": {
-    "hook": "Drywall mud and tile mortar can ruin exposed drain lines during remodeling.",
-    "explanation": "Unsealed pipe stubs allow construction debris to settle and harden inside trap arms and horizontal branch drains.",
-    "callout": "Mechanical Expansion Test Plug",
-    "takeaway": "Seal all open pipe ends with proper plugs before wall finishing begins."
+    "hook": "Low pressure at just one faucet?",
+    "explanation": "Mineral sediment and rust particles collect against the fine mesh screen inside the aerator, restricting fixture flow.",
+    "callout": "Clogged Aerator Screen",
+    "takeaway": "Inspect and clean fixture aerators before adjusting main supply valves."
   },
   "hashtags": [
     "#PlumbingEducation",
+    "#WaterPressure",
     "#PlumbingTips",
-    "#DrainageSystems",
     "#ApprenticePlumber",
-    "#HomeRenovationTips",
-    "#PlumbingMaintenance",
-    "#SiteProtection"
+    "#HomeMaintenance",
+    "#FaucetRepair",
+    "#PlumbingAdvice"
   ],
   "reel_enabled": false,
   "reel_file": null
