@@ -1,23 +1,23 @@
 {
-  "idea": "Why a toilet may keep running",
-  "title": "Why a Toilet Keeps Running: The Flapper Seal",
-  "description": "A constantly running toilet is usually caused by water continuously escaping the tank, preventing the float from signaling the fill valve to shut off. In most cases, the culprit is a degraded flapper valve seal at the base of the tank. Over time, in-tank chemical cleaners and hard water minerals cause the rubber flapper to harden, warp, or accumulate scale, preventing a watertight seal against the flush valve seat. As water leaks into the bowl, the fill valve stays open to replenish it. Inspecting and replacing a compromised flapper is the most practical first step in troubleshooting a running toilet.",
-  "image_prompt": "A detailed vertical 9:16 cutaway educational photography shot of the inside of a residential toilet tank filled with clean water. The camera focuses on the bottom section showing a black rubber flapper valve seated over the flush valve opening. A subtle gap is visible where water leaks past a slightly warped edge of the rubber flapper down into the bowl drain path. Realistic ceramic porcelain tank texture, plastic overflow tube, stainless steel chain, and fill valve float arm visible. Soft neutral studio lighting, crystal-clear water with realistic refractions, professional technical textbook quality, centered composition with clean background space at top and bottom for text placement. Photorealistic, no text, no logos, no watermarks, physically accurate plumbing geometry.",
-  "visual_story": "The visual features a cutaway view of a toilet tank interior focusing on the rubber flapper valve at the bottom of the tank. Viewers can clearly observe how a warped rubber seal creates a gap against the flush valve seat, allowing tank water to leak continuously into the bowl. This visual helps viewers connect the sound of running water to the exact mechanical seal failure taking place inside the tank.",
+  "idea": "Simple ways to protect plumbing during renovation",
+  "title": "Protecting Drain Stub-Outs During Wall Renovation",
+  "description": "During bathroom or kitchen renovations, exposed drain stub-outs easily collect mortar, tile adhesive, and drywall compound. When construction debris enters an open pipe, it settles in the P-trap or horizontal branch line. Once mixed with water, setting compounds harden into dense obstructions that standard augers cannot easily clear. Sealing open drain lines with temporary expansion plugs or threaded test caps—rather than loosely stuffed rags—prevents heavy solids from contaminating the drainage system. Securing pipe openings before drywalling or tiling saves hours of destructive drain cleaning later. How do you seal open pipe stubs on your job sites?",
+  "image_prompt": "A professional vertical 9:16 photograph of a plumbing rough-in during a bathroom renovation. In the center frame, a clean 2-inch schedule 40 white PVC drain pipe stub-out protrudes horizontally from an unfinished drywall opening. The open mouth of the PVC pipe is securely sealed with a yellow plastic mechanical expansion plug with a metal wing nut screwed tight against the rim. The surrounding wall texture shows exposed joint compound dust and rough tile backing board. Realistic construction lighting highlights the crisp details of the pipe fitting and surrounding workspace. Clear visual space is maintained at the top and bottom third. Photorealistic, clean focus on the sealed pipe opening, physically accurate plumbing connections, no text, no visual logos, no watermarks, no artificial annotations.",
+  "visual_story": "The visual visualizes an active bathroom renovation site where tile and drywall work are underway. The central focus is an exposed PVC drain pipe coming out of the wall. Instead of being left open or stuffed with a loose rag, the pipe end is properly sealed with a bright, visible mechanical expansion test plug. Fine drywall dust and tile adhesive are visible on the surrounding unfinished wall, demonstrating the exact debris that would otherwise fall into an open pipe and cause severe blockage in the branch drain.",
   "on_image_text": {
-    "hook": "Why Your Toilet Won't Stop Running",
-    "explanation": "A warped or degraded flapper fails to seal the flush valve, letting water constantly leak into the bowl.",
-    "callout": "Faulty Flapper Valve Seal",
-    "takeaway": "Inspect and clean the rubber flapper seal before replacing the entire fill valve assembly."
+    "hook": "Drywall mud and tile mortar can ruin exposed drain lines during remodeling.",
+    "explanation": "Unsealed pipe stubs allow construction debris to settle and harden inside trap arms and horizontal branch drains.",
+    "callout": "Mechanical Expansion Test Plug",
+    "takeaway": "Seal all open pipe ends with proper plugs before wall finishing begins."
   },
   "hashtags": [
-    "#plumbingeducation",
-    "#toiletrepair",
-    "#plumbingtips",
-    "#plumbingskills",
-    "#apprenticeplumber",
-    "#homeownerguide",
-    "#oromplan1"
+    "#PlumbingEducation",
+    "#PlumbingTips",
+    "#DrainageSystems",
+    "#ApprenticePlumber",
+    "#HomeRenovationTips",
+    "#PlumbingMaintenance",
+    "#SiteProtection"
   ],
   "reel_enabled": false,
   "reel_file": null
