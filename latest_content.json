@@ -1,22 +1,23 @@
 {
-  "idea": "How to prevent bathroom pipe problems",
-  "title": "Preventing Bathroom Drain Clogs at the Source",
-  "description": "An educational breakdown showing how hair and soap scum accumulate on bathroom sink pop-up pivot rods and P-traps, and how to prevent deep line blockages.",
-  "image_prompt": "A clean, photorealistic 9:16 vertical cross-section illustration of a modern bathroom washbasin drain assembly. The visual clearly shows the chrome pop-up drain stopper, the horizontal pivot rod inside the threaded tailpiece, and the curved P-trap beneath the sink. The cutaway view illustrates hair strands catching on the pivot rod mechanism, showing the exact point where organic debris collects before reaching the trap. Accurate plumbing geometry, standard chrome and white PVC pipe materials, realistic water droplets, sharp focus on the drain hardware, neutral tile background. Photorealistic lighting, no text, no labels, no logos, no watermarks, visually clean educational rendering.",
-  "visual_story": "The visual uses a clear cutaway section of a bathroom sink drain assembly to highlight the internal pivot rod of the pop-up stopper. Viewers can see how hair strands catch on this internal mechanical component under the sink rim, binding with soap scum long before reaching the main branch drain. This visual establishes why regular cleaning of the stopper rod prevents major drainage restrictions.",
+  "idea": "Signs of a hidden water leak",
+  "title": "Diagnostic Tip: The Water Meter Leak Test",
+  "description": "A sudden jump in your water bill or damp spots on walls often point to a hidden supply line leak. Before tearing open drywall or excavating slabs, perform a water meter leak test. Turn off every tap, appliance, and fixture inside and outside the property. Locate your main water meter and examine the small flow indicator—often a small triangular or star-shaped wheel on the dial face. If this low-flow indicator rotates while no water is actively being drawn, water is escaping under pressure downstream. This simple test confirms a hidden supply leak before any invasive repair work begins.",
+  "image_prompt": "Professional technical close-up photography of a residential water meter assembly, vertical 9:16 aspect ratio. The main focal point is the clear glass face of a brass analog water meter displaying clean numerical registers and a distinct red triangular low-flow leak indicator wheel near the center of the dial. The meter is properly installed along a copper and brass pipe assembly with realistic threaded brass couplings and a lever-handle ball valve on the inlet side. Sharp focus on the meter dial, natural daylight with clear clarity, professional plumbing working environment. Generous clean visual space at top and bottom for text placement. Photorealistic, physically accurate pipe geometry, no text, no visual labels, no watermarks, no logos, no fake branding.",
+  "visual_story": "The visual focuses on a realistic water meter face and pipe connection assembly. The viewer is trained to spot the small low-flow indicator wheel located on the dial. By showing a clear, centered, and physically correct water meter setup, the visual teaches viewers exactly where visual evidence of hidden water movement appears on a standard meter.",
   "on_image_text": {
-    "hook": "Where Bathroom Drain Clogs Actually Start",
-    "explanation": "Hair catches on the pop-up stopper pivot rod, where soap scum binds it into a restriction.",
-    "callout": "Pop-Up Stopper Pivot Rod",
-    "takeaway": "Clean the stopper assembly regularly and use removable strainers to protect the P-trap."
+    "hook": "How to Confirm a Hidden Supply Leak",
+    "explanation": "If the small low-flow indicator wheel turns while every fixture is shut off, pressurized water is escaping downstream.",
+    "callout": "Low-Flow Leak Indicator Wheel",
+    "takeaway": "Check your meter first to confirm a leak before opening walls or breaking concrete."
   },
   "hashtags": [
     "#PlumbingEducation",
-    "#BathroomPlumbing",
-    "#DrainMaintenance",
+    "#LeakDetection",
     "#PlumbingTips",
-    "#ApprenticePlumber",
-    "#HomeMaintenance"
+    "#HomeMaintenance",
+    "#WaterMeter",
+    "#PlumbingApprentice",
+    "#PlumbingPractical"
   ],
   "reel_enabled": false,
   "reel_file": null
