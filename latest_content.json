@@ -1,23 +1,22 @@
 {
-  "idea": "How to maintain a water tank",
-  "title": "Prevent Sediment Build-Up with Regular Tank Scouring",
-  "description": "An educational breakdown explaining why water storage tanks require periodic flushing via the bottom drain valve to protect household plumbing and maintain water quality.",
-  "image_prompt": "A professional educational photo of a vertical polyethylene water storage tank mounted on a sturdy concrete platform outdoors under bright daytime light. The side of the tank features a clean cutaway visual view illustrating the lower interior section. At the very floor of the tank lies a layer of settled dark fine sediment and silt. Positioned flush with the tank floor is a bottom drain line with a brass ball valve releasing cloudy, silty water into a floor drain below. A few inches higher on the tank wall, a separate clean domestic water supply pipe with a red handle shut-off valve is positioned clearly above the sediment level. Realistic PPR and PVC piping connections with proper union fittings and wall clamps. Clean vertical 9:16 composition with ample uncluttered background space in the top and bottom thirds for text placement. Photorealistic style, crisp lighting, physically accurate plumbing layout. No text, no logos, no watermarks, no brand names, no fake labels, no diagrams.",
-  "visual_story": "The visual highlights the critical height difference between the tank's bottom drain (scour line) and the domestic supply outlet line. Viewers can see how fine sand and rust particles settle at the floor of the tank below the supply line. By opening the lowest valve, sediment is purged without allowing contaminated heavy sludge into the elevated supply pipe that feeds household fixtures.",
+  "idea": "How to prevent bathroom pipe problems",
+  "title": "Preventing Bathroom Drain Clogs at the Source",
+  "description": "An educational breakdown showing how hair and soap scum accumulate on bathroom sink pop-up pivot rods and P-traps, and how to prevent deep line blockages.",
+  "image_prompt": "A clean, photorealistic 9:16 vertical cross-section illustration of a modern bathroom washbasin drain assembly. The visual clearly shows the chrome pop-up drain stopper, the horizontal pivot rod inside the threaded tailpiece, and the curved P-trap beneath the sink. The cutaway view illustrates hair strands catching on the pivot rod mechanism, showing the exact point where organic debris collects before reaching the trap. Accurate plumbing geometry, standard chrome and white PVC pipe materials, realistic water droplets, sharp focus on the drain hardware, neutral tile background. Photorealistic lighting, no text, no labels, no logos, no watermarks, visually clean educational rendering.",
+  "visual_story": "The visual uses a clear cutaway section of a bathroom sink drain assembly to highlight the internal pivot rod of the pop-up stopper. Viewers can see how hair strands catch on this internal mechanical component under the sink rim, binding with soap scum long before reaching the main branch drain. This visual establishes why regular cleaning of the stopper rod prevents major drainage restrictions.",
   "on_image_text": {
-    "hook": "Sediment at the bottom of your tank affects your entire water supply.",
-    "explanation": "Heavy particles settle at the tank floor, building up until they reach the supply outlet pipe.",
-    "callout": "Bottom Drain / Scour Valve",
-    "takeaway": "Flush the bottom scour valve every six months until water runs clear."
+    "hook": "Where Bathroom Drain Clogs Actually Start",
+    "explanation": "Hair catches on the pop-up stopper pivot rod, where soap scum binds it into a restriction.",
+    "callout": "Pop-Up Stopper Pivot Rod",
+    "takeaway": "Clean the stopper assembly regularly and use removable strainers to protect the P-trap."
   },
   "hashtags": [
     "#PlumbingEducation",
-    "#WaterTankMaintenance",
+    "#BathroomPlumbing",
+    "#DrainMaintenance",
     "#PlumbingTips",
     "#ApprenticePlumber",
-    "#PlumbingAdvice",
-    "#HomeMaintenance",
-    "#WaterStorage Tank"
+    "#HomeMaintenance"
   ],
   "reel_enabled": false,
   "reel_file": null
