@@ -1,0 +1,30 @@
+{
+  "package_date": "2026-11-22",
+  "slot": 7,
+  "lesson_number": 7,
+  "content_type": "reel",
+  "role": "installation_principle",
+  "lesson_type": "installation_principle",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "common plumbing mistakes",
+  "title": "Why S-Traps Fail in DWV Systems",
+  "description": "S-traps were once common in residential installations, but modern plumbing codes prohibit them because they frequently self-siphon. When water rushes down a vertical drop immediately following the trap, momentum and pressure differentials create a siphon that pulls the water seal straight out of the trap basin. Without this vital water seal, noxious sewer gases freely enter the living space. Correcting an illegal S-trap requires installing a vented P-trap configuration or using an Air Admittance Valve (AAV) where permitted by local jurisdiction, maintaining atmospheric pressure balance and preserving the trap seal.",
+  "hashtags": [
+    "#plumbing",
+    "#drainage",
+    "#plumbingmistakes",
+    "#plumbingeducation",
+    "#drainpipe",
+    "#ptrap"
+  ],
+  "caption": "Why S-Traps Fail in DWV Systems\n\nS-traps were once common in residential installations, but modern plumbing codes prohibit them because they frequently self-siphon. When water rushes down a vertical drop immediately following the trap, momentum and pressure differentials create a siphon that pulls the water seal straight out of the trap basin. Without this vital water seal, noxious sewer gases freely enter the living space. Correcting an illegal S-trap requires installing a vented P-trap configuration or using an Air Admittance Valve (AAV) where permitted by local jurisdiction, maintaining atmospheric pressure balance and preserving the trap seal.\n\n#plumbing #drainage #plumbingmistakes #plumbingeducation #drainpipe #ptrap",
+  "schedule_time": "19:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-11-22/post_07/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-11-22/post_07/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}
