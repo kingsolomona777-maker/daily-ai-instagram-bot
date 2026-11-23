@@ -1,23 +1,23 @@
 {
-  "idea": "Signs of a hidden water leak",
-  "title": "Diagnostic Tip: The Water Meter Leak Test",
-  "description": "A sudden jump in your water bill or damp spots on walls often point to a hidden supply line leak. Before tearing open drywall or excavating slabs, perform a water meter leak test. Turn off every tap, appliance, and fixture inside and outside the property. Locate your main water meter and examine the small flow indicator—often a small triangular or star-shaped wheel on the dial face. If this low-flow indicator rotates while no water is actively being drawn, water is escaping under pressure downstream. This simple test confirms a hidden supply leak before any invasive repair work begins.",
-  "image_prompt": "Professional technical close-up photography of a residential water meter assembly, vertical 9:16 aspect ratio. The main focal point is the clear glass face of a brass analog water meter displaying clean numerical registers and a distinct red triangular low-flow leak indicator wheel near the center of the dial. The meter is properly installed along a copper and brass pipe assembly with realistic threaded brass couplings and a lever-handle ball valve on the inlet side. Sharp focus on the meter dial, natural daylight with clear clarity, professional plumbing working environment. Generous clean visual space at top and bottom for text placement. Photorealistic, physically accurate pipe geometry, no text, no visual labels, no watermarks, no logos, no fake branding.",
-  "visual_story": "The visual focuses on a realistic water meter face and pipe connection assembly. The viewer is trained to spot the small low-flow indicator wheel located on the dial. By showing a clear, centered, and physically correct water meter setup, the visual teaches viewers exactly where visual evidence of hidden water movement appears on a standard meter.",
+  "idea": "Why water pipes make unusual noises",
+  "title": "Understanding Water Hammer: Why Pipes Bang When Valves Shut",
+  "description": "When a fast-closing valve—such as the solenoid valve in a washing machine or dishwasher—shuts off abruptly, flowing water comes to a sudden stop. This abrupt halt converts kinetic energy into a high-pressure shockwave that travels backward through the pipe system. Known as water hammer, this pressure surge causes unstrapped pipes to violently flex and strike wall studs or adjacent framing. Over time, repeated shockwaves weaken pipe joints and loosen connections, potentially causing leaks. Installing mechanical water hammer arrestors near quick-closing valves absorbs this kinetic shock and protects the piping assembly.",
+  "image_prompt": "A professional 9:16 vertical technical visual illustrating a residential copper water supply system inside an open wooden wall stud bay. A bright brass quick-closing valve connects to half-inch copper pipe. Positioned immediately upstream of the valve is a vertical mechanical water hammer arrestor mounted on a brass tee fitting. The copper pipe is secured to clean wooden 2x4 framing studs using realistic rubber-lined copper pipe clamps. Professional studio lighting highlights metallic textures of copper and brass fittings alongside natural wood grain. Photorealistic plumbing detail, accurate fitting geometry, clean vertical composition, ample clean visual space in top and bottom thirds for overlay graphics. No text, no labels, no diagrammatic arrows, no logos, no watermarks.",
+  "visual_story": "The visual focuses on the connection point between a quick-closing valve and a water supply line. The visual clearly shows a properly installed water hammer arrestor sitting on a tee fitting right next to the valve. By viewing the pipe assembly anchored cleanly to wall studs with proper clamps, the viewer understands that pipe stability and shock absorption prevent the physical banging noise caused by sudden valve closure.",
   "on_image_text": {
-    "hook": "How to Confirm a Hidden Supply Leak",
-    "explanation": "If the small low-flow indicator wheel turns while every fixture is shut off, pressurized water is escaping downstream.",
-    "callout": "Low-Flow Leak Indicator Wheel",
-    "takeaway": "Check your meter first to confirm a leak before opening walls or breaking concrete."
+    "hook": "Loud Bang When a Valve Shuts?",
+    "explanation": "Stopping flowing water instantly converts kinetic energy into a shockwave that rattles loose pipes.",
+    "callout": "Water Hammer Shockwave",
+    "takeaway": "Secure loose pipe straps and install mechanical arrestors near quick-closing valves."
   },
   "hashtags": [
     "#PlumbingEducation",
-    "#LeakDetection",
+    "#WaterHammer",
     "#PlumbingTips",
+    "#ApprenticePlumber",
+    "#PlumbingKnowledge",
     "#HomeMaintenance",
-    "#WaterMeter",
-    "#PlumbingApprentice",
-    "#PlumbingPractical"
+    "#PipePiping"
   ],
   "reel_enabled": false,
   "reel_file": null
