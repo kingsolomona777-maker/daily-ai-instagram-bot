@@ -1,23 +1,23 @@
 {
-  "idea": "Common causes of leaking taps",
-  "title": "Compression Tap Leaks: Washer vs. Seat",
-  "description": "An educational breakdown explaining why traditional compression taps drip from the spout and how degraded washers or pitted valve seats cause persistent leaks.",
-  "image_prompt": "A professional 3D technical cutaway illustration of a standard brass compression tap assembly, rendered in high detail. Vertical 9:16 composition. The exterior chrome body is cut away to reveal the internal brass spindle, operating threads, black rubber seating washer, and the lower brass valve seat inside the tap chamber. Focus is centered on the junction where the rubber washer meets the valve seat. Crisp studio lighting highlights realistic metal textures, rubber grain, and clean water droplets passing through a worn edge of the washer. Clean, neutral gray background with ample soft visual space at the top and bottom third for graphic overlays. No text, no labels, no arrows, no logos, no watermarks, no fake brand names.",
-  "visual_story": "The visual provides a vertical cutaway view of a compression tap interior. Viewers can see how the threaded stem drives the rubber washer down against the stationary brass seat. The visual shows a worn, uneven washer edge allowing water to bypass the seal, demonstrating that mechanical wear at this exact contact point is the primary cause of spout drips.",
+  "idea": "Why proper pipe sizing matters",
+  "title": "Understanding Pipe Sizing: Friction Loss and Dynamic Pressure",
+  "description": "When a main water supply line is undersized, opening multiple fixtures causes a dramatic drop in dynamic pressure. This occurs because forcing water through a pipe that is too small increases velocity and internal friction loss against the pipe walls. Proper pipe sizing balances fluid velocity with required fixture volume, preventing noisy pipes, premature wear, and unexpected pressure drops. Always size main trunk lines according to total fixture units rather than using a uniform small diameter throughout the installation. What is your standard main trunk diameter for a typical two-bathroom residential home?",
+  "image_prompt": "A professional vertical 9:16 photorealistic close-up shot of a clean domestic water supply pipe installation on a light grey wall in a modern utility room. Featured in the center are two neatly mounted PPR water supply pipes side by side for visual comparison: a larger 25mm (3/4-inch) main trunk line and a smaller 20mm (1/2-inch) branch line, connected with precise green PPR socket-fusion tee fittings and clean brass ball valves. The pipe layout is geometrically accurate, clean, and physically realistic. Soft directional studio lighting highlights the texture of the plastic pipes and polished brass valves. Vertical 9:16 aspect ratio composition, leaving generous clean space in the upper third and lower third for text overlays. Pure visual photograph, absolute zero text, no labels, no diagrams, no arrows, no watermarks, no logos, no fake brand names.",
+  "visual_story": "The visual presents a side-by-side comparison of a 25mm (3/4-inch) main supply trunk line transitioning into a 20mm (1/2-inch) branch line using clean, professional PPR fusion fittings. Viewers immediately notice the physical difference in pipe diameter and wall thickness. This visual reinforces the concept that main supply lines must carry a higher volume of water to feed branch lines without causing high velocity, excessive friction, and dynamic pressure drops downstream.",
   "on_image_text": {
-    "hook": "Drip From The Spout? Tightening Won't Fix It.",
-    "explanation": "Compression taps seal by forcing a rubber washer down onto a fixed internal brass seat.",
-    "callout": "Worn Washer & Pitted Seat Junction",
-    "takeaway": "Replace the washer, but always check the brass seat for corrosion before reassembly."
+    "hook": "Why Pressure Drops When Two Taps Run",
+    "explanation": "Undersized supply lines force high velocity, sharply increasing internal friction loss.",
+    "callout": "Trunk Line vs. Branch Line Sizing",
+    "takeaway": "Size main trunks by total fixture demand, not arbitrary pipe sizes."
   },
   "hashtags": [
-    "#plumbingeducation",
-    "#plumbingtips",
-    "#taprepair",
-    "#plumbingapprentice",
-    "#homebuilding",
-    "#diyplumbing",
-    "#oromplan1"
+    "#PlumbingEducation",
+    "#PipeSizing",
+    "#PlumbingTips",
+    "#WaterPressure",
+    "#PlumbingApprentice",
+    "#PlumbingDesign",
+    "#TradeSkills"
   ],
   "reel_enabled": false,
   "reel_file": null
