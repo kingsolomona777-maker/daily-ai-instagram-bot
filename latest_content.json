@@ -1,23 +1,23 @@
 {
-  "idea": "Why proper pipe sizing matters",
-  "title": "Understanding Pipe Sizing: Friction Loss and Dynamic Pressure",
-  "description": "When a main water supply line is undersized, opening multiple fixtures causes a dramatic drop in dynamic pressure. This occurs because forcing water through a pipe that is too small increases velocity and internal friction loss against the pipe walls. Proper pipe sizing balances fluid velocity with required fixture volume, preventing noisy pipes, premature wear, and unexpected pressure drops. Always size main trunk lines according to total fixture units rather than using a uniform small diameter throughout the installation. What is your standard main trunk diameter for a typical two-bathroom residential home?",
-  "image_prompt": "A professional vertical 9:16 photorealistic close-up shot of a clean domestic water supply pipe installation on a light grey wall in a modern utility room. Featured in the center are two neatly mounted PPR water supply pipes side by side for visual comparison: a larger 25mm (3/4-inch) main trunk line and a smaller 20mm (1/2-inch) branch line, connected with precise green PPR socket-fusion tee fittings and clean brass ball valves. The pipe layout is geometrically accurate, clean, and physically realistic. Soft directional studio lighting highlights the texture of the plastic pipes and polished brass valves. Vertical 9:16 aspect ratio composition, leaving generous clean space in the upper third and lower third for text overlays. Pure visual photograph, absolute zero text, no labels, no diagrams, no arrows, no watermarks, no logos, no fake brand names.",
-  "visual_story": "The visual presents a side-by-side comparison of a 25mm (3/4-inch) main supply trunk line transitioning into a 20mm (1/2-inch) branch line using clean, professional PPR fusion fittings. Viewers immediately notice the physical difference in pipe diameter and wall thickness. This visual reinforces the concept that main supply lines must carry a higher volume of water to feed branch lines without causing high velocity, excessive friction, and dynamic pressure drops downstream.",
+  "idea": "Why a toilet may keep running",
+  "title": "Why Your Toilet Keeps Running: Flapper Seal Failure",
+  "description": "When a toilet runs constantly, the issue usually sits inside the water tank. The flexible rubber flapper creates a seal over the flush valve drain seat. Over time, water treatment chemicals and mineral deposits cause the rubber to harden, warp, or deteriorate. Even a slight imperfection allows water to trickle constantly into the bowl, keeping the water level down and preventing the fill valve float from shutting off. Before replacing the entire fill valve assembly, check the flapper seal for stiffness, buildup, or improper chain tension. A quick flapper replacement often resolves the leak and prevents wasted water.",
+  "image_prompt": "A professional technical cutaway visual illustration of a ceramic gravity-flush toilet tank interior, vertical 9:16 composition. The graphic cleanly reveals internal toilet tank mechanics in clean visual detail: a fill valve with float, overflow pipe, and flush valve seat. At the bottom of the tank, a dark rubber flapper valve rests over the flush valve orifice, showing a microscopic gap due to hardened, warped rubber material, with a subtle blue stream of water trickling past the seal into the drain throat below. Physically accurate geometry and fluid mechanics. Ample clean ceramic space at top and bottom for text placement. Photorealistic rendering, clear studio lighting, crisp visual center. No text, no visual annotations, no arrows, no logos, no fake branding, no watermarks.",
+  "visual_story": "The visual uses an educational section view of the toilet tank interior to highlight the mechanical connection between the flapper valve and the flush seat. The viewer immediately notices the point of failure: a warped rubber flapper allowing a continuous trickle of water into the flush orifice, demonstrating why the water level stays low and forces the fill valve to remain open.",
   "on_image_text": {
-    "hook": "Why Pressure Drops When Two Taps Run",
-    "explanation": "Undersized supply lines force high velocity, sharply increasing internal friction loss.",
-    "callout": "Trunk Line vs. Branch Line Sizing",
-    "takeaway": "Size main trunks by total fixture demand, not arbitrary pipe sizes."
+    "hook": "Toilet Running Continuously?",
+    "explanation": "A degraded flapper fails to seal the tank drain, letting water leak into the bowl constantly.",
+    "callout": "Warped or Hardened Flapper Seal",
+    "takeaway": "Inspect the rubber seal for damage before replacing the entire fill valve assembly."
   },
   "hashtags": [
-    "#PlumbingEducation",
-    "#PipeSizing",
     "#PlumbingTips",
-    "#WaterPressure",
+    "#PlumbingEducation",
+    "#ToiletRepair",
     "#PlumbingApprentice",
-    "#PlumbingDesign",
-    "#TradeSkills"
+    "#HomeMaintenance",
+    "#TradeSkills",
+    "#OromPlan1"
   ],
   "reel_enabled": false,
   "reel_file": null
