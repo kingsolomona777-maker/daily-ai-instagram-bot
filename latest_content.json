@@ -1,23 +1,23 @@
 {
-  "idea": "When to replace old plumbing pipes",
-  "title": "Identifying Internal Corrosion in Galvanized Steel Piping",
-  "description": "An educational guide explaining how internal tuberculation in older galvanized steel pipes restricts water flow despite a intact outer appearance, serving as a primary indicator for pipe replacement.",
-  "image_prompt": "A professional macro photograph showing a clean cross-sectional cut of an old 3/4-inch galvanized steel plumbing pipe, set in a clean plumbing workbench environment. Vertical 9:16 aspect ratio. The main subject is centered: the cut pipe wall reveals heavy internal tuberculation, with dark reddish-brown iron oxide rust and mineral scale restricting the inner bore by more than half, while the outer galvanized exterior shows only minor surface dullness. Positioned neatly beside it is a short cut section of clean, modern copper or PEX pipe to provide clear visual material contrast. Realistic metallic textures, sharp focus on internal pipe scale, soft professional side lighting with high detail, neutral gray background. No text, no visual labels, no graphics, no logos, no watermarks, no fake brand names, no artificial arrows.",
-  "visual_story": "The visual focuses on the stark difference between a pipe's exterior shell and its internal waterway. Viewers immediately notice the severe rust buildup inside the cut galvanized pipe cross-section, showing how mineral scale blocks water passage. Placing a clean pipe cut section next to it highlights lost internal diameter. This visual directly supports the lesson by demonstrating why visual outer inspection alone is insufficient to evaluate old metal piping.",
+  "idea": "Why professional plumbing installation matters",
+  "title": "Proper Drain Pipe Support Prevents Chronic Clogs",
+  "description": "Professional plumbing installation relies on strict attention to structural pipe support. When horizontal PVC drain lines lack adequate hanger spacing, the pipe sags under the weight of standing water and waste. This sag creates a low point—commonly called a 'belly'—where heavy solids settle while liquid passes over. Over time, organic sediment accumulates in this dip, leading to recurrent drain blockages despite routine clearing. Professional installation ensures correct pipe hangers are installed at specified code intervals to maintain a continuous slope. Always verify hanger spacing requirements against your local plumbing code during rough-in.",
+  "image_prompt": "Photorealistic vertical 9:16 technical plumbing visual showing an under-floor basement space. In the center frame, a clean 3-inch horizontal white schedule 40 PVC drain pipe is neatly suspended beneath wooden joists using proper galvanised metal clevis hangers, precisely aligned with a steady continuous downward slope. Clean background joists, precise mechanical installation detail, bright crisp work lighting highlighting the smooth solvent-weld PVC fittings and sturdy steel pipe hangers. Ample clean space around the upper third and lower third for text placement. Photorealistic, physically realistic geometry, standard trade construction details. No text, no logos, no watermarks, no branding, no arrows.",
+  "visual_story": "The visual highlights a properly supported 3-inch PVC horizontal drain line mounted below floor joists using sturdy steel hangers. Viewers should notice the straight, sag-free pipe run maintaining a consistent slope, contrasting with amateur installations that rely on makeshift supports or excessive hanger spacing. The clean structural alignment visualizes how professional support prevents pipe belly formation and sediment accumulation.",
   "on_image_text": {
-    "hook": "Low Water Flow Isn't Always a Valve Problem",
-    "explanation": "Galvanized steel pipes corrode from the inside out, accumulating dense iron oxide rust that shrinks the internal pipe diameter over time.",
-    "callout": "Internal Tuberculation (Rust & Scale Buildup)",
-    "takeaway": "When fixture flow drops system-wide despite normal static pressure, inspect internal pipe condition for replacement."
+    "hook": "Unsupported Drains Cause Constant Clogs",
+    "explanation": "Inadequate hanger spacing allows pipes to sag under weight, creating low spots where waste solids settle.",
+    "callout": "Pipe Sag & Sediment Trap",
+    "takeaway": "Install proper hangers at code-specified distances to maintain a continuous drain slope."
   },
   "hashtags": [
-    "#plumbingeducation",
-    "#plumbingtips",
-    "#pipereplacement",
-    "#galvanizedpipes",
-    "#plumbingapprentice",
-    "#buildingmaintenance",
-    "#plumberlife"
+    "#PlumbingEducation",
+    "#PlumbingTips",
+    "#DWVSystem",
+    "#DrainagePlumbing",
+    "#PlumbingApprentice",
+    "#PlumbingCode",
+    "#TradeKnowledge"
   ],
   "reel_enabled": false,
   "reel_file": null
