@@ -1,0 +1,29 @@
+{
+  "package_date": "2026-11-25",
+  "slot": 5,
+  "lesson_number": 5,
+  "content_type": "reel",
+  "role": "troubleshooting",
+  "lesson_type": "troubleshooting",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "drain ventilation",
+  "title": "Troubleshooting Gurgling Drains: Vent Line Siphonage",
+  "description": "When a fixture gurgles as water drains elsewhere, a compromised vent stack is often the primary culprit. Drainage ventilation pipes equalize atmospheric pressure within the system. Without adequate airflow, wastewater moving through a line generates negative pressure, pulling water directly out of nearby P-traps. This loss of trap seal allows sewer gases to escape into living areas. Inspecting vent terminals for debris, bird nests, or frost buildup is an essential step when troubleshooting persistent drainage noise, slow flow, and sewer odors.",
+  "hashtags": [
+    "PlumbingTips",
+    "DrainVentilation",
+    "PlumbingTroubleshooting",
+    "PTrap",
+    "SewerGas"
+  ],
+  "caption": "Troubleshooting Gurgling Drains: Vent Line Siphonage\n\nWhen a fixture gurgles as water drains elsewhere, a compromised vent stack is often the primary culprit. Drainage ventilation pipes equalize atmospheric pressure within the system. Without adequate airflow, wastewater moving through a line generates negative pressure, pulling water directly out of nearby P-traps. This loss of trap seal allows sewer gases to escape into living areas. Inspecting vent terminals for debris, bird nests, or frost buildup is an essential step when troubleshooting persistent drainage noise, slow flow, and sewer odors.\n\nPlumbingTips DrainVentilation PlumbingTroubleshooting PTrap SewerGas",
+  "schedule_time": "15:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-11-25/post_05/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-11-25/post_05/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}

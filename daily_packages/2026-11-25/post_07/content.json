@@ -1,0 +1,29 @@
+{
+  "package_date": "2026-11-25",
+  "slot": 7,
+  "lesson_number": 7,
+  "content_type": "reel",
+  "role": "installation_principle",
+  "lesson_type": "installation_principle",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "common plumbing mistakes",
+  "title": "Why Sanitary Tees Fail in Horizontal Drainage",
+  "description": "Using a standard sanitary tee to connect horizontal drain lines is a widespread installation error in drainage systems. Sanitary tees are designed primarily for transitioning from a horizontal branch into a vertical stack. When installed horizontally, the short directional sweep fails to channel waste smoothly, leading to solids accumulating, frequent blockages, and potential backflow. For horizontal-to-horizontal branch connections, proper drainage principles require a wye fitting or a combination wye and eighth bend. This creates a gradual sweep that maintains flow velocity and prevents waste buildup, ensuring code compliance and reliable long-term performance.",
+  "hashtags": [
+    "PlumbingTips",
+    "DrainageFundamentals",
+    "PlumbingCode",
+    "DWVSystem",
+    "TradesEducation"
+  ],
+  "caption": "Why Sanitary Tees Fail in Horizontal Drainage\n\nUsing a standard sanitary tee to connect horizontal drain lines is a widespread installation error in drainage systems. Sanitary tees are designed primarily for transitioning from a horizontal branch into a vertical stack. When installed horizontally, the short directional sweep fails to channel waste smoothly, leading to solids accumulating, frequent blockages, and potential backflow. For horizontal-to-horizontal branch connections, proper drainage principles require a wye fitting or a combination wye and eighth bend. This creates a gradual sweep that maintains flow velocity and prevents waste buildup, ensuring code compliance and reliable long-term performance.\n\nPlumbingTips DrainageFundamentals PlumbingCode DWVSystem TradesEducation",
+  "schedule_time": "19:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-11-25/post_07/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-11-25/post_07/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}
