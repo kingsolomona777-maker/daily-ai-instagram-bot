@@ -1,23 +1,23 @@
 {
-  "idea": "Why professional plumbing installation matters",
-  "title": "Proper Drain Pipe Support Prevents Chronic Clogs",
-  "description": "Professional plumbing installation relies on strict attention to structural pipe support. When horizontal PVC drain lines lack adequate hanger spacing, the pipe sags under the weight of standing water and waste. This sag creates a low point—commonly called a 'belly'—where heavy solids settle while liquid passes over. Over time, organic sediment accumulates in this dip, leading to recurrent drain blockages despite routine clearing. Professional installation ensures correct pipe hangers are installed at specified code intervals to maintain a continuous slope. Always verify hanger spacing requirements against your local plumbing code during rough-in.",
-  "image_prompt": "Photorealistic vertical 9:16 technical plumbing visual showing an under-floor basement space. In the center frame, a clean 3-inch horizontal white schedule 40 PVC drain pipe is neatly suspended beneath wooden joists using proper galvanised metal clevis hangers, precisely aligned with a steady continuous downward slope. Clean background joists, precise mechanical installation detail, bright crisp work lighting highlighting the smooth solvent-weld PVC fittings and sturdy steel pipe hangers. Ample clean space around the upper third and lower third for text placement. Photorealistic, physically realistic geometry, standard trade construction details. No text, no logos, no watermarks, no branding, no arrows.",
-  "visual_story": "The visual highlights a properly supported 3-inch PVC horizontal drain line mounted below floor joists using sturdy steel hangers. Viewers should notice the straight, sag-free pipe run maintaining a consistent slope, contrasting with amateur installations that rely on makeshift supports or excessive hanger spacing. The clean structural alignment visualizes how professional support prevents pipe belly formation and sediment accumulation.",
+  "idea": "How to maintain a home water system",
+  "title": "Checking Home Water Pressure",
+  "description": "High static water pressure can silently damage faucet cartridges, toilet valves, and flexible supply lines. Testing water pressure at an outdoor hose bib is one of the most effective preventive maintenance checks a homeowner or apprentice can perform. Thread a dedicated pressure gauge onto an exterior hose spigot and open the valve completely to read the static pressure. Most residential plumbing systems are designed to operate safely between 40 and 80 PSI, though local code and manufacturer specifications govern exact limits. If your reading exceeds 80 PSI, your pressure-reducing valve (PRV) may need adjustment or replacement. What static pressure reading do you normally see on your residential service jobs?",
+  "image_prompt": "A sharp, high-resolution visual photograph of a solid brass exterior hose bib spigot mounted neatly on a clean textured wall. Threaded securely onto the hose spigot outlet is a generic brass water pressure test gauge. The circular dial of the gauge features clean black psi markings on a white face, with a red indicator needle clearly pointing to 60 PSI. The background consists of modern exterior masonry with generous clean space at the top and bottom. Vertical 9:16 aspect ratio composition, natural morning daylight, clear depth of field focusing strictly on the brass connection and pressure gauge. No text, no logos, no watermarks, no brand labels, physically accurate hardware geometry.",
+  "visual_story": "The image focuses directly on an outdoor brass hose spigot connected to a specialized pressure test gauge. Viewer attention is drawn to the threaded connection and the clean gauge dial showing 60 PSI. This visually demonstrates the exact, real-world setup used to measure static household water pressure without needing complex tools.",
   "on_image_text": {
-    "hook": "Unsupported Drains Cause Constant Clogs",
-    "explanation": "Inadequate hanger spacing allows pipes to sag under weight, creating low spots where waste solids settle.",
-    "callout": "Pipe Sag & Sediment Trap",
-    "takeaway": "Install proper hangers at code-specified distances to maintain a continuous drain slope."
+    "hook": "High water pressure silently degrades your plumbing fixtures.",
+    "explanation": "Residential water systems are typically designed to operate safely between 40 and 80 PSI to prevent unnecessary stress on pipe seals and valve seats.",
+    "callout": "Water Pressure Gauge Threaded to Hose Bib",
+    "takeaway": "Test static water pressure twice a year to protect supply lines and appliances from premature failure."
   },
   "hashtags": [
-    "#PlumbingEducation",
-    "#PlumbingTips",
-    "#DWVSystem",
-    "#DrainagePlumbing",
-    "#PlumbingApprentice",
-    "#PlumbingCode",
-    "#TradeKnowledge"
+    "#plumbingeducation",
+    "#homeplumbing",
+    "#plumbingmaintenance",
+    "#waterpressure",
+    "#plumbingtips",
+    "#apprenticeplumber",
+    "#plumbinglife"
   ],
   "reel_enabled": false,
   "reel_file": null
