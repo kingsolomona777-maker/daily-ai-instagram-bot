@@ -1,23 +1,23 @@
 {
-  "idea": "How to maintain a home water system",
-  "title": "Checking Home Water Pressure",
-  "description": "High static water pressure can silently damage faucet cartridges, toilet valves, and flexible supply lines. Testing water pressure at an outdoor hose bib is one of the most effective preventive maintenance checks a homeowner or apprentice can perform. Thread a dedicated pressure gauge onto an exterior hose spigot and open the valve completely to read the static pressure. Most residential plumbing systems are designed to operate safely between 40 and 80 PSI, though local code and manufacturer specifications govern exact limits. If your reading exceeds 80 PSI, your pressure-reducing valve (PRV) may need adjustment or replacement. What static pressure reading do you normally see on your residential service jobs?",
-  "image_prompt": "A sharp, high-resolution visual photograph of a solid brass exterior hose bib spigot mounted neatly on a clean textured wall. Threaded securely onto the hose spigot outlet is a generic brass water pressure test gauge. The circular dial of the gauge features clean black psi markings on a white face, with a red indicator needle clearly pointing to 60 PSI. The background consists of modern exterior masonry with generous clean space at the top and bottom. Vertical 9:16 aspect ratio composition, natural morning daylight, clear depth of field focusing strictly on the brass connection and pressure gauge. No text, no logos, no watermarks, no brand labels, physically accurate hardware geometry.",
-  "visual_story": "The image focuses directly on an outdoor brass hose spigot connected to a specialized pressure test gauge. Viewer attention is drawn to the threaded connection and the clean gauge dial showing 60 PSI. This visually demonstrates the exact, real-world setup used to measure static household water pressure without needing complex tools.",
+  "idea": "Basic plumbing maintenance every homeowner should know",
+  "title": "Maintaining Under-Sink Angle Stop Shutoff Valves",
+  "description": "In a fixture emergency, the under-sink shutoff valve—commonly called an angle stop—is your primary defense against water damage. However, when left untouched for years, mineral deposits dissolved in water can build up around the valve stem and seat, causing the valve to seize or leak around the packing nut when forced open or closed.\n\nExercising your shutoff valves twice a year keeps internal parts moving freely and helps prevent mineral scale from locking the mechanism. If you notice stiff movement or minor weeping around old multi-turn gate-style valves, upgrading to a quarter-turn brass ball valve provides a far more reliable seal.\n\nHow recently have you checked or operated your under-sink shutoff valves?",
+  "image_prompt": "A photorealistic vertical 9:16 close-up photograph of a professional under-sink plumbing installation inside a clean vanity cabinet. In the center, a chrome-plated brass angle stop valve is neatly installed onto a 1/2-inch copper pipe extending smoothly from a clean wall. A flexible braided stainless steel water supply line connects seamlessly to the top outlet of the valve and curves upward toward the faucet connections. The lighting is soft and bright, highlighting the metallic textures of polished chrome, brass threads, and woven stainless steel mesh. Visual space is left balanced at the top and bottom of the vertical frame. No text, no logos, no watermarks, no brand labels, no floating arrows, physically realistic plumbing connections.",
+  "visual_story": "The visual focuses directly on a properly installed chrome angle stop valve and braided riser hose beneath a sink. It draws attention to the exact component homeowners need to locate and maintain before an emergency occurs. The clean line connections demonstrate proper compression fitting orientation without over-tightening distortion.",
   "on_image_text": {
-    "hook": "High water pressure silently degrades your plumbing fixtures.",
-    "explanation": "Residential water systems are typically designed to operate safely between 40 and 80 PSI to prevent unnecessary stress on pipe seals and valve seats.",
-    "callout": "Water Pressure Gauge Threaded to Hose Bib",
-    "takeaway": "Test static water pressure twice a year to protect supply lines and appliances from premature failure."
+    "hook": "Test Your Shutoff Valves Before an Emergency",
+    "explanation": "Unused shutoff valves accumulate mineral scale over time, causing internal valve stems to seize when forced.",
+    "callout": "Quarter-Turn Angle Stop Valve",
+    "takeaway": "Gently operate shutoff valves twice a year to maintain mechanical movement and prevent mineral buildup."
   },
   "hashtags": [
-    "#plumbingeducation",
-    "#homeplumbing",
-    "#plumbingmaintenance",
-    "#waterpressure",
-    "#plumbingtips",
-    "#apprenticeplumber",
-    "#plumbinglife"
+    "#PlumbingMaintenance",
+    "#PlumbingTips",
+    "#HomeownerTips",
+    "#PlumbingEducation",
+    "#AngleStopValve",
+    "#ApprenticePlumber",
+    "#PlumbingAdvice"
   ],
   "reel_enabled": false,
   "reel_file": null
