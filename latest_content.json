@@ -1,23 +1,23 @@
 {
-  "idea": "Basic plumbing maintenance every homeowner should know",
-  "title": "Maintaining Under-Sink Angle Stop Shutoff Valves",
-  "description": "In a fixture emergency, the under-sink shutoff valve—commonly called an angle stop—is your primary defense against water damage. However, when left untouched for years, mineral deposits dissolved in water can build up around the valve stem and seat, causing the valve to seize or leak around the packing nut when forced open or closed.\n\nExercising your shutoff valves twice a year keeps internal parts moving freely and helps prevent mineral scale from locking the mechanism. If you notice stiff movement or minor weeping around old multi-turn gate-style valves, upgrading to a quarter-turn brass ball valve provides a far more reliable seal.\n\nHow recently have you checked or operated your under-sink shutoff valves?",
-  "image_prompt": "A photorealistic vertical 9:16 close-up photograph of a professional under-sink plumbing installation inside a clean vanity cabinet. In the center, a chrome-plated brass angle stop valve is neatly installed onto a 1/2-inch copper pipe extending smoothly from a clean wall. A flexible braided stainless steel water supply line connects seamlessly to the top outlet of the valve and curves upward toward the faucet connections. The lighting is soft and bright, highlighting the metallic textures of polished chrome, brass threads, and woven stainless steel mesh. Visual space is left balanced at the top and bottom of the vertical frame. No text, no logos, no watermarks, no brand labels, no floating arrows, physically realistic plumbing connections.",
-  "visual_story": "The visual focuses directly on a properly installed chrome angle stop valve and braided riser hose beneath a sink. It draws attention to the exact component homeowners need to locate and maintain before an emergency occurs. The clean line connections demonstrate proper compression fitting orientation without over-tightening distortion.",
+  "idea": "Common causes of blocked sinks",
+  "title": "Understanding P-Trap Blockages in Kitchen Sinks",
+  "description": "An educational breakdown showing how fats, oils, grease (FOG), and un-dissolved food debris settle inside the curve of a P-trap, leading to slow drainage and persistent sink blockages.",
+  "image_prompt": "A clean, photorealistic educational technical visualization of the under-sink area of a modern kitchen sink in a vertical 9:16 aspect ratio. Centered in the frame is a white PVC tubular P-trap connected correctly to a stainless steel sink tailpiece above and leading into a wall drain stub-out behind it. A detailed cross-section cutaway view of the P-trap's lower curved bend reveals the internal mechanism: standing liquid water seal with visible, physically realistic accumulation of cooled, solidified grease and organic food debris clinging along the lower wall of the pipe bend, narrowing the flow path. Realistic under-cabinet lighting illuminates the white PVC fittings, brass slip-nuts, and grey wall background. Clean visual space at the top third and bottom third for text overlays. High resolution, clear technical visual focus. No text, no labels, no arrows, no diagrams, no watermarks, no logos, no brand labels.",
+  "visual_story": "The visual highlights a realistic under-sink drainage setup with a cutaway view of the P-trap bend. Viewers can see how the standing water seal—which normally prevents sewer gases from entering the room—also acts as a cooling basin where warm liquid grease cools down and solidifies at the lowest point. By illustrating the constricted pipe interior, the visual directly links daily kitchen habits to physical flow restriction.",
   "on_image_text": {
-    "hook": "Test Your Shutoff Valves Before an Emergency",
-    "explanation": "Unused shutoff valves accumulate mineral scale over time, causing internal valve stems to seize when forced.",
-    "callout": "Quarter-Turn Angle Stop Valve",
-    "takeaway": "Gently operate shutoff valves twice a year to maintain mechanical movement and prevent mineral buildup."
+    "hook": "Why Kitchen Sinks Block at the Curve",
+    "explanation": "Standing water in the P-trap cools warm grease, causing it to solidify along the pipe bend.",
+    "callout": "FOG & Solid Scrap Buildup in P-Trap",
+    "takeaway": "Scrape plates and wipe greasy pans into the trash before washing."
   },
   "hashtags": [
-    "#PlumbingMaintenance",
-    "#PlumbingTips",
-    "#HomeownerTips",
     "#PlumbingEducation",
-    "#AngleStopValve",
-    "#ApprenticePlumber",
-    "#PlumbingAdvice"
+    "#PlumbingTips",
+    "#DrainageSystem",
+    "#PTrap",
+    "#PlumbingApprentice",
+    "#HomeMaintenance",
+    "#PlumbingBasics"
   ],
   "reel_enabled": false,
   "reel_file": null
