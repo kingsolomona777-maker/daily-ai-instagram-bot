@@ -1,0 +1,29 @@
+{
+  "package_date": "2026-11-27",
+  "slot": 1,
+  "lesson_number": 1,
+  "content_type": "reel",
+  "role": "problem_and_cause",
+  "lesson_type": "problem_and_cause",
+  "knowledge_path": "Drainage Fundamentals",
+  "knowledge_area": "drainage systems",
+  "title": "Why Drains Gurgle: Understanding Air Pressure in Drainage Systems",
+  "description": "When fixtures gurgle or drain slowly, the root cause often lies in the venting system rather than a clog inside the waste line itself. As wastewater flows down a pipe, it pushes air ahead of it and creates negative pressure behind it. Without proper venting to introduce fresh atmospheric air, this vacuum pulls air through nearby fixture P-traps. As the trap seal breaks, air bubbles pull through the trapped water, producing an audible gurgling sound and exposing the space to sewer gas. Troubleshooting drainage issues requires evaluating roof vent terminals and vent stacks alongside traditional line snaking.",
+  "hashtags": [
+    "#PlumbingEducation",
+    "#DrainageSystems",
+    "#PlumbingVents",
+    "#TradesmanTips",
+    "#PlumbingLife"
+  ],
+  "caption": "Why Drains Gurgle: Understanding Air Pressure in Drainage Systems\n\nWhen fixtures gurgle or drain slowly, the root cause often lies in the venting system rather than a clog inside the waste line itself. As wastewater flows down a pipe, it pushes air ahead of it and creates negative pressure behind it. Without proper venting to introduce fresh atmospheric air, this vacuum pulls air through nearby fixture P-traps. As the trap seal breaks, air bubbles pull through the trapped water, producing an audible gurgling sound and exposing the space to sewer gas. Troubleshooting drainage issues requires evaluating roof vent terminals and vent stacks alongside traditional line snaking.\n\n#PlumbingEducation #DrainageSystems #PlumbingVents #TradesmanTips #PlumbingLife",
+  "schedule_time": "07:00",
+  "timezone": "Africa/Lagos",
+  "image_file": "daily_packages/2026-11-27/post_01/image.jpg",
+  "reel_enabled": false,
+  "reel_file": "daily_packages/2026-11-27/post_01/reel.mp4",
+  "reel_audio_file": null,
+  "publication_status": "pending",
+  "instagram_media_id": null,
+  "published_at": null
+}
