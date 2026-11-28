@@ -1,22 +1,23 @@
 {
-  "idea": "How to maintain kitchen drainage",
-  "title": "Kitchen Drain Maintenance: Preventing Grease Buildup",
-  "description": "An educational guide demonstrating how fats, oils, and grease (FOG) solidify inside kitchen sink P-traps and branch lines, and how proper preventative maintenance preserves drain flow.",
-  "image_prompt": "A professional educational technical cutaway illustration of a kitchen sink drainage system inside a cabinet, vertical 9:16 aspect ratio. The image clearly features a 1.5-inch white plastic tubular P-trap connected beneath a stainless steel kitchen sink basin. A clean cross-section cutaway of the P-trap wall reveals a realistic layer of yellowish congealed grease lining the bottom interior curve of the trap arm, showing how grease reduces the internal diameter of the pipe. Realistically rendered clean wastewater passes through the center. Studio educational lighting, neutral wall background, realistic plumbing fittings including slip-nut connections and rubber washers visible in section. Main P-trap assembly centered with ample clean space at top and bottom for text overlays. Physically accurate plumbing geometry, photorealistic textures. No text, no labels, no watermarks, no logos, no fake branding.",
-  "visual_story": "The visual uses a clear cutaway section of a standard kitchen P-trap to show the physical mechanism of drain restriction. Viewers can see how liquid fats, which enter the sink warm, cool down and solidify along the pipe walls, gradually choking water flow over time. This makes the invisible problem inside household piping immediately visible and understandable.",
+  "idea": "How to save water at home",
+  "title": "Silent Toilet Tank Leaks (Flush Valve Seal Failure)",
+  "description": "A running toilet is one of the most common sources of silent residential water waste. In many homes, the primary culprit is a degraded flush valve flapper or fill valve misadjustment. Over time, chloramines and mineral deposits cause flexible rubber flapper seals to warp, harden, or blister, preventing a complete seal against the valve seat. Water then trickles continuously from the tank into the bowl without making a loud sound. Placing a few drops of food coloring into the tank water without flushing will reveal this leak if color seeps into the bowl after 15 minutes. Replacing a worn flapper is a cost-effective fix that prevents significant daily water loss.",
+  "image_prompt": "A detailed educational technical cross-section view of a ceramic toilet tank interior, vertical 9:16 aspect ratio composition. The visual cutaway centers on the lower flush valve mechanism, showing a clear side profile of a degraded black rubber flapper seal resting unevenly on a smooth plastic valve seat. Thin, realistic water streams trickle past the faulty seal edge down into the flush port channel leading to the bowl. Interior tank components like the fill valve tower and overflow pipe are accurately proportioned in the background. Photorealistic materials, subtle porcelain sheen, natural studio lighting, clean gray tiled wall backdrop. Composition leaves clear open vertical visual space at top and bottom for text overlay. No text, no labels, no arrows, no watermarks, no logos, no fake branding.",
+  "visual_story": "The visual uses a clear sectional view of a toilet tank to expose the internal mechanics of a flush valve leak. Viewers can immediately see the physical interaction between the rubber flapper seal and the flush valve seat. By illustrating water bypassing a warped seal edge, the image visually demonstrates why a toilet continues to leak silently into the bowl even when the flush handle is not engaged.",
   "on_image_text": {
-    "hook": "Why Kitchen Drains Slow Down",
-    "explanation": "Warm liquid fats cool down inside uninsulated pipes, solidifying along the inner walls.",
-    "callout": "FOG (Fats, Oils & Grease) Accumulation inside P-Trap",
-    "takeaway": "Scrape pans into trash before washing; flush regularly with hot water and dish soap."
+    "hook": "A Silent Tank Leak Can Waste Hundreds of Liters Daily",
+    "explanation": "Worn flapper seals fail to seat flat against the flush valve, causing continuous water flow into the bowl.",
+    "callout": "Warped Rubber Flapper Seal",
+    "takeaway": "Test tank seals with food dye before replacing complete valve assemblies."
   },
   "hashtags": [
     "#PlumbingEducation",
-    "#KitchenPlumbing",
-    "#DrainMaintenance",
+    "#WaterConservation",
     "#PlumbingTips",
+    "#ToiletRepair",
+    "#PlumbingMaintenance",
     "#ApprenticePlumber",
-    "#HomeMaintenance"
+    "#HomePlumbing"
   ],
   "reel_enabled": false,
   "reel_file": null
